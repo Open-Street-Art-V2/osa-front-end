@@ -52,7 +52,22 @@
 .popupCard2 {
   position: absolute;
   top: 55vh;
+  width: 100%;
   height: 45vh;
   overflow: auto;
   background-color: #fff;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+
+#closeBtn {
+  z-index: 2;
+}
+
+#btnPrevImg {
+  @apply opacity-100 !important;
+}
+
+#btnNextImg {
+  @apply opacity-100 !important;
 }
