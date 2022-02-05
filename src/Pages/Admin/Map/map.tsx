@@ -196,7 +196,14 @@ function MapAdmin() {
           );
         })}
       </ReactMapGL>
-      {selectedArtWork ? <ArtMap data={selectedArtWork.properties} /> : null}
+      {selectedArtWork ? (
+        <ArtMap
+          data={selectedArtWork.properties}
+          onClose={() => {
+            setselectedArtWork(null);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

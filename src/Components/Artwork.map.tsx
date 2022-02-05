@@ -7,7 +7,10 @@ type info = {
   artist: string;
 };
 
-export default class ArtMap extends PureComponent<{ data: info }> {
+export default class ArtMap extends PureComponent<{
+  data: info;
+  onClose: any;
+}> {
   render() {
     const { data } = this.props;
     return (
@@ -21,6 +24,8 @@ export default class ArtMap extends PureComponent<{ data: info }> {
           <button
             type="button"
             className="absolute top-0 right-0 bg-white rounded-md p-2 inline-flex m-2"
+            // eslint-disable-next-line react/destructuring-assignment
+            onClick={this.props.onClose}
           >
             <span className="sr-only">Close menu</span>
             <svg
