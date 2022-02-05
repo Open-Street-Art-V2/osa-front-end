@@ -56,3 +56,15 @@
   overflow: auto;
   background-color: #fff;
 }
+
+#closeBtn {
+  z-index: 2;
+}
+
+#btnPrevImg {
+  @apply opacity-100 !important;
+}
+
+#btnNextImg {
+  @apply opacity-100 !important;
+}
