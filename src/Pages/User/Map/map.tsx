@@ -3,21 +3,20 @@ import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
   Marker,
-  Popup,
 } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import "./map.css";
-import useSwr from "swr";
-import { Pin, ArtMap } from "../../../Components";
-// import dataLoc from "./data.json";
+// import useSwr from "swr";
+import { Pin, ArtworkUser } from "../../../Components";
+import dataLoc from "./data.json";
 
 // TO BE CHANGED
 type artwork = {
   id: string;
   title: string;
   artist: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   created_at: string;
 };
 
@@ -84,13 +83,27 @@ function Map() {
   const mapRef = useRef<any>();
 
   // GET DATA
-  const fetcher = (args: string) =>
+  /* const fetcher = (args: string) =>
     fetch(args).then((response) => response.json());
   const url = "http://127.0.0.1:3008/art";
   const { data, error } = useSwr(url, { fetcher });
-  const oeuvres = data && !error ? data : [];
-  // const oeuvres = dataLoc;
+  const oeuvres = data && !error ? data : []; */
+  const oeuvres = dataLoc;
   const points = oeuvres.map((obj: artwork) => ({
+    type: "Feature",
+    properties: {
+      cluster: false,
+      oeuvreId: obj.id,
+      name: obj.title,
+      artist: obj.artist,
+    },
+    geometry: {
+      type: "Point",
+      coordinates: [obj.longitude, obj.latitude],
+    },
+  }));
+
+  /* const points = oeuvres.map((obj: artwork) => ({
     type: "Feature",
     properties: {
       cluster: false,
@@ -102,7 +115,7 @@ function Map() {
       type: "Point",
       coordinates: [parseFloat(obj.longitude), parseFloat(obj.latitude)],
     },
-  }));
+  })); */
 
   // GET BOUNDS : [lat,long,lat,long] (4 corners)
   const bounds = mapRef.current
@@ -195,21 +208,15 @@ function Map() {
             </Marker>
           );
         })}
-        {selectedArtWork ? (
-          <Popup
-            latitude={selectedArtWork.geometry.coordinates[1]}
-            longitude={selectedArtWork.geometry.coordinates[0]}
-            closeButton={false}
-            captureScroll
-            onClose={() => {
-              setselectedArtWork(null);
-            }}
-            anchor="top"
-          >
-            <ArtMap data={selectedArtWork.properties} />
-          </Popup>
-        ) : null}
       </ReactMapGL>
+      {selectedArtWork ? (
+        <ArtworkUser
+          data={selectedArtWork.properties}
+          onClose={() => {
+            setselectedArtWork(null);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

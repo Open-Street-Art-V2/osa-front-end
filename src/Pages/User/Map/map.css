@@ -48,3 +48,11 @@
   color: #000;
   background: #ffcc4d;
 }
+
+.popupCard2 {
+  position: absolute;
+  top: 55vh;
+  height: 45vh;
+  overflow: auto;
+  background-color: #fff;
+}
