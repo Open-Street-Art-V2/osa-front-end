@@ -10,13 +10,65 @@ type info = {
 export default class ArtMap extends PureComponent<{ data: info }> {
   render() {
     const { data } = this.props;
-
     return (
-      <div className="popupCard">
-        <label className="title" htmlFor="title">
-          Oeuvre : {data.name}
-        </label>
-        <p className="street">Artiste : {data.artist}</p>
+      <div className="popupCard2 max-w-sm rounded overflow-hidden shadow-lg">
+        <div className="relative">
+          <img
+            className="w-full"
+            src="artwork3.jpeg"
+            alt="Sunset in the mountains"
+          />
+          <button
+            type="button"
+            className="absolute top-0 right-0 bg-white rounded-md p-2 inline-flex m-2"
+          >
+            <span className="sr-only">Close menu</span>
+            <svg
+              className="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">{data.artist}</div>
+          <p className="text-gray-700 text-base">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Voluptatibus quia, nulla! Maiores et perferendis eaque,
+            exercitationem praesentium nihil.
+          </p>
+          <p className="text-slate-500 mt-3">
+            Pl. de la Cathédrale, 76000 Rouen
+          </p>
+          <p className="text-slate-500 mt-0">Contributeur : {data.artist}</p>
+        </div>
+
+        <div className="px-6 pt-2 pb-5">
+          <div className="flex items-center justify-around">
+            <button
+              className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Modifier
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Supprimer
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
