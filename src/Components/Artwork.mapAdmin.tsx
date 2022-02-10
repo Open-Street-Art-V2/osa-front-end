@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
 type info = {
   cluster: boolean;
@@ -92,26 +93,11 @@ export default class ArtMap extends PureComponent<{
           <button
             type="button"
             id="closeBtn"
-            className="absolute top-0 right-0 bg-white rounded-md p-2 inline-flex m-2"
+            className="absolute top-0 right-0 inline-flex items-center justify-center bg-white m-2 w-10 h-10 text-slate-900 text-2xl rounded-3xl"
             // eslint-disable-next-line react/destructuring-assignment
             onClick={this.props.onClose}
           >
-            <span className="sr-only">Close menu</span>
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <AiOutlineClose />
           </button>
         </div>
 
@@ -131,13 +117,13 @@ export default class ArtMap extends PureComponent<{
         <div className="px-6 pt-2 pb-5">
           <div className="flex items-center justify-around">
             <button
-              className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
               type="button"
             >
               Modifier
             </button>
             <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              className="bg-red-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
               type="button"
             >
               Supprimer
