@@ -1,9 +1,22 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./Assets/css/App.css";
-import Map from "./Pages/User/Map/map";
+import routes from "./utils/routes";
 
 function App() {
-  return <Map />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            key={route.name}
+            path={route.path}
+            element={<route.element />}
+          />
+        ))}
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
