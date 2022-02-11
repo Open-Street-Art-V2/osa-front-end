@@ -1,5 +1,6 @@
 import MapAdmin from "../Pages/Admin/Map/map";
 import Map from "../Pages/User/Map/map";
+import FormAdmin from "../Pages/Admin/Form/createForm";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -20,6 +21,11 @@ const routes: routesType = [
     name: "MapAdmin",
     path: "map/admin",
     element: MapAdmin,
+  },
+  {
+    name: "FormAdmin",
+    path: "form/admin",
+    element: FormAdmin,
   },
   // TODO: à decommenter quand les pages d'inscription et d'authentification
   // seront prêtes + il faudra changer le path de MapUser en map par exemple
