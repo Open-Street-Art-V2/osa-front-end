@@ -1,5 +1,6 @@
 import MapAdmin from "../Pages/Admin/Map/map";
 import SignIn from "../Pages/Guest/SignIn/SignIn";
+import SignUp from "../Pages/SignUp/SignUp";
 import Map from "../Pages/User/Map/map";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
@@ -22,18 +23,16 @@ const routes: routesType = [
     path: "map/admin",
     element: MapAdmin,
   },
-  // TODO: à decommenter quand les pages d'inscription et d'authentification
-  // seront prêtes + il faudra changer le path de MapUser en map par exemple
   {
     name: "SignIn",
     path: "login",
     element: SignIn,
   },
-  //   {
-  //     name: "SignUp",
-  //     path: "/sign-up",
-  //     element: Register,
-  //   },
+  {
+    name: "SignUp",
+    path: "/sign-up",
+    element: SignUp,
+  },
 ];
 
 export default routes;
