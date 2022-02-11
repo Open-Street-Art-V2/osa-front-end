@@ -97,7 +97,7 @@ export default class ArtArtwork extends PureComponent<{
           <button
             type="button"
             id="closeBtn"
-            className="absolute top-0 right-0 bg-white rounded-md p-2 inline-flex m-2"
+            className="absolute top-0 right-0 bg-white rounded-full p-2 inline-flex m-2"
             // eslint-disable-next-line react/destructuring-assignment
             onClick={this.props.onClose}
           >
