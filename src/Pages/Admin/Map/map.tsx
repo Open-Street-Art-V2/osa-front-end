@@ -8,6 +8,7 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 // import useSwr from "swr";
+import { AiOutlinePlus } from "react-icons/ai";
 import { Pin, ArtMap } from "../../../Components";
 import dataLoc from "./data.json";
 
@@ -196,6 +197,15 @@ function MapAdmin() {
           );
         })}
       </ReactMapGL>
+      <div id="add" className="">
+        <button
+          type="button"
+          id="addBtn"
+          className="inline-flex items-center justify-center w-10 h-10 bg-amber-500 text-white text-2xl rounded-xl"
+        >
+          <AiOutlinePlus />
+        </button>
+      </div>
       {selectedArtWork ? (
         <ArtMap
           data={selectedArtWork.properties}

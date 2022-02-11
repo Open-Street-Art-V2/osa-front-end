@@ -31,28 +31,54 @@
 .s-1 {
   width: 35px;
   height: 35px;
-  color: #fff;
-  background: #33c6a2;
+  @apply text-white;
+  @apply bg-teal-500;
 }
 
 .s-2 {
   width: 45px;
   height: 45px;
-  color: #fff;
-  background: #3a4551;
+  @apply text-white;
+  @apply bg-slate-600;
 }
 
 .s-3 {
   width: 55px;
   height: 55px;
-  color: #000;
-  background: #ffcc4d;
+  @apply bg-amber-400;
 }
 
 .popupCard2 {
   position: absolute;
-  top: 55vh;
-  height: 45vh;
+  top: 30vh;
+  width: 100%;
+  height: 70vh;
   overflow: auto;
   background-color: #fff;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+
+#closeBtn {
+  font-size: 1.6rem;
+  z-index: 2;
+}
+
+#btnPrevImg {
+  @apply opacity-100 !important;
+}
+
+#btnNextImg {
+  @apply opacity-100 !important;
+}
+
+#add {
+  position: absolute;
+  top: 2vh;
+  right: 1vh;
+}
+
+#addBtn {
+  font-size: 1.8rem;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
 }
