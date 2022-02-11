@@ -47,19 +47,31 @@ export default class ArtMap extends PureComponent<{
           <div className="carousel-inner relative w-full overflow-hidden">
             <div className="carousel-item active relative float-left w-full">
               <div className="relative overflow-hidden bg-no-repeat bg-cover">
-                <img src="artwork3.jpeg" className="block w-full" alt="First" />
+                <img
+                  src="./../artwork3.jpeg"
+                  className="block w-full"
+                  alt="First"
+                />
                 <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed bg-black opacity-0" />
               </div>
             </div>
             <div className="carousel-item relative float-left w-full">
               <div className="relative overflow-hidden bg-no-repeat bg-cover">
-                <img src="artwork4.jpeg" className="blockw-full" alt="Second" />
+                <img
+                  src="./../artwork4.jpeg"
+                  className="blockw-full"
+                  alt="Second"
+                />
                 <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed bg-black opacity-0" />
               </div>
             </div>
             <div className="carousel-item relative float-left w-full">
               <div className="relative overflow-hidden bg-no-repeat bg-cover">
-                <img src="artwork1.jpeg" className="block w-full" alt="Third" />
+                <img
+                  src="./../artwork1.jpeg"
+                  className="block w-full"
+                  alt="Third"
+                />
                 <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed bg-black opacity-0" />
               </div>
             </div>
