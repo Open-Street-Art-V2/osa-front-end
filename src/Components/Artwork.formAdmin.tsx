@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import IconButton from "@material-ui/core/IconButton";
 import { styled, Box } from "@mui/system";
+import { AiOutlineLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
@@ -80,7 +82,6 @@ const Backdrop = styled("div")`
 const style = {
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   p: 2,
   // px: 2,
   pb: 3,
@@ -172,7 +173,19 @@ function CreateArtWork() {
           </ReactMapGL>
         </Box>
       </StyledModal>
-      <div className="absolute items-center justify-center pt-8">
+      <div className="absolute items-center justify-center pt-4">
+        <div id="btnRetour">
+          <Link to="/map/admin" className="inline-flex items-center">
+            <button
+              type="button"
+              id="retBtn"
+              onClick={handleClose}
+              className="inline-flex items-center justify-center w-10 h-10 z-10 ml-4 bg-slate-700 text-white text-2xl rounded-2xl"
+            >
+              <AiOutlineLeft />
+            </button>
+          </Link>
+        </div>
         <div className="text-center">
           <p className="pb-14 pt-12 font-sans text-2xl font-bold ">
             Ajouter une oeuvre
@@ -271,10 +284,6 @@ function CreateArtWork() {
             </div>
 
             <div className="px-9 pb-3">
-              <button type="button" onClick={handleOpen}>
-                Open modal
-              </button>
-
               <Button
                 style={{
                   borderRadius: 35,
@@ -285,6 +294,7 @@ function CreateArtWork() {
                 }}
                 variant="contained"
                 endIcon={<MyLocationIcon />}
+                onClick={handleOpen}
               >
                 Saisir la position
               </Button>
