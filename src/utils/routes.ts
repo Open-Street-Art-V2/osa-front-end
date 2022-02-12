@@ -26,7 +26,7 @@ const routes: routesType = [
   // seront prêtes + il faudra changer le path de MapUser en map par exemple
   {
     name: "SignIn",
-    path: "/login",
+    path: "login",
     element: SignIn,
   },
   //   {
