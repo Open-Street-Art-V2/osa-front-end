@@ -1,13 +1,10 @@
 /* eslint-disable */
 import * as React from "react";
 import { Navigate } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 // import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useContext, useEffect, useReducer, useState } from "react";
 import validator from "validator";
@@ -19,6 +16,33 @@ import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./SingIn.css";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+
+declare module "@mui/material/styles" {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
+
+const loadingBtnTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#00ab55",
+    },
+  },
+  shape: {
+    borderRadius: "60px",
+  },
+});
 
 type State = {
   isValidEmail: boolean;
@@ -209,20 +233,33 @@ export default function SignIn() {
           <Link to="#" id="mdpF" className="mdpF pt-2">
             <label> Mot de passe oublié ?</label>
           </Link>
+          <div className="centreD pt-6">
+            <ThemeProvider theme={loadingBtnTheme}>
+              <LoadingButton
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={!state.isValidForm || password === ""}
+                loading={isLoading}
+                sx={{
+                  width: "263px",
+                  margin: "10px 0px",
+                  height: "54px",
+                  fontWeight: "500",
+                  fontSize: "18px",
+                  lineHeight: "21px",
+                  //color: "#ffffff",
+                  // background: "#00ab55",
+                  // borderRadius: "60px",
+                }}
+                // className="loginBtn m-5"
+                //id="loginBtnForm"
+              >
+                Se connecter
+              </LoadingButton>
+            </ThemeProvider>
+          </div>
         </Box>
-        <div className="centreD pt-6">
-          <LoadingButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={!state.isValidForm || password === ""}
-            loading={isLoading}
-            // className="loginBtn m-5"
-            id="loginBtnForm"
-          >
-            Se connecter
-          </LoadingButton>
-        </div>
 
         <div id="insc" className="py-5">
           <label className="mdpF">Vous n’avez pas de compte ?</label>
