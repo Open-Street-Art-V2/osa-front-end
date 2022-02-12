@@ -10,13 +10,13 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import validator from "validator";
 import { LoadingButton } from "@mui/lab";
 import passwordValidator from "./utils/password-validator";
-import { displayPasswordError, login, logout } from "./utils/utility-functions";
+import { displayPasswordError, login, logout } from "./SignIn.service";
 import { User } from "./utils/types";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./SingIn.css";
-import { createTheme } from "@mui/material";
+import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
 declare module "@mui/material/styles" {
@@ -76,7 +76,6 @@ const dispatchState = function (state: State, action: Action): State {
 
 export default function SignIn() {
   const loginCtx = useContext(LoginContext);
-  const { setUser } = loginCtx;
   const [password, setPasssword] = useState("");
 
   const [state, dispatch] = useReducer(dispatchState, {
@@ -86,8 +85,10 @@ export default function SignIn() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
 
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUnauthorizedError(false);
     dispatch({
       type: "EMAIL_CHANGE",
       value: event.target.value.trim(),
@@ -97,6 +98,7 @@ export default function SignIn() {
   const passwordChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setUnauthorizedError(false);
     setPasssword(event.currentTarget.value.trim());
     dispatch({
       type: "PASSWORD_CHANGE",
@@ -109,6 +111,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
     login(
       setIsLoading,
+      setUnauthorizedError,
       {
         email: data.get("email")?.toString().trim(),
         password: data.get("password")?.toString().trim(),
@@ -122,6 +125,7 @@ export default function SignIn() {
     logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
   };
 
+  const { setUser } = loginCtx;
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const userInfo: User = JSON.parse(localStorage.getItem("user") as string);
@@ -197,6 +201,9 @@ export default function SignIn() {
           sx={{ mt: 7 }}
         >
           <div className="authTitle pt-5 pb-12">Authentification</div>
+          {unauthorizedError && (
+            <Alert severity="error">Coordonnées saisies incorrectes</Alert>
+          )}
           <TextField
             margin="normal"
             required
