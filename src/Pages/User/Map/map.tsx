@@ -7,6 +7,8 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 // import useSwr from "swr";
+import { AiOutlineUser } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
 import dataLoc from "./data.json";
 
@@ -209,6 +211,17 @@ function Map() {
           );
         })}
       </ReactMapGL>
+      <div id="login" className="">
+        <Link to="/login" className="inline-flex items-center w-10 h-10">
+          <button
+            type="button"
+            id="loginBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-900 text-white text-sm rounded-xl"
+          >
+            <AiOutlineUser />
+          </button>
+        </Link>
+      </div>
       {selectedArtWork ? (
         <ArtworkUser
           data={selectedArtWork.properties}
