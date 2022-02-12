@@ -1,10 +1,10 @@
+/* eslint-disable react/no-this-in-sfc */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
@@ -13,7 +13,6 @@ import IconButton from "@material-ui/core/IconButton";
 import { styled, Box } from "@mui/system";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
-
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
 
@@ -26,15 +25,11 @@ const schema = yup.object().shape({
     .test("required", "You need to provide a file", (value) => {
       return value && value.length;
     })
-    .test("fileSize", "The file is too large", (value) => {
+    .test("fileSize", "File 1 is too large", (value) => {
       return value && value[0] && value[0].size <= 200000;
     })
-    .test("type", "We only support jpeg/png", function (value) {
-      return (
-        value &&
-        value[0] &&
-        (value[0].type === "image/jpeg" || value[0].type === "image/png")
-      );
+    .test("length", "Maximum 3 files", (value) => {
+      return value && value.length <= 3;
     }),
 });
 type mapView = {
@@ -97,10 +92,17 @@ function CreateArtWork() {
     console.log(data);
   });
 
+  const [lat, setLat] = useState<number>(10);
+  const [long, setLong] = useState<number>(10);
+
+  console.log(lat);
+  console.log(long);
+
   const CHARACTER_LIMIT = 300;
   const [values, setValues] = React.useState({
     name: "",
   });
+
   const handleChange = (name: any) => (event: any) => {
     setValues({ ...values, [name]: event.target.value });
   };
@@ -133,6 +135,11 @@ function CreateArtWork() {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             onViewportChange={(newViewport: mapView) => {
               setViewport({ ...newViewport });
+            }}
+            onClick={(evt) => {
+              setLat(evt.lngLat[0]);
+
+              setLong(evt.lngLat[1]);
             }}
             ref={mapRef}
             keyboard={false}
@@ -290,25 +297,25 @@ function CreateArtWork() {
                 <input
                   {...register("pictures")}
                   accept="image/*"
-                  id="icon-button-file"
+                  id="pictures"
                   type="file"
                   multiple
                   style={{ display: "none" }}
                 />
 
-                <label htmlFor="icon-button-file">
+                <label htmlFor="pictures">
                   <IconButton aria-label="upload picture" component="span">
                     <ImageIcon sx={{ fontSize: 35 }} />
                   </IconButton>
                 </label>
 
-                <label htmlFor="icon-button-file">
+                <label htmlFor="pictures">
                   <IconButton aria-label="upload picture" component="span">
                     <ImageIcon sx={{ fontSize: 35 }} />
                   </IconButton>
                 </label>
 
-                <label htmlFor="icon-button-file">
+                <label htmlFor="pictures">
                   <IconButton aria-label="upload picture" component="span">
                     <ImageIcon sx={{ fontSize: 35 }} />
                   </IconButton>
@@ -354,6 +361,22 @@ function CreateArtWork() {
                 Valider
               </Button>
             </div>
+            <input
+              {...register("lat")}
+              type="number"
+              id="lat"
+              name="lat"
+              value={lat}
+              className="hidden"
+            />
+            <input
+              {...register("long")}
+              type="text"
+              id="long"
+              name="long"
+              value={10}
+              className="hidden"
+            />
           </form>
         </div>
       </div>
