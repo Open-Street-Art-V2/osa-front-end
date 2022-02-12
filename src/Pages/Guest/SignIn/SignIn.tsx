@@ -175,9 +175,6 @@ export default function SignIn() {
               backgroundColor: "#000",
               borderRadius: "10px",
               boxShadow: "0px 6px 10px 0px rgb(0 0 0 / 40%)",
-              "&:hover": {
-                background: "#000",
-              },
             }}
           >
             Sign In
