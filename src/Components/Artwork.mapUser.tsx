@@ -15,7 +15,6 @@ export default class ArtArtwork extends PureComponent<{
   render() {
     const { data } = this.props;
     const numPics = Object.keys(data.pictures).length;
-    // console.log(data); {`${this.path}artwork1.jpeg`}
     return (
       <div className="popupCard2">
         <div
@@ -31,7 +30,7 @@ export default class ArtArtwork extends PureComponent<{
                   return (
                     <button
                       type="button"
-                      key={pic.id}
+                      key={pic.position}
                       data-bs-target="#carouselExampleCaptions"
                       data-bs-slide-to={index}
                       className="active"
@@ -43,7 +42,7 @@ export default class ArtArtwork extends PureComponent<{
                 return (
                   <button
                     type="button"
-                    key={pic.id}
+                    key={pic.position}
                     data-bs-target="#carouselExampleCaptions"
                     data-bs-slide-to={index}
                     aria-label="Slide 1"
@@ -57,7 +56,7 @@ export default class ArtArtwork extends PureComponent<{
               if (index === 0) {
                 return (
                   <div
-                    key={pic.id}
+                    key={pic.position}
                     className="carousel-item active relative float-left w-full"
                   >
                     <div className="relative overflow-hidden bg-no-repeat bg-cover">
@@ -73,7 +72,7 @@ export default class ArtArtwork extends PureComponent<{
               }
               return (
                 <div
-                  key={pic.id}
+                  key={pic.position}
                   className="carousel-item relative float-left w-full"
                 >
                   <div className="relative overflow-hidden bg-no-repeat bg-cover">
