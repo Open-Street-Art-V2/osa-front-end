@@ -5,14 +5,25 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import SignUpFormOne from "./SignUpFormOne";
+import SignUpFormTwo from "./SignUpFormTwo";
+import SignUpData from "../types/signUpData";
 
 const steps = ["Select campaign settings", "Create an ad group"];
 
-export default function HorizontalNonLinearStepper() {
+export default function MyStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
+  const [isValid, setIsValid] = React.useState(false);
+  const [data, setData] = React.useState<SignUpData>({
+    firstName: "",
+    name: "",
+    email: "",
+    city: "",
+    password: "",
+    verifiedPassword: "",
+  });
 
   const totalSteps = () => {
     return steps.length;
@@ -51,10 +62,28 @@ export default function HorizontalNonLinearStepper() {
     handleNext();
   };
 
+  const handleSubmit = () => {
+    console.log(data);
+  };
+
   return (
     <>
-      <Box>{activeStep === 0 && <SignUpFormOne />}</Box>
-      <Box sx={{ width: "40%", margin: "auto" }}>
+      <Box>
+        {activeStep === 0 ? (
+          <SignUpFormOne
+            setIsValid={setIsValid}
+            setData={setData}
+            data={data}
+          />
+        ) : (
+          <SignUpFormTwo
+            setIsValid={setIsValid}
+            setData={setData}
+            data={data}
+          />
+        )}
+      </Box>
+      <Box sx={{ width: "40%", margin: "auto", pt: "40px" }}>
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
@@ -69,19 +98,22 @@ export default function HorizontalNonLinearStepper() {
           <Box sx={{ margin: "auto", pt: 2, textAlign: "center" }}>
             {activeStep !== steps.length - 1 ? ( // && completed[activeStep] ? (
               <Button
-                style={{ borderRadius: "10px", width: "60%" }}
+                style={{ borderRadius: "16px", width: "60%" }}
                 variant="contained"
+                color="secondary"
+                disabled={!isValid}
                 onClick={handleComplete}
               >
-                Next
+                Suivant
               </Button>
             ) : (
               <Button
-                style={{ borderRadius: "10px", width: "60%" }}
+                style={{ borderRadius: "16px", width: "60%" }}
                 variant="contained"
-                onClick={handleComplete}
+                disabled={!isValid}
+                onClick={handleSubmit}
               >
-                Finish
+                S&apos;inscrire
               </Button>
             )}
           </Box>
