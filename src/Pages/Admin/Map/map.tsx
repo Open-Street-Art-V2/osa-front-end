@@ -7,12 +7,13 @@ import ReactMapGL, {
 } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import "./map.css";
-// import useSwr from "swr";
+import useSwr from "swr";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Pin, ArtMap } from "../../../Components";
-import dataLoc from "./data.json";
+// import dataLoc from "./data.json";
 
 // TO BE CHANGED
+// eslint-disable-next-line no-unused-vars
 type artwork = {
   id: string;
   title: string;
@@ -62,22 +63,6 @@ function MapAdmin() {
     zoom: 10,
   });
 
-  // GET USER POSITION
-  /* function userPos(){
-      navigator.geolocation.getCurrentPosition(
-         ({ coords }) => {
-           setViewport({... viewport,
-             latitude: coords.latitude, 
-             longitude: coords.longitude,
-             zoom: 12});
-         },
-         (blocked) => {
-           console.log('blocked');
-         },  
-         { maximumAge: 600_000 }
-       );
-     } */
-
   // INIT SELECTED ARTWORK
   const [selectedArtWork, setselectedArtWork] = useState<any>(null);
 
@@ -85,25 +70,51 @@ function MapAdmin() {
   const mapRef = useRef<any>();
 
   // GET DATA
-  /* const fetcher = (args: string) =>
+  const fetcher = (args: string) =>
     fetch(args).then((response) => response.json());
   const url = "http://127.0.0.1:3008/art";
   const { data, error } = useSwr(url, { fetcher });
-  const oeuvres = data && !error ? data : []; */
-  const oeuvres = dataLoc;
-  const points = oeuvres.map((obj: artwork) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      oeuvreId: obj.id,
-      name: obj.title,
-      artist: obj.artist,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [obj.longitude, obj.latitude],
-    },
-  }));
+  const oeuvres = data && !error ? data : [];
+  /* const oeuvres = dataLoc;
+   const points = oeuvres.map((obj: artwork) => ({
+     type: "Feature",
+     properties: {
+       cluster: false,
+       oeuvreId: obj.id,
+       name: obj.title,
+       artist: obj.artist,
+     },
+     geometry: {
+       type: "Point",
+       coordinates: [obj.longitude, obj.latitude],
+     },
+   })); */
+
+  const points = oeuvres.map((obj: any) => {
+    const picturesP = obj.pictures.map((pic: any) => ({
+      position: pic.position,
+      url: pic.url,
+      created_at: pic.created_at,
+    }));
+    const pointsP = {
+      type: "Feature",
+      properties: {
+        cluster: false,
+        oeuvreId: obj.id,
+        title: obj.title,
+        artist: obj.artist,
+        description: obj.description,
+        address: obj.address,
+        city: obj.city,
+        pictures: picturesP,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [parseFloat(obj.longitude), parseFloat(obj.latitude)],
+      },
+    };
+    return pointsP;
+  });
 
   // GET BOUNDS : [lat,long,lat,long] (4 corners)
   const bounds = mapRef.current
