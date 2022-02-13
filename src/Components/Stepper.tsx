@@ -20,6 +20,7 @@ export default function MyStepper() {
     firstName: "",
     name: "",
     email: "",
+    birthday: new Date(),
     city: "",
     password: "",
     verifiedPassword: "",

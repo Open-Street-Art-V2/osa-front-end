@@ -8,12 +8,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import validator from "validator";
 import { Reducer, useReducer } from "react";
-// import ValidField from "../types";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import DateAdapter from "@mui/lab/AdapterDateFns";
 import SignUpData from "../types/signUpData";
 import ValidField from "../types/validField";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { DesktopDatePicker, LocalizationProvider } from "@mui/lab";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 type Props = {
   setIsValid: any;
@@ -78,6 +76,7 @@ const dispatchState = (state: State, action: Action) => {
 };
 
 export default function SignUpFormOne(props: Props) {
+  const { data, setData } = props;
   const [formOne, dispatchFormOne] = useReducer<Reducer<State, Action>>(
     dispatchState,
     {
@@ -92,7 +91,7 @@ export default function SignUpFormOne(props: Props) {
   );
 
   React.useEffect(() => {
-    const { setIsValid, setData, data } = props;
+    const { setIsValid } = props;
     setIsValid(formOne.isValidForm);
     setData({
       ...data,
@@ -101,12 +100,6 @@ export default function SignUpFormOne(props: Props) {
       email: formOne.email,
     });
   }, [formOne.isValidForm]);
-
-  //   const [value, setValue] = React.useState(new Date("2014-08-18T21:11:54"));
-
-  //   const handleChange = (newValue: any) => {
-  //     setValue(newValue);
-  //   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatchFormOne({
@@ -129,6 +122,10 @@ export default function SignUpFormOne(props: Props) {
       type: "NAME_CHANGED",
       value: event.currentTarget.value,
     });
+  };
+
+  const handleBirthdayChange = (newValue: any) => {
+    setData({ ...data, newValue });
   };
 
   return (
@@ -197,17 +194,18 @@ export default function SignUpFormOne(props: Props) {
                 }
               />
             </Grid>
-            {/* <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DesktopDatePicker
-                    label="Date desktop"
-                    inputFormat="MM/dd/yyyy"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={() => <TextField />}
-                  />
-                </LocalizationProvider>
-              </Grid> */}
+            <Grid item xs={12}>
+              <LocalizationProvider dateAdapter={DateAdapter}>
+                <DatePicker
+                  label="Date de naissance"
+                  inputFormat="dd/MM/yyyy"
+                  value={data.birthday}
+                  onChange={handleBirthdayChange}
+                  /* eslint-disable react/jsx-props-no-spreading */
+                  renderInput={(params) => <TextField fullWidth {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
           </Grid>
         </Box>
       </Box>
