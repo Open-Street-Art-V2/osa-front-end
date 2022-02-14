@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
   Marker,
-  // Popup,
 } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
 import { AiOutlinePlus } from "react-icons/ai";
+import { Navigate } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
-// import dataLoc from "./data.json";
+import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 
 // TO BE CHANGED
 // eslint-disable-next-line no-unused-vars
@@ -75,20 +75,6 @@ function MapAdmin() {
   const url = "http://127.0.0.1:3008/art";
   const { data, error } = useSwr(url, { fetcher });
   const oeuvres = data && !error ? data : [];
-  /* const oeuvres = dataLoc;
-   const points = oeuvres.map((obj: artwork) => ({
-     type: "Feature",
-     properties: {
-       cluster: false,
-       oeuvreId: obj.id,
-       name: obj.title,
-       artist: obj.artist,
-     },
-     geometry: {
-       type: "Point",
-       coordinates: [obj.longitude, obj.latitude],
-     },
-   })); */
 
   const allPoints = oeuvres.map((obj: any) => {
     const picturesP = obj.pictures.map((pic: any) => ({
@@ -130,7 +116,6 @@ function MapAdmin() {
   function handleDelete(id: any) {
     setPoints(points.filter((point: any) => point.properties.oeuvreId !== id));
     setselectedArtWork(null);
-    // setDeleteArtwork(true);
   }
 
   // GET BOUNDS : [lat,long,lat,long] (4 corners)
@@ -159,6 +144,11 @@ function MapAdmin() {
       longitude,
       zoom: expansionZoom,
     });
+  }
+
+  const loginCtx = useContext(LoginContext);
+  if (!(loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN")) {
+    return <Navigate to="/" />;
   }
 
   return (

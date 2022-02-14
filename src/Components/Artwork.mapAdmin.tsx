@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useRef, useState, PureComponent, useEffect } from "react";
-import LoginCtxProvider from "./Context/LoginCtxProvider";
+import React from "react";
+
 // eslint-disable-next-line no-unused-vars
 type info = {
   cluster: boolean;
@@ -10,43 +9,29 @@ type info = {
 };
 
 export default function ArtMap(props: any) {
-  // eslint-disable-next-line class-methods-use-this
-
   const { data } = props;
-  const [deleted, setDeleted] = useState(false);
   const numPics = Object.keys(data.pictures).length;
   const baseURL = "http://localhost:3008/art/";
-  // const [deleteResult, setDeleteResult] = useState(null);
   async function deleteDataById() {
     const id = data.oeuvreId;
     if (id) {
-      // try {
-
-      const res = await fetch(`${baseURL}${id}`, {
-        method: "DELETE",
-        headers: {
-          authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im91c3NhbWFBZG1pbkBnbWFpbC5jb20iLCJzdWIiOjQsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjQ0ODQzMzU3LCJleHAiOjE2NDQ4NDY5NTd9.roebXaoofbpE7lAgC5rkqZbC_rY0hy6k5DuNWyLeC_A`,
-        },
-      });
-      const dataR = await res.json();
-      console.log(dataR);
-      setDeleted(true);
-      // eslint-disable-next-line react/destructuring-assignment
-      props.onDeleted(props.data.oeuvreId);
-      /* const result = {
-            status: `${res.status}-${res.statusText}`,
-            headers: { "Content-Type": res.headers.get("Content-Type") },
-            dataR,
-          };
-          setDeleteResult(fortmatResponse(result));
-        } catch (err) {
-          setDeleteResult(err.message);
-        } */
+      try {
+        const res: Response = await fetch(`${baseURL}${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
+        if (res.ok) {
+          // const dataR = await res.json();
+          // eslint-disable-next-line react/destructuring-assignment
+          props.onDeleted(props.data.oeuvreId);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
-  const fortmatResponse = (res: any) => {
-    return JSON.stringify(res, null, 2);
-  };
 
   return (
     <div className="popupCard2">
