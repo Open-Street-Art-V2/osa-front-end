@@ -14,22 +14,22 @@ import { Pin, ArtworkUser } from "../../../Components";
 
 // TO BE CHANGED
 // eslint-disable-next-line no-unused-vars
-type artwork = {
-  id: string;
-  title: string;
-  artist: string;
-  latitude: string;
-  longitude: string;
-  created_at: string;
-};
+// type artwork = {
+//   id: string;
+//   title: string;
+//   artist: string;
+//   latitude: string;
+//   longitude: string;
+//   created_at: string;
+// };
 
-// eslint-disable-next-line no-unused-vars
-type picture = {
-  position: number;
-  url: string;
-  created_at: string;
-  artId: string;
-};
+// // eslint-disable-next-line no-unused-vars
+// type picture = {
+//   position: number;
+//   url: string;
+//   created_at: string;
+//   artId: string;
+// };
 
 type mapView = {
   latitude: number;
