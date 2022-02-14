@@ -1,12 +1,12 @@
 import React from "react";
 
 // eslint-disable-next-line no-unused-vars
-type info = {
+/* type info = {
   cluster: boolean;
   oeuvreId: number;
   name: string;
   artist: string;
-};
+}; */
 
 export default function ArtMap(props: any) {
   const { data } = props;

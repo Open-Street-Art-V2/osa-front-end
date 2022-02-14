@@ -1,12 +1,12 @@
 import React, { PureComponent } from "react";
 import "tw-elements";
 // eslint-disable-next-line no-unused-vars
-type info = {
+/* type info = {
   cluster: boolean;
   oeuvreId: number;
   name: string;
   artist: string;
-};
+}; */
 
 export default class ArtArtwork extends PureComponent<{
   data: any;
