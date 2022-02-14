@@ -7,4 +7,5 @@ export type User = {
   birthDate: string;
   role: string;
   created_at: string;
+  jwt: string;
 };
