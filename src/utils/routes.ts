@@ -1,4 +1,6 @@
 import MapAdmin from "../Pages/Admin/Map/map";
+import SignIn from "../Pages/Guest/SignIn/SignIn";
+import SignUp from "../Pages/Guest/SignUp/SignUp";
 import Map from "../Pages/User/Map/map";
 import FormAdmin from "../Pages/Admin/Form/createForm";
 
@@ -27,18 +29,16 @@ const routes: routesType = [
     path: "form/admin",
     element: FormAdmin,
   },
-  // TODO: à decommenter quand les pages d'inscription et d'authentification
-  // seront prêtes + il faudra changer le path de MapUser en map par exemple
-  //   {
-  //     name: "SignIn",
-  //     path: "/",
-  //     element: Authentification,
-  //   },
-  //   {
-  //     name: "SignUp",
-  //     path: "/sign-up",
-  //     element: Register,
-  //   },
+  {
+    name: "SignIn",
+    path: "login",
+    element: SignIn,
+  },
+  {
+    name: "SignUp",
+    path: "/sign-up",
+    element: SignUp,
+  },
 ];
 
 export default routes;

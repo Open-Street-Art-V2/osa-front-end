@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./Assets/css/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import LoginCtxProvider from "./Components/Context/LoginCtxProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LoginCtxProvider>
+      <App />
+    </LoginCtxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
