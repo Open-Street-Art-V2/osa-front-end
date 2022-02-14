@@ -8,37 +8,37 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import validator from "validator";
 import { FormEvent, Reducer, useReducer } from "react";
-import SignUpData from "../Pages/Guest/SignUp/types/signUpData";
+import User from "../Pages/Guest/SignUp/types/user";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 
 type Props = {
-  setIsValid: any;
-  setData: any;
-  data: SignUpData;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+  setData: React.Dispatch<React.SetStateAction<User>>;
+  data: User;
 };
 
 type FormTwoType = {
-  city: string;
+  favoriteCity: string;
   password: string;
   verifiedPassword: string;
-  isValidCity: ValidField;
+  isValidFavoriteCity: ValidField;
   isValidPassword: ValidField;
   isValidVerifiedPassword: ValidField;
   isValidForm: boolean;
 };
 
 type Action =
-  | { type: "CITY_CHANGED"; value: string }
+  | { type: "FAVORITE_CITY_CHANGED"; value: string }
   | { type: "PASSWORD_CHANGED"; value: string }
   | { type: "VERIFIED_PASSWORD_CHANGED"; value: string };
 
 const dispatchTwo = (state: FormTwoType, action: Action) => {
   switch (action.type) {
-    case "CITY_CHANGED":
+    case "FAVORITE_CITY_CHANGED":
       return {
         ...state,
-        city: action.value,
-        isValidCity:
+        favoriteCity: action.value,
+        isValidFavoriteCity:
           validator.isAlpha(action.value) || validator.isEmpty(action.value)
             ? ValidField.OK
             : ValidField.ERROR,
@@ -57,7 +57,7 @@ const dispatchTwo = (state: FormTwoType, action: Action) => {
           : ValidField.ERROR,
         isValidForm:
           validator.isStrongPassword(action.value) &&
-          state.isValidCity === ValidField.OK &&
+          state.isValidFavoriteCity === ValidField.OK &&
           state.isValidVerifiedPassword === ValidField.OK,
       };
     default:
@@ -69,7 +69,7 @@ const dispatchTwo = (state: FormTwoType, action: Action) => {
         isValidForm:
           action.value === state.password &&
           state.isValidPassword === ValidField.OK &&
-          state.isValidCity === ValidField.OK,
+          state.isValidFavoriteCity === ValidField.OK,
       };
   }
 };
@@ -78,10 +78,10 @@ export default function SignUpFormTwo(props: Props) {
   const [formTwo, dispatchFormTwo] = useReducer<Reducer<FormTwoType, Action>>(
     dispatchTwo,
     {
-      city: "",
+      favoriteCity: "",
       password: "",
       verifiedPassword: "",
-      isValidCity: ValidField.OK,
+      isValidFavoriteCity: ValidField.OK,
       isValidPassword: ValidField.NOTFILLED,
       isValidVerifiedPassword: ValidField.NOTFILLED,
       isValidForm: false,
@@ -93,15 +93,15 @@ export default function SignUpFormTwo(props: Props) {
     setIsValid(formTwo.isValidForm);
     setData({
       ...data,
-      city: formTwo.city,
+      favoriteCity: formTwo.favoriteCity,
       password: formTwo.password,
       verifiedPassword: formTwo.verifiedPassword,
     });
-  }, [formTwo.isValidForm, formTwo.city]);
+  }, [formTwo.isValidForm, formTwo.favoriteCity]);
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatchFormTwo({
-      type: "CITY_CHANGED",
+      type: "FAVORITE_CITY_CHANGED",
       value: event.currentTarget.value,
     });
   };
@@ -145,16 +145,16 @@ export default function SignUpFormTwo(props: Props) {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="city"
-                name="city"
+                autoComplete="favorite-city"
+                name="favorite-city"
                 fullWidth
-                id="city"
-                label="Ville"
+                id="favorite-city"
+                label="Ville préférée"
                 autoFocus
                 onChange={handleCityChange}
-                error={formTwo.isValidCity === ValidField.ERROR}
+                error={formTwo.isValidFavoriteCity === ValidField.ERROR}
                 helperText={
-                  formTwo.isValidCity === ValidField.ERROR &&
+                  formTwo.isValidFavoriteCity === ValidField.ERROR &&
                   "La ville est invalide"
                 }
               />

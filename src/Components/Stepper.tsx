@@ -4,24 +4,27 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import SignUpFormOne from "./SignUpFormOne";
 import SignUpFormTwo from "./SignUpFormTwo";
-import SignUpData from "../Pages/Guest/SignUp/types/signUpData";
+import User from "../Pages/Guest/SignUp/types/user";
+import register from "../Pages/Guest/SignUp/SignUp.services";
 
 const steps = ["Select campaign settings", "Create an ad group"];
 
 export default function MyStepper() {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
   const [isValid, setIsValid] = React.useState(false);
-  const [data, setData] = React.useState<SignUpData>({
-    firstName: "",
+  const [data, setData] = React.useState<User>({
+    firstname: "",
     name: "",
     email: "",
-    birthday: new Date(),
-    city: "",
+    birthDate: new Date(),
+    favoriteCity: "",
     password: "",
     verifiedPassword: "",
   });
@@ -64,7 +67,10 @@ export default function MyStepper() {
   };
 
   const handleSubmit = () => {
-    console.log(data);
+    delete data.verifiedPassword;
+    // TODO: gérer les erreurs
+    // TODO: rediriger vers la page de Sign In
+    register(data).then(() => navigate("/"));
   };
 
   return (

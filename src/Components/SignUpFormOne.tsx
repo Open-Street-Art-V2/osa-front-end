@@ -10,24 +10,24 @@ import validator from "validator";
 import { Reducer, useReducer } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
-import SignUpData from "../Pages/Guest/SignUp/types/signUpData";
+import User from "../Pages/Guest/SignUp/types/user";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 
 type Props = {
-  setIsValid: any;
-  setData: any;
-  data: SignUpData;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+  setData: React.Dispatch<React.SetStateAction<User>>;
+  data: User;
 };
 
 type State = {
-  firstName: string;
+  firstname: string;
   name: string;
   email: string;
-  birthday: Date;
-  isValidFirstName: ValidField;
+  birthDate: Date;
+  isValidFirstname: ValidField;
   isValidName: ValidField;
   isValidEmail: ValidField;
-  isValidBirthday: ValidField;
+  isValidBirthDate: ValidField;
   isValidForm: boolean;
 };
 
@@ -35,7 +35,7 @@ type Action =
   | { type: "FIRSTNAME_CHANGED"; value: string }
   | { type: "NAME_CHANGED"; value: string }
   | { type: "EMAIL_CHANGED"; value: string }
-  | { type: "BIRTHDAY_CHANGED"; value: Date };
+  | { type: "BIRTHDATE_CHANGED"; value: Date };
 
 /**
  * A date is valid when it is included between 1900 and today minus 10 years.
@@ -52,15 +52,15 @@ const dispatchState = (state: State, action: Action) => {
     case "FIRSTNAME_CHANGED":
       return {
         ...state,
-        firstName: action.value,
-        isValidFirstName: !validator.isEmpty(action.value)
+        firstname: action.value,
+        isValidFirstname: !validator.isEmpty(action.value)
           ? ValidField.OK
           : ValidField.ERROR,
         isValidForm:
           !validator.isEmpty(action.value) &&
           state.isValidName === ValidField.OK &&
           state.isValidEmail === ValidField.OK &&
-          state.isValidBirthday === ValidField.OK,
+          state.isValidBirthDate === ValidField.OK,
       };
     case "NAME_CHANGED":
       return {
@@ -71,9 +71,9 @@ const dispatchState = (state: State, action: Action) => {
           : ValidField.ERROR,
         isValidForm:
           !validator.isEmpty(action.value) &&
-          state.isValidFirstName === ValidField.OK &&
+          state.isValidFirstname === ValidField.OK &&
           state.isValidEmail === ValidField.OK &&
-          state.isValidBirthday === ValidField.OK,
+          state.isValidBirthDate === ValidField.OK,
       };
     case "EMAIL_CHANGED":
       return {
@@ -85,20 +85,20 @@ const dispatchState = (state: State, action: Action) => {
         isValidForm:
           validator.isEmail(action.value.trim()) &&
           state.isValidName === ValidField.OK &&
-          state.isValidFirstName === ValidField.OK &&
-          state.isValidBirthday === ValidField.OK,
+          state.isValidFirstname === ValidField.OK &&
+          state.isValidBirthDate === ValidField.OK,
       };
     default:
       return {
         ...state,
-        birthday: action.value,
-        isValidBirthday: isValidDate(action.value)
+        birthDate: action.value,
+        isValidBirthDate: isValidDate(action.value)
           ? ValidField.OK
           : ValidField.ERROR,
         isValidForm:
           isValidDate(action.value) &&
           state.isValidName === ValidField.OK &&
-          state.isValidFirstName === ValidField.OK &&
+          state.isValidFirstname === ValidField.OK &&
           state.isValidEmail === ValidField.OK,
       };
   }
@@ -109,14 +109,14 @@ export default function SignUpFormOne(props: Props) {
   const [formOne, dispatchFormOne] = useReducer<Reducer<State, Action>>(
     dispatchState,
     {
-      firstName: "",
+      firstname: "",
       name: "",
       email: "",
-      birthday: new Date(),
-      isValidFirstName: ValidField.NOTFILLED,
+      birthDate: new Date(),
+      isValidFirstname: ValidField.NOTFILLED,
       isValidName: ValidField.NOTFILLED,
       isValidEmail: ValidField.NOTFILLED,
-      isValidBirthday: ValidField.NOTFILLED,
+      isValidBirthDate: ValidField.NOTFILLED,
       isValidForm: false,
     }
   );
@@ -126,10 +126,10 @@ export default function SignUpFormOne(props: Props) {
     setIsValid(formOne.isValidForm);
     setData({
       ...data,
-      firstName: formOne.firstName,
+      firstname: formOne.firstname,
       name: formOne.name,
       email: formOne.email,
-      birthday: formOne.birthday,
+      birthDate: formOne.birthDate,
     });
   }, [formOne.isValidForm]);
 
@@ -140,7 +140,7 @@ export default function SignUpFormOne(props: Props) {
     });
   };
 
-  const handleFirstNameChange = (
+  const handleFirstnameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     dispatchFormOne({
@@ -156,9 +156,9 @@ export default function SignUpFormOne(props: Props) {
     });
   };
 
-  const handleBirthdayChange = (newValue: any) => {
+  const handleBirthDateChange = (newValue: any) => {
     dispatchFormOne({
-      type: "BIRTHDAY_CHANGED",
+      type: "BIRTHDATE_CHANGED",
       value: newValue,
     });
   };
@@ -183,16 +183,16 @@ export default function SignUpFormOne(props: Props) {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="firstname"
                 required
                 fullWidth
-                id="firstName"
+                id="firstname"
                 label="Prénom"
                 autoFocus
-                onChange={handleFirstNameChange}
-                error={formOne.isValidFirstName === ValidField.ERROR}
+                onChange={handleFirstnameChange}
+                error={formOne.isValidFirstname === ValidField.ERROR}
                 helperText={
-                  formOne.isValidFirstName === ValidField.ERROR &&
+                  formOne.isValidFirstname === ValidField.ERROR &&
                   "Le prénom est obligatoire"
                 }
               />
@@ -234,16 +234,16 @@ export default function SignUpFormOne(props: Props) {
                 <DatePicker
                   label="Date de naissance"
                   inputFormat="dd/MM/yyyy"
-                  value={formOne.birthday}
-                  onChange={handleBirthdayChange}
+                  value={formOne.birthDate}
+                  onChange={handleBirthDateChange}
                   /* eslint-disable react/jsx-props-no-spreading */
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       fullWidth
-                      error={formOne.isValidBirthday === ValidField.ERROR}
+                      error={formOne.isValidBirthDate === ValidField.ERROR}
                       helperText={
-                        formOne.isValidBirthday === ValidField.ERROR &&
+                        formOne.isValidBirthDate === ValidField.ERROR &&
                         `Vous devez avoir 10 ans minimum pour vous s'inscrire`
                       }
                     />
