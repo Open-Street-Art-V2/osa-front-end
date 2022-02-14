@@ -8,8 +8,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import validator from "validator";
 import { FormEvent, Reducer, useReducer } from "react";
-import SignUpData from "../types/signUpData";
-import ValidField from "../types/validField";
+import SignUpData from "../Pages/Guest/SignUp/types/signUpData";
+import ValidField from "../Pages/Guest/SignUp/types/validField";
 
 type Props = {
   setIsValid: any;

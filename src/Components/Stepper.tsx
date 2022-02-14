@@ -6,7 +6,7 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import SignUpFormOne from "./SignUpFormOne";
 import SignUpFormTwo from "./SignUpFormTwo";
-import SignUpData from "../types/signUpData";
+import SignUpData from "../Pages/Guest/SignUp/types/signUpData";
 
 const steps = ["Select campaign settings", "Create an ad group"];
 
