@@ -5,12 +5,13 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 import SignUpFormOne from "./SignUpFormOne";
 import SignUpFormTwo from "./SignUpFormTwo";
 import User from "../Pages/Guest/SignUp/types/user";
 import register from "../Pages/Guest/SignUp/SignUp.services";
 
-const steps = ["Select campaign settings", "Create an ad group"];
+const steps = ["1", "2"];
 
 export default function MyStepper() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function MyStepper() {
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
+
   const [isValid, setIsValid] = React.useState(false);
   const [data, setData] = React.useState<User>({
     firstname: "",
@@ -28,6 +30,9 @@ export default function MyStepper() {
     password: "",
     verifiedPassword: "",
   });
+
+  const [error, setError] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
 
   const totalSteps = () => {
     return steps.length;
@@ -56,7 +61,7 @@ export default function MyStepper() {
   };
 
   const handleStep = (step: number) => () => {
-    setActiveStep(step);
+    if (step === 0 || isValid) setActiveStep(step);
   };
 
   const handleComplete = () => {
@@ -68,9 +73,16 @@ export default function MyStepper() {
 
   const handleSubmit = () => {
     delete data.verifiedPassword;
-    // TODO: gérer les erreurs
+    // TODO: gérer les erreurs 500
     // TODO: rediriger vers la page de Sign In
-    register(data).then(() => navigate("/"));
+    register(data).then((response) => {
+      setSubmitted(true);
+      if (response.status === 409) {
+        setError(true);
+      } else {
+        setTimeout(() => navigate("/"), 1000);
+      }
+    });
   };
 
   return (
@@ -103,7 +115,7 @@ export default function MyStepper() {
       <Box sx={{ width: "100%", margin: "auto" }}>
         {!allStepsCompleted() && (
           <Box sx={{ margin: "auto", pt: 2, textAlign: "center" }}>
-            {activeStep !== steps.length - 1 ? ( // && completed[activeStep] ? (
+            {activeStep !== steps.length - 1 ? (
               <Button
                 style={{ borderRadius: "16px", width: "60%" }}
                 variant="contained"
@@ -122,6 +134,20 @@ export default function MyStepper() {
               >
                 S&apos;inscrire
               </Button>
+            )}
+          </Box>
+        )}
+
+        {submitted && (
+          <Box sx={{ width: "100%", margin: "auto", pt: "30px" }}>
+            {error ? (
+              <Alert severity="error">
+                Il existe déjà un compte avec cette adresse mail.
+              </Alert>
+            ) : (
+              <Alert severity="success">
+                Le compte a été créé avec succès.
+              </Alert>
             )}
           </Box>
         )}
