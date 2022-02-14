@@ -23,8 +23,8 @@ export const login = async (
     if (data.ok) {
       const jsonData = await data.json();
       localStorage.setItem("jwt", jsonData.jwt);
-      localStorage.setItem("user", JSON.stringify(jsonData.user));
-      setUser(jsonData.user);
+      localStorage.setItem("user", JSON.stringify({ ...jsonData.user }));
+      setUser({ ...jsonData.user, jwt: jsonData.jwt });
       setIsLoggedIn(true);
     } else if (data.status == 401 || data.status == 404) {
       setUnauthorizedError(true);

@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import "./SingIn.css";
 import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { AnimatePresence, motion } from "framer-motion";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -125,14 +126,14 @@ export default function SignIn() {
     logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
   };
 
-  const { setUser } = loginCtx;
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      const userInfo: User = JSON.parse(localStorage.getItem("user") as string);
-      setUser({ ...userInfo });
-      loginCtx.setIsLoggedIn(true);
-    }
-  }, []);
+  //const { setUser } = loginCtx;
+  // useEffect(() => {
+  //   if (localStorage.getItem("user")) {
+  //     const userInfo: User = JSON.parse(localStorage.getItem("user") as string);
+  //     setUser({ ...userInfo });
+  //     loginCtx.setIsLoggedIn(true);
+  //   }
+  // }, []);
 
   if (loginCtx.isLoggedIn /*&& loginCtx.user?.role === "ROLE_ADMIN"*/) {
     return <Navigate to="/map/admin"></Navigate>;
@@ -201,9 +202,43 @@ export default function SignIn() {
           sx={{ mt: 7 }}
         >
           <div className="authTitle pt-5 pb-12">Authentification</div>
-          {unauthorizedError && (
-            <Alert severity="error">Coordonnées saisies incorrectes</Alert>
-          )}
+          <AnimatePresence initial={true} exitBeforeEnter={true}>
+            {unauthorizedError && (
+              <motion.div
+                variants={{
+                  hidden: {
+                    scale: 0.5,
+                    y: "+30vh",
+                    opacity: 0,
+                  },
+                  visible: {
+                    y: "0",
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                      damping: 25,
+                      stiffness: 400,
+                    },
+                  },
+                  exit: {
+                    x: "-30vh",
+                    opacity: 0,
+                    scale: 0.5,
+                    transition: {
+                      duration: 0.3,
+                    },
+                  },
+                }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <Alert severity="error">Coordonnées saisies incorrectes</Alert>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <TextField
             margin="normal"
             required

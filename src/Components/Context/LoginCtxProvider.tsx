@@ -30,6 +30,17 @@ function LoginCtxProvider(props: Props) {
   const isLoggedInHandler = (loginStatus: boolean) => {
     setIsLoggedIn(loginStatus);
   };
+
+  React.useEffect(() => {
+    if (localStorage.getItem("jwt") && localStorage.getItem("user")) {
+      setUser({
+        ...JSON.parse(localStorage.getItem("user") as string),
+        jwt: localStorage.getItem("jwt"),
+      });
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <LoginContext.Provider
       value={{
