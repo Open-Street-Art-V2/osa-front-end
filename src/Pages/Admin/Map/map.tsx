@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
@@ -90,7 +90,7 @@ function MapAdmin() {
      },
    })); */
 
-  const points = oeuvres.map((obj: any) => {
+  const allPoints = oeuvres.map((obj: any) => {
     const picturesP = obj.pictures.map((pic: any) => ({
       position: pic.position,
       url: pic.url,
@@ -115,6 +115,23 @@ function MapAdmin() {
     };
     return pointsP;
   });
+
+  const [points, setPoints] = useState(allPoints);
+  const [initPoints, setInitPoints] = useState(false);
+
+  useEffect(() => {
+    if (allPoints.length > 0 && !initPoints) {
+      const initialState = allPoints;
+      setPoints(initialState);
+      setInitPoints(true);
+    }
+  }, [allPoints]);
+
+  function handleDelete(id: any) {
+    setPoints(points.filter((point: any) => point.properties.oeuvreId !== id));
+    setselectedArtWork(null);
+    // setDeleteArtwork(true);
+  }
 
   // GET BOUNDS : [lat,long,lat,long] (4 corners)
   const bounds = mapRef.current
@@ -222,6 +239,9 @@ function MapAdmin() {
           data={selectedArtWork.properties}
           onClose={() => {
             setselectedArtWork(null);
+          }}
+          onDeleted={() => {
+            handleDelete(selectedArtWork.properties.oeuvreId);
           }}
         />
       ) : null}
