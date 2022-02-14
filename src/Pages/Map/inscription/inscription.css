@@ -1,0 +1,185 @@
+body {
+    background: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+  }
+  
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  input[type="date"]:before {
+    color: lightgray;
+    content: attr(placeholder);
+  }
+  
+  input[type="date"].full:before {
+    color: black;
+    content: "" !important;
+  }
+  h1 {
+    font-weight: 100;
+    color: white;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(79, 98, 148);
+  }
+  
+  .form {
+    background: #0e101c;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  
+  
+  input {
+    width: 350px;
+    margin: auto;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 11px;
+    border: 2px solid rgb(168, 168, 168);
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  
+  
+  
+  input[value="Suivant"] {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 150;
+    width: 180px;
+    margin-top: 5px;
+  
+    margin-bottom: 30px;
+    border-radius: 25px;
+  }
+  
+  input[value="S'inscrire"] {
+    background: #028144;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 150;
+    width: 180px;
+    margin-top: 5px;
+  
+    margin-bottom: 30px;
+    border-radius: 25px;
+  }
+  
+  input[type="button"]:active,
+  input[type="submit"]:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
+  
+  input:disabled {
+    opacity: 0.4;
+  }
+  
+  input[type="button"]:hover {
+    transition: 0.3s all;
+  }
+  
+  input[type="button"],
+  input[type="submit"] {
+    -webkit-appearance: none;
+  }
+  .progress {
+    font-family: sans-serif;
+    padding: 30px;
+    width: 50px;
+    margin: auto;
+  }
+  
+  .indexedStep {
+    color: rgb(255, 255, 255);
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    background-color: rgba(223, 223, 223, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .indexedStep.accomplished {
+    background-color: #028144;
+  }
+  
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(27, 27, 27);
+    opacity: 1; /* Firefox */
+  }
+  
+  form {
+    margin-top: 100px;  
+    margin-bottom: 40px;
+  
+    border-radius: 20px;
+    border: rgb(143, 130, 105);
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .espace {
+    margin-top: 10px;
+  }
+  h2 {
+    font-family: sans-serif;
+    padding: 30px;
+    width: 29%;
+    margin: auto;
+  }
+  
+  
+  
+  
+  .invalid-feedback ::before {
+    display: inline;
+    content: "⚠ ";
+  }
+  .invalid-feedback {
+    color: #db0000;
+    width: 350px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+  
+  a{
+    margin-left: 26px;
+  color:rgb(0, 0, 0);
+  text-decoration:none;
+  font-weight: bold;
+    font-family: sans-serif;
+    font-size: 17px;
+  
+  }
+  
+  p {
+    color: #000000;
+  
+    font-family: sans-serif;
+    width: 350px;
+    margin: auto;
+    display: block;
+    box-sizing: border-box;
+    padding: 0px 70px;
+    margin-top: 5px;
+  
+    font-size: 18px;
+  } 
