@@ -1,3 +1,8 @@
+/* eslint-disable no-unreachable */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable prefer-template */
+/* eslint-disable no-plusplus */
+/* eslint-disable default-case */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -7,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
+import { Button, Alert } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import IconButton from "@material-ui/core/IconButton";
 import { styled, Box } from "@mui/system";
@@ -15,10 +20,12 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
+import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
 
 const schema = yup.object().shape({
   title: yup.string().required(),
-  artist: yup.string().required(),
+  artiste: yup.string().required(),
   description: yup.string().required(),
   pictures: yup
     .mixed()
@@ -88,15 +95,12 @@ function CreateArtWork() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+  const [lat, setLat] = useState<any>("");
+  const [long, setLong] = useState<any>("");
+  const [geoError, setGeoError] = useState<boolean>(false);
 
-  const [lat, setLat] = useState<number>(10);
-  const [long, setLong] = useState<number>(10);
-
-  console.log(lat);
-  console.log(long);
+  // const [address, setAddress] = useState<any>("");
+  // const [city, setCity] = useState<any>("");
 
   const CHARACTER_LIMIT = 300;
   const [values, setValues] = React.useState({
@@ -118,6 +122,68 @@ function CreateArtWork() {
     zoom: 10,
   });
   const mapRef = useRef<any>();
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    // const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`;
+    // const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.jsontypes=poi&access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`;
+    // console.log(url);
+    /* const config2 = {
+      headers: { "Access-Control-Allow-Origin": "*" },
+    }; */
+    const url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${long}&zoom=18&addressdetails=1`;
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response);
+        const address = response.data.features[0].properties.display_name;
+
+        /* response.data.features[0].properties.name +
+          ", " +
+          response.data.features[0].properties.address.city +
+          ", " +
+          response.data.features[0].properties.address.country +
+          ", " +
+          response.data.features[0].properties.address.postcode; */
+        let city = response.data.features[0].properties.address.city;
+        if (city === undefined) {
+          city = response.data.features[0].properties.address.town;
+          if (city === undefined) {
+            city = "Océan";
+          }
+        }
+
+        const formData = new FormData(); // formdata object
+        formData.append("title", data.title); // append the values with key, value pair
+        formData.append("artist", data.artiste);
+        formData.append("description", data.description);
+        formData.append("latitude", lat);
+        formData.append("longitude", long);
+        formData.append("address", address);
+        formData.append("city", city);
+        for (let i = 0; i < data.pictures.length; i++) {
+          formData.append("files", data.pictures[i]);
+        }
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+
+        axios
+          .post("http://localhost:3008/art", formData, config)
+          .then((response2) => {
+            console.log(response2);
+            console.log("hi");
+            console.log(register);
+            // window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        setGeoError(true);
+      });
+  });
 
   return (
     <div>
@@ -137,9 +203,10 @@ function CreateArtWork() {
               setViewport({ ...newViewport });
             }}
             onClick={(evt) => {
-              setLat(evt.lngLat[0]);
-
-              setLong(evt.lngLat[1]);
+              setLat(evt.lngLat[1]);
+              setLong(evt.lngLat[0]);
+              console.log(evt.lngLat[1]);
+              console.log(evt.lngLat[0]);
             }}
             ref={mapRef}
             keyboard={false}
@@ -234,7 +301,46 @@ function CreateArtWork() {
           <p className="py-8 font-sans text-2xl font-bold ">
             Ajouter une oeuvre
           </p>
-          <form onSubmit={onSubmit}>
+          <form id="myForm" name="myForm" onSubmit={onSubmit}>
+            <div className="px-5 pb-4">
+              <AnimatePresence initial exitBeforeEnter>
+                {geoError && (
+                  <motion.div
+                    variants={{
+                      hidden: {
+                        scale: 0.5,
+                        y: "+30vh",
+                        opacity: 0,
+                      },
+                      visible: {
+                        y: "0",
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          duration: 0.5,
+                          type: "spring",
+                          damping: 25,
+                          stiffness: 400,
+                        },
+                      },
+                      exit: {
+                        x: "-30vh",
+                        opacity: 0,
+                        scale: 0.5,
+                        transition: {
+                          duration: 0.3,
+                        },
+                      },
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <Alert severity="error">Position saisie incorrecte</Alert>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <div className="px-5 pb-4">
               <input
                 {...register("title")}
@@ -251,14 +357,14 @@ function CreateArtWork() {
 
             <div className="px-5 pb-4">
               <input
-                {...register("artist")}
+                {...register("artiste")}
                 type="text"
-                id="artist"
-                name="artist"
+                id="artiste"
+                name="artiste"
                 className="@error('artist') @enderror w-80 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm drop-shadow-lg"
                 placeholder="Artiste*"
               />
-              {errors.artist && (
+              {errors.artiste && (
                 <div className="mr-48 pt-1 text-red-600">Enter an artiste</div>
               )}
             </div>
@@ -326,7 +432,6 @@ function CreateArtWork() {
                 )}
               </div>
             </div>
-
             <div className="px-5 pb-3">
               <Button
                 style={{
@@ -361,22 +466,6 @@ function CreateArtWork() {
                 Valider
               </Button>
             </div>
-            <input
-              {...register("lat")}
-              type="number"
-              id="lat"
-              name="lat"
-              value={lat}
-              className="hidden"
-            />
-            <input
-              {...register("long")}
-              type="text"
-              id="long"
-              name="long"
-              value={10}
-              className="hidden"
-            />
           </form>
         </div>
       </div>
