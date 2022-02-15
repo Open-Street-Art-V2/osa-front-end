@@ -253,7 +253,7 @@ export default function MyStepper() {
         </Stepper>
       </Box>
 
-      <Box sx={{ width: "100%", margin: "auto" }}>
+      <Box sx={{ width: "100%", margin: "auto", mb: 4 }}>
         {!allStepsCompleted() && (
           <Box sx={{ margin: "auto", pt: 2, textAlign: "center" }}>
             {activeStep !== steps.length - 1 ? (
