@@ -8,6 +8,7 @@ import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
 import { AiOutlinePlus } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
@@ -216,13 +217,15 @@ function MapAdmin() {
         })}
       </ReactMapGL>
       <div id="add" className="">
-        <button
-          type="button"
-          id="addBtn"
-          className="inline-flex items-center justify-center w-10 h-10 bg-amber-500 text-white text-2xl rounded-xl"
-        >
-          <AiOutlinePlus />
-        </button>
+        <Link to="/form/admin" className="inline-flex items-center w-10 h-10">
+          <button
+            type="button"
+            id="addBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-amber-500 text-white text-2xl rounded-xl"
+          >
+            <AiOutlinePlus />
+          </button>
+        </Link>
       </div>
       {selectedArtWork ? (
         <ArtMap

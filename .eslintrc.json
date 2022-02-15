@@ -21,6 +21,12 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "react/react-in-jsx-scope": "off",
     "semi": ["off", "always"],
@@ -34,10 +40,6 @@
         "ts": "never",
         "tsx": "never"
       }
-    ],
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    ]
   }
 }
