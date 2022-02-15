@@ -8,7 +8,7 @@ import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
 import { AiOutlinePlus, AiOutlineLogout } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { logout } from "../../Guest/SignIn/SignIn.service";
@@ -226,13 +226,15 @@ function MapAdmin() {
         })}
       </ReactMapGL>
       <div id="" className="absolute top-6 right-2">
-        <button
-          type="button"
-          id="addBtn"
-          className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
-        >
-          <AiOutlinePlus />
-        </button>
+        <Link to="/form/admin" className="inline-flex items-center w-10 h-10">
+          <button
+            type="button"
+            id="addBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
+          >
+            <AiOutlinePlus />
+          </button>
+        </Link>
       </div>
       <div id="logout" className="absolute top-20 right-2">
         <button
