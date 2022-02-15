@@ -14,14 +14,14 @@ import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 
 // TO BE CHANGED
 // eslint-disable-next-line no-unused-vars
-// type artwork = {
-// id: string;
-// title: string;
-// artist: string;
-// latitude: number;
-// longitude: number;
-// created_at: string;
-// };
+/* type artwork = {
+  id: string;
+  title: string;
+  artist: string;
+  latitude: number;
+  longitude: number;
+  created_at: string;
+}; */
 
 type mapView = {
   latitude: number;
