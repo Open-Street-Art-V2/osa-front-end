@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Alert } from "@mui/material";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 // eslint-disable-next-line no-unused-vars
 /* type info = {
@@ -12,20 +15,26 @@ export default function ArtMap(props: any) {
   const { data } = props;
   const numPics = Object.keys(data.pictures).length;
   const baseURL = "http://localhost:3008/art/";
+  const loginCtx = useContext(LoginContext);
+  const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
+
   async function deleteDataById() {
     const id = data.oeuvreId;
     if (id) {
       try {
+        setUnauthorizedError(false);
         const res: Response = await fetch(`${baseURL}${id}`, {
           method: "DELETE",
           headers: {
-            authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            authorization: `Bearer ${loginCtx.user?.jwt}`,
           },
         });
         if (res.ok) {
           // const dataR = await res.json();
           // eslint-disable-next-line react/destructuring-assignment
           props.onDeleted(props.data.oeuvreId);
+        } else if (res.status === 401 || res.status === 404) {
+          setUnauthorizedError(true);
         }
       } catch (error) {
         console.log(error);
@@ -174,6 +183,45 @@ export default function ArtMap(props: any) {
             {data.address}
           </div>
         </figcaption>
+      </div>
+      <div className="px-6 pt-2 pb-2">
+        <AnimatePresence initial exitBeforeEnter>
+          {unauthorizedError && (
+            <motion.div
+              variants={{
+                hidden: {
+                  scale: 0.5,
+                  y: "+30vh",
+                  opacity: 0,
+                },
+                visible: {
+                  y: "0",
+                  opacity: 1,
+                  scale: 1,
+                  transition: {
+                    duration: 1.5,
+                    type: "spring",
+                    damping: 25,
+                    stiffness: 400,
+                  },
+                },
+                exit: {
+                  x: "-30vh",
+                  opacity: 0,
+                  scale: 0.5,
+                  transition: {
+                    duration: 0.3,
+                  },
+                },
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Alert severity="error">Vous êtes pas autorisé</Alert>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <div className="px-6 pt-2 pb-5">
         <div className="flex items-center justify-around">
