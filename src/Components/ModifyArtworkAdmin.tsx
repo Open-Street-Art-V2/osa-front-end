@@ -220,7 +220,16 @@ const dispatchState = function (state: State, action: Action): State {
       };
   }
 };
-
+type Pics = {
+  isModifiedPic1: ValidField;
+  isModifiedPic2: ValidField;
+  isModifiedPic3: ValidField;
+};
+type PicsNames = {
+  image1Name: string;
+  image2Name: string;
+  image3Name: string;
+};
 function ModifyArtWork(props: any) {
   const [Artwork, setArtwork] = useState<any>(props.data);
   // console.log(Artwork);
@@ -262,8 +271,8 @@ function ModifyArtWork(props: any) {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [lat, setLat] = useState<any>(props.coords[0]);
-  const [long, setLong] = useState<any>(props.coords[1]);
+  const [lat, setLat] = useState<any>(props.coords[1]);
+  const [long, setLong] = useState<any>(props.coords[0]);
   /*  useEffect(() => {
     console.log(Artwork);
     console.log(lat);
@@ -286,7 +295,11 @@ function ModifyArtWork(props: any) {
   };
 
   const [images, setImages] = useState(Artwork.pictures);
-
+  const [Pics, dispatchPics] = useState<Pics>({
+    isModifiedPic1: ValidField.NOTMODIFIED,
+    isModifiedPic2: ValidField.NOTMODIFIED,
+    isModifiedPic3: ValidField.NOTMODIFIED,
+  });
   const handleImagesChange = ({ target }: any) => {
     setImages(target.files);
     /* let size = 0;
@@ -300,11 +313,34 @@ function ModifyArtWork(props: any) {
         : (state.isValidImages = ValidField.ERROR); */
   };
 
+  const [imagesNames, setImagesNames] = useState<PicsNames>({
+    image1Name: images.length > 0 ? images[0].url : "",
+    image2Name: images.length > 1 ? images[1].url : "",
+    image3Name: images.length > 2 ? images[2].url : "",
+  });
+
+  useEffect(() => {
+    setImagesNames;
+  }, [imagesNames]);
+
+  /*  &&
+        Pics.isModifiedPic1 === ValidField.NOTMODIFIED) ||
+      (target.files[0].name !== images[0][0].name &&
+        Pics.isModifiedPic1 !== ValidField.NOTMODIFIED */
+
   const handleImagesChange1 = ({ target }: any) => {
-    if (target.files[0].name !== images[0].name) {
+    if (target.files[0].name !== Artwork.pictures[0].url) {
+      // console.log(target.files[0].name);
+      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
+      // console.log(imagesNames);
+      setImagesNames((prevState) => ({
+        ...prevState,
+        image1Name: target.files[0].name,
+      }));
+      Pics.isModifiedPic1 = ValidField.OK;
       let newArr = [...images]; // copying the old datas array
       newArr[0] = target.files; // replace e.target.value with whatever you want to change it to
-      console.log("1");
+      console.log("handleImagesChange1");
       console.log(newArr);
       setImages(newArr);
       // setImages(target.files);
@@ -331,7 +367,7 @@ function ModifyArtWork(props: any) {
   };
 
   useEffect(() => {
-    console.log(images);
+    // console.log(images);
     // console.log(images.length.toString());
     if (images.length !== 0 && Artwork !== undefined) {
       dispatch({
@@ -374,9 +410,29 @@ function ModifyArtWork(props: any) {
     formData.append("longitude", long);
     formData.append("address", addr);
     formData.append("city", city);
-    for (let i = 0; i < images.length; i++) {
-      formData.append("files", images[i][0]);
+    let index = 0;
+    if (Pics.isModifiedPic1 !== ValidField.NOTMODIFIED) {
+      formData.append("files", images[0][0]);
+      index = 1;
+      if (Pics.isModifiedPic2 !== ValidField.NOTMODIFIED) {
+        index = 4;
+        if (Pics.isModifiedPic3 !== ValidField.NOTMODIFIED) index = 7;
+      }
     }
+    if (Pics.isModifiedPic2 !== ValidField.NOTMODIFIED) {
+      formData.append("files", images[1][0]);
+      if (Pics.isModifiedPic1 === ValidField.NOTMODIFIED) index = 2;
+      if (Pics.isModifiedPic3 !== ValidField.NOTMODIFIED) index = 6;
+    }
+    if (Pics.isModifiedPic3 !== ValidField.NOTMODIFIED) {
+      formData.append("files", images[2][0]);
+      if (
+        Pics.isModifiedPic1 === ValidField.NOTMODIFIED &&
+        Pics.isModifiedPic1 === ValidField.NOTMODIFIED
+      )
+        index = 3;
+    }
+    formData.append("index", index.toString());
 
     console.log(formData);
     const url = `http://localhost:3008/art/${Artwork.oeuvreId}`;
@@ -625,10 +681,10 @@ function ModifyArtWork(props: any) {
                 />
                 <Divider variant="middle" />
 
-                {Artwork.pictures[0].url && (
+                {imagesNames.image1Name && (
                   <div className="flex flex-row px-5 pb-1 pt-4 ">
                     <label htmlFor="icon-button-file1">
-                      Premire image : {Artwork.pictures[0].url}
+                      Premire image : {imagesNames.image1Name}
                       <input
                         accept="image/*"
                         id="icon-button-file1"
@@ -649,10 +705,10 @@ function ModifyArtWork(props: any) {
                   </div>
                 )}
 
-                {Artwork.pictures[1].url && (
+                {imagesNames.image2Name && (
                   <div className="flex flex-row px-5 pb-1">
                     <label htmlFor="icon-button-file2">
-                      Deuxieme image : {Artwork.pictures[1].url}
+                      Deuxieme image : {imagesNames.image2Name}
                       <input
                         accept="image/*"
                         id="icon-button-file2"
@@ -672,10 +728,10 @@ function ModifyArtWork(props: any) {
                     </label>
                   </div>
                 )}
-                {Artwork.pictures[2].url && (
+                {imagesNames.image3Name && (
                   <div className="flex flex-row px-5 pb-1">
                     <label htmlFor="icon-button-file3">
-                      Troisième image : {Artwork.pictures[2].url}
+                      Troisième image : {imagesNames.image3Name}
                       <input
                         accept="image/*"
                         id="icon-button-file3"
