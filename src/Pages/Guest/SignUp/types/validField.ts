@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * To handle errors in form.
  * - NOTFILLED is when the field never has been filled yet

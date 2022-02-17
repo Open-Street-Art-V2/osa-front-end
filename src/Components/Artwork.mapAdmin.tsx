@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Alert } from "@mui/material";
+import { Link } from "react-router-dom";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
 // eslint-disable-next-line no-unused-vars
@@ -12,7 +13,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 }; */
 
 export default function ArtMap(props: any) {
-  const { data } = props;
+  const { data, coords } = props;
   const numPics = Object.keys(data.pictures).length;
   const baseURL = "http://localhost:3008/art/";
   const loginCtx = useContext(LoginContext);
@@ -37,7 +38,7 @@ export default function ArtMap(props: any) {
           setUnauthorizedError(true);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   }
@@ -225,12 +226,18 @@ export default function ArtMap(props: any) {
       </div>
       <div className="px-6 pt-2 pb-5">
         <div className="flex items-center justify-around">
-          <button
-            className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-            type="button"
+          <Link
+            to="/admin/modifyForm"
+            state={{ artwork: data, coords }}
+            className=""
           >
-            Modifier
-          </button>
+            <button
+              className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Modifier
+            </button>
+          </Link>
           <button
             className="bg-red-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
             type="button"
