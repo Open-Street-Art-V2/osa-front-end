@@ -13,9 +13,14 @@ import { PhotoCamera } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { styled } from "@mui/system";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
-import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
+import ReactMapGL, {
+  NavigationControl,
+  GeolocateControl,
+  Marker,
+} from "react-map-gl";
+import Pin from "./Pin.map";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Container,
@@ -319,10 +324,6 @@ function ModifyArtWork(props: any) {
     image3Name: images.length > 2 ? images[2].url : "",
   });
 
-  useEffect(() => {
-    setImagesNames;
-  }, [imagesNames]);
-
   /*  &&
         Pics.isModifiedPic1 === ValidField.NOTMODIFIED) ||
       (target.files[0].name !== images[0][0].name &&
@@ -348,22 +349,45 @@ function ModifyArtWork(props: any) {
   };
 
   const handleImagesChange2 = ({ target }: any) => {
-    let newArr = [...images]; // copying the old datas array
-    newArr[1] = target.files; // replace e.target.value with whatever you want to change it to
-    console.log("2");
-
-    console.log(newArr);
-    setImages(newArr);
-    // setImages(target.files);
+    if (target.files[0].name !== Artwork.pictures[1].url) {
+      // console.log(target.files[0].name);
+      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
+      // console.log(imagesNames);
+      setImagesNames((prevState) => ({
+        ...prevState,
+        image2Name: target.files[0].name,
+      }));
+      Pics.isModifiedPic2 = ValidField.OK;
+      let newArr = [...images]; // copying the old datas array
+      newArr[1] = target.files; // replace e.target.value with whatever you want to change it to
+      console.log("handleImagesChange2");
+      console.log(newArr);
+      setImages(newArr);
+      // setImages(target.files);
+    }
   };
 
   const handleImagesChange3 = ({ target }: any) => {
-    let newArr = [...images]; // copying the old datas array
-    newArr[2] = target.files; // replace e.target.value with whatever you want to change it to
-    console.log("3");
-    console.log(newArr);
-    setImages(newArr);
-    // setImages(target.files);
+    console.log("handleImagesChange3");
+
+    if (target.files[0].name !== Artwork.pictures[2].url) {
+      console.log("handleImagesChange3");
+
+      // console.log(target.files[0].name);
+      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
+      // console.log(imagesNames);
+      setImagesNames((prevState) => ({
+        ...prevState,
+        image3Name: target.files[0].name,
+      }));
+      Pics.isModifiedPic3 = ValidField.OK;
+      let newArr = [...images]; // copying the old datas array
+      newArr[2] = target.files; // replace e.target.value with whatever you want to change it to
+      console.log("handleImagesChange3");
+      console.log(newArr);
+      setImages(newArr);
+      // setImages(target.files);
+    }
   };
 
   useEffect(() => {
@@ -410,7 +434,7 @@ function ModifyArtWork(props: any) {
     formData.append("longitude", long);
     formData.append("address", addr);
     formData.append("city", city);
-    let index = 0;
+    let index = 1;
     if (Pics.isModifiedPic1 !== ValidField.NOTMODIFIED) {
       formData.append("files", images[0][0]);
       index = 1;
@@ -428,10 +452,12 @@ function ModifyArtWork(props: any) {
       formData.append("files", images[2][0]);
       if (
         Pics.isModifiedPic1 === ValidField.NOTMODIFIED &&
-        Pics.isModifiedPic1 === ValidField.NOTMODIFIED
+        Pics.isModifiedPic2 === ValidField.NOTMODIFIED
       )
         index = 3;
     }
+
+    console.log(index);
     formData.append("index", index.toString());
 
     console.log(formData);
@@ -524,6 +550,9 @@ function ModifyArtWork(props: any) {
                   trackUserLocation
                   auto
                 />
+                <Marker latitude={lat} longitude={long}>
+                  <Pin size={20} onClick={() => function () {}} />
+                </Marker>
                 <div id="add">
                   <button
                     type="button"
@@ -562,7 +591,7 @@ function ModifyArtWork(props: any) {
           >
             <div
               id="btnRetour"
-              className="flex flex-row place-content-between pt-4"
+              className="flex flex-row place-content-between hTitle pt-4"
             >
               <Link to="/map/admin" className="inline-flex items-center">
                 <button
@@ -618,9 +647,9 @@ function ModifyArtWork(props: any) {
               sx={{ mt: 3 }}
             >
               <div className="text-center">
-                <p className="py-8 font-sans text-2xl font-bold ">
-                  Ajouter une oeuvre
-                </p>
+                <label className="py-8 font-sans text-2xl authTitle font-bold ">
+                  Modifier une oeuvre
+                </label>
 
                 <TextField
                   margin="normal"
@@ -763,14 +792,14 @@ function ModifyArtWork(props: any) {
                     borderRadius: 35,
                     backgroundColor: "#3a4551",
                     padding: "12px 40px",
-                    margin: "20px 0 0 0",
+                    margin: "20px 0 15px 0",
                     fontSize: "13px",
                     color: "white",
                   }}
                   variant="contained"
                   endIcon={<MyLocationIcon />}
                   onClick={handleOpen}
-                  className="mt-4"
+                  // className="mt-4 mb-2"
                 >
                   Saisir la position
                 </Button>
@@ -780,46 +809,33 @@ function ModifyArtWork(props: any) {
                   </Alert>
                 )}
 
-                <div className="px-5 pb-3 pt-4">
-                  <Button
-                    style={{
-                      borderRadius: 35,
-                      backgroundColor: "#00ab55",
-                      padding: "12px 70px",
-                      fontSize: "13px",
-                      color: "white",
-                    }}
-                    type="submit"
-                    variant="contained"
-                  >
-                    Valider
-                  </Button>
-                  <div className="centreD pt-6">
-                    <ThemeProvider theme={loadingBtnTheme}>
-                      <LoadingButton
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        disabled={!state.isValidForm}
-                        loading={isLoading}
-                        sx={{
-                          width: "263px",
-                          margin: "10px 0px",
-                          height: "54px",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                          lineHeight: "21px",
-                          //color: "#ffffff",
-                          // background: "#00ab55",
-                          // borderRadius: "60px",
-                        }}
-                        // className="loginBtn m-5"
-                        //id="loginBtnForm"
-                      >
-                        Se connecter
-                      </LoadingButton>
-                    </ThemeProvider>
-                  </div>
+                <Divider variant="middle" />
+
+                <div className="centreD px-5 ">
+                  <ThemeProvider theme={loadingBtnTheme}>
+                    <LoadingButton
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      disabled={!state.isValidForm}
+                      loading={isLoading}
+                      sx={{
+                        width: "263px",
+                        margin: "10px 0px",
+                        height: "54px",
+                        fontWeight: "500",
+                        fontSize: "18px",
+                        lineHeight: "21px",
+                        // color: "#ffffff",
+                        // background: "#00ab55",
+                        // borderRadius: "60px",
+                      }}
+                      // className="loginBtn m-5"
+                      // id="loginBtnForm"
+                    >
+                      Valider
+                    </LoadingButton>
+                  </ThemeProvider>
                 </div>
               </div>
             </Box>
