@@ -12,7 +12,7 @@ import Divider from "@mui/material/Divider";
 import { PhotoCamera } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { styled } from "@mui/system";
-import { AiOutlineLeft } from "react-icons/ai";
+import { AiOutlineLeft, AiFillDelete } from "react-icons/ai";
 import { Link, Route } from "react-router-dom";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, {
@@ -235,6 +235,11 @@ type PicsNames = {
   image2Name: string;
   image3Name: string;
 };
+type PicsFiles = {
+  image1File: string;
+  image2File: string;
+  image3File: string;
+};
 function ModifyArtWork(props: any) {
   const [Artwork, setArtwork] = useState<any>(props.data);
   // console.log(Artwork);
@@ -324,6 +329,12 @@ function ModifyArtWork(props: any) {
     image3Name: images.length > 2 ? images[2].url : "",
   });
 
+  const [imagesFiles, setImagesFiles] = useState<PicsFiles>({
+    image1File: images.length > 0 ? images[0].url : "",
+    image2File: images.length > 1 ? images[1].url : "",
+    image3File: images.length > 2 ? images[2].url : "",
+  });
+
   /*  &&
         Pics.isModifiedPic1 === ValidField.NOTMODIFIED) ||
       (target.files[0].name !== images[0][0].name &&
@@ -345,6 +356,18 @@ function ModifyArtWork(props: any) {
       console.log(newArr);
       setImages(newArr);
       // setImages(target.files);
+
+      let src;
+      const reader = new FileReader();
+      reader.onload = function () {
+        src = reader.result;
+      };
+      reader.readAsDataURL(target.files[0]);
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image1File: URL.createObjectURL(target.files[0]),
+      }));
+      console.log(imagesFiles.image1File);
     }
   };
 
@@ -364,6 +387,18 @@ function ModifyArtWork(props: any) {
       console.log(newArr);
       setImages(newArr);
       // setImages(target.files);
+
+      let src;
+      const reader = new FileReader();
+      reader.onload = function () {
+        src = reader.result;
+      };
+      reader.readAsDataURL(target.files[0]);
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image2File: URL.createObjectURL(target.files[0]),
+      }));
+      console.log(imagesFiles.image2File);
     }
   };
 
@@ -386,13 +421,22 @@ function ModifyArtWork(props: any) {
       console.log("handleImagesChange3");
       console.log(newArr);
       setImages(newArr);
-      // setImages(target.files);
+
+      let src;
+      const reader = new FileReader();
+      reader.onload = function () {
+        src = reader.result;
+      };
+      reader.readAsDataURL(target.files[0]);
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image3File: URL.createObjectURL(target.files[0]),
+      }));
+      console.log(imagesFiles.image3File);
     }
   };
 
   useEffect(() => {
-    // console.log(images);
-    // console.log(images.length.toString());
     if (images.length !== 0 && Artwork !== undefined) {
       dispatch({
         type: "IMAGES_CHANGED",
@@ -479,7 +523,6 @@ function ModifyArtWork(props: any) {
       console.log(error);
     }
   }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -510,6 +553,7 @@ function ModifyArtWork(props: any) {
     zoom: 10,
   });
   const mapRef = useRef<any>();
+
   return (
     <>
       {Artwork !== undefined && (
@@ -650,7 +694,6 @@ function ModifyArtWork(props: any) {
                 <label className="py-8 font-sans text-2xl authTitle font-bold ">
                   Modifier une oeuvre
                 </label>
-
                 <TextField
                   margin="normal"
                   required
@@ -668,7 +711,6 @@ function ModifyArtWork(props: any) {
                     state.isValidTitle === ValidField.ERROR && "Titre invalide"
                   }
                 />
-
                 <TextField
                   margin="normal"
                   required
@@ -687,7 +729,6 @@ function ModifyArtWork(props: any) {
                     "Artist invalide"
                   }
                 />
-
                 <TextField
                   margin="normal"
                   required
@@ -710,83 +751,168 @@ function ModifyArtWork(props: any) {
                 />
                 <Divider variant="middle" />
 
-                {imagesNames.image1Name && (
-                  <div className="flex flex-row px-5 pb-1 pt-4 ">
-                    <label htmlFor="icon-button-file1">
-                      Premire image : {imagesNames.image1Name}
-                      <input
-                        accept="image/*"
-                        id="icon-button-file1"
-                        onChange={handleImagesChange1}
-                        type="file"
-                        name="file1"
-                        required
-                        hidden
+                <div className="grid grid-cols-2 gap-3 content-around py-2">
+                  {imagesFiles.image1File && imagesNames.image1Name && (
+                    <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                      <img
+                        className="w-full rounded-t-3xl m-0"
+                        src={`${
+                          Artwork.pictures[0].url !== imagesNames.image1Name
+                            ? imagesFiles.image1File
+                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[0].url}`
+                        }`}
+                        alt=""
+                        width="384"
+                        height="512"
                       />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        <PhotoCamera />
-                      </IconButton>
-                    </label>
-                  </div>
-                )}
+                      <div className="text-center md:text-left m-0">
+                        <div className="py-2">
+                          <label
+                            htmlFor="icon-button-delelte-file1"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label>
+                          <label
+                            htmlFor="icon-button-file1"
+                            className="my-0 ml-4"
+                          >
+                            <input
+                              accept="image/*"
+                              id="icon-button-file1"
+                              onChange={handleImagesChange1}
+                              type="file"
+                              name="file1"
+                              required
+                              hidden
+                            />
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture"
+                              component="span"
+                            >
+                              <PhotoCamera />
+                            </IconButton>
+                          </label>
+                        </div>
+                      </div>
+                    </figure>
+                  )}
 
-                {imagesNames.image2Name && (
-                  <div className="flex flex-row px-5 pb-1">
-                    <label htmlFor="icon-button-file2">
-                      Deuxieme image : {imagesNames.image2Name}
-                      <input
-                        accept="image/*"
-                        id="icon-button-file2"
-                        onChange={handleImagesChange2}
-                        type="file"
-                        name="file2"
-                        required
-                        hidden
+                  {imagesFiles.image2File && imagesNames.image2Name && (
+                    <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                      <img
+                        className="w-ful rounded-t-3xl m-0"
+                        src={`${
+                          Artwork.pictures[1].url !== imagesNames.image2Name
+                            ? imagesFiles.image2File
+                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[1].url}`
+                        }`}
+                        alt=""
+                        width="384"
+                        height="512"
                       />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        <PhotoCamera />
-                      </IconButton>
-                    </label>
-                  </div>
-                )}
-                {imagesNames.image3Name && (
-                  <div className="flex flex-row px-5 pb-1">
-                    <label htmlFor="icon-button-file3">
-                      Troisième image : {imagesNames.image3Name}
-                      <input
-                        accept="image/*"
-                        id="icon-button-file3"
-                        onChange={handleImagesChange3}
-                        name="file3"
-                        type="file"
-                        required
-                        hidden
+                      <div className="text-center md:text-left m-0">
+                        <div className="py-2">
+                          <label
+                            htmlFor="icon-button-delelte-file2"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture 2"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label>
+                          <label
+                            htmlFor="icon-button-file2"
+                            className="my-0 ml-4"
+                          >
+                            <input
+                              accept="image/*"
+                              id="icon-button-file2"
+                              onChange={handleImagesChange2}
+                              type="file"
+                              name="file2"
+                              required
+                              hidden
+                            />
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture"
+                              component="span"
+                            >
+                              <PhotoCamera />
+                            </IconButton>
+                          </label>
+                        </div>
+                      </div>
+                    </figure>
+                  )}
+                  {imagesFiles.image3File && imagesNames.image3Name && (
+                    <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                      <img
+                        className="w-full rounded-t-3xl m-0"
+                        src={`${
+                          Artwork.pictures[2].url !== imagesNames.image3Name
+                            ? imagesFiles.image3File
+                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[2].url}`
+                        }`}
+                        alt=""
+                        width="384"
+                        height="512"
                       />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        <PhotoCamera />
-                      </IconButton>
-                    </label>
-                  </div>
-                )}
+                      <div className="text-center md:text-left m-0">
+                        <div className="py-2">
+                          <label
+                            htmlFor="icon-button-delelte-file3"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture 3"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label>
+                          <label
+                            htmlFor="icon-button-file3"
+                            className="my-0 ml-4"
+                          >
+                            <input
+                              accept="image/*"
+                              id="icon-button-file3"
+                              onChange={handleImagesChange3}
+                              type="file"
+                              name="file3"
+                              required
+                              hidden
+                            />
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture 3"
+                              component="span"
+                            >
+                              <PhotoCamera />
+                            </IconButton>
+                          </label>
+                        </div>
+                      </div>
+                    </figure>
+                  )}
+                </div>
                 {state.isValidImages === ValidField.ERROR && (
                   <Alert severity="error">
                     Le nombre des images possible entre 1 et 3 avec 3Mo au max
                   </Alert>
                 )}
                 <Divider variant="middle" />
-
                 <Button
                   style={{
                     borderRadius: 35,
@@ -804,13 +930,9 @@ function ModifyArtWork(props: any) {
                   Saisir la position
                 </Button>
                 {state.isValidPosition === ValidField.ERROR && (
-                  <Alert severity="error">
-                    Le nombre des position possible entre 1 et 3 avec 3Mo au max
-                  </Alert>
+                  <Alert severity="error">Position invalide</Alert>
                 )}
-
                 <Divider variant="middle" />
-
                 <div className="centreD px-5 ">
                   <ThemeProvider theme={loadingBtnTheme}>
                     <LoadingButton
