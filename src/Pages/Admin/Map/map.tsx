@@ -152,9 +152,7 @@ function MapAdmin() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.user);
-    console.log(user.role);
-
-    if (user.role === "ROLE_ADMIN") {
+    if (user.role !== "ROLE_ADMIN") {
       navigate("/");
     }
   });
