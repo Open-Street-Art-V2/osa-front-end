@@ -6,6 +6,8 @@
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
+
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

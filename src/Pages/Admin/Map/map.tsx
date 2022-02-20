@@ -7,13 +7,12 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
-import { AiOutlinePlus } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { AiOutlinePlus, AiOutlineLogout } from "react-icons/ai";
+import { useNavigate, Link } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
+import { logout } from "../../Guest/SignIn/SignIn.service";
 
-// TO BE CHANGED
 // eslint-disable-next-line no-unused-vars
 /* type artwork = {
   id: string;
@@ -147,11 +146,20 @@ function MapAdmin() {
     });
   }
 
+  const navigate = useNavigate();
   const loginCtx = useContext(LoginContext);
-  if (!(loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN")) {
-    return <Navigate to="/" />;
-  }
 
+  useEffect(() => {
+    if (!(loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN")) {
+      navigate("/");
+    }
+  });
+
+  function logoutR() {
+    if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
+      logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
+    }
+  }
   return (
     <div>
       <ReactMapGL
@@ -216,20 +224,33 @@ function MapAdmin() {
           );
         })}
       </ReactMapGL>
-      <div id="add" className="">
+      <div id="" className="absolute top-6 right-2">
         <Link to="/form/admin" className="inline-flex items-center w-10 h-10">
           <button
             type="button"
             id="addBtn"
-            className="inline-flex items-center justify-center w-10 h-10 bg-amber-500 text-white text-2xl rounded-xl"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
           >
             <AiOutlinePlus />
           </button>
         </Link>
       </div>
+      <div id="logout" className="absolute top-20 right-2">
+        <button
+          type="button"
+          id="logoutBtn"
+          className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+          onClick={() => {
+            logoutR();
+          }}
+        >
+          <AiOutlineLogout />
+        </button>
+      </div>
       {selectedArtWork ? (
         <ArtMap
           data={selectedArtWork.properties}
+          coords={selectedArtWork.geometry.coordinates}
           onClose={() => {
             setselectedArtWork(null);
           }}
