@@ -225,8 +225,6 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 function CreateArtWork(props: any) {
-  // MEEEEEEEEEEEEEE
-
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -260,16 +258,23 @@ function CreateArtWork(props: any) {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [lat, setLat] = useState<any>("");
-  const [long, setLong] = useState<any>("");
+  const [lat, setLat] = useState<any>();
+  const [long, setLong] = useState<any>();
   const handlePositionChange = () => {
-    const latLong = lat && long ? `${long}, ${lat}` : ` `;
-    console.log(latLong);
-    dispatch({
-      type: "POSITION_CHANGED",
-      value: latLong,
-    });
+    // const latLong = lat && long ? `${long}, ${lat}` : ` `;
+    // console.log("latLong");
   };
+  useEffect(() => {
+    const latLong = lat && long ? `${long}, ${lat}` : ` `;
+    if (long && lat) {
+      console.log(latLong);
+
+      dispatch({
+        type: "POSITION_CHANGED",
+        value: latLong,
+      });
+    }
+  }, [long]);
 
   const [images, setImages] = useState([]);
 
@@ -287,8 +292,6 @@ function CreateArtWork(props: any) {
   };
 
   useEffect(() => {
-    console.log(images);
-    console.log(images.length.toString());
     if (images.length !== 0) {
       dispatch({
         type: "IMAGES_CHANGED",
@@ -297,8 +300,8 @@ function CreateArtWork(props: any) {
     }
   }, [images]);
 
-  const [addr, setAddr] = React.useState("");
-  const [city, setCity] = React.useState("");
+  const [addr, setAddr] = React.useState("Rouen");
+  const [city, setCity] = React.useState("Rouen");
 
   const [requestError, setRequestError] = React.useState(null);
   const [requestValid, setRequestValid] = React.useState(null);
@@ -320,20 +323,10 @@ function CreateArtWork(props: any) {
   const loginCtx = useContext(LoginContext);
 
   async function sendArtwork(artwork: any) {
-    const dataArt = {
-      title: artwork.get("title")?.toString().trim(),
-      artist: artwork.get("artist")?.toString().trim(),
-      description: artwork.get("description")?.toString().trim(),
-      longitude: long,
-      latitude: lat,
-      images: images,
-      address: addr,
-      city: city,
-    };
     dispatchState;
-    const formData = new FormData(); // formdata object
+    const formData = new FormData();
 
-    formData.append("title", artwork.get("title")?.toString().trim()); // append the values with key, value pair
+    formData.append("title", artwork.get("title")?.toString().trim());
     formData.append("artist", artwork.get("artist")?.toString().trim());
     formData.append(
       "description",
@@ -377,7 +370,6 @@ function CreateArtWork(props: any) {
           throw Error("Le fichier est trop large.");
         }
         throw Error("Le serveur est en cours de maintenance.");
-        console.log(res);
       }
     } catch (error: any) {
       setRequestError(error.message);
@@ -430,8 +422,6 @@ function CreateArtWork(props: any) {
                 setLat(evt.lngLat[1]);
                 setLong(evt.lngLat[0]);
                 handlePositionChange();
-                console.log(evt.lngLat[1]);
-                console.log(evt.lngLat[0]);
               }}
               ref={mapRef}
               keyboard={false}
@@ -638,7 +628,6 @@ function CreateArtWork(props: any) {
 
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 id="artist"
                 label="Artist"
@@ -704,6 +693,7 @@ function CreateArtWork(props: any) {
                   borderRadius: 35,
                   backgroundColor: "#3a4551",
                   padding: "12px 40px",
+                  margin: "10px 0 10px 0",
                   fontSize: "13px",
                   color: "white",
                 }}
@@ -720,19 +710,6 @@ function CreateArtWork(props: any) {
               <Divider variant="middle" />
 
               <div className="px-5 pb-3 pt-4">
-                <Button
-                  style={{
-                    borderRadius: 35,
-                    backgroundColor: "#00ab55",
-                    padding: "12px 70px",
-                    fontSize: "13px",
-                    color: "white",
-                  }}
-                  type="submit"
-                  variant="contained"
-                >
-                  Valider
-                </Button>
                 <div className="centreD pt-6">
                   <ThemeProvider theme={loadingBtnTheme}>
                     <LoadingButton
@@ -755,7 +732,7 @@ function CreateArtWork(props: any) {
                       // className="loginBtn m-5"
                       //id="loginBtnForm"
                     >
-                      Se connecter
+                      Valider
                     </LoadingButton>
                   </ThemeProvider>
                 </div>
