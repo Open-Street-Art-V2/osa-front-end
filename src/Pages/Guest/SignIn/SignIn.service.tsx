@@ -10,16 +10,19 @@ export const login = async (
 ) => {
   setIsLoading(true);
   try {
-    const data: Response = await fetch("http://localhost:3008/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: creds.email,
-        password: creds.password,
-      }),
-      headers: {
-        "Content-type": "Application/json",
-      },
-    });
+    const data: Response = await fetch(
+      "http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: creds.email,
+          password: creds.password,
+        }),
+        headers: {
+          "Content-type": "Application/json",
+        },
+      }
+    );
     if (data.ok) {
       const jsonData = await data.json();
       localStorage.setItem("jwt", jsonData.jwt);
