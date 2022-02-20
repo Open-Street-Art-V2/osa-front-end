@@ -4,7 +4,6 @@ import React, {
   useReducer,
   useRef,
   useContext,
-  Fragment,
   useEffect,
 } from "react";
 import Divider from "@mui/material/Divider";
@@ -276,18 +275,7 @@ function ModifyArtWork(props: any) {
 
   const [lat, setLat] = useState<any>(props.coords[1]);
   const [long, setLong] = useState<any>(props.coords[0]);
-  /*  useEffect(() => {
-    console.log(Artwork);
-    console.log(lat);
-    if (lat === undefined && Artwork !== undefined) {
-      setLat(Artwork.latitude);
-    }
-  }, []);
-  useEffect(() => {
-    if (long === undefined && Artwork !== undefined) {
-      setLong(Artwork.longitude);
-    }
-  }, [Artwork]); */
+
   const handlePositionChange = () => {
     const latLong = lat && long ? `${long}, ${lat}` : ` `;
     dispatch({
@@ -327,27 +315,17 @@ function ModifyArtWork(props: any) {
     image3File: images.length > 2 ? images[2].url : "",
   });
 
-  /*  &&
-        Pics.isModifiedPic1 === ValidField.NOTMODIFIED) ||
-      (target.files[0].name !== images[0][0].name &&
-        Pics.isModifiedPic1 !== ValidField.NOTMODIFIED */
-
   const handleImagesChange1 = ({ target }: any) => {
     if (target.files[0].name !== Artwork.pictures[0].url) {
-      // console.log(target.files[0].name);
-      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
-      // console.log(imagesNames);
       setImagesNames((prevState) => ({
         ...prevState,
         image1Name: target.files[0].name,
       }));
       Pics.isModifiedPic1 = ValidField.OK;
-      let newArr = [...images]; // copying the old datas array
-      newArr[0] = target.files; // replace e.target.value with whatever you want to change it to
+      let newArr = [...images];
+      newArr[0] = target.files;
 
       setImages(newArr);
-      // setImages(target.files);
-
       let src;
       const reader = new FileReader();
       reader.onload = function () {
@@ -363,19 +341,14 @@ function ModifyArtWork(props: any) {
 
   const handleImagesChange2 = ({ target }: any) => {
     if (target.files[0].name !== Artwork.pictures[1].url) {
-      // console.log(target.files[0].name);
-      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
-      // console.log(imagesNames);
       setImagesNames((prevState) => ({
         ...prevState,
         image2Name: target.files[0].name,
       }));
       Pics.isModifiedPic2 = ValidField.OK;
-      let newArr = [...images]; // copying the old datas array
-      newArr[1] = target.files; // replace e.target.value with whatever you want to change it to
+      let newArr = [...images];
+      newArr[1] = target.files;
       setImages(newArr);
-      // setImages(target.files);
-
       let src;
       const reader = new FileReader();
       reader.onload = function () {
@@ -391,17 +364,13 @@ function ModifyArtWork(props: any) {
 
   const handleImagesChange3 = ({ target }: any) => {
     if (target.files[0].name !== Artwork.pictures[2].url) {
-      // console.log(target.files[0].name);
-      // const img1Name = images[0].url ? images[0].url : images[0][0].name;
-      // console.log(imagesNames);
       setImagesNames((prevState) => ({
         ...prevState,
         image3Name: target.files[0].name,
       }));
       Pics.isModifiedPic3 = ValidField.OK;
-      let newArr = [...images]; // copying the old datas array
-      newArr[2] = target.files; // replace e.target.value with whatever you want to change it to
-
+      let newArr = [...images];
+      newArr[2] = target.files;
       setImages(newArr);
 
       let src;
@@ -449,9 +418,9 @@ function ModifyArtWork(props: any) {
 
   async function sendArtwork(artwork: any) {
     dispatchState;
-    const formData = new FormData(); // formdata object
+    const formData = new FormData();
 
-    formData.append("title", artwork.get("title")?.toString().trim()); // append the values with key, value pair
+    formData.append("title", artwork.get("title")?.toString().trim());
     formData.append("artist", artwork.get("artist")?.toString().trim());
     formData.append(
       "description",
@@ -483,9 +452,7 @@ function ModifyArtWork(props: any) {
       )
         index = 3;
     }
-
     formData.append("index", index.toString());
-
     const url = `http://localhost:3008/art/${Artwork.oeuvreId}`;
 
     try {
@@ -509,19 +476,19 @@ function ModifyArtWork(props: any) {
           throw Error("Veuillez vous connecter pour réaliser cette opération.");
         } else if (res.status === 400) {
           throw Error("Veuillez saisir une localisation.");
-        } else if (res.status === 407) {
+        } else if (res.status === 413) {
           throw Error(
-            "L'un des fichiers est trop large (taille maximale 3Mo)."
+            "L'un des fichiers est trop large (taille maximale 2Mo)."
           );
+        } else if (res.status === 413) {
+          throw Error("Le serveur est en cours de maintenance.");
         }
-        throw Error("Le serveur est en cours de maintenance.");
-        console.log(res);
+        throw Error("Une oeuvre avec le même titre existe déjà.");
+        // throw Error("Une erreur est survenue lors de la modification.");
       }
     } catch (error: any) {
       setRequestValid(null);
       setRequestError(error.message);
-
-      console.log(error.message);
     }
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -982,7 +949,7 @@ function ModifyArtWork(props: any) {
                 </div>
                 {state.isValidImages === ValidField.ERROR && (
                   <Alert severity="error">
-                    Le nombre des images possible entre 1 et 3 avec 3Mo au max
+                    Le nombre des images possible entre 1 et 3 avec 2Mo au max
                   </Alert>
                 )}
 
@@ -1006,7 +973,7 @@ function ModifyArtWork(props: any) {
                   <Alert severity="error">Position invalide</Alert>
                 )}
                 <Divider variant="middle" />
-                <div className="centreD px-5 ">
+                <div className="centreD p-5 ">
                   <ThemeProvider theme={loadingBtnTheme}>
                     <LoadingButton
                       type="submit"
