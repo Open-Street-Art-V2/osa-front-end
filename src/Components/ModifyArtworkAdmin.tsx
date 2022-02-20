@@ -7,13 +7,12 @@ import React, {
   Fragment,
   useEffect,
 } from "react";
-import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
 import { PhotoCamera } from "@mui/icons-material";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { styled } from "@mui/system";
-import { AiOutlineLeft, AiFillDelete } from "react-icons/ai";
-import { Link, Route } from "react-router-dom";
+import { AiOutlineLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, {
   NavigationControl,
@@ -29,17 +28,13 @@ import {
   TextField,
   Button,
   Alert,
-  Input,
-  Typography,
   createTheme,
 } from "@mui/material";
 import validator from "validator";
-import PersonPinCircleRoundedIcon from "@mui/icons-material/PersonPinCircleRounded";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import id from "date-fns/esm/locale/id/index.js";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -242,7 +237,6 @@ type PicsFiles = {
 };
 function ModifyArtWork(props: any) {
   const [Artwork, setArtwork] = useState<any>(props.data);
-  // console.log(Artwork);
   useEffect(() => {
     if (Artwork === undefined) setArtwork(props.data);
   }, [Artwork]);
@@ -257,7 +251,6 @@ function ModifyArtWork(props: any) {
   });
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value);
     dispatch({
       type: "TITLE_CHANGED",
       value: event.currentTarget.value,
@@ -297,7 +290,6 @@ function ModifyArtWork(props: any) {
   }, [Artwork]); */
   const handlePositionChange = () => {
     const latLong = lat && long ? `${long}, ${lat}` : ` `;
-    console.log(latLong);
     dispatch({
       type: "POSITION_CHANGED",
       value: latLong,
@@ -352,8 +344,7 @@ function ModifyArtWork(props: any) {
       Pics.isModifiedPic1 = ValidField.OK;
       let newArr = [...images]; // copying the old datas array
       newArr[0] = target.files; // replace e.target.value with whatever you want to change it to
-      console.log("handleImagesChange1");
-      console.log(newArr);
+
       setImages(newArr);
       // setImages(target.files);
 
@@ -367,7 +358,6 @@ function ModifyArtWork(props: any) {
         ...prevState,
         image1File: URL.createObjectURL(target.files[0]),
       }));
-      console.log(imagesFiles.image1File);
     }
   };
 
@@ -383,8 +373,6 @@ function ModifyArtWork(props: any) {
       Pics.isModifiedPic2 = ValidField.OK;
       let newArr = [...images]; // copying the old datas array
       newArr[1] = target.files; // replace e.target.value with whatever you want to change it to
-      console.log("handleImagesChange2");
-      console.log(newArr);
       setImages(newArr);
       // setImages(target.files);
 
@@ -398,16 +386,11 @@ function ModifyArtWork(props: any) {
         ...prevState,
         image2File: URL.createObjectURL(target.files[0]),
       }));
-      console.log(imagesFiles.image2File);
     }
   };
 
   const handleImagesChange3 = ({ target }: any) => {
-    console.log("handleImagesChange3");
-
     if (target.files[0].name !== Artwork.pictures[2].url) {
-      console.log("handleImagesChange3");
-
       // console.log(target.files[0].name);
       // const img1Name = images[0].url ? images[0].url : images[0][0].name;
       // console.log(imagesNames);
@@ -418,8 +401,7 @@ function ModifyArtWork(props: any) {
       Pics.isModifiedPic3 = ValidField.OK;
       let newArr = [...images]; // copying the old datas array
       newArr[2] = target.files; // replace e.target.value with whatever you want to change it to
-      console.log("handleImagesChange3");
-      console.log(newArr);
+
       setImages(newArr);
 
       let src;
@@ -432,7 +414,6 @@ function ModifyArtWork(props: any) {
         ...prevState,
         image3File: URL.createObjectURL(target.files[0]),
       }));
-      console.log(imagesFiles.image3File);
     }
   };
 
@@ -501,10 +482,8 @@ function ModifyArtWork(props: any) {
         index = 3;
     }
 
-    console.log(index);
     formData.append("index", index.toString());
 
-    console.log(formData);
     const url = `http://localhost:3008/art/${Artwork.oeuvreId}`;
 
     try {
@@ -517,7 +496,6 @@ function ModifyArtWork(props: any) {
       });
       if (res.ok) {
         const jsonData = await res.json();
-        console.log(jsonData);
       }
     } catch (error) {
       console.log(error);
@@ -580,8 +558,6 @@ function ModifyArtWork(props: any) {
                   setLat(evt.lngLat[1]);
                   setLong(evt.lngLat[0]);
                   handlePositionChange();
-                  console.log(evt.lngLat[1]);
-                  console.log(evt.lngLat[0]);
                 }}
                 ref={mapRef}
                 keyboard={false}
@@ -691,9 +667,9 @@ function ModifyArtWork(props: any) {
               sx={{ mt: 3 }}
             >
               <div className="text-center">
-                <label className="py-8 font-sans text-2xl authTitle font-bold ">
-                  Modifier une oeuvre
-                </label>
+                <p className="py-8 font-sans text-2xl font-bold ">
+                  Modifier l'oeuvre
+                </p>
                 <TextField
                   margin="normal"
                   required
@@ -749,7 +725,6 @@ function ModifyArtWork(props: any) {
                     "Description doit contenir entre 2 et 250 caractéres"
                   }
                 />
-                <Divider variant="middle" />
 
                 <div className="grid grid-cols-2 gap-3 content-around py-2">
                   {imagesFiles.image1File && imagesNames.image1Name && (
@@ -767,7 +742,7 @@ function ModifyArtWork(props: any) {
                       />
                       <div className="text-center md:text-left m-0">
                         <div className="py-2">
-                          <label
+                          {/* <label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -777,10 +752,10 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                          </label> */}
                           <label
                             htmlFor="icon-button-file1"
-                            className="my-0 ml-4"
+                            className="my-0 ml-0"
                           >
                             <input
                               accept="image/*"
@@ -807,7 +782,7 @@ function ModifyArtWork(props: any) {
                   {imagesFiles.image2File && imagesNames.image2Name && (
                     <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
                       <img
-                        className="w-ful rounded-t-3xl m-0"
+                        className="w-full rounded-t-3xl m-0"
                         src={`${
                           Artwork.pictures[1].url !== imagesNames.image2Name
                             ? imagesFiles.image2File
@@ -819,7 +794,7 @@ function ModifyArtWork(props: any) {
                       />
                       <div className="text-center md:text-left m-0">
                         <div className="py-2">
-                          <label
+                          {/* <label
                             htmlFor="icon-button-delelte-file2"
                             className="my-0 mr-4"
                           >
@@ -829,10 +804,10 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                          </label> */}
                           <label
                             htmlFor="icon-button-file2"
-                            className="my-0 ml-4"
+                            className="my-0 ml-0"
                           >
                             <input
                               accept="image/*"
@@ -870,7 +845,7 @@ function ModifyArtWork(props: any) {
                       />
                       <div className="text-center md:text-left m-0">
                         <div className="py-2">
-                          <label
+                          {/* <label
                             htmlFor="icon-button-delelte-file3"
                             className="my-0 mr-4"
                           >
@@ -880,10 +855,10 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                          </label> */}
                           <label
                             htmlFor="icon-button-file3"
-                            className="my-0 ml-4"
+                            className="my-0 ml-0"
                           >
                             <input
                               accept="image/*"
@@ -912,13 +887,13 @@ function ModifyArtWork(props: any) {
                     Le nombre des images possible entre 1 et 3 avec 3Mo au max
                   </Alert>
                 )}
-                <Divider variant="middle" />
+
                 <Button
                   style={{
                     borderRadius: 35,
                     backgroundColor: "#3a4551",
                     padding: "12px 40px",
-                    margin: "20px 0 15px 0",
+                    margin: "15px 0 15px 0",
                     fontSize: "13px",
                     color: "white",
                   }}
