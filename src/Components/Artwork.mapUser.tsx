@@ -61,7 +61,7 @@ export default class ArtArtwork extends PureComponent<{
                   >
                     <div className="relative overflow-hidden bg-no-repeat bg-cover">
                       <img
-                        src={`${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                        src={`http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${pic.url}`}
                         className="block w-full"
                         alt="Failed to load"
                       />
@@ -77,7 +77,7 @@ export default class ArtArtwork extends PureComponent<{
                 >
                   <div className="relative overflow-hidden bg-no-repeat bg-cover">
                     <img
-                      src={`${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                      src={`http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${pic.url}`}
                       className="block object-fill w-full"
                       alt="Failed to load"
                     />

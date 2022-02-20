@@ -341,7 +341,7 @@ function CreateArtWork(props: any) {
     }
 
     console.log(formData);
-    const url = `http://localhost:3008/art`;
+    const url = `http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/api/art`;
 
     try {
       const res: Response = await fetch(url, {
@@ -413,8 +413,10 @@ function CreateArtWork(props: any) {
               {...viewport}
               className="rounded-3xl"
               maxZoom={18}
-              mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
-              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              mapStyle={"mapbox://styles/mapbox/streets-v9"}
+              mapboxApiAccessToken={
+                "pk.eyJ1IjoiaWRlcmkiLCJhIjoiY2t5aHZ5ZG15MTl0czJwczh6djN0ZDB4bSJ9.ZZSwZi7-2xwnYRcSXqZDGg"
+              }
               onViewportChange={(newViewport: mapView) => {
                 setViewport({ ...newViewport });
               }}

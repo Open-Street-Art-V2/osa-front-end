@@ -72,7 +72,7 @@ function MapAdmin() {
   // GET DATA
   const fetcher = (args: string) =>
     fetch(args).then((response) => response.json());
-  const url = "http://127.0.0.1:3008/art";
+  const url = "http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/api/art";
   const { data, error } = useSwr(url, { fetcher });
   const oeuvres = data && !error ? data : [];
 
@@ -166,8 +166,8 @@ function MapAdmin() {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...viewport}
         maxZoom={18}
-        mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapboxApiAccessToken="pk.eyJ1IjoiaWRlcmkiLCJhIjoiY2t5aHZ5ZG15MTl0czJwczh6djN0ZDB4bSJ9.ZZSwZi7-2xwnYRcSXqZDGg"
         onViewportChange={(newViewport: mapView) => {
           setViewport({ ...newViewport });
         }}

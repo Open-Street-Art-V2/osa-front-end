@@ -453,7 +453,7 @@ function ModifyArtWork(props: any) {
         index = 3;
     }
     formData.append("index", index.toString());
-    const url = `http://localhost:3008/art/${Artwork.oeuvreId}`;
+    const url = `http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/api/art/${Artwork.oeuvreId}`;
 
     try {
       const res: Response = await fetch(url, {
@@ -539,8 +539,10 @@ function ModifyArtWork(props: any) {
                 {...viewport}
                 className="rounded-3xl"
                 maxZoom={18}
-                mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
-                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                mapStyle={"mapbox://styles/mapbox/streets-v9"}
+                mapboxApiAccessToken={
+                  "pk.eyJ1IjoiaWRlcmkiLCJhIjoiY2t5aHZ5ZG15MTl0czJwczh6djN0ZDB4bSJ9.ZZSwZi7-2xwnYRcSXqZDGg"
+                }
                 onViewportChange={(newViewport: mapView) => {
                   setViewport({ ...newViewport });
                 }}
@@ -799,7 +801,7 @@ function ModifyArtWork(props: any) {
                         src={`${
                           Artwork.pictures[0].url !== imagesNames.image1Name
                             ? imagesFiles.image1File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[0].url}`
+                            : `http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${Artwork.pictures[0].url}`
                         }`}
                         alt=""
                         width="384"
@@ -851,7 +853,7 @@ function ModifyArtWork(props: any) {
                         src={`${
                           Artwork.pictures[1].url !== imagesNames.image2Name
                             ? imagesFiles.image2File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[1].url}`
+                            : `.http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${Artwork.pictures[1].url}`
                         }`}
                         alt=""
                         width="384"
@@ -902,7 +904,7 @@ function ModifyArtWork(props: any) {
                         src={`${
                           Artwork.pictures[2].url !== imagesNames.image3Name
                             ? imagesFiles.image3File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[2].url}`
+                            : `http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${Artwork.pictures[2].url}`
                         }`}
                         alt=""
                         width="384"

@@ -15,7 +15,8 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 export default function ArtMap(props: any) {
   const { data, coords } = props;
   const numPics = Object.keys(data.pictures).length;
-  const baseURL = "http://localhost:3008/art/";
+  const baseURL =
+    "http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/api/art/";
   const loginCtx = useContext(LoginContext);
   const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
 
@@ -88,9 +89,9 @@ export default function ArtMap(props: any) {
                 >
                   <div className="relative overflow-hidden bg-no-repeat bg-cover">
                     <img
-                      src={`./../${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                      src={`http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${pic.url}`}
                       className="block w-full"
-                      alt={`${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                      alt="images"
                     />
                     <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed bg-black opacity-0" />
                   </div>
@@ -104,7 +105,7 @@ export default function ArtMap(props: any) {
               >
                 <div className="relative overflow-hidden bg-no-repeat bg-cover">
                   <img
-                    src={`./../${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                    src={`http://srv-dpi-proj-openstreetart22-test.univ-rouen.fr/images/${pic.url}`}
                     className="block object-fill w-full"
                     alt="Failed to load"
                   />
