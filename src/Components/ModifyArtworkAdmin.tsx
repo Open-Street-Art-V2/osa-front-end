@@ -419,6 +419,8 @@ function ModifyArtWork(props: any) {
     setCity(city);
   }
   const loginCtx = useContext(LoginContext);
+  const [requestError, setRequestError] = React.useState(null);
+  const [requestValid, setRequestValid] = React.useState(null);
 
   async function sendArtwork(artwork: any) {
     dispatchState;
@@ -472,11 +474,31 @@ function ModifyArtWork(props: any) {
         },
       });
       if (res.ok) {
+        const valid: any = "Oeuvre modifier avec succès";
+        setRequestError(null);
+        setRequestValid(valid);
         const jsonData = await res.json();
         console.log(jsonData);
+      } else if (!res.ok) {
+        if (res.status === 409) {
+          throw Error("Une œuvre avec le même titre existe déja.");
+        } else if (res.status === 401) {
+          throw Error("Veuillez vous connecter pour réaliser cette opération.");
+        } else if (res.status === 400) {
+          throw Error("Veuillez saisir une localisation.");
+        } else if (res.status === 407) {
+          throw Error(
+            "L'un des fichiers est trop large (taille maximale 3Mo)."
+          );
+        }
+        throw Error("Le serveur est en cours de maintenance.");
+        console.log(res);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setRequestValid(null);
+      setRequestError(error.message);
+
+      console.log(error.message);
     }
   }
 
@@ -650,6 +672,80 @@ function ModifyArtWork(props: any) {
                 <label className="py-8 font-sans text-2xl authTitle font-bold ">
                   Modifier une oeuvre
                 </label>
+                <div className="px-5 pb-4">
+                  <AnimatePresence initial exitBeforeEnter>
+                    {requestError && (
+                      <motion.div
+                        variants={{
+                          hidden: {
+                            scale: 0.5,
+                            y: "+30vh",
+                            opacity: 0,
+                          },
+                          visible: {
+                            y: "0",
+                            opacity: 1,
+                            scale: 1,
+                            transition: {
+                              duration: 0.5,
+                              type: "spring",
+                              damping: 25,
+                              stiffness: 400,
+                            },
+                          },
+                          exit: {
+                            x: "-30vh",
+                            opacity: 0,
+                            scale: 0.5,
+                            transition: {
+                              duration: 0.3,
+                            },
+                          },
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                      >
+                        <Alert severity="error">{requestError}</Alert>
+                      </motion.div>
+                    )}
+                    {requestValid && (
+                      <motion.div
+                        variants={{
+                          hidden: {
+                            scale: 0.5,
+                            y: "+30vh",
+                            opacity: 0,
+                          },
+                          visible: {
+                            y: "0",
+                            opacity: 1,
+                            scale: 1,
+                            transition: {
+                              duration: 0.5,
+                              type: "spring",
+                              damping: 25,
+                              stiffness: 400,
+                            },
+                          },
+                          exit: {
+                            x: "-30vh",
+                            opacity: 0,
+                            scale: 0.5,
+                            transition: {
+                              duration: 0.3,
+                            },
+                          },
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                      >
+                        <Alert severity="success">{requestValid}</Alert>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 <TextField
                   margin="normal"
