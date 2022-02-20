@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState, useRef } from "react";
 import ReactMapGL, {
   NavigationControl,
@@ -9,7 +10,16 @@ import "./map.css";
 import useSwr from "swr";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
 import { Pin, ArtworkUser } from "../../../Components";
+// added the following 6 lines.
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 // import dataLoc from "./data.json";
 
 // TO BE CHANGED
