@@ -15,7 +15,12 @@ import { styled } from "@mui/system";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
-import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
+import ReactMapGL, {
+  NavigationControl,
+  GeolocateControl,
+  Marker,
+} from "react-map-gl";
+import Pin from "./Pin.map";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Container,
@@ -417,6 +422,11 @@ function CreateArtWork(props: any) {
                 trackUserLocation
                 auto
               />
+              {lat && long && (
+                <Marker latitude={lat} longitude={long}>
+                  <Pin size={20} onClick={() => function () {}} />
+                </Marker>
+              )}
               <div id="add">
                 <button
                   type="button"
@@ -592,7 +602,6 @@ function CreateArtWork(props: any) {
                   Le nombre des images possible entre 1 et 3 avec 3Mo au max
                 </Alert>
               )}
-              <Divider variant="middle" />
 
               <Button
                 style={{
@@ -609,10 +618,10 @@ function CreateArtWork(props: any) {
                 Saisir la position
               </Button>
               {state.isValidPosition === ValidField.ERROR && (
-                <Alert severity="error">
-                  Le nombre des position possible entre 1 et 3 avec 3Mo au max
-                </Alert>
+                <Alert severity="error">Invalide position</Alert>
               )}
+
+              <Divider variant="middle" />
 
               <div className="px-5 pb-3 pt-4">
                 <Button
