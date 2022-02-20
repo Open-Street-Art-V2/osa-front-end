@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
 import { Pin, ArtworkUser } from "../../../Components";
-// added the following 6 lines.
 
 // The following is required to stop "npm build" from transpiling mapbox code.
 // notice the exclamation point in the import.
