@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useContext, useRef, useEffect } from "react";
 import ReactMapGL, {
   NavigationControl,
@@ -150,7 +151,10 @@ function MapAdmin() {
   const loginCtx = useContext(LoginContext);
 
   useEffect(() => {
-    if (!(loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN")) {
+    const user = JSON.parse(localStorage.user);
+    console.log(user.role);
+
+    if (user.role === "ROLE_ADMIN") {
       navigate("/");
     }
   });
