@@ -1,7 +1,24 @@
-import React from "react";
-import { Header } from "../../../Components";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { Header, ArtworkProposal } from "../../../Components";
+import "./ValidateProp.css";
 
 function ValidateProp() {
+  const [allArtwork, setAllArtwork] = useState<any[]>([]);
+  async function getArtwork() {
+    const url = process.env.REACT_APP_GET_ARTWORK;
+    if (url) {
+      const res: Response = await fetch(url);
+      const data = await res.json();
+      // console.log(data);
+      setAllArtwork(data);
+    }
+  }
+
+  useEffect(() => {
+    getArtwork();
+  }, []);
+
   return (
     <div className="container max-width-sm ">
       <Header />
@@ -19,17 +36,34 @@ function ValidateProp() {
           Refuser
         </button>
       </div>
-      <div className="flex">
-        <div className="flex flex-row justify-around form-check w-full h-16 bg-slate-700 text-white rounded-3xl">
-          <input
-            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
+      <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 text-white rounded-3xl shadow-xl mb-2">
+        <input
+          className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-700 rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+          type="checkbox"
+          value=""
+          id="flexCheckDefault"
+        />
+        <p id="propositions" className="content-center col-span-2">
           Propositions
-        </div>
+        </p>
       </div>
+      {allArtwork &&
+        allArtwork.map((Artwork: any) => {
+          return (
+            <div
+              key={Artwork.id}
+              className="grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+            >
+              <input
+                className="justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <ArtworkProposal data={Artwork} />
+            </div>
+          );
+        })}
     </div>
   );
 }
