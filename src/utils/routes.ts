@@ -3,6 +3,7 @@ import SignIn from "../Pages/Guest/SignIn/SignIn";
 import SignUp from "../Pages/Guest/SignUp/SignUp";
 import Map from "../Pages/User/Map/map";
 import FormAdmin from "../Pages/Admin/Form/createForm";
+import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -38,6 +39,11 @@ const routes: routesType = [
     name: "SignUp",
     path: "/sign-up",
     element: SignUp,
+  },
+  {
+    name: "ArtworkModifyAdmin",
+    path: "admin/modifyForm",
+    element: ModifyArtAdmin,
   },
 ];
 

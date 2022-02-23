@@ -263,6 +263,11 @@ function CreateArtWork(props: any) {
   const [lat, setLat] = useState<any>("");
   const [long, setLong] = useState<any>("");
   const handlePositionChange = () => {
+    // const latLong = lat && long ? `${long}, ${lat}` : ` `;
+    // console.log("latLong");
+    getAddr();
+  };
+  useEffect(() => {
     const latLong = lat && long ? `${long}, ${lat}` : ` `;
     console.log(latLong);
     dispatch({
@@ -368,7 +373,6 @@ function CreateArtWork(props: any) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    getAddr();
     sendArtwork(data);
   };
 

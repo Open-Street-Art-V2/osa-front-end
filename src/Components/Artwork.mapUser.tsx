@@ -153,7 +153,7 @@ export default class ArtArtwork extends PureComponent<{
             <div className="text-sky-500 dark:text-sky-400 text-lg mt-3">
               Artiste : {data.artist}
             </div>
-            <div className="text-slate-700 dark:text-slate-500">
+            <div className="text-slate-700 text-sm dark:text-slate-500">
               {data.address}
             </div>
           </figcaption>
