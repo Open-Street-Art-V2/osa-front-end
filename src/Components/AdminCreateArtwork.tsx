@@ -225,8 +225,6 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 function CreateArtWork(props: any) {
-  // MEEEEEEEEEEEEEE
-
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -260,8 +258,8 @@ function CreateArtWork(props: any) {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [lat, setLat] = useState<any>("");
-  const [long, setLong] = useState<any>("");
+  const [lat, setLat] = useState<any>();
+  const [long, setLong] = useState<any>();
   const handlePositionChange = () => {
     // const latLong = lat && long ? `${long}, ${lat}` : ` `;
     // console.log("latLong");
@@ -275,6 +273,17 @@ function CreateArtWork(props: any) {
       value: latLong,
     });
   };
+  useEffect(() => {
+    const latLong = lat && long ? `${long}, ${lat}` : ` `;
+    if (long && lat) {
+      console.log(latLong);
+
+      dispatch({
+        type: "POSITION_CHANGED",
+        value: latLong,
+      });
+    }
+  }, [long]);
 
   const [images, setImages] = useState([]);
 
@@ -292,8 +301,6 @@ function CreateArtWork(props: any) {
   };
 
   useEffect(() => {
-    console.log(images);
-    console.log(images.length.toString());
     if (images.length !== 0) {
       dispatch({
         type: "IMAGES_CHANGED",
@@ -302,8 +309,11 @@ function CreateArtWork(props: any) {
     }
   }, [images]);
 
-  const [addr, setAddr] = React.useState("");
-  const [city, setCity] = React.useState("");
+  const [addr, setAddr] = React.useState("Rouen");
+  const [city, setCity] = React.useState("Rouen");
+
+  const [requestError, setRequestError] = React.useState(null);
+  const [requestValid, setRequestValid] = React.useState(null);
 
   async function getAddr() {
     const url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${long}&zoom=18&addressdetails=1`;
@@ -322,20 +332,10 @@ function CreateArtWork(props: any) {
   const loginCtx = useContext(LoginContext);
 
   async function sendArtwork(artwork: any) {
-    const dataArt = {
-      title: artwork.get("title")?.toString().trim(),
-      artist: artwork.get("artist")?.toString().trim(),
-      description: artwork.get("description")?.toString().trim(),
-      longitude: long,
-      latitude: lat,
-      images: images,
-      address: addr,
-      city: city,
-    };
     dispatchState;
-    const formData = new FormData(); // formdata object
+    const formData = new FormData();
 
-    formData.append("title", artwork.get("title")?.toString().trim()); // append the values with key, value pair
+    formData.append("title", artwork.get("title")?.toString().trim());
     formData.append("artist", artwork.get("artist")?.toString().trim());
     formData.append(
       "description",
@@ -361,11 +361,29 @@ function CreateArtWork(props: any) {
         },
       });
       if (res.ok) {
+        const valid: any = "Oeuvre créer avec succès";
+        setRequestValid(valid);
+        setRequestError(null);
         const jsonData = await res.json();
         console.log(jsonData);
+      } else if (!res.ok) {
+        if (res.status === 409) {
+          throw Error("Une œuvre avec le même titre existe déja.");
+        } else if (res.status === 401) {
+          throw Error("Veuillez vous connecter pour réaliser cette opération.");
+        } else if (res.status === 400) {
+          throw Error(
+            "Les champs titre,description,localisation et images sont requis."
+          );
+        } else if (res.status === 407) {
+          throw Error("Le fichier est trop large.");
+        }
+        throw Error("Le serveur est en cours de maintenance.");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setRequestError(error.message);
+      setRequestValid(null);
+      console.log(error.message);
     }
   }
 
@@ -412,8 +430,6 @@ function CreateArtWork(props: any) {
                 setLat(evt.lngLat[1]);
                 setLong(evt.lngLat[0]);
                 handlePositionChange();
-                console.log(evt.lngLat[1]);
-                console.log(evt.lngLat[0]);
               }}
               ref={mapRef}
               keyboard={false}
@@ -528,6 +544,80 @@ function CreateArtWork(props: any) {
               <p className="py-8 font-sans text-2xl font-bold ">
                 Ajouter une oeuvre
               </p>
+              <div className="px-5 pb-4">
+                <AnimatePresence initial exitBeforeEnter>
+                  {requestError && (
+                    <motion.div
+                      variants={{
+                        hidden: {
+                          scale: 0.5,
+                          y: "+30vh",
+                          opacity: 0,
+                        },
+                        visible: {
+                          y: "0",
+                          opacity: 1,
+                          scale: 1,
+                          transition: {
+                            duration: 0.5,
+                            type: "spring",
+                            damping: 25,
+                            stiffness: 400,
+                          },
+                        },
+                        exit: {
+                          x: "-30vh",
+                          opacity: 0,
+                          scale: 0.5,
+                          transition: {
+                            duration: 0.3,
+                          },
+                        },
+                      }}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <Alert severity="error">{requestError}</Alert>
+                    </motion.div>
+                  )}
+                  {requestValid && (
+                    <motion.div
+                      variants={{
+                        hidden: {
+                          scale: 0.5,
+                          y: "+30vh",
+                          opacity: 0,
+                        },
+                        visible: {
+                          y: "0",
+                          opacity: 1,
+                          scale: 1,
+                          transition: {
+                            duration: 0.5,
+                            type: "spring",
+                            damping: 25,
+                            stiffness: 400,
+                          },
+                        },
+                        exit: {
+                          x: "-30vh",
+                          opacity: 0,
+                          scale: 0.5,
+                          transition: {
+                            duration: 0.3,
+                          },
+                        },
+                      }}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <Alert severity="success">{requestValid}</Alert>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <TextField
                 margin="normal"
@@ -546,7 +636,6 @@ function CreateArtWork(props: any) {
 
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 id="artist"
                 label="Artist"
@@ -612,6 +701,7 @@ function CreateArtWork(props: any) {
                   borderRadius: 35,
                   backgroundColor: "#3a4551",
                   padding: "12px 40px",
+                  margin: "10px 0 10px 0",
                   fontSize: "13px",
                   color: "white",
                 }}
@@ -628,19 +718,6 @@ function CreateArtWork(props: any) {
               <Divider variant="middle" />
 
               <div className="px-5 pb-3 pt-4">
-                <Button
-                  style={{
-                    borderRadius: 35,
-                    backgroundColor: "#00ab55",
-                    padding: "12px 70px",
-                    fontSize: "13px",
-                    color: "white",
-                  }}
-                  type="submit"
-                  variant="contained"
-                >
-                  Valider
-                </Button>
                 <div className="centreD pt-6">
                   <ThemeProvider theme={loadingBtnTheme}>
                     <LoadingButton
@@ -663,7 +740,7 @@ function CreateArtWork(props: any) {
                       // className="loginBtn m-5"
                       //id="loginBtnForm"
                     >
-                      Se connecter
+                      Valider
                     </LoadingButton>
                   </ThemeProvider>
                 </div>

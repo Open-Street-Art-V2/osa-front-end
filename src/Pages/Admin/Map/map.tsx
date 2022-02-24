@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useContext, useRef, useEffect } from "react";
 import ReactMapGL, {
   NavigationControl,
@@ -12,7 +13,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { logout } from "../../Guest/SignIn/SignIn.service";
-// TO BE CHANGED
+
 // eslint-disable-next-line no-unused-vars
 /* type artwork = {
   id: string;
@@ -150,8 +151,8 @@ function MapAdmin() {
   const loginCtx = useContext(LoginContext);
 
   useEffect(() => {
-    console.log(loginCtx);
-    if (!(loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN")) {
+    const user = JSON.parse(localStorage.user);
+    if (user.role !== "ROLE_ADMIN") {
       navigate("/");
     }
   });
@@ -251,6 +252,7 @@ function MapAdmin() {
       {selectedArtWork ? (
         <ArtMap
           data={selectedArtWork.properties}
+          coords={selectedArtWork.geometry.coordinates}
           onClose={() => {
             setselectedArtWork(null);
           }}
