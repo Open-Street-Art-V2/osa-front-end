@@ -263,16 +263,15 @@ function CreateArtWork(props: any) {
   const handlePositionChange = () => {
     // const latLong = lat && long ? `${long}, ${lat}` : ` `;
     // console.log("latLong");
-    getAddr();
-  };
-  useEffect(() => {
     const latLong = lat && long ? `${long}, ${lat}` : ` `;
     console.log(latLong);
     dispatch({
       type: "POSITION_CHANGED",
       value: latLong,
     });
+    getAddr();
   };
+  useEffect(() => {});
   useEffect(() => {
     const latLong = lat && long ? `${long}, ${lat}` : ` `;
     if (long && lat) {
