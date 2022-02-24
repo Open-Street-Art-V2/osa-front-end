@@ -54,6 +54,12 @@ declare module "@mui/material/styles" {
   }
 }
 
+type PicsFiles = {
+  image1File: string;
+  image2File: string;
+  image3File: string;
+};
+
 const loadingBtnTheme = createTheme({
   palette: {
     primary: {
@@ -224,7 +230,7 @@ const dispatchState = function (state: State, action: Action): State {
   }
 };
 
-function CreateArtWork(props: any) {
+function CreateArtWork() {
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -277,18 +283,83 @@ function CreateArtWork(props: any) {
   }, [long]);
 
   const [images, setImages] = useState([]);
+  const [imagesFiles, setImagesFiles] = useState<PicsFiles>({
+    image1File: "",
+    image2File: "",
+    image3File: "",
+  });
 
   const handleImagesChange = ({ target }: any) => {
     setImages(target.files);
-    /* let size = 0;
-    Array.from(target.files).forEach((file: any) => {
-      size += file.size;
-    });
-    console.log(target.files);
-    console.log(size);
-    size < 450
-      ? setImages(target.files)
-      : (state.isValidImages = ValidField.ERROR); */
+    console.log(target.files.length);
+    if (target.files.length > 0) {
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image1File: URL.createObjectURL(target.files[0]),
+      }));
+    }
+    if (target.files.length > 1) {
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image2File: URL.createObjectURL(target.files[1]),
+      }));
+    }
+    if (target.files.length > 2) {
+      setImagesFiles((prevState) => ({
+        ...prevState,
+        image3File: URL.createObjectURL(target.files[2]),
+      }));
+    }
+  };
+
+  const handleImagesChange1 = ({ target }: any) => {
+    let newArr = [...images] as any;
+    newArr[0] = target.files[0];
+
+    setImages(newArr);
+    let src;
+    const reader = new FileReader();
+    reader.onload = function () {
+      src = reader.result;
+    };
+    reader.readAsDataURL(target.files[0]);
+    setImagesFiles((prevState) => ({
+      ...prevState,
+      image1File: URL.createObjectURL(target.files[0]),
+    }));
+  };
+
+  const handleImagesChange2 = ({ target }: any) => {
+    let newArr = [...images] as any;
+    newArr[1] = target.files[1];
+    setImages(newArr);
+    let src;
+    const reader = new FileReader();
+    reader.onload = function () {
+      src = reader.result;
+    };
+    reader.readAsDataURL(target.files[0]);
+    setImagesFiles((prevState) => ({
+      ...prevState,
+      image2File: URL.createObjectURL(target.files[0]),
+    }));
+  };
+
+  const handleImagesChange3 = ({ target }: any) => {
+    let newArr = [...images] as any;
+    newArr[2] = target.files[2];
+    setImages(newArr);
+
+    let src;
+    const reader = new FileReader();
+    reader.onload = function () {
+      src = reader.result;
+    };
+    reader.readAsDataURL(target.files[0]);
+    setImagesFiles((prevState) => ({
+      ...prevState,
+      image3File: URL.createObjectURL(target.files[0]),
+    }));
   };
 
   useEffect(() => {
@@ -630,7 +701,7 @@ function CreateArtWork(props: any) {
                 margin="normal"
                 fullWidth
                 id="artist"
-                label="Artist"
+                label="Artiste*"
                 onChange={handleArtistChange}
                 name="artist"
                 autoComplete="artist"
@@ -681,6 +752,150 @@ function CreateArtWork(props: any) {
                     <PhotoCamera />
                   </IconButton>
                 </label>
+              </div>
+              <div className="grid grid-cols-2 gap-3 content-around py-2">
+                {imagesFiles.image1File && (
+                  <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                    <img
+                      className="w-full rounded-t-3xl m-0"
+                      src={`${imagesFiles.image1File}`}
+                      alt=""
+                      width="384"
+                      height="512"
+                    />
+                    <div className="text-center md:text-left m-0">
+                      <div className="py-2">
+                        {/* <label
+                            htmlFor="icon-button-delelte-file1"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label> */}
+                        <label
+                          htmlFor="icon-button-file1"
+                          className="my-0 ml-0"
+                        >
+                          <input
+                            accept="image/*"
+                            id="icon-button-file1"
+                            onChange={handleImagesChange1}
+                            type="file"
+                            name="file1"
+                            required
+                            hidden
+                          />
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                          >
+                            <PhotoCamera />
+                          </IconButton>
+                        </label>
+                      </div>
+                    </div>
+                  </figure>
+                )}
+
+                {imagesFiles.image2File && (
+                  <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                    <img
+                      className="w-full rounded-t-3xl m-0"
+                      src={`${imagesFiles.image2File}`}
+                      alt=""
+                      width="384"
+                      height="512"
+                    />
+                    <div className="text-center md:text-left m-0">
+                      <div className="py-2">
+                        {/* <label
+                            htmlFor="icon-button-delelte-file2"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture 2"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label> */}
+                        <label
+                          htmlFor="icon-button-file2"
+                          className="my-0 ml-0"
+                        >
+                          <input
+                            accept="image/*"
+                            id="icon-button-file2"
+                            onChange={handleImagesChange2}
+                            type="file"
+                            name="file2"
+                            required
+                            hidden
+                          />
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                          >
+                            <PhotoCamera />
+                          </IconButton>
+                        </label>
+                      </div>
+                    </div>
+                  </figure>
+                )}
+                {imagesFiles.image3File && (
+                  <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
+                    <img
+                      className="w-full rounded-t-3xl m-0"
+                      src={`${imagesFiles.image3File}`}
+                      alt=""
+                      width="384"
+                      height="512"
+                    />
+                    <div className="text-center md:text-left m-0">
+                      <div className="py-2">
+                        {/* <label
+                            htmlFor="icon-button-delelte-file3"
+                            className="my-0 mr-4"
+                          >
+                            <IconButton
+                              aria-label="delelte picture 3"
+                              component="span"
+                            >
+                              <AiFillDelete className="fill-red-500" />
+                            </IconButton>
+                          </label> */}
+                        <label
+                          htmlFor="icon-button-file3"
+                          className="my-0 ml-0"
+                        >
+                          <input
+                            accept="image/*"
+                            id="icon-button-file3"
+                            onChange={handleImagesChange3}
+                            type="file"
+                            name="file3"
+                            required
+                            hidden
+                          />
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture 3"
+                            component="span"
+                          >
+                            <PhotoCamera />
+                          </IconButton>
+                        </label>
+                      </div>
+                    </div>
+                  </figure>
+                )}
               </div>
               {state.isValidImages === ValidField.ERROR && (
                 <Alert severity="error">
