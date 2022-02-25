@@ -5,6 +5,7 @@ import Map from "../Pages/User/Map/map";
 import FormAdmin from "../Pages/Admin/Form/createForm";
 import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
+import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 
 type routesType = {
   name: string;
@@ -47,6 +48,11 @@ const routes: routesType = [
     name: "DetailsProposition",
     path: "admin/details-proposition",
     element: DetailsProposition,
+  },
+  {
+    name: "DetailsContribution",
+    path: "admin/details-contribution",
+    element: DetailsContribution,
   },
 ];
 
