@@ -8,28 +8,29 @@ import "./styles.css";
 function NavBar() {
   return (
     <nav className="navbar-container">
-      <NavLink to="/">
-        <h2 className="d">
+      <NavLink to="/map">
+        <h2>
         b
         </h2>
       </NavLink>
-      <NavLink to="/about">
+      <NavLink to="/search">
         <h2>
           {" "}
 eeef
         </h2>
       </NavLink>
-      <NavLink to="/contact">
+      <NavLink to="/add">
         <h2>
          efefefe
         </h2>
       </NavLink>
-      <NavLink to="/contact">
+      <NavLink to="/profil">
         <h2>
           {" "}
    feefe{" "}
         </h2>
       </NavLink>
+      
     </nav>
   );
 }

@@ -1,26 +1,28 @@
 import * as React from "react";
-
 import { BrowserRouter, Route } from "react-router-dom";
-
 import  NavBar from "./NavBar";
-import  HomePage  from "./Pages/Map/HomePage";
-import  AboutPage  from "./Pages/Map/AboutPage";
-import  ContactPage  from "./Pages/Map/ContactPage";
+import MapPage from "./Pages/Test/MapPage";
+import  SearchPage  from "./Pages/Test/SearchPage";
+import AddPage from "./Pages/Test/AddPage";
+import ProfilPage from "./Pages/Test/ProfilPage";
 
 function App() {
   return (
     
       <BrowserRouter>
-          <Route path="/" >
-            <HomePage />
-          </Route>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route path="/contact">
-            <ContactPage />
-          </Route>
-        <NavBar />
+      <Route path="/map" >
+        <MapPage />
+      </Route>
+      <Route path="/search">
+        <SearchPage />
+      </Route>
+      <Route path="/add">
+        <AddPage />
+      </Route>
+      <Route path="/profil">
+        <ProfilPage />
+      </Route>
+      <NavBar />
       </BrowserRouter>
     
   );
