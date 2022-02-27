@@ -7,16 +7,18 @@ export default function ArtworkProposal(props: any) {
   return (
     <div className="flex flex-row col-span-5">
       <div className="w-32 h-24">
-        <img
-          className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
-          src={`./../${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
-          alt="Failed to load"
-        />
+        {data.pictures[0] && (
+          <img
+            className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
+            src={`./../${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
+            alt="Failed to load"
+          />
+        )}
       </div>
-      <div className="w-44 h-24 overflow-hidden pl-2">
+      <div className="w-44 h-20 overflow-hidden pl-2">
         <div className="flex flex-row justify-between mb-2">
           <div className="font-bold text-slate-900 text-md">{data.title}</div>
-          <div className="text-blue-600 text-xs pt-1">
+          <div className="text-sky-600 text-xs pt-1">
             <Moment date={data.created_at} format="DD/MM/YYYY" />
           </div>
         </div>
