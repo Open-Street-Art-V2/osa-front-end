@@ -22,24 +22,23 @@ export const LoginContext = createContext<LoginContextType>({
 });
 
 function LoginCtxProvider(props: Props) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const userHandler = useCallback((user: User | null) => {
+  const [user, setUser] = useState<User | null>(
+    localStorage.getItem("jwt") && localStorage.getItem("user")
+      ? {
+          ...JSON.parse(localStorage.getItem("user") as string),
+          jwt: localStorage.getItem("jwt"),
+        }
+      : null
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("jwt") && localStorage.getItem("user") ? true : false
+  );
+  const userHandler = (user: User | null) => {
     setUser(user);
-  }, []);
+  };
   const isLoggedInHandler = (loginStatus: boolean) => {
     setIsLoggedIn(loginStatus);
   };
-
-  React.useEffect(() => {
-    if (localStorage.getItem("jwt") && localStorage.getItem("user")) {
-      setUser({
-        ...JSON.parse(localStorage.getItem("user") as string),
-        jwt: localStorage.getItem("jwt"),
-      });
-      setIsLoggedIn(true);
-    }
-  }, []);
 
   return (
     <LoginContext.Provider
