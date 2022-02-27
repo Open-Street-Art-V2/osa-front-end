@@ -6,7 +6,7 @@ import { BsCompass, BsSearch, BsPlusCircle, VscAccount } from "react-icons/all";
 function NavBar() {
   return (
     <nav className="navbar-container">
-      <NavLink to="/map">
+      <NavLink to="/map" >
         <h2>
         <BsCompass />
         </h2>

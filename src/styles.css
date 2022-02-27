@@ -1,10 +1,4 @@
-* {
-    box-sizing: border-box;
-    margin: 5;
-    padding: 0;
-  }
-  
-  html,
+ html,
   body {
     height: 50%;
     width: 100%;
@@ -20,9 +14,5 @@
   }
   
   h2 {
-    color: blanchedalmond;
+    color: gray;
   }
-  .d {
-    color: blue;
-  }
-  

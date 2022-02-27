@@ -8,9 +8,8 @@ import ProfilPage from "./Pages/Test/ProfilPage";
 
 function App() {
   return (
-    
       <BrowserRouter>
-      <Route path="/map" >
+      <Route path="/" >
         <MapPage />
       </Route>
       <Route path="/search">
