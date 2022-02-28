@@ -2,6 +2,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { Alert } from "@mui/material";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import "./ValidateProp.css";
@@ -12,6 +14,7 @@ function ValidateProp() {
   const [isChecked, setIsChecked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const loginCtx = useContext(LoginContext);
@@ -21,44 +24,6 @@ function ValidateProp() {
       navigate("/");
     }
   }, [loginCtx]);
-
-  async function getArtwork() {
-    const url = `${process.env.REACT_APP_GET_PROPOSALS}?page=${currentPage}&limit=10`;
-    if (url) {
-      const res: Response = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${loginCtx.user?.jwt}`,
-        },
-      });
-      const res2 = await res.json();
-      if (res.ok) {
-        const data = res2.items;
-        // console.log(data);
-        const index = 0;
-        setAllArtwork(data);
-        const proposals = new Array(data.length).fill(null).map(() => ({
-          checked: false,
-          id: 0,
-        }));
-
-        // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < data.length; i++) {
-          proposals[i].id = data[i].id;
-          // console.log(data[i].id);
-        }
-        console.log(proposals);
-
-        setCheckedProposals(proposals);
-        const nextPage = currentPage + 1;
-        setCurrentPage(nextPage);
-      }
-    }
-  }
-  useEffect(() => {
-    console.log("hi");
-    getArtwork();
-  }, []);
 
   const handleAllProposalsChange = () => {
     // console.log(isChecked);
@@ -74,24 +39,36 @@ function ValidateProp() {
     setCheckedProposals(updatedCheckedState);
   };
 
-  const handleValidateProposals = () => {
-    console.log(checkedProposals.filter((item: any) => item.checked));
-  };
-
-  async function sendValidatedProposals() {
+  async function sendValidatedProposals(prop: any) {
     const url = process.env.REACT_APP_VALIDATE_PROPOSALS;
     if (url) {
-      /* const res: Response = await fetch(url);
-      const data = await res.json();
-      if (data.ok) {
+      const res: Response = await fetch(url, {
+        method: "POST",
+        body: prop,
+        headers: {
+          authorization: `Bearer ${loginCtx.user?.jwt}`,
+        },
+      });
+      if (res.ok) {
         console.log("done");
-      } */
+      }
     }
   }
 
+  const handleValidateProposals = () => {
+    const prop = checkedProposals.filter((item: any) => item.checked);
+
+    const newArray = prop.map(function (item: any) {
+      // eslint-disable-next-line no-param-reassign
+      delete item.checked;
+      return item;
+    });
+    console.log(prop);
+    console.log(newArray);
+    sendValidatedProposals(newArray);
+  };
+
   async function fetchMoreData() {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
     const url = `${process.env.REACT_APP_GET_PROPOSALS}?page=${currentPage}&limit=10`;
     if (url) {
       const res: Response = await fetch(url, {
@@ -115,17 +92,13 @@ function ValidateProp() {
 
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < data.length; i++) {
-          proposals[i].id = data[i].id;
-          // console.log(data[i].id);
+          proposals[i].id = data[i].id.toString();
         }
-        console.log(proposals);
+        // console.log(proposals);
         setCheckedProposals((old: any) => [...old, ...proposals]);
         const nextPage = currentPage + 1;
         setCurrentPage(nextPage);
-        /* for (let i = 0; i < data.length; i = +1) {
-        proposals[i].id = data[i].id;
-      }
-      console.log(proposals); */
+        setIsLoading(false);
       }
     }
     /* setTimeout(() => {
@@ -134,6 +107,12 @@ function ValidateProp() {
       });
     }, 1500); */
   }
+  const skeletons = [1, 2, 3, 4];
+  useEffect(() => {
+    setIsLoading(true);
+
+    fetchMoreData();
+  }, []);
   return (
     <div className="container">
       <div className="">
@@ -178,11 +157,72 @@ function ValidateProp() {
             fetchMoreData();
           }}
           hasMore={hasMoreProp}
-          loader={<h4>Loading...</h4>}
-          endMessage={<h1>Yay! You have seen it all</h1>}
+          loader={skeletons.map((item: any) => {
+            return (
+              <div
+                key={item}
+                className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+              >
+                <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
+
+                <div className="flex flex-row col-span-5">
+                  <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
+                  <div className="w-44 h-20 overflow-hidden pl-2">
+                    <div className="flex flex-row justify-between mt-3 mb-2">
+                      <div className="h-2 w-24 bg-slate-200 rounded" />
+                      <div className="h-2 w-12 bg-slate-200 rounded pt-1" />
+                    </div>
+                    <div className="mt-5">
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          endMessage={
+            <AnimatePresence initial exitBeforeEnter>
+              <motion.div
+                variants={{
+                  hidden: {
+                    scale: 0.5,
+                    y: "+30vh",
+                    opacity: 0,
+                  },
+                  visible: {
+                    y: "0",
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                      damping: 25,
+                      stiffness: 400,
+                    },
+                  },
+                  exit: {
+                    x: "-30vh",
+                    opacity: 0,
+                    scale: 0.5,
+                    transition: {
+                      duration: 0.3,
+                    },
+                  },
+                }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <Alert severity="success">Yay! You have seen it all</Alert>
+              </motion.div>
+            </AnimatePresence>
+          }
           scrollableTarget="scrollableDiv"
         >
-          {allArtwork &&
+          {!isLoading &&
+            allArtwork.length > 0 &&
             allArtwork.length === checkedProposals.length &&
             allArtwork.map((Artwork: any, index: number) => {
               return (
