@@ -1,5 +1,9 @@
 import React from "react";
 import AdminDetailsProposition from "../../../Components/AdminDetailsProposition";
+import {
+  acceptPropositions,
+  refusePropositions,
+} from "../../../services/propositions.service";
 
 function DetailsProposition() {
   const data = {
@@ -40,7 +44,13 @@ function DetailsProposition() {
     art: null,
   };
 
-  return <AdminDetailsProposition data={data} />;
+  return (
+    <AdminDetailsProposition
+      data={data}
+      accept={acceptPropositions}
+      refuse={refusePropositions}
+    />
+  );
 }
 
 export default DetailsProposition;

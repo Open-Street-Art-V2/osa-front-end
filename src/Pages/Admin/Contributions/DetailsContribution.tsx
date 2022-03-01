@@ -1,5 +1,9 @@
 import React from "react";
-import AdminDetailsContribution from "../../../Components/AdminDetailsContribution";
+import AdminDetailsProposition from "../../../Components/AdminDetailsProposition";
+import {
+  acceptContributions,
+  refuseContributions,
+} from "../../../services/contribution.service";
 
 function DetailsContribution() {
   const initialArt = {
@@ -65,7 +69,13 @@ function DetailsContribution() {
     art: initialArt,
   };
 
-  return <AdminDetailsContribution data={data} />;
+  return (
+    <AdminDetailsProposition
+      data={data}
+      accept={acceptContributions}
+      refuse={refuseContributions}
+    />
+  );
 }
 
 export default DetailsContribution;
