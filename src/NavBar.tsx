@@ -1,32 +1,31 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
 import "./styles.css";
-import { BsCompass, BsSearch, BsPlusCircle, VscAccount } from "react-icons/all";
+import { AiFillAlert } from "react-icons/ai";
 
 function NavBar() {
   return (
     <nav className="navbar-container">
-      <NavLink to="/map" >
+      <NavLink to="/map">
         <h2>
-        <BsCompass />
+          <AiFillAlert />
         </h2>
       </NavLink>
       <NavLink to="/search">
         <h2>
-        <BsSearch />
+          <AiFillAlert />
         </h2>
       </NavLink>
       <NavLink to="/add">
         <h2>
-        <BsPlusCircle />
+          <AiFillAlert />
         </h2>
       </NavLink>
       <NavLink to="/profil">
         <h2>
-        <VscAccount />
+          <AiFillAlert />
         </h2>
       </NavLink>
-      
     </nav>
   );
 }

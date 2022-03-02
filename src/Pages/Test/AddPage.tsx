@@ -1,8 +1,8 @@
 import * as React from "react";
 
 function AddPage() {
-    return (
-      <h1>
+  return (
+    <h1>
       add oeuvre page
       <br />
       <br />
@@ -14,7 +14,6 @@ function AddPage() {
       <br />
       <br />
     </h1>
-     
-    );
-  }
-  export default AddPage;
+  );
+}
+export default AddPage;

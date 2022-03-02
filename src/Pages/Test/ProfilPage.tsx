@@ -1,10 +1,9 @@
 import * as React from "react";
 
 function ProfilPage() {
-    return (
-      <h1>
-        Profil Page
-        <br />
+  return (
+    <h1>
+      Profil Page
       <br />
       <br />
       <br />
@@ -13,7 +12,8 @@ function ProfilPage() {
       <br />
       <br />
       <br />
-      </h1>
-    );
-  }
-  export default ProfilPage;
+      <br />
+    </h1>
+  );
+}
+export default ProfilPage;

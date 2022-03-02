@@ -1,10 +1,9 @@
 import * as React from "react";
 
 function SearchPage() {
-    return (
-      <h1>
-        Search Page
-        <br />
+  return (
+    <h1>
+      Search Page
       <br />
       <br />
       <br />
@@ -13,7 +12,8 @@ function SearchPage() {
       <br />
       <br />
       <br />
-      </h1>
-    );
-  }
-  export default SearchPage;
+      <br />
+    </h1>
+  );
+}
+export default SearchPage;
