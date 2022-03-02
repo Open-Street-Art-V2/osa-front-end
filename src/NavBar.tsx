@@ -1,32 +1,35 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
 import "./styles.css";
-import { AiFillAlert } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlinePlusCircle } from "react-icons/ai";
+import { BsPersonCircle, BsCompass } from "react-icons/bs";
 
 function NavBar() {
   return (
-    <nav className="navbar-container">
-      <NavLink to="/map">
-        <h2>
-          <AiFillAlert />
-        </h2>
-      </NavLink>
-      <NavLink to="/search">
-        <h2>
-          <AiFillAlert />
-        </h2>
-      </NavLink>
-      <NavLink to="/add">
-        <h2>
-          <AiFillAlert />
-        </h2>
-      </NavLink>
-      <NavLink to="/profil">
-        <h2>
-          <AiFillAlert />
-        </h2>
-      </NavLink>
-    </nav>
+    <footer>
+      <nav className="navbar-container">
+        <NavLink to="/map">
+          <h1>
+            <BsCompass />
+          </h1>
+        </NavLink>
+        <NavLink to="/search">
+          <h1>
+            <AiOutlineSearch />
+          </h1>
+        </NavLink>
+        <NavLink to="/add">
+          <h1>
+            <AiOutlinePlusCircle />
+          </h1>
+        </NavLink>
+        <NavLink to="/profil">
+          <h1>
+            <BsPersonCircle />
+          </h1>
+        </NavLink>
+      </nav>
+    </footer>
   );
 }
 export default NavBar;

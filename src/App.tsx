@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 /* import MapPage from "./Pages/Test/MapPage";
 import SearchPage from "./Pages/Test/SearchPage";
 import AddPage from "./Pages/Test/AddPage";
-import ProfilPage from "./Pages/Test/ProfilPage"; */
+import ProfilPage from "./Pages/Test/ProfilPage";  */
 
 function App() {
   return (

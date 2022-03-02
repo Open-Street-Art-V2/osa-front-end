@@ -1,18 +1,20 @@
- html,
-  body {
-    height: 50%;
-    width: 100%;
-    font-size: 16px;
-  }
-  
-  .navbar-container {
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-  
-  h2 {
-    color: gray;
-  }
+html,
+body {
+  height: 50%;
+  width: 100%;
+  font-size: 16px;
+}
+
+.navbar-container {
+  background-color: black;
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+h1 {
+  color: gray;
+}
