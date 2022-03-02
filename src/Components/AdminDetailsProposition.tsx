@@ -13,8 +13,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import Moment from "react-moment";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import { Carousel } from ".";
-import AnimateAlert from "./AnimateAlert";
+import { AnimateAlert, Carousel } from ".";
 
 const loadingBtnTheme = createTheme({
   palette: {

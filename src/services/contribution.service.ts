@@ -3,7 +3,7 @@ export const acceptContributions = (
   contributions: number[],
   token: string | undefined
 ) => {
-  const url = `http://localhost:3008/contribution/validate`;
+  const url = `${process.env.REACT_APP_API}/proposition/contribution/${contributions[0]}`;
   const body = { contributions };
   const authorization = `Bearer ${token}`;
 
@@ -25,7 +25,7 @@ export const refuseContributions = (
   contributionId: number,
   token: string | undefined
 ) => {
-  const url = `http://localhost:3008/contribution/${contributionId}`;
+  const url = `${process.env.REACT_APP_API}/contribution/${contributionId}`;
   const authorization = `Bearer ${token}`;
 
   try {

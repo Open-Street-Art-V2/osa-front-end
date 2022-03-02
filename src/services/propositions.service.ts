@@ -2,7 +2,7 @@ export const acceptPropositions = (
   propositions: number[],
   token: string | undefined
 ) => {
-  const url = `http://localhost:3008/proposition/validate`;
+  const url = `${process.env.REACT_APP_API}/proposition/validate`;
   const body = { propositions };
   const authorization = `Bearer ${token}`;
 
@@ -24,7 +24,7 @@ export const refusePropositions = (
   propositionId: number,
   token: string | undefined
 ) => {
-  const url = `http://localhost:3008/proposition/${propositionId}`;
+  const url = `${process.env.REACT_APP_API}/proposition/${propositionId}`;
   const authorization = `Bearer ${token}`;
 
   try {
