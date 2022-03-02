@@ -9,9 +9,9 @@ function NavBar() {
     <footer>
       <nav className="navbar-container">
         <NavLink to="/map">
-          <h1>
+          <h2>
             <BsCompass />
-          </h1>
+          </h2>
         </NavLink>
         <NavLink to="/search">
           <h1>
@@ -24,7 +24,7 @@ function NavBar() {
           </h1>
         </NavLink>
         <NavLink to="/profil">
-          <h1>
+          <h1 className="size">
             <BsPersonCircle />
           </h1>
         </NavLink>
