@@ -151,11 +151,10 @@ function MapAdmin() {
   const loginCtx = useContext(LoginContext);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.user);
-    if (user.role !== "ROLE_ADMIN") {
+    if (loginCtx.user?.role !== "ROLE_ADMIN") {
       navigate("/");
     }
-  });
+  }, [loginCtx]);
 
   function logoutR() {
     if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
