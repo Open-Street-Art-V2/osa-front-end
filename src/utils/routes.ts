@@ -6,7 +6,6 @@ import FormAdmin from "../Pages/Admin/Form/createForm";
 import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
-import NavBar from "../Components/NavBar";
 
 type routesType = {
   name: string;
