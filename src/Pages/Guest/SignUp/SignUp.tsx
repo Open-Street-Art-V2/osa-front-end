@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import MyStepper from "../../../Components/Stepper";
 import "./SignUp.css";
+// eslint-disable-next-line import/order
 
 const theme = createTheme({
   palette: {

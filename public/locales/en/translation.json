@@ -32,6 +32,10 @@
     "lowercase.character":"Must contain at least one lowercase character",
     "upercase.character":"Must contain at least one upercase character",
     "contain.spaces":"Must not contain spaces",
-    "imdp":"Incorrect password"
+    "imdp":"Incorrect password",
+    "Authentification":"Authentication",
+    "incorrect.coordinates":"Incorrectly entered coordinates",
+    "invalid.mail":"Invalid Email",
+    "connect":"Log in"
 
 }

@@ -32,7 +32,11 @@
     "lowercase.character":"Doit contenir au moins un caractère en minuscule",
     "upercase.character":"Doit contenir au moins un caractère en majuscule",
     "contain.spaces":"Ne doit pas contenir d'espaces",
-    "imdp":"Mot de passe incorrecte"
+    "imdp":"Mot de passe incorrecte",
+    "Authentication":"Authentication",
+    "incorrect.coordinates":"Coordonnées saisies incorrectes",
+    "invalid.mail":"Email invalide",
+    "connect":"Se connecter"
     
 
 }
