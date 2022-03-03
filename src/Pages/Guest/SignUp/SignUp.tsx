@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import MyStepper from "../../../Components/Stepper";
 import "./SignUp.css";
 // eslint-disable-next-line import/order
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -18,6 +19,8 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
+  // eslint-disable-next-line no-unused-vars
+  const { t, i18n } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
       <Box component="div" className="header">
@@ -59,10 +62,10 @@ export default function SignUp() {
 
       <Box sx={{ textAlign: "center", margin: "auto", pt: "40px" }}>
         <Typography variant="subtitle1" gutterBottom component="div">
-          Vous avez un compte ?
+          {t("account")}
         </Typography>
         <Link style={{ fontWeight: 600 }} to="/login">
-          Connectez-vous
+          {t("connect")}
         </Link>
       </Box>
     </ThemeProvider>

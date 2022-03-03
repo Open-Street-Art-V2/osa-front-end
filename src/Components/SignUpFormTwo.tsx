@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { StateTwo } from "../Pages/Guest/SignUp/types/types";
 import { displayPasswordError } from "../Pages/Guest/SignIn/SignIn.service";
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export default function SignUpFormTwo(props: Props) {
+  // eslint-disable-next-line no-unused-vars
+  const { t, i18n } = useTranslation();
   const { dispatchFormTwo, formTwo } = props;
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,13 +67,13 @@ export default function SignUpFormTwo(props: Props) {
                 name="favorite-city"
                 fullWidth
                 id="favorite-city"
-                label="Ville préférée"
+                label={t("favorite.city")}
                 autoFocus
                 onChange={handleCityChange}
                 error={formTwo.isValidFavoriteCity === ValidField.ERROR}
                 helperText={
                   formTwo.isValidFavoriteCity === ValidField.ERROR &&
-                  "La ville est invalide"
+                  t("invalid.city")
                 }
                 value={formTwo.favoriteCity}
               />
@@ -81,7 +84,7 @@ export default function SignUpFormTwo(props: Props) {
                 fullWidth
                 id="password"
                 type="password"
-                label="Mot de passe"
+                label={t("mdp")}
                 name="password"
                 autoComplete="password"
                 onChange={handlePasswordChange}
@@ -103,14 +106,14 @@ export default function SignUpFormTwo(props: Props) {
                 fullWidth
                 id="email"
                 type="password"
-                label="Confirmation du mot de passe"
+                label={t("confirmation.password")}
                 name="confirmation"
                 autoComplete="password"
                 onChange={handleVerifiedPasswordChange}
                 error={formTwo.isValidVerifiedPassword === ValidField.ERROR}
                 helperText={
                   formTwo.isValidVerifiedPassword === ValidField.ERROR &&
-                  "Le mot de passe ne correspond pas"
+                  t("pwd.not.match")
                 }
                 value={formTwo.verifiedPassword}
               />

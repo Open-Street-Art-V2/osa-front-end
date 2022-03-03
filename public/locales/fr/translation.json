@@ -36,7 +36,21 @@
     "Authentication":"Authentication",
     "incorrect.coordinates":"Coordonnées saisies incorrectes",
     "invalid.mail":"Email invalide",
-    "connect":"Se connecter"
+    "connect":"Se connecter",
+    "required.fname": "Le prénom est obligatoire",
+    "fname":"Prénom",
+    "name":"Nom",
+    "required.name":"Le nom est obligatoire",
+    "@.invalid":"L'adresse mail est invalide",
+    "dbrith":"Date de naissance",
+    "years.register":"Vous devez avoir 10 ans minimum pour vous s'inscrire",
+    "favorite.city": "Ville préferée",
+    "invalid.city":"La ville est invalide",
+    "strong.mdp":"Le mot de passe n'est pas assez fort",
+    "confirmation.password":"Confirmation du mot de passe",
+    "pwd.not.match":"Le mot de passe ne correspond pas",
+    "account":" Vous avez un compte ?"
+
     
 
 }

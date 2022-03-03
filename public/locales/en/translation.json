@@ -36,6 +36,19 @@
     "Authentification":"Authentication",
     "incorrect.coordinates":"Incorrectly entered coordinates",
     "invalid.mail":"Invalid Email",
-    "connect":"Log in"
+    "connect":"Log in",
+    "required.fname":"First name is required",
+    "fname":"First name",
+    "name":"Name",
+    "required.name":"The name is required",
+    "@.invalid":"The email address is invalid",
+    "dbrith":"Date of Birth",
+    "years.register":"You must be at least 10 years old to register",
+    "favorite.city":"Favorite city",
+    "invalid.city":"The City is Invalid",
+    "strong.mdp":"The password is not strong enough",
+    "confirmation.password":"Password Confirmation",
+    "pwd.not.match":"Password does not match",
+    "account":"Have an account?"
 
 }
