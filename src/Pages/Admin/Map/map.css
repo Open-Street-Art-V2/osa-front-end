@@ -1,0 +1,88 @@
+.popupCard {
+  max-width: 250px;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  height: fit-content;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 17px;
+  font-family: "Public Sans", sans-serif;
+}
+
+.desc {
+  font-size: 1rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  color: rgb(99, 115, 129);
+}
+
+.cluster-marker {
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.s-1 {
+  width: 35px;
+  height: 35px;
+  @apply text-white;
+  @apply bg-teal-500;
+}
+
+.s-2 {
+  width: 45px;
+  height: 45px;
+  @apply text-white;
+  @apply bg-slate-600;
+}
+
+.s-3 {
+  width: 55px;
+  height: 55px;
+  @apply bg-amber-400;
+}
+
+.popupCard2 {
+  position: absolute;
+  top: 30vh;
+  width: 100%;
+  height: 70vh;
+  overflow: auto;
+  background-color: #fff;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+
+#closeBtn {
+  font-size: 1.6rem;
+  z-index: 2;
+}
+
+#btnPrevImg {
+  @apply opacity-100 !important;
+}
+
+#btnNextImg {
+  @apply opacity-100 !important;
+}
+
+#add {
+  position: absolute;
+  top: 2vh;
+  right: 1vh;
+}
+
+#addBtn {
+  font-size: 1.8rem;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+#logoutBtn {
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+}

@@ -1,20 +1,20 @@
-import * as React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
-import NavBar from "./NavBar";
-/* import MapPage from "./Pages/Test/MapPage";
-import SearchPage from "./Pages/Test/SearchPage";
-import AddPage from "./Pages/Test/AddPage";
-import ProfilPage from "./Pages/Test/ProfilPage";  */
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./Assets/css/App.css";
+import routes from "./utils/routes";
 
 function App() {
   return (
     <BrowserRouter>
-      <Link to="/menu" />
-      <Link to="/search" />
-      <Link to="/map" />
-      <Link to="/add" />
-      <Link to="/profil" />
-      <NavBar />
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            key={route.name}
+            path={route.path}
+            element={<route.element />}
+          />
+        ))}
+      </Routes>
     </BrowserRouter>
   );
 }
