@@ -24,6 +24,7 @@ import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 const schema = yup.object().shape({
   title: yup.string().required(),
@@ -91,6 +92,7 @@ const style = {
   pb: 3,
 };
 function CreateArtWork() {
+  const { t, i18n } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -338,7 +340,7 @@ function CreateArtWork() {
                     animate="visible"
                     exit="exit"
                   >
-                    <Alert severity="error">Position saisie incorrecte</Alert>
+                    <Alert severity="error">t("incorrect.position")</Alert>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -350,7 +352,7 @@ function CreateArtWork() {
                 id="title"
                 name="title"
                 className="w-80 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm drop-shadow-lg "
-                placeholder="Nom de l'oeuvre*"
+                placeholder= {t("art.name")}
               />
               {errors.title && (
                 <div className="mr-52 pt-1 text-red-600">Enter a title</div>
@@ -378,7 +380,7 @@ function CreateArtWork() {
                 id="description"
                 maxLength={CHARACTER_LIMIT}
                 className="@error('description') @enderrorblock h-32 w-80 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm drop-shadow-lg "
-                placeholder="Description de l'oeuvre*"
+                placeholder={t("art.description")}
                 onChange={handleChange("name")}
               />
               <div className="grid-cols-2">
@@ -396,7 +398,7 @@ function CreateArtWork() {
             <Divider variant="middle" />
             <div>
               <p className=" pb-2 pr-20 pt-4 font-sans text-xl font-semibold ">
-                Ajouter des photos
+                t("add.photos")
               </p>
             </div>
 

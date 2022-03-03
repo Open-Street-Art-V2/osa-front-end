@@ -19,6 +19,7 @@ import {
   StateTwo,
 } from "../Pages/Guest/SignUp/types/types";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const dispatchStateTwo = (state: StateTwo, action: ActionTwo) => {
   switch (action.type) {
@@ -72,6 +73,7 @@ const isValidDate = (date: Date) => {
 };
 
 export default function MyStepper() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState<{
@@ -264,7 +266,7 @@ export default function MyStepper() {
                 disabled={!formOne.isValidForm}
                 onClick={handleComplete}
               >
-                Suivant
+                {t("next")}
               </Button>
             ) : (
               <Button
@@ -273,7 +275,7 @@ export default function MyStepper() {
                 disabled={!formTwo.isValidForm}
                 onClick={handleSubmit}
               >
-                S&apos;inscrire
+                {t("registers")}
               </Button>
             )}
           </Box>
@@ -316,7 +318,7 @@ export default function MyStepper() {
                   animate="visible"
                   exit="exit"
                 >
-                  <Alert severity="error">Email saisi est déjà utilisé</Alert>
+                  <Alert severity="error">{t("used.email")}</Alert>
                 </motion.div>
               )}
             </AnimatePresence>

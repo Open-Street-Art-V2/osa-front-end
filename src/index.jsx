@@ -4,6 +4,7 @@ import "./Assets/css/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import LoginCtxProvider from "./Components/Context/LoginCtxProvider";
+import "./i18n";
 
 ReactDOM.render(
   <React.StrictMode>

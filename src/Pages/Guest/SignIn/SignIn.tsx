@@ -19,6 +19,7 @@ import "./SingIn.css";
 import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -76,6 +77,7 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 export default function SignIn() {
+  const { t, i18n } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const [password, setPasssword] = useState("");
 
@@ -256,7 +258,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Mot de passe"
+            label={t("mdp")}
             type="password"
             id="password"
             autoComplete="current-password"
