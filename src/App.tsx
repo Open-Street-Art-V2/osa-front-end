@@ -9,8 +9,9 @@ import ProfilPage from "./Pages/Test/ProfilPage";  */
 function App() {
   return (
     <BrowserRouter>
-      <Link to="/" />
+      <Link to="/menu" />
       <Link to="/search" />
+      <Link to="/map" />
       <Link to="/add" />
       <Link to="/profil" />
       <NavBar />
