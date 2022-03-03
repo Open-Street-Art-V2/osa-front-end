@@ -34,6 +34,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
+import { useTranslation } from 'react-i18next';
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -235,6 +236,7 @@ type PicsFiles = {
   image3File: string;
 };
 function ModifyArtWork(props: any) {
+  const { t, i18n } = useTranslation();
   const [Artwork, setArtwork] = useState<any>(props.data);
   useEffect(() => {
     if (Artwork === undefined) setArtwork(props.data);
@@ -464,26 +466,24 @@ function ModifyArtWork(props: any) {
         },
       });
       if (res.ok) {
-        const valid: any = "Oeuvre modifier avec succès";
+        const valid: any = t("art.modification");
         setRequestError(null);
         setRequestValid(valid);
         const jsonData = await res.json();
         console.log(jsonData);
       } else if (!res.ok) {
         if (res.status === 409) {
-          throw Error("Une œuvre avec le même titre existe déja.");
+          throw Error = t("art.exist");
         } else if (res.status === 401) {
-          throw Error("Veuillez vous connecter pour réaliser cette opération.");
+          throw Error= t("connect.operation");
         } else if (res.status === 400) {
-          throw Error("Veuillez saisir une localisation.");
+          throw Error = t("enter.location");
         } else if (res.status === 413) {
-          throw Error(
-            "L'un des fichiers est trop large (taille maximale 2Mo)."
-          );
+          throw Error = t("file.tlarge");
         } else if (res.status === 413) {
-          throw Error("Le serveur est en cours de maintenance.");
+          throw Error=t("server.maintenance");
         }
-        throw Error("Une oeuvre avec le même titre existe déjà.");
+        throw Error = t("art.title.exist");
         // throw Error("Une erreur est survenue lors de la modification.");
       }
     } catch (error: any) {
@@ -743,13 +743,13 @@ function ModifyArtWork(props: any) {
                     defaultValue: Artwork.title,
                   }}
                   id="title"
-                  label="Titre"
+                  label={t("Title")}
                   onChange={handleTitleChange}
                   name="title"
                   autoComplete="title"
                   error={state.isValidTitle === ValidField.ERROR}
                   helperText={
-                    state.isValidTitle === ValidField.ERROR && "Titre invalide"
+                    state.isValidTitle === ValidField.ERROR && t("invalid.title")
                   }
                 />
                 <TextField
@@ -767,7 +767,7 @@ function ModifyArtWork(props: any) {
                   error={state.isValidArtist === ValidField.ERROR}
                   helperText={
                     state.isValidArtist === ValidField.ERROR &&
-                    "Artist invalide"
+                    t("invalid.artist")
                   }
                 />
                 <TextField
@@ -787,7 +787,7 @@ function ModifyArtWork(props: any) {
                   error={state.isValidDescription === ValidField.ERROR}
                   helperText={
                     state.isValidDescription === ValidField.ERROR &&
-                    "Description doit contenir entre 2 et 250 caractéres"
+                    t("description.characters")
                   }
                 />
 
@@ -949,7 +949,7 @@ function ModifyArtWork(props: any) {
                 </div>
                 {state.isValidImages === ValidField.ERROR && (
                   <Alert severity="error">
-                    Le nombre des images possible entre 1 et 3 avec 2Mo au max
+                {t("images.number")}
                   </Alert>
                 )}
 
@@ -967,10 +967,10 @@ function ModifyArtWork(props: any) {
                   onClick={handleOpen}
                   // className="mt-4 mb-2"
                 >
-                  Saisir la position
+                  {t("position.enter")}
                 </Button>
                 {state.isValidPosition === ValidField.ERROR && (
-                  <Alert severity="error">Position invalide</Alert>
+                  <Alert severity="error">{t("position.invalid")}</Alert>
                 )}
                 <Divider variant="middle" />
                 <div className="centreD p-5 ">

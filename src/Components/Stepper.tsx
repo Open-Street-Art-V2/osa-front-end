@@ -20,6 +20,8 @@ import {
 import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
 import { AnimateAlert } from ".";
 import { LoadingButton } from "@mui/lab";
+import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const dispatchStateOne = (state: StateOne, action: ActionOne) => {
   switch (action.type) {
@@ -132,6 +134,7 @@ const isValidDate = (date: Date) => {
 };
 
 export default function MyStepper() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState<{
@@ -268,7 +271,7 @@ export default function MyStepper() {
                 disabled={!formOne.isValidForm}
                 onClick={handleComplete}
               >
-                Suivant
+                {t("next")}
               </Button>
             ) : (
               <LoadingButton
@@ -278,7 +281,7 @@ export default function MyStepper() {
                 disabled={!formTwo.isValidForm}
                 onClick={handleSubmit}
               >
-                S&apos;inscrire
+               {t("registers")}
               </LoadingButton>
             )}
           </Box>
