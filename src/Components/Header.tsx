@@ -1,6 +1,5 @@
 import React from "react";
 import "../Assets/css/Header.css";
-import "@fontsource/fredoka-one";
 import { AiOutlineSetting } from "react-icons/ai";
 
 export default function Header() {
