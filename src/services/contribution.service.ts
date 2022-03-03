@@ -1,10 +1,9 @@
-// TODO: à remplacer par les bons appels API
 export const acceptContributions = (
   contributions: number[],
   token: string | undefined
 ) => {
-  const url = `${process.env.REACT_APP_API}/proposition/contribution/${contributions[0]}`;
-  const body = { contributions };
+  const url = `${process.env.REACT_APP_API}/contribution/validMany`;
+  const body = { propositions: contributions };
   const authorization = `Bearer ${token}`;
 
   try {
