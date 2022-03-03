@@ -203,7 +203,7 @@ export default function SignIn() {
           className="auth"
           sx={{ mt: 7 }}
         >
-          <div className="authTitle pt-5 pb-12">Authentification</div>
+          <div className="authTitle pt-5 pb-12"> {t("Authentification")}</div>
           <AnimatePresence initial={true} exitBeforeEnter={true}>
             {unauthorizedError && (
               <motion.div
@@ -237,7 +237,7 @@ export default function SignIn() {
                 animate="visible"
                 exit="exit"
               >
-                <Alert severity="error">Coordonnées saisies incorrectes</Alert>
+                <Alert severity="error">{t("incorrect.coordinates")}</Alert>
               </motion.div>
             )}
           </AnimatePresence>
@@ -251,7 +251,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             error={!state.isValidEmail}
-            helperText={!state.isValidEmail && "Email invalide"}
+            helperText={!state.isValidEmail && t("invalid.mail")}
           />
           <TextField
             margin="normal"
@@ -299,7 +299,7 @@ export default function SignIn() {
                 // className="loginBtn m-5"
                 //id="loginBtnForm"
               >
-                Se connecter
+               {t("connect")}
               </LoadingButton>
             </ThemeProvider>
           </div>
@@ -308,7 +308,7 @@ export default function SignIn() {
         <div id="insc" className="py-5">
           <label className="mdpF">Vous n’avez pas de compte ?</label>
           <Link to="/sign-up" id="inscB" className="mdpF">
-            Inscrivez-vous
+            {t("register")}
           </Link>
         </div>
       </Box>
