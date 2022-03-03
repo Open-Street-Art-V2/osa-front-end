@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
-import "./styles.css";
+import "../../src/Assets/css/styles.css";
 import {
   AiOutlineSearch,
   AiOutlinePlusCircle,
