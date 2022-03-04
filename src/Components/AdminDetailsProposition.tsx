@@ -123,10 +123,18 @@ function AdminDetailsProposition(props: Props) {
   const handleAccept = async () => {
     setIsLoading({ ...isLoading, accept: true });
     accept([data?.id], loginCtx.user?.jwt)
-      .then((res) => {
+      .then(async (res) => {
         if (res?.ok) {
-          setRequestValid("Proposition validée avec succès.");
-          setRequestError(null);
+          const jsonRes = await res.json();
+          const { notFound } = jsonRes;
+          // if the proposition has not been found
+          if (notFound.length !== 0) {
+            setRequestValid(null);
+            setRequestError("une erreur est survenue.");
+          } else {
+            setRequestValid("Proposition validée avec succès.");
+            setRequestError(null);
+          }
         } else {
           setRequestValid(null);
           setRequestError("Le serveur est en cours de maintenance.");
