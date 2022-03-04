@@ -11,7 +11,7 @@ import "./ValidateProp.css";
 function ValidateProp() {
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
   const [checkedProposals, setCheckedProposals] = useState([] as any);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isAllChecked, setIsAllChecked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +26,13 @@ function ValidateProp() {
   }, [loginCtx]);
 
   const handleAllProposalsChange = () => {
-    // console.log(isChecked);
-    setIsChecked(!isChecked);
+    // console.log(isAllChecked);
+    const updatedCheckedState = checkedProposals.map((item: any) => ({
+      checked: !isAllChecked,
+      id: item.id,
+    }));
+    setCheckedProposals(updatedCheckedState);
+    setIsAllChecked(!isAllChecked);
   };
 
   // Change Proposal state (true : if checked, flase : if not)
@@ -40,17 +45,34 @@ function ValidateProp() {
   };
 
   async function sendValidatedProposals(prop: any) {
-    const url = process.env.REACT_APP_VALIDATE_PROPOSALS;
+    const url = "http://localhost:3008/proposition/validate";
+    // const formData = new FormData();
+    const proposals = new Array(prop.length).fill(null);
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < prop.length; i++) {
+      // formData.append("propositions", prop[i].id);
+      proposals[i] = Number(prop[i].id);
+      // console.log(prop[i].id);
+    }
+    console.log(proposals);
+    const bodyPost = JSON.stringify({ propositions: proposals });
+    console.log(bodyPost);
     if (url) {
       const res: Response = await fetch(url, {
         method: "POST",
-        body: prop,
+        body: bodyPost,
         headers: {
+          "Content-Type": "application/json",
           authorization: `Bearer ${loginCtx.user?.jwt}`,
         },
       });
       if (res.ok) {
         console.log("done");
+        /* const newAllArtwork = allArtwork.filter((item: any) => item.id !== "8");
+        console.log(newAllArtwork);
+        setCheckedProposals([]);
+        React.useCallback(() => setAllArtwork(newAllArtwork), []); */
+        window.location.reload();
       }
     }
   }
@@ -66,6 +88,50 @@ function ValidateProp() {
     console.log(prop);
     console.log(newArray);
     sendValidatedProposals(newArray);
+  };
+
+  async function sendDeleteProposals(prop: any) {
+    const url = "http://localhost:3008/proposition";
+    // const formData = new FormData();
+    const proposals = new Array(prop.length).fill(null);
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < prop.length; i++) {
+      // formData.append("propositions", prop[i].id);
+      proposals[i] = Number(prop[i].id);
+      // console.log(prop[i].id);
+    }
+    console.log(proposals);
+    const bodyPost = JSON.stringify({ propositions: proposals });
+    console.log(bodyPost);
+    if (url) {
+      const res: Response = await fetch(url, {
+        method: "DELETE",
+        body: bodyPost,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${loginCtx.user?.jwt}`,
+        },
+      });
+      if (res.ok) {
+        console.log("DELETE : done");
+        /* const newAllArtwork = allArtwork.filter((item: any) => item.id !== "8");
+        console.log(newAllArtwork);
+        setCheckedProposals([]);
+        React.useCallback(() => setAllArtwork(newAllArtwork), []); */
+        // window.location.reload();
+      }
+    }
+  }
+
+  const handleDeleteProposals = () => {
+    const prop = checkedProposals.filter((item: any) => item.checked);
+
+    const newArray = prop.map(function (item: any) {
+      // eslint-disable-next-line no-param-reassign
+      delete item.checked;
+      return item;
+    });
+    sendDeleteProposals(newArray);
   };
 
   async function fetchMoreData() {
@@ -94,25 +160,21 @@ function ValidateProp() {
         for (let i = 0; i < data.length; i++) {
           proposals[i].id = data[i].id.toString();
         }
-        // console.log(proposals);
         setCheckedProposals((old: any) => [...old, ...proposals]);
         const nextPage = currentPage + 1;
         setCurrentPage(nextPage);
         setIsLoading(false);
       }
     }
-    /* setTimeout(() => {
-      setAllArtwork({
-        items: allArtwork.concat(Array.from({ length: 20 })),
-      });
-    }, 1500); */
   }
   const skeletons = [1, 2, 3, 4];
+
   useEffect(() => {
     setIsLoading(true);
 
     fetchMoreData();
   }, []);
+
   return (
     <div className="container">
       <div className="">
@@ -130,17 +192,37 @@ function ValidateProp() {
           <button
             type="button"
             className="w-28 h-10 bg-red-500 text-white rounded-3xl"
+            onClick={() => {
+              handleDeleteProposals();
+            }}
           >
             Refuser
           </button>
         </div>
+        <div className="flex justify-center mb-5">
+          <div className="form-check form-switch">
+            <input
+              className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
+              type="checkbox"
+              role="switch"
+              // onChange={handleSwitchChange}
+              id="flexSwitchCheckDefault"
+            />
+            <p
+              className="form-check-label inline-block text-gray-800"
+              // htmlFor="flexSwitchCheckDefault"
+            >
+              Default switch checkbox input
+            </p>
+          </div>
+        </div>
         <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 text-white rounded-3xl shadow-xl">
           <input
-            className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-700 rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+            className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-500 rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
             type="checkbox"
             name="allPropsCheck"
             value=""
-            checked={isChecked}
+            checked={isAllChecked}
             onChange={handleAllProposalsChange}
             id="flexCheckDefault"
           />
@@ -153,7 +235,6 @@ function ValidateProp() {
         <InfiniteScroll
           dataLength={allArtwork.length}
           next={() => {
-            console.log("hola");
             fetchMoreData();
           }}
           hasMore={hasMoreProp}
