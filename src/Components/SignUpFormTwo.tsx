@@ -7,6 +7,8 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { StateTwo } from "../Pages/Guest/SignUp/types/types";
+import { displayPasswordError } from "../Pages/Guest/SignIn/SignIn.service";
+import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
 
 type Props = {
   formTwo: StateTwo;
@@ -86,7 +88,11 @@ export default function SignUpFormTwo(props: Props) {
                 error={formTwo.isValidPassword === ValidField.ERROR}
                 helperText={
                   formTwo.isValidPassword === ValidField.ERROR &&
-                  "Le mot de passe n'est pas assez fort"
+                  displayPasswordError(
+                    passwordValidator.validate(formTwo.password, {
+                      list: true,
+                    }) as string[]
+                  )
                 }
                 value={formTwo.password}
               />

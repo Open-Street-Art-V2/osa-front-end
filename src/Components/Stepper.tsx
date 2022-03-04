@@ -19,6 +19,7 @@ import {
   StateTwo,
 } from "../Pages/Guest/SignUp/types/types";
 import { AnimatePresence, motion } from "framer-motion";
+import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
 
 const dispatchStateTwo = (state: StateTwo, action: ActionTwo) => {
   switch (action.type) {
@@ -37,14 +38,16 @@ const dispatchStateTwo = (state: StateTwo, action: ActionTwo) => {
           state.isValidVerifiedPassword === ValidField.OK,
       };
     case "PASSWORD_CHANGED":
+      const validationErrs: any[] = passwordValidator.validate(action.value, {
+        list: true,
+      }) as any[];
       return {
         ...state,
         password: action.value,
-        isValidPassword: validator.isStrongPassword(action.value)
-          ? ValidField.OK
-          : ValidField.ERROR,
+        isValidPassword:
+          validationErrs.length == 0 ? ValidField.OK : ValidField.ERROR,
         isValidForm:
-          validator.isStrongPassword(action.value) &&
+          validationErrs.length == 0 &&
           state.isValidFavoriteCity === ValidField.OK &&
           state.isValidVerifiedPassword === ValidField.OK,
       };
