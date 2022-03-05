@@ -4,7 +4,9 @@ import { IconButton } from "@material-ui/core";
 import { PhotoCamera } from "@mui/icons-material";
 import { AiFillDelete } from "react-icons/ai";
 import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";
+import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
+
 const Input = styled("input")({
   display: "none",
 });
@@ -184,51 +186,57 @@ function FileUpload(props: any) {
   }
   return (
     <>
-      <div className="text-center ">
-        <label htmlFor="icon-button-file">
-          <input
-            accept="image/*"
-            id="icon-button-file"
-            onChange={handleImagesChange}
-            type="file"
-            multiple
-            required
-            hidden
-          />
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-          >
-            <PhotoCamera />
-          </IconButton>
-        </label>
+      <div className="flex justify-center ">
+        {images.length === 0 && (
+          <div className="rounded-full bg-gray-100 w-12 ">
+            <label htmlFor="icon-button-file">
+              <input
+                accept="image/*"
+                id="icon-button-file"
+                onChange={handleImagesChange}
+                type="file"
+                multiple
+                required
+                hidden
+              />
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+              >
+                <PhotoCamera sx={{ color: "#3a4551", fontSize: 23 }} />
+              </IconButton>
+            </label>
+          </div>
+        )}
+        {(images.length === 1 || images.length === 2) && (
+          <div className="rounded-full bg-gray-100 w-12">
+            <label htmlFor="icon-add-file">
+              <Input
+                accept="image/*"
+                onChange={addImage}
+                hidden
+                id="icon-add-file"
+                type="file"
+              />
+              <IconButton aria-label="icon-add-file" component="span">
+                <AddAPhotoRoundedIcon sx={{ color: "#3a4551", fontSize: 23 }} />
+              </IconButton>
+            </label>
+          </div>
+        )}
       </div>
-      {(images.length === 1 || images.length === 2) && (
-        <label htmlFor="icon-add-file">
-          <Input
-            accept="image/*"
-            onChange={addImage}
-            hidden
-            id="icon-add-file"
-            type="file"
-          />
-          <IconButton aria-label="icon-add-file" component="span">
-            <AddAPhotoRoundedIcon />
-          </IconButton>
-        </label>
-      )}
-      <div className="flex justify-start grid-rows-2 gap-3 content-around py-2">
+
+      <div className="flex justify-center grid-col-2 gap-2 content-around py-2">
         {imagesFiles.image1File && (
-          <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
-            <img
-              className="w-full rounded-t-3xl m-0"
-              src={`${imagesFiles.image1File}`}
+          <div>
+            <Avatar
+              variant={"rounded"}
               alt=""
-              width="384"
-              height="512"
-            />
-            <div className="text-center md:text-left m-0">
+              src={`${imagesFiles.image1File}`}
+              sx={{ width: 180, height: 180 }}
+            ></Avatar>
+            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
               <div className="py-2">
                 <label
                   htmlFor="icon-button-delelte-file1"
@@ -262,26 +270,24 @@ function FileUpload(props: any) {
                 </label>
               </div>
             </div>
-          </figure>
+          </div>
         )}
-
         {imagesFiles.image2File && (
-          <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
-            <img
-              className="w-full rounded-t-3xl m-0"
-              src={`${imagesFiles.image2File}`}
+          <div>
+            <Avatar
+              variant={"rounded"}
               alt=""
-              width="384"
-              height="512"
-            />
-            <div className="text-center md:text-left m-0">
+              src={`${imagesFiles.image2File}`}
+              sx={{ width: 180, height: 180 }}
+            ></Avatar>
+            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
               <div className="py-2">
                 <label
-                  htmlFor="icon-button-delelte-file2"
+                  htmlFor="icon-button-delelte-file1"
                   className="my-0 mr-4"
                 >
                   <IconButton
-                    aria-label="delelte picture 2"
+                    aria-label="delelte picture"
                     component="span"
                     onClick={removeImage2}
                   >
@@ -294,7 +300,7 @@ function FileUpload(props: any) {
                     id="icon-button-file2"
                     onChange={handleImagesChange2}
                     type="file"
-                    name="file2"
+                    name="file1"
                     required
                     hidden
                   />
@@ -308,27 +314,23 @@ function FileUpload(props: any) {
                 </label>
               </div>
             </div>
-          </figure>
+          </div>
         )}
       </div>
-      <div className="grid  grid-cols-2 gap-3 content-around py-2">
+      <div className="flex justify-center  content-around py-2">
         {imagesFiles.image3File && (
-          <figure className="flex flex-col bg-slate-100 w-full h-full rounded-3xl">
-            <img
-              className="w-full rounded-t-3xl m-0"
-              src={`${imagesFiles.image3File}`}
+          <div>
+            <Avatar
+              variant={"rounded"}
               alt=""
-              width="384"
-              height="512"
-            />
-            <div className="text-center md:text-left m-0">
+              src={`${imagesFiles.image3File}`}
+              sx={{ width: 180, height: 180 }}
+            ></Avatar>
+            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
               <div className="py-2">
-                <label
-                  htmlFor="icon-button-delelte-file3"
-                  className="my-0 mr-4"
-                >
+                <label htmlFor="icon-button-delelte-file" className="my-0 mr-4">
                   <IconButton
-                    aria-label="delelte picture 3"
+                    aria-label="delelte picture"
                     component="span"
                     onClick={removeImage3}
                   >
@@ -341,13 +343,13 @@ function FileUpload(props: any) {
                     id="icon-button-file3"
                     onChange={handleImagesChange3}
                     type="file"
-                    name="file3"
+                    name="file1"
                     required
                     hidden
                   />
                   <IconButton
                     color="primary"
-                    aria-label="upload picture 3"
+                    aria-label="upload picture"
                     component="span"
                   >
                     <PhotoCamera />
@@ -355,7 +357,7 @@ function FileUpload(props: any) {
                 </label>
               </div>
             </div>
-          </figure>
+          </div>
         )}
       </div>
     </>
