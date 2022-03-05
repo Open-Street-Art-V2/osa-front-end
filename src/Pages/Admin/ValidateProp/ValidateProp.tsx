@@ -15,6 +15,7 @@ function ValidateProp() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [isContributions, setIsContributions] = useState(false);
 
   const navigate = useNavigate();
   const loginCtx = useContext(LoginContext);
@@ -45,7 +46,12 @@ function ValidateProp() {
   };
 
   async function sendValidatedProposals(prop: any) {
-    const url = "http://localhost:3008/proposition/validate";
+    let url = "";
+    if (!isContributions) {
+      url = "http://localhost:3008/proposition/validate";
+    } else {
+      url = "http://localhost:3008/contribution/validMany";
+    }
     // const formData = new FormData();
     const proposals = new Array(prop.length).fill(null);
     // eslint-disable-next-line no-plusplus
@@ -91,7 +97,12 @@ function ValidateProp() {
   };
 
   async function sendDeleteProposals(prop: any) {
-    const url = "http://localhost:3008/proposition";
+    let url = "";
+    if (!isContributions) {
+      url = "http://localhost:3008/proposition";
+    } else {
+      url = "http://localhost:3008/contribution";
+    }
     // const formData = new FormData();
     const proposals = new Array(prop.length).fill(null);
     // eslint-disable-next-line no-plusplus
@@ -162,6 +173,7 @@ function ValidateProp() {
         }
         setCheckedProposals((old: any) => [...old, ...proposals]);
         const nextPage = currentPage + 1;
+        console.log(nextPage);
         setCurrentPage(nextPage);
         setIsLoading(false);
       }
@@ -170,10 +182,76 @@ function ValidateProp() {
   const skeletons = [1, 2, 3, 4];
 
   useEffect(() => {
-    setIsLoading(true);
-
-    fetchMoreData();
+    // setIsLoading(true);
+    // fetchMoreData();
   }, []);
+
+  async function fetchMoreDataContrib() {
+    console.log("hi");
+    const url = `${process.env.REACT_APP_VALIDATE_CONTRIBUTION}?page=${currentPage}&limit=10`;
+    if (url) {
+      const res: Response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${loginCtx.user?.jwt}`,
+        },
+      });
+      const res2 = await res.json();
+      if (res.ok) {
+        const data = res2.items;
+        // console.log(data);
+        if (data.length < 1) {
+          setHasMoreProp(false);
+        }
+        setAllArtwork((old: any) => [...old, ...data]);
+        const proposals = new Array(data.length).fill(null).map(() => ({
+          checked: false,
+          id: 0,
+        }));
+
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < data.length; i++) {
+          proposals[i].id = data[i].id.toString();
+        }
+        setCheckedProposals((old: any) => [...old, ...proposals]);
+        const nextPage = currentPage + 1;
+        console.log(nextPage);
+        setCurrentPage(nextPage);
+        setIsLoading(false);
+      }
+    }
+  }
+
+  function handleSwitchChange() {
+    console.log("switch change");
+    setCheckedProposals([]);
+    setIsAllChecked(false);
+    setHasMoreProp(true);
+    setIsLoading(true);
+    setAllArtwork([]);
+    setCurrentPage(1);
+
+    /* if (isContributions) {
+      console.log("fetchMoreData");
+      console.log(currentPage);
+      fetchMoreData();
+    } else {
+      console.log("fetchMoreDataContrib");
+      console.log(currentPage);
+      fetchMoreDataContrib();
+    } */
+    setIsContributions(!isContributions);
+  }
+
+  useEffect(() => {
+    if (currentPage === 1) {
+      if (isContributions) {
+        fetchMoreDataContrib();
+      } else {
+        fetchMoreData();
+      }
+    }
+  }, [currentPage]);
 
   return (
     <div className="container">
@@ -205,15 +283,13 @@ function ValidateProp() {
               className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
               type="checkbox"
               role="switch"
-              // onChange={handleSwitchChange}
+              onChange={handleSwitchChange}
               id="flexSwitchCheckDefault"
             />
             <p
               className="form-check-label inline-block text-gray-800"
               // htmlFor="flexSwitchCheckDefault"
-            >
-              Default switch checkbox input
-            </p>
+            />
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 text-white rounded-3xl shadow-xl">
@@ -235,7 +311,15 @@ function ValidateProp() {
         <InfiniteScroll
           dataLength={allArtwork.length}
           next={() => {
-            fetchMoreData();
+            if (!isContributions) {
+              console.log("fetchMoreData");
+              console.log(currentPage);
+              fetchMoreData();
+            } else {
+              console.log("fetchMoreDataContrib");
+              console.log(currentPage);
+              fetchMoreDataContrib();
+            }
           }}
           hasMore={hasMoreProp}
           loader={skeletons.map((item: any) => {
