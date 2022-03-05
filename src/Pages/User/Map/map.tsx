@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
@@ -7,9 +7,10 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
+import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 // import dataLoc from "./data.json";
 
 // TO BE CHANGED
@@ -62,6 +63,7 @@ type point = {
 } */
 
 function Map() {
+  const loginCtx = useContext(LoginContext);
   // DEFAULT MAP STATE
   const [viewport, setViewport] = useState({
     latitude: 49.43424,
@@ -227,10 +229,27 @@ function Map() {
             <AiOutlineUser />
           </button>
         </Link>
+        {loginCtx.isLoggedIn && (
+          <div id="" className="absolute top-14 right-0.5">
+            <Link
+              to="/user/ProposeArtwork"
+              className="inline-flex items-center w-10 h-10"
+            >
+              <button
+                type="button"
+                id="proposeBtn"
+                className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
+              >
+                <AiOutlinePlus />
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
       {selectedArtWork ? (
         <ArtworkUser
           data={selectedArtWork.properties}
+          coords={selectedArtWork.geometry.coordinates}
           onClose={() => {
             setselectedArtWork(null);
           }}
