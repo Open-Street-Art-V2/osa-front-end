@@ -6,10 +6,7 @@
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-<<<<<<< HEAD
     "@fontsource/fredoka-one": "^4.5.2",
-=======
->>>>>>> feature/UserArtworkProposal
     "@hookform/resolvers": "^2.8.8",
     "@material-ui/core": "^4.12.3",
     "@mui/base": "^5.0.0-alpha.68",
