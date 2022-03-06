@@ -33,7 +33,7 @@
     "react-icons": "^4.3.1",
     "react-map-gl": "^6.1.19",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.0",
     "swr": "^1.2.1",
     "tw-elements": "^1.0.0-alpha10",
     "typescript": "^4.5.5",
