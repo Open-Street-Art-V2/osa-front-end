@@ -195,6 +195,32 @@ function ValidateProp() {
         </div>
       </div>
       <div id="scrollableDiv" className="overflow-auto h-[calc(100vh-284px)]">
+        {isLoading &&
+          skeletons.map((item: any) => {
+            return (
+              <div
+                key={item}
+                className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+              >
+                <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
+
+                <div className="flex flex-row col-span-5">
+                  <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
+                  <div className="w-44 h-20 overflow-hidden pl-2">
+                    <div className="flex flex-row justify-between mt-3 mb-2">
+                      <div className="h-2 w-24 bg-slate-200 rounded" />
+                      <div className="h-2 w-12 bg-slate-200 rounded pt-1" />
+                    </div>
+                    <div className="mt-5">
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                      <div className="h-2 bg-slate-200 rounded mb-2" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         <InfiniteScroll
           dataLength={allArtwork.length}
           next={() => {
