@@ -5,17 +5,21 @@ import {
   acceptPropositions,
   refusePropositions,
 } from "../../../services/propositions.service";
+import NavBar from "../../../Components/NavBar";
 
 function DetailsProposition() {
   const location = useLocation();
   const { data } = location.state as any;
 
   return (
-    <AdminDetailsProposition
-      data={data}
-      accept={acceptPropositions}
-      refuse={refusePropositions}
-    />
+    <>
+      <AdminDetailsProposition
+        data={data}
+        accept={acceptPropositions}
+        refuse={refusePropositions}
+      />
+      <NavBar />
+    </>
   );
 }
 

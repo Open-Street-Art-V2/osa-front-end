@@ -10,6 +10,8 @@ import useSwr from "swr";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
+import NavBarUser from "../../../Components/NavBarUser";
+
 // import dataLoc from "./data.json";
 
 // TO BE CHANGED
@@ -236,6 +238,7 @@ function Map() {
           }}
         />
       ) : null}
+      <NavBarUser />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import {
   rejectProposals,
   getProposals,
 } from "./ValidateProp.service";
+import NavBar from "../../../Components/NavBar";
 
 function ValidateProp() {
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
@@ -125,7 +126,7 @@ function ValidateProp() {
     <div className="container">
       <div className="">
         <Header />
-        <div className="flex flex-row justify-around px-10 p-5">
+        <div className="flex flex-row justify-around p-5">
           <button
             type="button"
             className="w-28 h-10 bg-green-500 text-white rounded-3xl"
@@ -194,7 +195,10 @@ function ValidateProp() {
           )}
         </div>
       </div>
-      <div id="scrollableDiv" className="overflow-auto h-[calc(100vh-284px)]">
+      <div
+        id="scrollableDiv"
+        className="overflow-auto h-[calc(100vh-364px)] pb-12"
+      >
         {isLoading &&
           skeletons.map((item: any) => {
             return (
@@ -304,6 +308,7 @@ function ValidateProp() {
             })}
         </InfiniteScroll>
       </div>
+      <NavBar />
     </div>
   );
 }

@@ -5,17 +5,21 @@ import {
   acceptContributions,
   refuseContributions,
 } from "../../../services/contribution.service";
+import NavBar from "../../../Components/NavBar";
 
 function DetailsContribution() {
   const location = useLocation();
   const { data } = location.state as any;
 
   return (
-    <AdminDetailsProposition
-      data={data}
-      accept={acceptContributions}
-      refuse={refuseContributions}
-    />
+    <>
+      <AdminDetailsProposition
+        data={data}
+        accept={acceptContributions}
+        refuse={refuseContributions}
+      />
+      <NavBar />
+    </>
   );
 }
 

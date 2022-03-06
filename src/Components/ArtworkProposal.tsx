@@ -6,7 +6,7 @@ export default function ArtworkProposal(props: any) {
   // console.log(data);
   return (
     <div className="flex flex-row col-span-5">
-      <div className="w-32 h-24">
+      <div className="flex-none w-28 h-24">
         {data.pictures[0] && (
           <img
             className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
@@ -15,9 +15,9 @@ export default function ArtworkProposal(props: any) {
           />
         )}
       </div>
-      <div className="w-44 h-20 overflow-hidden pl-2">
+      <div className="grow h-20 overflow-hidden ml-2">
         <div className="flex flex-row justify-between mb-2">
-          <div className="font-bold text-slate-900 text-md overflow-hidden w-24">
+          <div className="font-bold text-slate-900 text-base overflow-hidden w-16">
             {data.title}
           </div>
           <div className="text-sky-600 text-xs pt-1 overflow-hidden">
