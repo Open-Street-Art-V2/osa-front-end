@@ -20,7 +20,6 @@ import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
-import Header from "../../../Components/Header";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -148,7 +147,6 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Header/>
       <Box
         sx={{
           marginTop: 0,
@@ -278,7 +276,7 @@ export default function SignIn() {
           />
 
           <Link to="#" id="mdpF" className="mdpF pt-2">
-            <label> Mot de passe oublié ?</label>
+            <label>{t("mdpF")}</label>
           </Link>
           <div className="centreD pt-6">
             <ThemeProvider theme={loadingBtnTheme}>

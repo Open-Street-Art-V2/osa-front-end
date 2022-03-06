@@ -49,7 +49,9 @@
     "strong.mdp":"Le mot de passe n'est pas assez fort",
     "confirmation.password":"Confirmation du mot de passe",
     "pwd.not.match":"Le mot de passe ne correspond pas",
-    "account":" Vous avez un compte ?"
+    "account":" Vous avez un compte ?",
+    "mdpF":"Mot de passe oublié ?"
+
 
     
 
