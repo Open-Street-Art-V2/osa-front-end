@@ -4,6 +4,10 @@ import SignUp from "../Pages/Guest/SignUp/SignUp";
 import Map from "../Pages/User/Map/map";
 import FormAdmin from "../Pages/Admin/Form/createForm";
 import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
+import ProposeArtUser from "../Pages/User/Forms/propositionForm";
+import ContributionToArt from "../Pages/User/Forms/contributionForm";
+import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
+import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -44,6 +48,26 @@ const routes: routesType = [
     name: "ArtworkModifyAdmin",
     path: "admin/modifyForm",
     element: ModifyArtAdmin,
+  },
+  {
+    name: "ContributionArtUser",
+    path: "user/contribution",
+    element: ContributionToArt,
+  },
+  {
+    name: "ArtworkProposeUser",
+    path: "user/ProposeArtwork",
+    element: ProposeArtUser,
+  },
+  {
+    name: "DetailsProposition",
+    path: "admin/details-proposition",
+    element: DetailsProposition,
+  },
+  {
+    name: "DetailsContribution",
+    path: "admin/details-contribution",
+    element: DetailsContribution,
   },
 ];
 
