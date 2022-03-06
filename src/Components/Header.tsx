@@ -5,10 +5,12 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { GrLanguage } from "react-icons/gr";
 import { BiLogOut } from "react-icons/bi";
 import ReactCountryFlag from "react-country-flag";
+import { useTranslation } from "react-i18next";
 import { logout } from "../Pages/Guest/SignIn/SignIn.service";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
 export default function Header() {
+  const { i18n } = useTranslation();
   const [showModal, setShowModal] = React.useState(false);
   const loginCtx = useContext(LoginContext);
 
@@ -80,7 +82,9 @@ export default function Header() {
                       <button
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
-                        onClick={() => {}}
+                        onClick={() => {
+                          i18n.changeLanguage("fr");
+                        }}
                       >
                         Francais
                       </button>
@@ -103,7 +107,9 @@ export default function Header() {
                       <button
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
-                        onClick={() => {}}
+                        onClick={() => {
+                          i18n.changeLanguage("en");
+                        }}
                       >
                         Anglais
                       </button>
