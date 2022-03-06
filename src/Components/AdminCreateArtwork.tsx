@@ -39,7 +39,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 declare module "@mui/material/styles" {
   interface Theme {
