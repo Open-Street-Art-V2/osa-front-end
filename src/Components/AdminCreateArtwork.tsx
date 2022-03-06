@@ -20,7 +20,6 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
 
 declare module "@mui/material/styles" {
@@ -36,10 +35,6 @@ declare module "@mui/material/styles" {
     };
   }
 }
-=======
-import FormMap from "./FormMap";
-import FileUploader from "./FileUploader";
->>>>>>> feature/UserArtworkProposal
 
 const loadingBtnTheme = createTheme({
   palette: {
@@ -175,12 +170,8 @@ const dispatchState = function (state: State, action: Action): State {
   }
 };
 
-<<<<<<< HEAD
 function CreateArtWork(props: any) {
   const { t, i18n } = useTranslation();
-=======
-function CreateArtWork() {
->>>>>>> feature/UserArtworkProposal
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -252,7 +243,6 @@ function CreateArtWork() {
   }, [images]);
 
   async function getAddr() {
-<<<<<<< HEAD
     const url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${long}&zoom=18&addressdetails=1`;
     const res: Response = await fetch(url);
     const data = await res.json();
@@ -262,21 +252,6 @@ function CreateArtWork() {
       city = data.features[0].properties.address.town;
       if (city === undefined) {
         city = t("Ocean");
-=======
-    const url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${long}&zoom=14&addressdetails=1&accept-language=<browser language string>`;
-    try {
-      const res: Response = await fetch(url);
-      if (res.ok) {
-        const data = await res.json();
-        setAddr(data.features[0].properties.display_name);
-        const artCity = data.features[0].properties.address.municipality;
-        if (artCity === undefined) {
-          setAddr("Rouen");
-          throw Error("Veuillez choisir une position valide.");
-        }
-        setCity(artCity);
-        setAddrRequestError(null);
->>>>>>> feature/UserArtworkProposal
       }
     } catch (error: any) {
       if (
@@ -336,17 +311,11 @@ function CreateArtWork() {
         if (res.status === 409) {
           throw Error = t("art.title.exist");
         } else if (res.status === 401) {
-<<<<<<< HEAD
           throw Error = t("connect.operation");
         } else if (res.status === 400) {
           throw Error = t("fields.required");
         } else if (res.status === 407) {
           throw Error = t("file.large");
-=======
-          throw Error("Veuillez vous connecter pour réaliser cette opération.");
-        } else if (res.status === 407) {
-          throw Error("L'un des fichiers est trop large.");
->>>>>>> feature/UserArtworkProposal
         }
         throw Error = t("server.maintenance");
       }
@@ -421,7 +390,6 @@ function CreateArtWork() {
               </defs>
             </svg>
           </div>
-<<<<<<< HEAD
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -460,33 +428,6 @@ function CreateArtWork() {
                           transition: {
                             duration: 0.3,
                           },
-=======
-        </div>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
-          <div className="text-center">
-            <p className="py-8 font-sans text-2xl font-bold ">
-              Ajouter une oeuvre
-            </p>
-            <div className="px-5 pb-4">
-              <AnimatePresence initial exitBeforeEnter>
-                {requestError && (
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        scale: 0.5,
-                        y: "+30vh",
-                        opacity: 0,
-                      },
-                      visible: {
-                        y: "0",
-                        opacity: 1,
-                        scale: 1,
-                        transition: {
-                          duration: 0.5,
-                          type: "spring",
-                          damping: 25,
-                          stiffness: 400,
->>>>>>> feature/UserArtworkProposal
                         },
                       },
                       exit: {
@@ -531,7 +472,6 @@ function CreateArtWork() {
                         transition: {
                           duration: 0.3,
                         },
-<<<<<<< HEAD
                       }}
                       initial="hidden"
                       animate="visible"
@@ -588,85 +528,6 @@ function CreateArtWork() {
                   state.isValidDescription === ValidField.ERROR &&
                   t("description.characters")
                 }
-=======
-                      },
-                    }}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Alert severity="success">{requestValid}</Alert>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="title"
-              label="Titre"
-              onChange={handleTitleChange}
-              name="title"
-              autoComplete="title"
-              error={state.isValidTitle === ValidField.ERROR}
-              helperText={
-                state.isValidTitle === ValidField.ERROR && "Titre invalide"
-              }
-            />
-
-            <TextField
-              margin="normal"
-              fullWidth
-              id="artist"
-              label="Artiste"
-              onChange={handleArtistChange}
-              name="artist"
-              autoComplete="artist"
-              error={state.isValidArtist === ValidField.ERROR}
-              helperText={
-                state.isValidArtist === ValidField.ERROR && "Artiste invalide"
-              }
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="description"
-              label="Description"
-              multiline
-              rows={4}
-              onChange={handleDescriptionChange}
-              name="description"
-              autoComplete="description"
-              error={state.isValidDescription === ValidField.ERROR}
-              helperText={
-                state.isValidDescription === ValidField.ERROR &&
-                "Description doit contenir entre 2 et 250 caractéres"
-              }
-            />
-            <Divider variant="middle" />
-
-            <div className="flex flex-row px-5 pb-0 pt-4 ">
-              <Typography gutterBottom variant="h5" component="div">
-                Ajouter des photos :
-              </Typography>
-            </div>
-            <div className="text-center justify-center">
-              <FileUploader
-                getImages={(imagesF: any) => setImages(imagesF)}
-                updateImage={(imagesF: any) => {
-                  setImages(imagesF);
-                }}
-                removeImage={(imagesF: any) => {
-                  setImages(imagesF);
-                }}
-                addImage={(imagesF: any) => {
-                  setImages(imagesF);
-                }}
->>>>>>> feature/UserArtworkProposal
               />
             </div>
             {state.isValidImages === ValidField.ERROR && (
@@ -699,7 +560,6 @@ function CreateArtWork() {
                   &ensp;{addr}
                 </span>
               </div>
-<<<<<<< HEAD
               {state.isValidImages === ValidField.ERROR && (
                 <Alert severity="error">
                   {t("images.number")}
@@ -754,53 +614,6 @@ function CreateArtWork() {
                     </LoadingButton>
                   </ThemeProvider>
                 </div>
-=======
-            )}
-            {mapState && (
-              <FormMap
-                closeMap={(mapstate: any) => {
-                  setMapState(mapstate);
-                  handlePositionChange();
-                }}
-                getLat={(mapLat: any) => setLat(mapLat)}
-                getLong={(mapLong: any) => setLong(mapLong)}
-              />
-            )}
-            {addrRequestError && (
-              <Alert severity="error">{addrRequestError}</Alert>
-            )}
-            {state.isValidPosition === ValidField.ERROR && (
-              <Alert severity="error">Invalide position</Alert>
-            )}
-
-            <Divider variant="middle" />
-
-            <div className="px-5 pb-3 pt-4">
-              <div className="centreD pt-6">
-                <ThemeProvider theme={loadingBtnTheme}>
-                  <LoadingButton
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    disabled={
-                      !state.isValidForm ||
-                      addrRequestError ===
-                        "Veuillez choisir une position valide."
-                    }
-                    loading={isLoading}
-                    sx={{
-                      width: "263px",
-                      margin: "10px 0px",
-                      height: "54px",
-                      fontWeight: "500",
-                      fontSize: "18px",
-                      lineHeight: "21px",
-                    }}
-                  >
-                    Valider
-                  </LoadingButton>
-                </ThemeProvider>
->>>>>>> feature/UserArtworkProposal
               </div>
             </div>
           </div>
