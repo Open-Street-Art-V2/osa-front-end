@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Assets/css/Header.css";
 import { AiOutlineSetting } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
+
+function Settings() {
+  const { i18n } = useTranslation();
+  return (
+    <div>
+      <button
+        type="button"
+        id="fr"
+        onClick={() => {
+          i18n.changeLanguage("fr");
+        }}
+      >
+        Français
+      </button>
+    </div>
+  );
+}
 
 export default function Header() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex flex-row w-full top-7 justify-between p-3 pt-5">
       <div className="flex flex-row pl-2">
@@ -40,10 +59,13 @@ export default function Header() {
           type="button"
           id="settingsBtn"
           className="inline-flex items-center justify-center w-11 h-11 bg-slate-50 text-slate-900 text-3xl rounded-full"
-          onClick={() => {}}
+          onClick={() => {
+            setOpen(true);
+          }}
         >
           <AiOutlineSetting />
         </button>
+        {open && <Settings />}
       </div>
     </div>
   );

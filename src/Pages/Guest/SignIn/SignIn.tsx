@@ -20,6 +20,7 @@ import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import Header from "../../../Components/Header";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -143,9 +144,11 @@ export default function SignIn() {
   // if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_USER") {
   //   return <Navigate to="/map/user"></Navigate>;
   // }
+  i18n.changeLanguage("en");
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Header/>
       <Box
         sx={{
           marginTop: 0,
