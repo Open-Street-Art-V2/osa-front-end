@@ -9,9 +9,7 @@ import Container from "@mui/material/Container";
 import { useContext, useEffect, useReducer, useState } from "react";
 import validator from "validator";
 import { LoadingButton } from "@mui/lab";
-import passwordValidator from "./utils/password-validator";
-import { displayPasswordError, login, logout } from "./SignIn.service";
-import { User } from "./utils/types";
+import { login, logout } from "./SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -64,13 +62,10 @@ const dispatchState = function (state: State, action: Action): State {
         isValidForm: validator.isEmail(action.value) && state.isValidPassword,
       };
     case "PASSWORD_CHANGE":
-      const validationErrs: any[] = passwordValidator.validate(action.value, {
-        list: true,
-      }) as any[];
       return {
         ...state,
-        isValidPassword: validationErrs.length == 0,
-        isValidForm: validationErrs.length == 0 && state.isValidEmail,
+        isValidPassword: !validator.isEmpty(action.value),
+        isValidForm: !validator.isEmpty(action.value) && state.isValidEmail,
       };
   }
 };
@@ -262,12 +257,7 @@ export default function SignIn() {
             autoComplete="current-password"
             error={!state.isValidPassword}
             helperText={
-              !state.isValidPassword &&
-              displayPasswordError(
-                passwordValidator.validate(password, {
-                  list: true,
-                }) as string[]
-              )
+              !state.isValidPassword && "Le mot de passe ne peut pas être vide"
             }
             onChange={passwordChangeHandler}
           />
