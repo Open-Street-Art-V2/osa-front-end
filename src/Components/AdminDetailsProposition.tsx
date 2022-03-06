@@ -191,7 +191,10 @@ function AdminDetailsProposition(props: Props) {
           id="btnRetour"
           className="flex flex-row place-content-between hTitle pt-4"
         >
-          <Link to="/map/admin" className="inline-flex items-center">
+          <Link
+            to="/admin/validateProposal"
+            className="inline-flex items-center"
+          >
             <button
               type="button"
               id="retBtn"

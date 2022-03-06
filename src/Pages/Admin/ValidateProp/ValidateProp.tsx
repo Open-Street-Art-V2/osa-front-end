@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import {
@@ -280,7 +280,25 @@ function ValidateProp() {
                     onChange={() => handleProposalChange(index)}
                     id="flexCheckDefault"
                   />
-                  <ArtworkProposal data={Artwork} />
+
+                  {isContributions && (
+                    <Link
+                      to="/admin/details-proposition"
+                      state={{ data: Artwork }}
+                      className="w-fit"
+                    >
+                      <ArtworkProposal data={Artwork} />
+                    </Link>
+                  )}
+                  {!isContributions && (
+                    <Link
+                      to="/admin/details-contribution"
+                      state={{ data: Artwork }}
+                      className="w-fit"
+                    >
+                      <ArtworkProposal data={Artwork} />
+                    </Link>
+                  )}
                 </div>
               );
             })}
