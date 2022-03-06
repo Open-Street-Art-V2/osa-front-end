@@ -49,6 +49,7 @@
     "strong.mdp":"The password is not strong enough",
     "confirmation.password":"Password Confirmation",
     "pwd.not.match":"Password does not match",
-    "account":"Have an account?"
+    "account":"Have an account?",
+    "mdpF":"Forgot your password ?"
 
 }
