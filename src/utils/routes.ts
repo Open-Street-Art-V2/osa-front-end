@@ -4,8 +4,12 @@ import SignUp from "../Pages/Guest/SignUp/SignUp";
 import Map from "../Pages/User/Map/map";
 import FormAdmin from "../Pages/Admin/Form/createForm";
 import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
+import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
+
+// TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
+// entre les pages (voir la documentation)
 
 type routesType = {
   name: string;
@@ -43,6 +47,11 @@ const routes: routesType = [
     name: "ArtworkModifyAdmin",
     path: "admin/modifyForm",
     element: ModifyArtAdmin,
+  },
+  {
+    name: "ValidateProposalAdmin",
+    path: "admin/validateProposal",
+    element: ValidateProposal,
   },
   {
     name: "DetailsProposition",
