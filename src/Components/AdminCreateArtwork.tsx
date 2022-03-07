@@ -341,7 +341,7 @@ function CreateArtWork(props: any) {
     }
 
     console.log(formData);
-    const url = `http://localhost:3008/art`;
+    const url = `${process.env.REACT_APP_API}/art`;
 
     try {
       const res: Response = await fetch(url, {

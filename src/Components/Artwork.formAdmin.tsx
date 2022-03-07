@@ -170,7 +170,7 @@ function CreateArtWork() {
         };
 
         axios
-          .post("http://localhost:3008/art", formData, config)
+          .post(`${process.env.REACT_APP_API}/art`, formData, config)
           .then((response2) => {
             console.log(response2);
             console.log("hi");

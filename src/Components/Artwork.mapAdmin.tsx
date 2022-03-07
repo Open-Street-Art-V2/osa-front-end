@@ -15,7 +15,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 export default function ArtMap(props: any) {
   const { data, coords } = props;
   const numPics = Object.keys(data.pictures).length;
-  const baseURL = "http://localhost:3008/art/";
+  const baseURL = `${process.env.REACT_APP_API}/art/`;
   const loginCtx = useContext(LoginContext);
   const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
 

@@ -73,7 +73,7 @@ function MapAdmin() {
   // GET DATA
   const fetcher = (args: string) =>
     fetch(args).then((response) => response.json());
-  const url = "http://127.0.0.1:3008/art";
+  const url = `${process.env.REACT_APP_API}/art`;
   const { data, error } = useSwr(url, { fetcher });
   const oeuvres = data && !error ? data : [];
 

@@ -453,7 +453,7 @@ function ModifyArtWork(props: any) {
         index = 3;
     }
     formData.append("index", index.toString());
-    const url = `http://localhost:3008/art/${Artwork.oeuvreId}`;
+    const url = `${process.env.REACT_APP_API}/art/${Artwork.oeuvreId}`;
 
     try {
       const res: Response = await fetch(url, {
