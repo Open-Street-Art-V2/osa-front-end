@@ -13,7 +13,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Pin, ArtMap } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { logout } from "../../Guest/SignIn/SignIn.service";
-
+import NavBar from "../../../Components/NavBar";
 // eslint-disable-next-line no-unused-vars
 /* type artwork = {
   id: string;
@@ -260,6 +260,7 @@ function MapAdmin() {
           }}
         />
       ) : null}
+      <NavBar />
     </div>
   );
 }

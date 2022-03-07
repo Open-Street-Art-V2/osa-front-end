@@ -52,7 +52,7 @@ function Carousel(props: Props) {
               >
                 <div className="relative overflow-hidden bg-no-repeat bg-cover">
                   <img
-                    src={`${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                    src={`/${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
                     className="block w-full"
                     alt="Failed to load"
                   />
@@ -68,7 +68,7 @@ function Carousel(props: Props) {
             >
               <div className="relative overflow-hidden bg-no-repeat bg-cover">
                 <img
-                  src={`${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
+                  src={`/${process.env.REACT_APP_IMAGES_PATH}${pic.url}`}
                   className="block object-fill w-full"
                   alt="Failed to load"
                 />

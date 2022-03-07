@@ -6,6 +6,7 @@ import FormAdmin from "../Pages/Admin/Form/createForm";
 import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
 import ProposeArtUser from "../Pages/User/Forms/propositionForm";
 import ContributionToArt from "../Pages/User/Forms/contributionForm";
+import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 
@@ -58,6 +59,11 @@ const routes: routesType = [
     name: "ArtworkProposeUser",
     path: "user/ProposeArtwork",
     element: ProposeArtUser,
+  },
+  {
+    name: "ValidateProposalAdmin",
+    path: "admin/validateProposal",
+    element: ValidateProposal,
   },
   {
     name: "DetailsProposition",

@@ -6,10 +6,9 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { Alert, autocompleteClasses } from "@mui/material";
 import SignUpFormOne from "./SignUpFormOne";
 import SignUpFormTwo from "./SignUpFormTwo";
-import register from "../Pages/Guest/SignUp/SignUp.services";
+import register from "../services/sign-up.services";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import validator from "validator";
 import {
@@ -18,7 +17,66 @@ import {
   StateOne,
   StateTwo,
 } from "../Pages/Guest/SignUp/types/types";
-import { AnimatePresence, motion } from "framer-motion";
+import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
+import { AnimateAlert } from ".";
+import { LoadingButton } from "@mui/lab";
+
+const dispatchStateOne = (state: StateOne, action: ActionOne) => {
+  switch (action.type) {
+    case "FIRSTNAME_CHANGED":
+      return {
+        ...state,
+        firstname: action.value,
+        isValidFirstname: !validator.isEmpty(action.value)
+          ? ValidField.OK
+          : ValidField.ERROR,
+        isValidForm:
+          !validator.isEmpty(action.value) &&
+          state.isValidName === ValidField.OK &&
+          state.isValidEmail === ValidField.OK &&
+          state.isValidBirthDate === ValidField.OK,
+      };
+    case "NAME_CHANGED":
+      return {
+        ...state,
+        name: action.value,
+        isValidName: !validator.isEmpty(action.value)
+          ? ValidField.OK
+          : ValidField.ERROR,
+        isValidForm:
+          !validator.isEmpty(action.value) &&
+          state.isValidFirstname === ValidField.OK &&
+          state.isValidEmail === ValidField.OK &&
+          state.isValidBirthDate === ValidField.OK,
+      };
+    case "EMAIL_CHANGED":
+      return {
+        ...state,
+        email: action.value.trim(),
+        isValidEmail: validator.isEmail(action.value.trim())
+          ? ValidField.OK
+          : ValidField.ERROR,
+        isValidForm:
+          validator.isEmail(action.value.trim()) &&
+          state.isValidName === ValidField.OK &&
+          state.isValidFirstname === ValidField.OK &&
+          state.isValidBirthDate === ValidField.OK,
+      };
+    default:
+      return {
+        ...state,
+        birthDate: action.value,
+        isValidBirthDate: isValidDate(action.value)
+          ? ValidField.OK
+          : ValidField.ERROR,
+        isValidForm:
+          isValidDate(action.value) &&
+          state.isValidName === ValidField.OK &&
+          state.isValidFirstname === ValidField.OK &&
+          state.isValidEmail === ValidField.OK,
+      };
+  }
+};
 
 const dispatchStateTwo = (state: StateTwo, action: ActionTwo) => {
   switch (action.type) {
@@ -37,14 +95,16 @@ const dispatchStateTwo = (state: StateTwo, action: ActionTwo) => {
           state.isValidVerifiedPassword === ValidField.OK,
       };
     case "PASSWORD_CHANGED":
+      const validationErrs: any[] = passwordValidator.validate(action.value, {
+        list: true,
+      }) as any[];
       return {
         ...state,
         password: action.value,
-        isValidPassword: validator.isStrongPassword(action.value)
-          ? ValidField.OK
-          : ValidField.ERROR,
+        isValidPassword:
+          validationErrs.length == 0 ? ValidField.OK : ValidField.ERROR,
         isValidForm:
-          validator.isStrongPassword(action.value) &&
+          validationErrs.length == 0 &&
           state.isValidFavoriteCity === ValidField.OK &&
           state.isValidVerifiedPassword === ValidField.OK,
       };
@@ -78,66 +138,9 @@ export default function MyStepper() {
     [k: number]: boolean;
   }>({});
 
-  const [error, setError] = React.useState(false);
-  const [submitted, setSubmitted] = React.useState(false);
-
-  const dispatchStateOne = (state: StateOne, action: ActionOne) => {
-    switch (action.type) {
-      case "FIRSTNAME_CHANGED":
-        return {
-          ...state,
-          firstname: action.value,
-          isValidFirstname: !validator.isEmpty(action.value)
-            ? ValidField.OK
-            : ValidField.ERROR,
-          isValidForm:
-            !validator.isEmpty(action.value) &&
-            state.isValidName === ValidField.OK &&
-            state.isValidEmail === ValidField.OK &&
-            state.isValidBirthDate === ValidField.OK,
-        };
-      case "NAME_CHANGED":
-        return {
-          ...state,
-          name: action.value,
-          isValidName: !validator.isEmpty(action.value)
-            ? ValidField.OK
-            : ValidField.ERROR,
-          isValidForm:
-            !validator.isEmpty(action.value) &&
-            state.isValidFirstname === ValidField.OK &&
-            state.isValidEmail === ValidField.OK &&
-            state.isValidBirthDate === ValidField.OK,
-        };
-      case "EMAIL_CHANGED":
-        setError(false);
-        return {
-          ...state,
-          email: action.value.trim(),
-          isValidEmail: validator.isEmail(action.value.trim())
-            ? ValidField.OK
-            : ValidField.ERROR,
-          isValidForm:
-            validator.isEmail(action.value.trim()) &&
-            state.isValidName === ValidField.OK &&
-            state.isValidFirstname === ValidField.OK &&
-            state.isValidBirthDate === ValidField.OK,
-        };
-      default:
-        return {
-          ...state,
-          birthDate: action.value,
-          isValidBirthDate: isValidDate(action.value)
-            ? ValidField.OK
-            : ValidField.ERROR,
-          isValidForm:
-            isValidDate(action.value) &&
-            state.isValidName === ValidField.OK &&
-            state.isValidFirstname === ValidField.OK &&
-            state.isValidEmail === ValidField.OK,
-        };
-    }
-  };
+  const [requestError, setRequestError] = React.useState<string | null>(null);
+  const [requestValid, setRequestValid] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [formOne, dispatchFormOne] = React.useReducer<
     React.Reducer<StateOne, ActionOne>
@@ -203,8 +206,8 @@ export default function MyStepper() {
   };
 
   const handleSubmit = () => {
-    // TODO: gérer les erreurs 500
     // TODO: rediriger vers la page de Sign In
+    setIsLoading(true);
     register({
       firstname: formOne.firstname,
       name: formOne.name,
@@ -212,35 +215,36 @@ export default function MyStepper() {
       birthDate: formOne.birthDate,
       favoriteCity: formTwo.favoriteCity,
       password: formTwo.password,
-    }).then((response) => {
-      setSubmitted(true);
-      if (response.status === 409) {
-        setError(true);
-      } else {
-        setTimeout(() => navigate("/"), 1000);
-      }
-    });
+    })
+      .then((res) => {
+        if (res?.ok) {
+          setRequestValid("Compté créé avec succès.");
+          setRequestError(null);
+          setTimeout(() => navigate("/"), 2000);
+        } else if (res?.status == 409) {
+          setRequestValid(null);
+          setRequestError("Un compte avec cet email existe déjà.");
+        } else {
+          setRequestValid(null);
+          setRequestError("Le serveur est en cours de maintenance.");
+        }
+      })
+      .catch(() => {
+        setRequestValid(null);
+        setRequestError("Une erreur est survenue.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
       <Box>
         {activeStep === 0 ? (
-          <SignUpFormOne
-            // setIsValid={setIsValid}
-            // setData={setData}
-            // data={data}
-            formOne={formOne}
-            dispatchFormOne={dispatchFormOne}
-          />
+          <SignUpFormOne formOne={formOne} dispatchFormOne={dispatchFormOne} />
         ) : (
-          <SignUpFormTwo
-            // setIsValid={setIsValid}
-            // setData={setData}
-            // data={data}
-            formTwo={formTwo}
-            dispatchFormTwo={dispatchFormTwo}
-          />
+          <SignUpFormTwo formTwo={formTwo} dispatchFormTwo={dispatchFormTwo} />
         )}
       </Box>
       <Box sx={{ width: "40%", margin: "auto", pt: "40px" }}>
@@ -267,64 +271,22 @@ export default function MyStepper() {
                 Suivant
               </Button>
             ) : (
-              <Button
+              <LoadingButton
                 style={{ borderRadius: "16px", width: "60%" }}
                 variant="contained"
+                loading={isLoading}
                 disabled={!formTwo.isValidForm}
                 onClick={handleSubmit}
               >
                 S&apos;inscrire
-              </Button>
+              </LoadingButton>
             )}
           </Box>
         )}
-        {submitted && (
-          <Box sx={{ width: "100%", margin: "auto", pt: "30px" }}>
-            <AnimatePresence initial={false} exitBeforeEnter={true}>
-              {error && (
-                <motion.div
-                  style={{ width: "80%", margin: "auto", borderRadius: "10px" }}
-                  variants={{
-                    hidden: {
-                      scale: 0.5,
-                      y: "+30vh",
-                      opacity: 0,
-                    },
-                    visible: {
-                      y: "0",
-                      opacity: 1,
-                      scale: 1,
-                      transition: {
-                        duration: 0.5,
-                        type: "spring",
-                        damping: 25,
-                        stiffness: 400,
-                      },
-                    },
-                    exit: {
-                      y: "30vh",
-                      opacity: 0,
-                      scale: 0.5,
-                      transition: {
-                        duration: 0.5,
-                        damping: 25,
-                        stiffness: 400,
-                      },
-                    },
-                  }}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
-                  <Alert severity="error">Email saisi est déjà utilisé</Alert>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {/* <Alert severity="success">
-                    Le compte a été créé avec succès.
-                  </Alert> */}
-          </Box>
-        )}
+      </Box>
+
+      <Box sx={{ width: "80%", margin: "auto", mb: 2 }}>
+        <AnimateAlert requestError={requestError} requestValid={requestValid} />
       </Box>
     </>
   );

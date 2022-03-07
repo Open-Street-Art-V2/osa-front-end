@@ -7,6 +7,7 @@ import React from "react";
 import ModifyArtWork from "../../../Components/UpdateFormTest";
 import "./modifieArtwork.css";
 import { useLocation } from "react-router-dom";
+import NavBar from "../../../Components/NavBar";
 
 interface CustomizedState {
   artwork: any;
@@ -19,9 +20,10 @@ function ModifyArtAdmin() {
   const { artwork, coords } = state;
 
   return (
-    <div>
+    <>
       <ModifyArtWork data={artwork} coords={coords} />
-    </div>
+      <NavBar />
+    </>
   );
 }
 
