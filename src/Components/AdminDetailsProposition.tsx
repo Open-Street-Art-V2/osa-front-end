@@ -176,7 +176,7 @@ function AdminDetailsProposition(props: Props) {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-4">
+    <Container component="main" maxWidth="xs" className="px-5 pb-16">
       <CssBaseline />
       <Box
         sx={{

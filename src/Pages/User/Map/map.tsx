@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
@@ -7,10 +7,12 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
+import { logout } from "../../Guest/SignIn/SignIn.service";
+import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 
 // import dataLoc from "./data.json";
 
@@ -75,6 +77,7 @@ function Map() {
 
   // INIT SELECTED ARTWORK
   const [selectedArtWork, setselectedArtWork] = useState<any>(null);
+  const loginCtx = useContext(LoginContext);
 
   // REF TO GET BOUNDS OF THE MAP, USED LATER ON CLUSTERS
   const mapRef = useRef<any>();
@@ -224,11 +227,23 @@ function Map() {
           <button
             type="button"
             id="loginBtn"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-900 text-white text-sm rounded-xl"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-sm rounded-xl"
           >
             <AiOutlineUser />
           </button>
         </Link>
+      </div>
+      <div id="logout" className="absolute top-20 right-2">
+        <button
+          type="button"
+          id="logoutBtn"
+          className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+          onClick={() => {
+            logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
+          }}
+        >
+          <AiOutlineLogout />
+        </button>
       </div>
       {selectedArtWork ? (
         <ArtworkUser
