@@ -2,7 +2,7 @@ import User from "../Pages/Guest/SignUp/types/user";
 
 const register = async (user: User) => {
   try {
-    return fetch("http://localhost:3008/auth/register", {
+    return fetch(`${process.env.REACT_APP_API}/auth/register`, {
       method: "POST",
       body: JSON.stringify({
         ...user,
