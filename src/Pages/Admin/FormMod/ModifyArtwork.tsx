@@ -3,7 +3,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable */
 import React from "react";
-import { ModifyArtWork } from "../../../Components";
+// import { ModifyArtWork } from "../../../Components";
+import ModifyArtWork from "../../../Components/UpdateFormV2";
 import "./modifieArtwork.css";
 import { useLocation } from "react-router-dom";
 import NavBar from "../../../Components/NavBar";

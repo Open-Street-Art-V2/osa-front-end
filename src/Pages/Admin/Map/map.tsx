@@ -225,29 +225,20 @@ function MapAdmin() {
           );
         })}
       </ReactMapGL>
-      <div id="" className="absolute top-6 right-2">
-        <Link to="/form/admin" className="inline-flex items-center w-10 h-10">
+      {loginCtx.isLoggedIn && (
+        <div id="logout" className="absolute top-6 right-2">
           <button
             type="button"
-            id="addBtn"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
+            id="logoutBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+            onClick={() => {
+              logoutR();
+            }}
           >
-            <AiOutlinePlus />
+            <AiOutlineLogout />
           </button>
-        </Link>
-      </div>
-      <div id="logout" className="absolute top-20 right-2">
-        <button
-          type="button"
-          id="logoutBtn"
-          className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
-          onClick={() => {
-            logoutR();
-          }}
-        >
-          <AiOutlineLogout />
-        </button>
-      </div>
+        </div>
+      )}
       {selectedArtWork ? (
         <ArtMap
           data={selectedArtWork.properties}

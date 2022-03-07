@@ -16,7 +16,7 @@ export default class ArtArtwork extends PureComponent<{
     const { data } = this.props;
     const numPics = Object.keys(data.pictures).length;
     return (
-      <div className="popupCard2">
+      <div className="popupCard2 pb-16">
         <div
           id="carouselExampleCaptions"
           className="carousel slide relative"

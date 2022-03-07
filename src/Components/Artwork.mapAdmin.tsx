@@ -44,7 +44,7 @@ export default function ArtMap(props: any) {
   }
 
   return (
-    <div className="popupCard2">
+    <div className="popupCard2 pb-16">
       <div
         id="carouselExampleCaptions"
         className="carousel slide relative"

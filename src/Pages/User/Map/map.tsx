@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
@@ -233,21 +233,24 @@ function Map() {
           </button>
         </Link>
       </div>
-      <div id="logout" className="absolute top-20 right-2">
-        <button
-          type="button"
-          id="logoutBtn"
-          className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
-          onClick={() => {
-            logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
-          }}
-        >
-          <AiOutlineLogout />
-        </button>
-      </div>
+      {loginCtx.isLoggedIn && (
+        <div id="logout" className="absolute top-20 right-2">
+          <button
+            type="button"
+            id="logoutBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+            onClick={() => {
+              logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
+            }}
+          >
+            <AiOutlineLogout />
+          </button>
+        </div>
+      )}
       {selectedArtWork ? (
         <ArtworkUser
           data={selectedArtWork.properties}
+          coords={selectedArtWork.geometry.coordinates}
           onClose={() => {
             setselectedArtWork(null);
           }}
