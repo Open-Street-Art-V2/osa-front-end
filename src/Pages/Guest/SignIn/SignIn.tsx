@@ -17,7 +17,8 @@ import "./SingIn.css";
 import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import Header from "../../../Components/Header";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -198,7 +199,7 @@ export default function SignIn() {
           className="auth"
           sx={{ mt: 7 }}
         >
-          <div className="authTitle pt-5 pb-12"> {t("Authentification")}</div>
+          <div className="authTitle pt-5 pb-12"> {t("Authentication")}</div>
           <AnimatePresence initial={true} exitBeforeEnter={true}>
             {unauthorizedError && (
               <motion.div
@@ -289,7 +290,7 @@ export default function SignIn() {
                 // className="loginBtn m-5"
                 //id="loginBtnForm"
               >
-               {t("connect")}
+                {t("connect")}
               </LoadingButton>
             </ThemeProvider>
           </div>

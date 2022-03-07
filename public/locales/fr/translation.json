@@ -33,7 +33,7 @@
     "upercase.character":"Doit contenir au moins un caractère en majuscule",
     "contain.spaces":"Ne doit pas contenir d'espaces",
     "imdp":"Mot de passe incorrecte",
-    "Authentication":"Authentication",
+    "Authentication":"Authentification",
     "incorrect.coordinates":"Coordonnées saisies incorrectes",
     "invalid.mail":"Email invalide",
     "connect":"Se connecter",
