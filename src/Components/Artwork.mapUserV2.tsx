@@ -20,7 +20,7 @@ export default function ArtMap(props: any) {
   const [unauthorizedError] = useState<boolean>();
 
   return (
-    <div className="popupCard2">
+    <div className="popupCard2 pb-16">
       <div
         id="carouselExampleCaptions"
         className="carousel slide relative"

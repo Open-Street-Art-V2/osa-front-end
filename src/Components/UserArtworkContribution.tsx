@@ -361,7 +361,7 @@ function ModifyArtWork(props: any) {
         index = 3;
     }
     formData.append("index", index.toString());
-    const url = `http://localhost:3008/contribution/add/${Artwork.oeuvreId}`;
+    const url = `${process.env.REACT_APP_CONTRIBUTE_ART}/${Artwork.oeuvreId}`;
 
     try {
       const res: Response = await fetch(url, {
@@ -503,7 +503,7 @@ function ModifyArtWork(props: any) {
     }
   };
 
-  function removeImage1() {
+  /* function removeImage1() {
     let ImageState = [...images] as any;
     let newImageState = [] as any;
     if (ImageState.length === 1) {
@@ -565,7 +565,7 @@ function ModifyArtWork(props: any) {
       image2File: imagesFiles.image2File,
       image3File: "",
     });
-  }
+  } */
 
   return (
     <>
@@ -807,7 +807,7 @@ function ModifyArtWork(props: any) {
                       ></Avatar>
                       <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
                         <div className="py-2">
-                          <label
+                          {/*<label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -818,7 +818,7 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                      </label> */}
                           <label
                             htmlFor="icon-button-file1"
                             className="my-0 ml-0"
@@ -860,7 +860,7 @@ function ModifyArtWork(props: any) {
                       ></Avatar>
                       <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
                         <div className="py-2">
-                          <label
+                          {/* <label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -871,7 +871,7 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                      </label> */}
                           <label
                             htmlFor="icon-button-file2"
                             className="my-0 ml-0"
@@ -915,7 +915,7 @@ function ModifyArtWork(props: any) {
                       ></Avatar>
                       <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
                         <div className="py-2">
-                          <label
+                          {/* <label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -926,7 +926,7 @@ function ModifyArtWork(props: any) {
                             >
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
-                          </label>
+                      </label> */}
                           <label
                             htmlFor="icon-button-file3"
                             className="my-0 ml-0"

@@ -281,7 +281,7 @@ function CreateArtWork() {
       formData.append("files", images[i]);
     }
 
-    const url = `http://localhost:3008/art`;
+    const url = `${process.env.REACT_APP_CREATE_ART}`;
 
     try {
       const res: Response = await fetch(url, {

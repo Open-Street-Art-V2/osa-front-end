@@ -7,7 +7,7 @@ import ReactMapGL, {
 import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
-import { AiOutlineUser, AiOutlineLogout, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
@@ -232,35 +232,21 @@ function Map() {
             <AiOutlineUser />
           </button>
         </Link>
-        {loginCtx.isLoggedIn && (
-          <div id="" className="absolute top-14 right-0.5">
-            <Link
-              to="/user/ProposeArtwork"
-              className="inline-flex items-center w-10 h-10"
-            >
-              <button
-                type="button"
-                id="proposeBtn"
-                className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-2xl rounded-xl"
-              >
-                <AiOutlinePlus />
-              </button>
-            </Link>
-          </div>
-        )}
       </div>
-      <div id="logout" className="absolute top-20 right-2">
-        <button
-          type="button"
-          id="logoutBtn"
-          className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
-          onClick={() => {
-            logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
-          }}
-        >
-          <AiOutlineLogout />
-        </button>
-      </div>
+      {loginCtx.isLoggedIn && (
+        <div id="logout" className="absolute top-20 right-2">
+          <button
+            type="button"
+            id="logoutBtn"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+            onClick={() => {
+              logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
+            }}
+          >
+            <AiOutlineLogout />
+          </button>
+        </div>
+      )}
       {selectedArtWork ? (
         <ArtworkUser
           data={selectedArtWork.properties}
