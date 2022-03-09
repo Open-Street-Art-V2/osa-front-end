@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
 import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { maxDate, StateOne } from "../Pages/Guest/SignUp/types/types";
 
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export default function SignUpFormOne(props: Props) {
+  const { t } = useTranslation();
   const { formOne, dispatchFormOne } = props;
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatchFormOne({
@@ -60,7 +62,7 @@ export default function SignUpFormOne(props: Props) {
         }}
       >
         <Typography component="h1" variant="h5">
-          Inscription
+          {t("register")}
         </Typography>
 
         <Box component="form" noValidate sx={{ mt: 3 }}>
@@ -72,13 +74,13 @@ export default function SignUpFormOne(props: Props) {
                 required
                 fullWidth
                 id="firstname"
-                label="Prénom"
+                label={t("fname")}
                 autoFocus
                 onChange={handleFirstnameChange}
                 error={formOne.isValidFirstname === ValidField.ERROR}
                 helperText={
                   formOne.isValidFirstname === ValidField.ERROR &&
-                  "Le prénom est obligatoire"
+                  t("required.fname")
                 }
                 value={formOne.firstname}
               />
@@ -88,14 +90,13 @@ export default function SignUpFormOne(props: Props) {
                 required
                 fullWidth
                 id="name"
-                label="Nom"
+                label={t("name")}
                 name="name"
                 autoComplete="family-name"
                 onChange={handleNameChange}
                 error={formOne.isValidName === ValidField.ERROR}
                 helperText={
-                  formOne.isValidName === ValidField.ERROR &&
-                  "Le nom est obligatoire"
+                  formOne.isValidName === ValidField.ERROR && t("required.name")
                 }
                 value={formOne.name}
               />
@@ -111,8 +112,7 @@ export default function SignUpFormOne(props: Props) {
                 onChange={handleEmailChange}
                 error={formOne.isValidEmail === ValidField.ERROR}
                 helperText={
-                  formOne.isValidEmail === ValidField.ERROR &&
-                  "L'adresse mail est invalide"
+                  formOne.isValidEmail === ValidField.ERROR && t("@.invalid")
                 }
                 value={formOne.email}
               />
@@ -120,7 +120,7 @@ export default function SignUpFormOne(props: Props) {
             <Grid item xs={12}>
               <LocalizationProvider dateAdapter={DateAdapter}>
                 <DatePicker
-                  label="Date de naissance"
+                  label={t("dbrith")}
                   inputFormat="dd/MM/yyyy"
                   value={formOne.birthDate}
                   onChange={handleBirthDateChange}
@@ -133,7 +133,7 @@ export default function SignUpFormOne(props: Props) {
                       error={formOne.isValidBirthDate === ValidField.ERROR}
                       helperText={
                         formOne.isValidBirthDate === ValidField.ERROR &&
-                        `Vous devez avoir 10 ans minimum pour vous s'inscrire`
+                        t("years.register")
                       }
                     />
                   )}

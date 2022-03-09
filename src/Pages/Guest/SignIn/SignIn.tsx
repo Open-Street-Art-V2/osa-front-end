@@ -17,6 +17,8 @@ import "./SingIn.css";
 import { Alert, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import Header from "../../../Components/Header";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -71,6 +73,7 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 export default function SignIn() {
+  const { t, i18n } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const [password, setPasssword] = useState("");
 
@@ -196,7 +199,7 @@ export default function SignIn() {
           className="auth"
           sx={{ mt: 7 }}
         >
-          <div className="authTitle pt-5 pb-12">Authentification</div>
+          <div className="authTitle pt-5 pb-12"> {t("Authentication")}</div>
           <AnimatePresence initial={true} exitBeforeEnter={true}>
             {unauthorizedError && (
               <motion.div
@@ -230,7 +233,7 @@ export default function SignIn() {
                 animate="visible"
                 exit="exit"
               >
-                <Alert severity="error">Coordonnées saisies incorrectes</Alert>
+                <Alert severity="error">{t("incorrect.coordinates")}</Alert>
               </motion.div>
             )}
           </AnimatePresence>
@@ -244,14 +247,14 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             error={!state.isValidEmail}
-            helperText={!state.isValidEmail && "Email invalide"}
+            helperText={!state.isValidEmail && t("invalid.mail")}
           />
           <TextField
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Mot de passe"
+            label={t("mdp")}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -263,7 +266,7 @@ export default function SignIn() {
           />
 
           <Link to="#" id="mdpF" className="mdpF pt-2">
-            <label> Mot de passe oublié ?</label>
+            <label>{t("mdpF")}</label>
           </Link>
           <div className="centreD pt-6">
             <ThemeProvider theme={loadingBtnTheme}>
@@ -287,7 +290,7 @@ export default function SignIn() {
                 // className="loginBtn m-5"
                 //id="loginBtnForm"
               >
-                Se connecter
+                {t("connect")}
               </LoadingButton>
             </ThemeProvider>
           </div>
@@ -296,7 +299,7 @@ export default function SignIn() {
         <div id="insc" className="py-5">
           <label className="mdpF">Vous n’avez pas de compte ?</label>
           <Link to="/sign-up" id="inscB" className="mdpF">
-            Inscrivez-vous
+            {t("register")}
           </Link>
         </div>
       </Box>
