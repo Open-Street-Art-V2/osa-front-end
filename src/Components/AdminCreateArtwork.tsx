@@ -254,7 +254,7 @@ function CreateArtWork(props: any) {
         const artCity = data.features[0].properties.address.municipality;
         if (artCity === undefined) {
           setAddr("Rouen");
-          throw Error("Veuillez choisir une position valide.");
+          throw Error(t("valid.location"));
         }
         setCity(artCity);
         setAddrRequestError(null);
@@ -263,7 +263,7 @@ function CreateArtWork(props: any) {
       if (
         error.message === "Cannot read properties of undefined (reading '0')"
       ) {
-        error.message = "Veuillez choisir une position valide.";
+        error.message = t("valid.location");
       }
       setAddrRequestError(error.message);
     }
@@ -523,7 +523,7 @@ function CreateArtWork(props: any) {
 
             <div className="flex flex-row px-5 pb-0 pt-4 ">
               <Typography gutterBottom variant="h5" component="div">
-                Ajouter des photos :
+                {t("add.photos")}
               </Typography>
             </div>
             <div className="text-center justify-center">
@@ -610,7 +610,7 @@ function CreateArtWork(props: any) {
                       lineHeight: "21px",
                     }}
                   >
-                    Valider
+                    {t("valider")}
                   </LoadingButton>
                 </ThemeProvider>
               </div>

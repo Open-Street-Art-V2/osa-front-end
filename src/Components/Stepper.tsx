@@ -221,20 +221,20 @@ export default function MyStepper() {
     })
       .then((res) => {
         if (res?.ok) {
-          setRequestValid("Compté créé avec succès.");
+          setRequestValid(t("account.created"));
           setRequestError(null);
           setTimeout(() => navigate("/"), 2000);
         } else if (res?.status == 409) {
           setRequestValid(null);
-          setRequestError("Un compte avec cet email existe déjà.");
+          setRequestError(t("account.exist"));
         } else {
           setRequestValid(null);
-          setRequestError("Le serveur est en cours de maintenance.");
+          setRequestError(t("server.maintenance"));
         }
       })
       .catch(() => {
         setRequestValid(null);
-        setRequestError("Une erreur est survenue.");
+        setRequestError(t("error.occured"));
       })
       .finally(() => {
         setIsLoading(false);
@@ -281,7 +281,7 @@ export default function MyStepper() {
                 disabled={!formTwo.isValidForm}
                 onClick={handleSubmit}
               >
-               {t("registers")}
+                {t("register")}
               </LoadingButton>
             )}
           </Box>

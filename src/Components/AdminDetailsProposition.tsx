@@ -12,6 +12,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import Moment from "react-moment";
+import { useTranslation } from "react-i18next";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import { AnimateAlert, Carousel } from ".";
 
@@ -98,6 +99,7 @@ type Props = {
 };
 
 function AdminDetailsProposition(props: Props) {
+  const { t } = useTranslation();
   const { data, accept, refuse } = props;
   const loginCtx = useContext(LoginContext);
 
@@ -130,19 +132,19 @@ function AdminDetailsProposition(props: Props) {
           // if the proposition has not been found
           if (notFound.length !== 0) {
             setRequestValid(null);
-            setRequestError("une erreur est survenue.");
+            setRequestError(t("error.occored"));
           } else {
-            setRequestValid("Proposition validée avec succès.");
+            setRequestValid(t("valid.proposal"));
             setRequestError(null);
           }
         } else {
           setRequestValid(null);
-          setRequestError("Le serveur est en cours de maintenance.");
+          setRequestError(t("server.maintenance"));
         }
       })
       .catch(() => {
         setRequestValid(null);
-        setRequestError("Une erreur est survenue.");
+        setRequestError(t("error.occured"));
       })
       .finally(() => {
         setIsLoading({ ...isLoading, accept: false });
@@ -155,16 +157,16 @@ function AdminDetailsProposition(props: Props) {
     refuse(data?.id, loginCtx.user?.jwt)
       .then((res) => {
         if (res?.ok) {
-          setRequestValid("Proposition supprimée avec succès.");
+          setRequestValid(t("proposal.deleted"));
           setRequestError(null);
         } else {
           setRequestValid(null);
-          setRequestError("Le serveur est en cours de maintenance.");
+          setRequestError(t("server.maintenance"));
         }
       })
       .catch(() => {
         setRequestValid(null);
-        setRequestError("Une erreur est survenue.");
+        setRequestError(t("error.occured"));
       })
       .finally(() => {
         setIsLoading({ ...isLoading, refuse: false });
@@ -247,7 +249,7 @@ function AdminDetailsProposition(props: Props) {
                   lineHeight: "21px",
                 }}
               >
-                Accepter
+                {t("accept")}
               </LoadingButton>
             </ThemeProvider>
           </div>
@@ -273,7 +275,7 @@ function AdminDetailsProposition(props: Props) {
                   lineHeight: "21px",
                 }}
               >
-                Refuser
+                {t("refuse")}
               </LoadingButton>
             </ThemeProvider>
           </div>

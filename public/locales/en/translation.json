@@ -50,6 +50,25 @@
     "confirmation.password":"Password Confirmation",
     "pwd.not.match":"Password does not match",
     "account":"Have an account?",
-    "mdpF":"Forgot your password ?"
+    "mdpF":"Forgot your password ?",
+    "valid.location":"Please choose a valid location.",
+    "valider":"validate",
+    "error.occored":"An error has occurred.",
+    "valid.proposal":"Proposal successfully validated.",
+    "proposal.deleted":"Proposal deleted successfully.",
+    "accept":"Accept",
+    "refuse":"Refuse",
+    "location":"Enter location",
+    "ocean":"Ocean",
+    "permission":"you are not allowed",
+    "modify":"Modify",
+    "delete":"Delete",
+    "modify.art":"Modify an Art",
+    "propose.art":"Propose an Art",
+    "account.created":"Account created successfully.",
+    "account.exist":"An account with this email already exists.",
+    "create.contribution":"Contribution create successfully",
+    "art.contribute":"Contribute to an art",
+    "invalid.position":"Invalid POsition"
 
 }

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Alert } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
 // eslint-disable-next-line no-unused-vars
@@ -13,6 +14,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 }; */
 
 export default function ArtMap(props: any) {
+  const { t } = useTranslation();
   const { data, coords } = props;
   const numPics = Object.keys(data.pictures).length;
 
@@ -195,7 +197,7 @@ export default function ArtMap(props: any) {
               animate="visible"
               exit="exit"
             >
-              <Alert severity="error">Vous êtes pas autorisé</Alert>
+              <Alert severity="error">{t("permission")}</Alert>
             </motion.div>
           )}
         </AnimatePresence>
@@ -212,7 +214,7 @@ export default function ArtMap(props: any) {
                 className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
                 type="button"
               >
-                Modifier
+                {t("modify")}
               </button>
             </Link>
           </div>

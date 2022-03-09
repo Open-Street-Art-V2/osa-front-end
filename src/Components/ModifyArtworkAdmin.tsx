@@ -34,7 +34,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -409,7 +409,7 @@ function ModifyArtWork(props: any) {
     if (city === undefined) {
       city = data.features[0].properties.address.town;
       if (city === undefined) {
-        city = "Océan";
+        city = t("ocean");
       }
     }
     setCity(city);
@@ -473,17 +473,17 @@ function ModifyArtWork(props: any) {
         console.log(jsonData);
       } else if (!res.ok) {
         if (res.status === 409) {
-          throw Error = t("art.exist");
+          throw (Error = t("art.exist"));
         } else if (res.status === 401) {
-          throw Error= t("connect.operation");
+          throw (Error = t("connect.operation"));
         } else if (res.status === 400) {
-          throw Error = t("enter.location");
+          throw (Error = t("enter.location"));
         } else if (res.status === 413) {
-          throw Error = t("file.tlarge");
+          throw (Error = t("file.tlarge"));
         } else if (res.status === 413) {
-          throw Error=t("server.maintenance");
+          throw (Error = t("server.maintenance"));
         }
-        throw Error = t("art.title.exist");
+        throw (Error = t("art.title.exist"));
         // throw Error("Une erreur est survenue lors de la modification.");
       }
     } catch (error: any) {
@@ -658,7 +658,7 @@ function ModifyArtWork(props: any) {
             >
               <div className="text-center">
                 <label className="py-8 font-sans text-2xl authTitle font-bold ">
-                  Modifier une oeuvre
+                  {t("modify.art")}
                 </label>
                 <div className="px-5 pb-4">
                   <AnimatePresence initial exitBeforeEnter>
@@ -749,7 +749,8 @@ function ModifyArtWork(props: any) {
                   autoComplete="title"
                   error={state.isValidTitle === ValidField.ERROR}
                   helperText={
-                    state.isValidTitle === ValidField.ERROR && t("invalid.title")
+                    state.isValidTitle === ValidField.ERROR &&
+                    t("invalid.title")
                   }
                 />
                 <TextField
@@ -948,9 +949,7 @@ function ModifyArtWork(props: any) {
                   )}
                 </div>
                 {state.isValidImages === ValidField.ERROR && (
-                  <Alert severity="error">
-                {t("images.number")}
-                  </Alert>
+                  <Alert severity="error">{t("images.number")}</Alert>
                 )}
 
                 <Button
@@ -995,7 +994,7 @@ function ModifyArtWork(props: any) {
                       // className="loginBtn m-5"
                       // id="loginBtnForm"
                     >
-                      Valider
+                      {t("valider")}
                     </LoadingButton>
                   </ThemeProvider>
                 </div>

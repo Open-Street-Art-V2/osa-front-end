@@ -22,6 +22,7 @@ import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
+import { useTranslation } from "react-i18next";
 
 const loadingBtnTheme = createTheme({
   palette: {
@@ -158,6 +159,7 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 function CreateArtWork() {
+  const { t, i18n } = useTranslation();
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -238,7 +240,7 @@ function CreateArtWork() {
         const artCity = data.features[0].properties.address.municipality;
         if (artCity === undefined) {
           setAddr("Rouen");
-          throw Error("Veuillez choisir une position valide.");
+          throw Error(t("valid.location"));
         }
         setCity(artCity);
         setAddrRequestError(null);
@@ -247,7 +249,7 @@ function CreateArtWork() {
       if (
         error.message === "Cannot read properties of undefined (reading '0')"
       ) {
-        error.message = "Veuillez choisir une position valide.";
+        error.message = t("valid.location");
       }
       setAddrRequestError(error.message);
     }
@@ -294,20 +296,20 @@ function CreateArtWork() {
         },
       });
       if (res.ok) {
-        const valid: any = "Oeuvre créer avec succès";
+        const valid: any = t("art.created.success");
         setRequestValid(valid);
         setRequestError(null);
         const jsonData = await res.json();
         console.log(jsonData);
       } else if (!res.ok) {
         if (res.status === 409) {
-          throw Error("Une œuvre avec le même titre existe déja.");
+          throw Error(t("art.exist"));
         } else if (res.status === 401) {
-          throw Error("Veuillez vous connecter pour réaliser cette opération.");
+          throw Error(t("connect.operation"));
         } else if (res.status === 407) {
-          throw Error("L'un des fichiers est trop large.");
+          throw Error(t("file.large"));
         }
-        throw Error("Le serveur est en cours de maintenance.");
+        throw Error(t("server.maintenance"));
       }
     } catch (error: any) {
       setRequestError(error.message);
@@ -384,7 +386,7 @@ function CreateArtWork() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
             <p className="py-8 font-sans text-2xl font-bold ">
-              Proposer une oeuvre
+              {t("propose.art")}
             </p>
             <div className="px-5 pb-4">
               <AnimatePresence initial exitBeforeEnter>
@@ -472,7 +474,7 @@ function CreateArtWork() {
               autoComplete="title"
               error={state.isValidTitle === ValidField.ERROR}
               helperText={
-                state.isValidTitle === ValidField.ERROR && "Titre invalide"
+                state.isValidTitle === ValidField.ERROR && t("invalid.title")
               }
             />
 
@@ -504,14 +506,14 @@ function CreateArtWork() {
               error={state.isValidDescription === ValidField.ERROR}
               helperText={
                 state.isValidDescription === ValidField.ERROR &&
-                "Description doit contenir entre 2 et 250 caractéres"
+                t("description.characters")
               }
             />
             <Divider variant="middle" />
 
             <div className="flex flex-row px-5 pb-0 pt-4 ">
               <Typography gutterBottom variant="h5" component="div">
-                Ajouter des photos :
+                {t("add.photos")}
               </Typography>
             </div>
             <div className="text-center justify-center">
@@ -529,9 +531,7 @@ function CreateArtWork() {
               />
             </div>
             {state.isValidImages === ValidField.ERROR && (
-              <Alert severity="error">
-                Le nombre des images possible entre 1 et 3 avec 3Mo au max
-              </Alert>
+              <Alert severity="error">{t("images.number")}</Alert>
             )}
 
             <Button
@@ -549,7 +549,7 @@ function CreateArtWork() {
                 setMapState(true);
               }}
             >
-              Saisir la position
+              {t("position.enter")}
             </Button>
             {addr !== "Rouen" && (
               <div className="pt-2 pb-3">
@@ -573,7 +573,7 @@ function CreateArtWork() {
               <Alert severity="error">{addrRequestError}</Alert>
             )}
             {state.isValidPosition === ValidField.ERROR && (
-              <Alert severity="error">Invalide position</Alert>
+              <Alert severity="error">{t("position.invalid")}</Alert>
             )}
 
             <Divider variant="middle" />
@@ -587,8 +587,7 @@ function CreateArtWork() {
                     variant="contained"
                     disabled={
                       !state.isValidForm ||
-                      addrRequestError ===
-                        "Veuillez choisir une position valide."
+                      addrRequestError === t("valid.location")
                     }
                     loading={isLoading}
                     sx={{
@@ -600,7 +599,7 @@ function CreateArtWork() {
                       lineHeight: "21px",
                     }}
                   >
-                    Valider
+                    {t("valider")}
                   </LoadingButton>
                 </ThemeProvider>
               </div>
