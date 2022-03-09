@@ -25,6 +25,15 @@ import ReactMapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const schema = yup.object().shape({
   title: yup.string().required(),

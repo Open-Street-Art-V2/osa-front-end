@@ -9,10 +9,19 @@ import "./map.css";
 import useSwr from "swr";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { useNavigate, Link } from "react-router-dom";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { Pin, ArtworkUser } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
 import { logout } from "../../Guest/SignIn/SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 // import dataLoc from "./data.json";
 
