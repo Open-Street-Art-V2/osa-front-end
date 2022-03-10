@@ -287,7 +287,7 @@ function ValidateProp() {
                     id="flexCheckDefault"
                   />
 
-                  {isContributions && (
+                  {!isContributions && (
                     <Link
                       to="/admin/details-proposition"
                       state={{ data: Artwork }}
@@ -296,7 +296,7 @@ function ValidateProp() {
                       <ArtworkProposal data={Artwork} />
                     </Link>
                   )}
-                  {!isContributions && (
+                  {isContributions && (
                     <Link
                       to="/admin/details-contribution"
                       state={{ data: Artwork }}
