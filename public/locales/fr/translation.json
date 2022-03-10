@@ -16,11 +16,12 @@
   "position.enter": "Saisir la position",
   "position.invalid": "Position invalide",
   "incorrect.position": "Position saisie incorrecte",
-  "art.name": "Nom de l'oeuvre*",
-  "art.description": "Description de l'oeuvre*",
+  "art.name": "Nom de l'oeuvre",
+  "art.description": "Description de l'oeuvre",
   "add.photos": "Ajouter des photos",
   "art.modification": "Oeuvre modifiée avec succès",
   "art.exist": "Une œuvre avec le même titre existe déja.",
+  "artist": "Artiste",
   "enter.location": "Veuillez saisir une localisation.",
   "file.tlarge": "L'un des fichiers est trop large (taille maximale 2Mo).",
   "next": "Suivant",
@@ -75,5 +76,11 @@
   "proposals.lower": "propositions",
   "proposals.upper": "Propositions",
   "contributions.lower": "contributions",
-  "contributions.upper": "Contributions"
+  "contributions.upper": "Contributions",
+
+  "language": "Langue",
+  "french": "Français",
+  "english": "Englais",
+  "logout": "Se déconnecter",
+  "close": "Fermer"
 }

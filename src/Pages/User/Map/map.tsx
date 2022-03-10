@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
@@ -8,7 +8,7 @@ import useSupercluster from "use-supercluster";
 import "./map.css";
 import useSwr from "swr";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Pin, ArtworkUser } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
 import { logout } from "../../Guest/SignIn/SignIn.service";
@@ -78,6 +78,13 @@ function Map() {
   // INIT SELECTED ARTWORK
   const [selectedArtWork, setselectedArtWork] = useState<any>(null);
   const loginCtx = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginCtx.user?.role === "ROLE_ADMIN") {
+      navigate("/map/admin");
+    }
+  }, [loginCtx]);
 
   // REF TO GET BOUNDS OF THE MAP, USED LATER ON CLUSTERS
   const mapRef = useRef<any>();

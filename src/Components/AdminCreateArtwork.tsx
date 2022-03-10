@@ -173,7 +173,8 @@ const dispatchState = function (state: State, action: Action): State {
 };
 
 function CreateArtWork(props: any) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
   const [state, dispatch] = useReducer(dispatchState, {
     isValidTitle: ValidField.NOTFILLED,
     isValidArtist: ValidField.OK,
@@ -315,13 +316,13 @@ function CreateArtWork(props: any) {
         console.log(jsonData);
       } else if (!res.ok) {
         if (res.status === 409) {
-          throw (Error = t("art.title.exist"));
+          throw Error(t("art.title.exist"));
         } else if (res.status === 401) {
           throw Error(t("connect.operation"));
         } else if (res.status === 407) {
           throw Error(t("file.large"));
         }
-        throw (Error = t("server.maintenance"));
+        throw Error(t("server.maintenance"));
       }
     } catch (error: any) {
       setRequestError(error.message);
@@ -431,7 +432,7 @@ function CreateArtWork(props: any) {
               required
               fullWidth
               id="title"
-              label="Titre"
+              label={t("Title")}
               onChange={handleTitleChange}
               name="title"
               autoComplete="title"
@@ -445,7 +446,7 @@ function CreateArtWork(props: any) {
               margin="normal"
               fullWidth
               id="artist"
-              label="Artiste"
+              label={t("artist")}
               onChange={handleArtistChange}
               name="artist"
               autoComplete="artist"
@@ -460,7 +461,7 @@ function CreateArtWork(props: any) {
               required
               fullWidth
               id="description"
-              label="Description"
+              label={t("art.description")}
               multiline
               rows={4}
               onChange={handleDescriptionChange}

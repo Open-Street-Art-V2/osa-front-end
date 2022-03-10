@@ -16,11 +16,12 @@
   "position.enter": "Enter the position",
   "position.invalid": "Invalid position",
   "incorrect.position": "Incorrectly entered position",
-  "art.name": "Art's name*",
-  "art.description": "Art description*",
+  "art.name": "Art's name",
+  "art.description": "Art description",
   "add.photos": "Add photos",
   "art.modification": "art successfully modified",
   "art.exist": "An art with the same title already exists.",
+  "artist": "Artist",
   "enter.location": "Please enter a location.",
   "file.tlarge": "One of the files is too large (maximum size 2MB).",
   "next": "Next",
@@ -75,5 +76,11 @@
   "proposals.lower": "proposals",
   "proposals.upper": "Proposals",
   "contributions.lower": "contributions",
-  "contributions.upper": "Contributions"
+  "contributions.upper": "Contributions",
+
+  "language": "Language",
+  "french": "French",
+  "english": "English",
+  "logout": "Log out",
+  "close": "Close"
 }

@@ -10,7 +10,7 @@ import { logout } from "../Pages/Guest/SignIn/SignIn.service";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
 export default function Header() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [showModal, setShowModal] = React.useState(false);
   const loginCtx = useContext(LoginContext);
 
@@ -75,7 +75,7 @@ export default function Header() {
                         <GrLanguage />
                       </div>
                       <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
-                        Langue
+                        {t("language")}
                       </p>
                     </div>
                     <div className="flex flex-row">
@@ -83,10 +83,10 @@ export default function Header() {
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
                         onClick={() => {
-                          i18n.changeLanguage("fr");
+                          // i18n.changeLanguage("fr");
                         }}
                       >
-                        Francais
+                        {t("french")}
                       </button>
                       <div className="text-lg my-auto">
                         <ReactCountryFlag countryCode="FR" />
@@ -100,7 +100,7 @@ export default function Header() {
                         <GrLanguage />
                       </div>
                       <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
-                        Langue
+                        {t("language")}
                       </p>
                     </div>
                     <div className="flex flex-row">
@@ -108,10 +108,10 @@ export default function Header() {
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
                         onClick={() => {
-                          i18n.changeLanguage("en");
+                          // i18n.changeLanguage("en");
                         }}
                       >
-                        Anglais
+                        {t("english")}
                       </button>
                       <div className="text-lg my-auto">
                         <ReactCountryFlag countryCode="US" />
@@ -131,7 +131,7 @@ export default function Header() {
                           logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
                         }}
                       >
-                        Se déconnecter
+                        {t("logout")}
                       </button>
                     </div>
                   </div>
@@ -141,7 +141,7 @@ export default function Header() {
                   type="button"
                   onClick={() => setShowModal(false)}
                 >
-                  Close
+                  {t("close")}
                 </button>
               </div>
             </div>
