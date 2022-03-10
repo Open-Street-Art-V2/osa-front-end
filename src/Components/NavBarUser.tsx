@@ -18,7 +18,7 @@ function NavBarUser() {
             <AiOutlineSearch />
           </h1>
         </NavLink>
-        <NavLink to="user/ProposeArtwork">
+        <NavLink to="/user/ProposeArtwork">
           <h1>
             <AiOutlinePlusCircle />
           </h1>

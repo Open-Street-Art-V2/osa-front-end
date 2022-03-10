@@ -1,10 +1,13 @@
 import * as React from "react";
-import { CreateArtWork } from "../../../Components";
+import { CreateArtWork, Header } from "../../../Components";
+import NavBar from "../../../Components/NavBar";
 
 function cFormAdmin() {
   return (
     <div>
+      <Header />
       <CreateArtWork />
+      <NavBar />
     </div>
   );
 }
