@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { User } from "./utils/types";
-import { useTranslation } from "react-i18next";
+// @ts-ignore
+import i18n from "../../../i18n";
 
 export const login = async (
   setIsLoading: any,
@@ -50,29 +51,28 @@ export const logout = (
 };
 
 export const displayPasswordError = (errors: string[]) => {
-  const { t, i18n } = useTranslation();
   switch (errors[0]) {
     case "min":
       // return "Password must be at least 8 characters long";
-      return t("min.characters");
+      return i18n.t("min.characters");
     case "max":
       // return "Password maximum length is 25 characters";
-      return t("max.characters");
+      return i18n.t("max.characters");
     case "digits":
       // return "Password must contain at least one digit";
-      return t("digit.contain");
+      return i18n.t("digit.contain");
     case "lowercase":
       // return "Password must contain at least one lowercase character";
-      return t("lowercase.character");
+      return i18n.t("lowercase.character");
     case "uppercase":
       // return "Password must contain at least one uppercase character";
-      return t("upercase.character");
+      return i18n.t("upercase.character");
     case "spaces":
       // return "Password must not contain spaces";
-      return t("contain.spaces");
+      return i18n.t("contain.spaces");
     default:
       // return "Wrong password format";
-      return t("imdp");
+      return i18n.t("imdp");
   }
 };
 
