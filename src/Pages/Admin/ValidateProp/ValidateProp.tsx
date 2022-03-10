@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import {
@@ -11,6 +12,7 @@ import {
 import NavBar from "../../../Components/NavBar";
 
 function ValidateProp() {
+  const { t } = useTranslation();
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
   const [checkedProposals, setCheckedProposals] = useState([] as any);
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -134,7 +136,7 @@ function ValidateProp() {
               handleValidateProposals();
             }}
           >
-            Accepter
+            {t("valider")}
           </button>
           <button
             type="button"
@@ -143,12 +145,12 @@ function ValidateProp() {
               handleRejectProposals();
             }}
           >
-            Refuser
+            {t("refuse")}
           </button>
         </div>
         <div className="flex justify-center mb-5">
           <p className="form-check-label inline-block text-gray-800 p-2">
-            Afficher les
+            {t("display")}
           </p>
           {isContributions && (
             <button
@@ -158,7 +160,7 @@ function ValidateProp() {
               onClick={handleSwitchChange}
               className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
             >
-              Propositions
+              {t("proposals.lower")}
             </button>
           )}
           {!isContributions && (
@@ -169,7 +171,7 @@ function ValidateProp() {
               onClick={handleSwitchChange}
               className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
             >
-              Contributions
+              {t("contributions.lower")}
             </button>
           )}
         </div>
@@ -185,12 +187,12 @@ function ValidateProp() {
           />
           {isContributions && (
             <p className="content-center text-2xl font-medium col-span-2">
-              Contributions
+              {t("contributions.upper")}
             </p>
           )}
           {!isContributions && (
             <p className="content-center text-2xl font-medium col-span-2">
-              Propositions
+              {t("proposals.upper")}
             </p>
           )}
         </div>
