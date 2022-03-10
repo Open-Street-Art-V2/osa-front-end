@@ -26,6 +26,7 @@
   "file.tlarge": "One of the files is too large (maximum size 2MB).",
   "next": "Next",
   "register": "Sign up",
+  "registration": "Registration",
   "used.email": "Entered email is already in use",
   "min.characters": "Minimum 8 characters",
   "max.characters": "Maximum 25 characters",

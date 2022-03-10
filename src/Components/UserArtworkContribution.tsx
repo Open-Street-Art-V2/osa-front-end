@@ -16,7 +16,7 @@ import {
   Alert,
   createTheme,
 } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";
 import validator from "validator";
@@ -239,11 +239,14 @@ function ModifyArtWork(props: any) {
   const [addrRequestError, setAddrRequestError] = useState(null);
 
   const loginCtx = useContext(LoginContext);
-  if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
-    return <Navigate to="/map/admin"></Navigate>;
-  } else if (!loginCtx.isLoggedIn) {
-    return <Navigate to="/"></Navigate>;
-  }
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
+      navigate("/map/admin");
+    } else if (!loginCtx.isLoggedIn) {
+      navigate("/");
+    }
+  }, [loginCtx]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({

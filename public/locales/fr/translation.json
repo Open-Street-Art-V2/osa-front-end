@@ -25,7 +25,8 @@
   "enter.location": "Veuillez saisir une localisation.",
   "file.tlarge": "L'un des fichiers est trop large (taille maximale 2Mo).",
   "next": "Suivant",
-  "register": "Inscrire",
+  "register": "S'inscrire",
+  "registration": "Inscription",
   "used.email": "L'email saisi est déjà utilisé",
   "min.characters": "Minimum 8 caractères",
   "max.characters": "Maximum 25 caractères",
@@ -80,7 +81,7 @@
 
   "language": "Langue",
   "french": "Français",
-  "english": "Englais",
+  "english": "Anglais",
   "logout": "Se déconnecter",
   "close": "Fermer"
 }

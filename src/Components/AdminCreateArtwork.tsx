@@ -14,7 +14,7 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { ThemeProvider } from "@emotion/react";
@@ -193,13 +193,14 @@ function CreateArtWork(props: any) {
   const [requestError, setRequestError] = useState(null);
   const [requestValid, setRequestValid] = useState(null);
   const [addrRequestError, setAddrRequestError] = useState(null);
+  const navigate = useNavigate();
 
   const loginCtx = useContext(LoginContext);
-  if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_USER") {
-    return <Navigate to="/"></Navigate>;
-  } else if (!loginCtx.isLoggedIn) {
-    return <Navigate to="/"></Navigate>;
-  }
+  useEffect(() => {
+    if (loginCtx.user?.role !== "ROLE_ADMIN") {
+      navigate("/");
+    }
+  }, [loginCtx]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({

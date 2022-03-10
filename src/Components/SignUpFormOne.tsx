@@ -62,7 +62,7 @@ export default function SignUpFormOne(props: Props) {
         }}
       >
         <Typography component="h1" variant="h5">
-          {t("register")}
+          {t("registration")}
         </Typography>
 
         <Box component="form" noValidate sx={{ mt: 3 }}>
