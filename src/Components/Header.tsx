@@ -10,7 +10,7 @@ import { logout } from "../Pages/Guest/SignIn/SignIn.service";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
 export default function Header() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = React.useState(false);
   const loginCtx = useContext(LoginContext);
 
@@ -83,7 +83,7 @@ export default function Header() {
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
                         onClick={() => {
-                          // i18n.changeLanguage("fr");
+                          i18n.changeLanguage("fr");
                         }}
                       >
                         {t("french")}
@@ -108,7 +108,7 @@ export default function Header() {
                         type="button"
                         className="text-slate-500 text-md mx-2 leading-relaxed"
                         onClick={() => {
-                          // i18n.changeLanguage("en");
+                          i18n.changeLanguage("en");
                         }}
                       >
                         {t("english")}
