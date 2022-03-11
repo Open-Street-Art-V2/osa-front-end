@@ -7,6 +7,8 @@ import React from "react";
 import UserContribution from "../../../Components/UserArtworkContribution";
 import "./contributionForm.css";
 import { useLocation } from "react-router-dom";
+import { Header } from "../../../Components";
+import NavBarUser from "../../../Components/NavBarUser";
 
 interface CustomizedState {
   artwork: any;
@@ -20,7 +22,9 @@ function ContributionToArtUser() {
 
   return (
     <div>
+      <Header />
       <UserContribution data={artwork} coords={coords} />
+      <NavBarUser />
     </div>
   );
 }

@@ -130,9 +130,9 @@ function AdminDetailsProposition(props: Props) {
           const jsonRes = await res.json();
           const { notFound } = jsonRes;
           // if the proposition has not been found
-          if (notFound.length !== 0) {
+          if (notFound?.length !== 0) {
             setRequestValid(null);
-            setRequestError(t("error.occored"));
+            setRequestError(t("error.occured"));
           } else {
             setRequestValid(t("valid.proposal"));
             setRequestError(null);

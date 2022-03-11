@@ -1,4 +1,4 @@
-import User from "../Pages/Guest/SignUp/types/user";
+import { User } from "../Pages/Guest/SignUp/types/user";
 
 const register = async (user: User) => {
   try {

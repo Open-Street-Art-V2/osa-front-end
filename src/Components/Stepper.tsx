@@ -22,6 +22,7 @@ import { AnimateAlert } from ".";
 import { LoadingButton } from "@mui/lab";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { User } from "../Pages/Guest/SignUp/types/user";
 
 const dispatchStateOne = (state: StateOne, action: ActionOne) => {
   switch (action.type) {
@@ -209,16 +210,19 @@ export default function MyStepper() {
   };
 
   const handleSubmit = () => {
-    // TODO: rediriger vers la page de Sign In
     setIsLoading(true);
-    register({
+
+    const user: User = {
       firstname: formOne.firstname,
       name: formOne.name,
       email: formOne.email,
       birthDate: formOne.birthDate,
       favoriteCity: formTwo.favoriteCity,
       password: formTwo.password,
-    })
+    };
+    formTwo.favoriteCity === "" && delete user.favoriteCity;
+
+    register(user)
       .then((res) => {
         if (res?.ok) {
           setRequestValid(t("account.created"));
