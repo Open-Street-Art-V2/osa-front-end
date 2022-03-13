@@ -9,3 +9,4 @@ export { default as Carousel } from "./Carousel";
 export { default as AnimateAlert } from "./AnimateAlert";
 export { default as Map } from "./Map";
 export { default as SettingsBtn } from "./SettingsBtn";
+export { default as ArtworkSearchCard } from "./ArtworkSearchCard";
