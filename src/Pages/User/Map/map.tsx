@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./map.css";
 import useSwr from "swr";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { Map, ArtworkUser } from "../../../Components";
+import { Map, ArtworkDetails } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
 import { logout } from "../../Guest/SignIn/SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
+import "./map.css";
 
 function MapUser() {
   // INIT SELECTED ARTWORK
@@ -57,33 +57,32 @@ function MapUser() {
   return (
     <div>
       <Map points={points} setselectedArtWork={setselectedArtWork} />
-      <div id="login" className="">
-        <Link to="/login" className="inline-flex items-center w-10 h-10">
+
+      <div className="absolute top-2 right-2">
+        {loginCtx.isLoggedIn ? (
           <button
             type="button"
-            id="loginBtn"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-sm rounded-xl"
-          >
-            <AiOutlineUser />
-          </button>
-        </Link>
-      </div>
-      {loginCtx.isLoggedIn && (
-        <div id="logout" className="absolute top-20 right-2">
-          <button
-            type="button"
-            id="logoutBtn"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl"
+            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl shadow-lg"
             onClick={() => {
               logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
             }}
           >
             <AiOutlineLogout />
           </button>
-        </div>
-      )}
+        ) : (
+          <Link to="/login" className="inline-flex items-center w-10 h-10">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center w-10 h-10 bg-slate-50 text-slate-500 text-3xl rounded-xl shadow-lg"
+            >
+              <AiOutlineUser />
+            </button>
+          </Link>
+        )}
+      </div>
+
       {selectedArtWork ? (
-        <ArtworkUser
+        <ArtworkDetails
           data={selectedArtWork.properties}
           coords={selectedArtWork.geometry.coordinates}
           onClose={() => {

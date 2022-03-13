@@ -28,7 +28,7 @@ export default function Map(props: any) {
     points,
     bounds,
     zoom: viewport.zoom,
-    options: { radius: 70, maxZoom: 20 },
+    options: { radius: 30, maxZoom: 20 },
   });
 
   function markerClick(cluster: any, latitude: number, longitude: number) {
@@ -61,7 +61,7 @@ export default function Map(props: any) {
       keyboard={false}
     >
       <GeolocateControl
-        className="top-4 left-2"
+        className="top-4 left-2 z-10"
         showUserHeading
         positionOptions={{ enableHighAccuracy: true }}
         trackUserLocation
@@ -75,9 +75,10 @@ export default function Map(props: any) {
         let style;
 
         if (isCluster) {
-          if (pointCount < 50) style = 1;
-          else if (pointCount < 500) style = 2;
-          else style = 3;
+          if (pointCount < 10) style = 1;
+          else if (pointCount < 50) style = 2;
+          else if (pointCount < 100) style = 3;
+          else style = 4;
           return (
             <Marker
               key={`cluster-${cluster.id}`}
@@ -87,7 +88,7 @@ export default function Map(props: any) {
               <div
                 role="button"
                 tabIndex={0}
-                className={`cluster-marker s-${style}`}
+                className={`flex items-center justify-center s-${style} opacity-60 text-white text-lg border-2 border-white rounded-full z-1`}
                 onClick={() => markerClick(cluster, latitude, longitude)}
                 onKeyDown={() => {}}
               >
@@ -104,7 +105,10 @@ export default function Map(props: any) {
             longitude={longitude}
           >
             {setselectedArtWork && (
-              <Pin size={20} onClick={() => setselectedArtWork(cluster)} />
+              <Pin
+                pic={cluster.properties.pictures[0].url}
+                onClick={() => setselectedArtWork(cluster)}
+              />
             )}
             {!setselectedArtWork && <Pin size={20} onClick={() => {}} />}
           </Marker>
