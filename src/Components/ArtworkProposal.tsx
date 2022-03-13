@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 
 export default function ArtworkProposal(props: any) {
   const { data } = props;
-  // console.log(data);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  function handleImageLoad() {
+    setImageLoaded(true);
+  }
   return (
     <div className="flex flex-row col-span-5">
       <div className="flex-none w-28 h-24">
+        {!imageLoaded && (
+          <div className="animate-pulse w-28 h-24 bg-slate-200 rounded-3xl" />
+        )}
+
         {data.pictures[0] && (
           <img
             className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
             src={`./../${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
             alt="Failed to load"
+            onLoad={handleImageLoad}
+            style={imageLoaded ? {} : { display: "none" }}
           />
         )}
       </div>

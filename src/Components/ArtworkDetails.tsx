@@ -5,7 +5,7 @@ import { Alert } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import { Carousel } from ".";
+import Carousel from "./Carousel";
 
 export default function ArtworkDetails(props: any) {
   const { t } = useTranslation();
