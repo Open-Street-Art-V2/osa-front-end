@@ -22,14 +22,14 @@ type routesType = {
 
 const routes: routesType = [
   {
-    name: "UserProfile",
-    path: "/profil",
-    element: UserProfile,
-  },
-  {
     name: "MapUser",
     path: "/",
     element: Map,
+  },
+  {
+    name: "UserProfile",
+    path: "/profil",
+    element: UserProfile,
   },
   {
     name: "MapAdmin",
