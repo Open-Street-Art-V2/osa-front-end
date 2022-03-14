@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import LoginCtxProvider from "./Components/Context/LoginCtxProvider";
 import "./i18n";
+import "tw-elements";
 
 ReactDOM.render(
   <React.StrictMode>
