@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import useSwr from "swr";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { Map, ArtworkDetails } from "../../../Components";
+import { Map, ArtworkDetails, SettingsBtn } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { logout } from "../../Guest/SignIn/SignIn.service";
 import NavBar from "../../../Components/NavBar";
@@ -66,16 +66,8 @@ function MapAdmin() {
       <Map points={points} setselectedArtWork={setselectedArtWork} />
 
       {loginCtx.isLoggedIn && (
-        <div className="absolute top-2 right-2">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl shadow-lg"
-            onClick={() => {
-              logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
-            }}
-          >
-            <AiOutlineLogout />
-          </button>
+        <div className="fixed top-2 right-2">
+          <SettingsBtn />
         </div>
       )}
 
