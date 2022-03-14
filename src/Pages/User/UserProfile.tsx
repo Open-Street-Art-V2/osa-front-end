@@ -26,9 +26,9 @@ function UserProfile() {
         </div>
       </div>
 
-      <h1 className="text-black ml-8">Nom :</h1>
-      <h1 className="text-black ml-8">Prénom :</h1>
-      <h1 className="text-black ml-8">Email :</h1>
+      <h1 className="text-black ml-8">Nom:</h1>
+      <h1 className="text-black ml-8">Prénom:</h1>
+      <h1 className="text-black ml-8">Email:</h1>
 
       <div className="p-3">
         <NavLink to="/contribution">
