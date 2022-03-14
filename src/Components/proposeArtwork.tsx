@@ -299,7 +299,7 @@ function CreateArtWork() {
         },
       });
       if (res.ok) {
-        const valid: any = t("art.created.success");
+        const valid: any = t("proposal.created");
         setRequestValid(valid);
         setRequestError(null);
         const jsonData = await res.json();

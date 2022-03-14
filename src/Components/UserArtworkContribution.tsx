@@ -693,7 +693,7 @@ function ModifyArtWork(props: any) {
                   required
                   fullWidth
                   id="artist"
-                  label="Artist"
+                  label={t("artist")}
                   inputProps={{
                     defaultValue: Artwork.artist,
                   }}
@@ -711,7 +711,7 @@ function ModifyArtWork(props: any) {
                   required
                   fullWidth
                   id="description"
-                  label="Description"
+                  label={t("description")}
                   inputProps={{
                     defaultValue: Artwork.description,
                   }}
@@ -933,7 +933,7 @@ function ModifyArtWork(props: any) {
                 {addr !== "Rouen" && (
                   <div className="pt-2 pb-3">
                     <label className="font-medium text-sky-700 ">
-                      Address :
+                      {t("address")}
                     </label>
                     <span className="text-slate-700 dark:text-slate-500">
                       &ensp;{addr}
