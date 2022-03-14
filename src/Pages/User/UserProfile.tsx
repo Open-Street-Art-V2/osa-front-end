@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
-import { BsPaletteFill } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
+import { BsPaletteFill } from "react-icons/bs";
 import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import NavBarUser from "../../Components/NavBarUser";
