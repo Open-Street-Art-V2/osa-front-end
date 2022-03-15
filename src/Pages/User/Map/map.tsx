@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import useSwr from "swr";
-import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { Map, ArtworkDetails } from "../../../Components";
+import { Map, ArtworkDetails, SettingsBtn } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
-import { logout } from "../../Guest/SignIn/SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import "./map.css";
 
@@ -60,15 +59,9 @@ function MapUser() {
 
       <div className="absolute top-2 right-2">
         {loginCtx.isLoggedIn ? (
-          <button
-            type="button"
-            className="inline-flex items-center justify-center w-10 h-10 bg-slate-500 text-white text-2xl rounded-xl shadow-lg"
-            onClick={() => {
-              logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
-            }}
-          >
-            <AiOutlineLogout />
-          </button>
+          <div className="fixed top-2 right-2">
+            <SettingsBtn />
+          </div>
         ) : (
           <Link to="/login" className="inline-flex items-center w-10 h-10">
             <button

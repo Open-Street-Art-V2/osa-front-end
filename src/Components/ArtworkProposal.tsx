@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Moment from "react-moment";
 
 export default function ArtworkProposal(props: any) {

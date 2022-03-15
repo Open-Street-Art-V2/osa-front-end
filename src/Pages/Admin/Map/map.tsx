@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import useSwr from "swr";
-import { AiOutlineLogout } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { Map, ArtworkDetails, SettingsBtn } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { logout } from "../../Guest/SignIn/SignIn.service";
 import NavBar from "../../../Components/NavBar";
 import "./map.css";
 
@@ -53,6 +50,7 @@ function MapAdmin() {
     };
     return pointsP;
   });
+  // eslint-disable-next-line no-unused-vars
   const [newPoint, setNewPoint] = useState<any>(points);
   function handleDelete(id: any) {
     setNewPoint(

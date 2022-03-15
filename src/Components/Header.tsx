@@ -1,4 +1,3 @@
-import React from "react";
 import "../Assets/css/Header.css";
 import "@fontsource/fredoka-one";
 import SettingsBtn from "./SettingsBtn";

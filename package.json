@@ -2,6 +2,7 @@
   "name": "osa-front-end",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.tsx",
   "dependencies": {
     "@date-io/date-fns": "^2.13.1",
     "@emotion/core": "^11.0.0",
@@ -75,6 +76,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-dom": "^17.0.13",
     "@types/react-geocode": "^0.2.0",
     "@types/validator": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
