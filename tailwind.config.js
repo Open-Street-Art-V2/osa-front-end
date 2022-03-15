@@ -11,6 +11,9 @@ module.exports = {
       boxShadow: {
         center: "0px 0px 4px 2px rgba(0, 0, 0, 0.1)",
       },
+      colors: {
+        modal: "rgba(255, 255, 255, 0.1)",
+      },
     },
   },
   variants: {

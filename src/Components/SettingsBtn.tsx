@@ -34,9 +34,6 @@ const Backdrop = styled("div")`
   left: 0;
   padding: 3vh;
 `;
-const style = {
-  bgcolor: "transparent",
-};
 export default function SettingsBtn() {
   const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +42,7 @@ export default function SettingsBtn() {
     <>
       <button
         type="button"
-        className="inline-flex items-center justify-center w-10 h-10 outline-none focus:outline-none bg-white text-slate-900 text-3xl shadow-center rounded-full z-50"
+        className="inline-flex items-center justify-center w-10 h-10 outline-none focus:outline-none bg-white text-slate-700 text-3xl shadow-center rounded-full z-50"
         onClick={() => setShowModal(true)}
         data-modal-toggle="defaultModal"
       >
@@ -55,9 +52,9 @@ export default function SettingsBtn() {
         open={showModal}
         onClose={() => setShowModal(false)}
         BackdropComponent={Backdrop}
-        className="blure"
+        className="backdrop-blur-sm"
       >
-        <Box sx={style} className="absolute w-100 inset-0">
+        <Box className="w-100 bg-transparent inset-0">
           <button
             type="button"
             className="fixed inline-flex items-center justify-center w-11 h-11 top-2 right-2 outline-none focus:outline-none bg-slate-600 text-white text-3xl shadow-lg rounded-full z-50"
@@ -66,7 +63,7 @@ export default function SettingsBtn() {
           >
             <AiOutlineSetting />
           </button>
-          <div className="fixed w-screen top-12 z-10">
+          <div className="fixed w-screen top-12 left-0 z-10">
             <div className="w-72 mx-auto my-3 bg-white w-100 rounded-3xl shadow-2xl relative flex flex-col w-full p-3 outline-none focus:outline-none">
               <div className="flex flex-row my-3 justify-between gap-14">
                 <div className="flex flex-row">
