@@ -6,7 +6,7 @@ export default function ArtworkSearchCard(props: any) {
   return (
     <div className="flex flex-row col-span-5">
       <div className="flex-none w-28 h-24">
-        {data.pictures[0] && (
+        {data?.pictures[0] && (
           <img
             className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
             src={`./../${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
@@ -16,10 +16,10 @@ export default function ArtworkSearchCard(props: any) {
       </div>
       <div className="grid place-content-evenly overflow-hidden ml-3">
         <div className="font-bold text-slate-900 text-base overflow-hidden">
-          {data.title}
+          {data?.title}
         </div>
         <p className="text-gray-700 text-xs">
-          {data.address}, {data.city}
+          {data?.address}, {data?.city}
         </p>
       </div>
     </div>
