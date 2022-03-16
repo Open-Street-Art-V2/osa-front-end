@@ -76,7 +76,7 @@ function UserProfile() {
               <div className="flex items-center text-black-800 font-bold text-lg ">
                 Oeuvres favoris
               </div>
-              {/* <p className="text-gray-600 ">23</p>*/}
+              {/* <p className="text-gray-600 ">23</p> */}
             </div>
             <div className="flex items-center text-3xl">
               <AiOutlineRight className="text-gray-600" />
