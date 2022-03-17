@@ -1,93 +1,20 @@
 import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArtworkSearchCard, Header } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
-
-const data = [
-  {
-    id: 5,
-    title: "Statut de la liberté",
-    artist: "Bender",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a magna pretium, elementum odio ac, congue risus. Vivamus ut blandit nulla.",
-    latitude: "1.07954",
-    longitude: "49.43117",
-    address: "12 rue Victor Hugo",
-    city: "Rouen",
-    created_at: "2022-02-21T16:57:39.835Z",
-    pictures: [
-      {
-        position: 1,
-        url: "artwork0.jpeg",
-        created_at: "2022-02-21T16:57:39.875Z",
-      },
-      {
-        position: 2,
-        url: "artwork3.jpeg",
-        created_at: "2022-02-21T16:57:39.875Z",
-      },
-    ],
-    user: {
-      id: 1,
-      email: "test@test.com",
-      password: "$2b$10$qtho84pdul8pTO2h3HoEteSRaN3Qoxn2bzwEvS6mRxGDRhCHGLWPe",
-      name: "Munoz",
-      firstname: "Georges",
-      favoriteCity: null,
-      birthDate: "1975-08-19",
-      role: "ROLE_USER",
-      created_at: "2022-02-05T11:34:20.488Z",
-      arts: [],
-    },
-    art: null,
-  },
-  {
-    id: 6,
-    title: "Art1",
-    artist: "Bender",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a magna pretium, elementum odio ac, congue risus. Vivamus ut blandit nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a magna pretium, elementum odio ac, congue risus. Vivamus ut blandit nulla.",
-    latitude: "1.07954",
-    longitude: "49.43117",
-    address: "13 rue Victor Hugo",
-    city: "Rouen",
-    created_at: "2022-02-21T16:57:39.835Z",
-    pictures: [
-      {
-        position: 1,
-        url: "artwork2.jpeg",
-        created_at: "2022-02-21T16:57:39.875Z",
-      },
-      {
-        position: 2,
-        url: "artwork3.jpeg",
-        created_at: "2022-02-21T16:57:39.875Z",
-      },
-    ],
-    user: {
-      id: 1,
-      email: "test@test.com",
-      password: "$2b$10$qtho84pdul8pTO2h3HoEteSRaN3Qoxn2bzwEvS6mRxGDRhCHGLWPe",
-      name: "Munoz",
-      firstname: "Georges",
-      favoriteCity: null,
-      birthDate: "1975-08-19",
-      role: "ROLE_USER",
-      created_at: "2022-02-05T11:34:20.488Z",
-      arts: [],
-    },
-    art: null,
-  },
-];
+import searchArt from "../../../services/art.service";
+import { Art } from "../../../types/art";
 
 function SearchArtwork() {
+  const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<string>("title");
-  // const [data, setData] = useState<Art[] | null>(null);
+  const [data, setData] = useState<Art[] | null>(null);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter(event.target.value);
@@ -98,13 +25,11 @@ function SearchArtwork() {
   };
 
   const handleClick = () => {
-    console.log(search, filter);
     if (search !== "") {
-      // API call here
-      // searchArt(search, filter).then((res) => {
-      //   console.log(res);
-      //   setData(res);
-      // });
+      setIsLoading(true);
+      searchArt(search, filter).then((res) => {
+        setData(res);
+      });
       setIsLoading(false);
     }
   };
@@ -118,9 +43,9 @@ function SearchArtwork() {
           className="form-select appearance-none block w-full py-1.5 pl-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           onChange={handleSelectChange}
         >
-          <option value="title">Par titre</option>
-          <option value="city">Par ville</option>
-          <option value="artist">Par artiste</option>
+          <option value="title">{t("filter.title")}</option>
+          <option value="city">{t("filter.city")}</option>
+          <option value="artist">{t("filter.artist")}</option>
         </select>
       </div>
 
@@ -143,19 +68,19 @@ function SearchArtwork() {
           type="text"
           id="search-input"
           className="block p-2 px-10 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
-          placeholder="Recherche d'oeuvres"
+          placeholder={t("search.arts")}
           onChange={handleChange}
         />
         <div className="flex absolute inset-y-0 right-0 items-center pr-3 text-gray-500">
           <button type="button" id="search-button" onClick={handleClick}>
-            OK
+            {t("ok")}
           </button>
         </div>
       </div>
 
-      <div className="mx-3 -mt-2 pt-3 pb-3 mb-20 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
-        {isLoading &&
-          [1, 2, 3, 4].map((item: any) => {
+      {isLoading && (
+        <div className="mx-3 -mt-2 pt-3 pb-3 mb-20 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          {[1, 2, 3, 4].map((item: any) => {
             return (
               <div
                 key={item}
@@ -177,26 +102,30 @@ function SearchArtwork() {
               </div>
             );
           })}
+        </div>
+      )}
 
-        {data &&
-          data.map((art: any) => {
-            return (
-              <div key={art.id} className="mt-3 mx-2">
-                <Link
-                  to="/details-artwork"
-                  state={{ data: art }}
-                  className="w-fit"
-                >
-                  <ArtworkSearchCard data={art} />
-                </Link>
-              </div>
-            );
-          })}
-
-        {!isLoading && !data && (
-          <div className="pt-1 text-center">Aucun résultat</div>
-        )}
-      </div>
+      {data && (
+        <div className="mx-3 -mt-2 pt-3 pb-3 mb-20 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          {data.length === 0 ? (
+            <div className="pt-1 text-center">{t("no.result")}</div>
+          ) : (
+            data.map((art: any) => {
+              return (
+                <div key={art.id} className="mt-3 mx-2">
+                  <Link
+                    to="/details-artwork"
+                    state={{ data: art }}
+                    className="w-fit"
+                  >
+                    <ArtworkSearchCard data={art} />
+                  </Link>
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
     </div>

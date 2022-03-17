@@ -89,5 +89,12 @@
   "close": "Close",
   "city": "City",
   "searchBarTitre-placeholder": "Search by art title",
-  "searchBarVille-placeholder": "Search by city"
+  "searchBarVille-placeholder": "Search by city",
+
+  "filter.title": "By title",
+  "filter.city": "By city",
+  "filter.artist": "By artist",
+  "search.arts": "Search for artworks",
+  "ok": "OK",
+  "no.result": "No result"
 }

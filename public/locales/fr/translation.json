@@ -86,8 +86,15 @@
   "french": "Français",
   "english": "Anglais",
   "logout": "Se déconnecter",
-  "close": "Close",
+  "close": "Fermer",
   "city": "Ville",
   "searchBarTitre-placeholder": "Recherche par titre de l'oeuvre",
-  "searchBarVille-placeholder": "Recherche par ville"
+  "searchBarVille-placeholder": "Recherche par ville",
+
+  "filter.title": "Par titre",
+  "filter.city": "Par ville",
+  "filter.artist": "Par artiste",
+  "search.arts": "Recherche d'oeuvres",
+  "ok": "OK",
+  "no.result": "Pas de résultat"
 }

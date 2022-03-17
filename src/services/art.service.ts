@@ -1,7 +1,7 @@
 import { Art } from "../types/art";
 
-const searchArt = async (title: string, filter: string): Promise<Art[]> => {
-  const url = `${process.env.REACT_APP_API}/art/${filter}/${title}`;
+const searchArt = async (search: string, filter: string): Promise<Art[]> => {
+  const url = `${process.env.REACT_APP_API}/art/${filter}/${search}`;
 
   try {
     const response = await fetch(url, {
