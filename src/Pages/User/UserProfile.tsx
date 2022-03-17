@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -7,8 +7,57 @@ import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import NavBarUser from "../../Components/NavBarUser";
 import Header from "../../Components/Header";
+import { LoginContext } from "../../Components/Context/LoginCtxProvider";
+
+/* type User = {
+  Lastname: string;
+  firstName: string;
+  email: string;
+}; */
 
 function UserProfile() {
+  const loginCtx = useContext(LoginContext);
+
+  const [user, setUser] = useState({
+    Lastname: "",
+    firstName: "",
+    email: "",
+  });
+  // const [lastName, setLastName] = useState();
+
+  async function getUserInfo() {
+    const url = `http://localhost:3008/users/profile/${loginCtx.user?.id}`;
+
+    try {
+      const res: Response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${loginCtx.user?.jwt}`,
+        },
+      });
+      if (res.ok) {
+        console.log(res);
+        const jsonData = await res.json();
+        console.log(jsonData.profile.name);
+        console.log(jsonData.profile.firstName);
+        console.log(jsonData.profile.email);
+
+        setUser({
+          Lastname: jsonData.profile.name,
+          firstName: jsonData.profile.firstName,
+          email: jsonData.profile.email,
+        });
+        // setLastName(jsonData.profile.name);
+      } else if (!res.ok) {
+        if (res.status === 409) {
+          throw Error("Error");
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
+  getUserInfo();
   return (
     <>
       <Header />
@@ -26,9 +75,9 @@ function UserProfile() {
         </div>
       </div>
 
-      <h1 className="text-black ml-8">Nom:</h1>
-      <h1 className="text-black ml-8">Prénom:</h1>
-      <h1 className="text-black ml-8">Email:</h1>
+      <h1 className="text-black ml-8">Nom: {user.Lastname} </h1>
+      <h1 className="text-black ml-8">Prénom: {user.firstName}</h1>
+      <h1 className="text-black ml-8">Email: {loginCtx.user?.email}</h1>
 
       <div className="p-3">
         <NavLink to="/contribution">
