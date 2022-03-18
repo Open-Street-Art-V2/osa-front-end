@@ -570,7 +570,7 @@ function ModifyArtWork(props: any) {
   return (
     <>
       {Artwork !== undefined && (
-        <Container component="main" maxWidth="xs" className="px-5 pb-4">
+        <Container component="main" maxWidth="xs" className="px-5 pb-20">
           <CssBaseline />
           <Box
             sx={{

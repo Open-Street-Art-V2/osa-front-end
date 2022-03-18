@@ -1,10 +1,13 @@
 import * as React from "react";
-import { CreatePropositionArtWork } from "../../../Components";
+import { CreatePropositionArtWork, Header } from "../../../Components";
+import NavBarUser from "../../../Components/NavBarUser";
 
 function cForm() {
   return (
     <div>
+      <Header />
       <CreatePropositionArtWork />
+      <NavBarUser />
     </div>
   );
 }

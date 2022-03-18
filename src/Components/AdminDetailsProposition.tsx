@@ -127,16 +127,16 @@ function AdminDetailsProposition(props: Props) {
     accept([data?.id], loginCtx.user?.jwt)
       .then(async (res) => {
         if (res?.ok) {
-          const jsonRes = await res.json();
-          const { notFound } = jsonRes;
+          // const jsonRes = await res.json();
+          // const { notFound } = jsonRes;
           // if the proposition has not been found
-          if (notFound.length !== 0) {
-            setRequestValid(null);
-            setRequestError(t("error.occored"));
-          } else {
-            setRequestValid(t("valid.proposal"));
-            setRequestError(null);
-          }
+          // if (notFound?.length !== 0) {
+          //   setRequestValid(null);
+          //   setRequestError(t("error.occured"));
+          // } else {
+          setRequestValid(t("valid.proposal"));
+          setRequestError(null);
+          // }
         } else {
           setRequestValid(null);
           setRequestError(t("server.maintenance"));

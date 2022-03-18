@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import {
@@ -11,6 +12,7 @@ import {
 import NavBar from "../../../Components/NavBar";
 
 function ValidateProp() {
+  const { t } = useTranslation();
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
   const [checkedProposals, setCheckedProposals] = useState([] as any);
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -134,7 +136,7 @@ function ValidateProp() {
               handleValidateProposals();
             }}
           >
-            Accepter
+            {t("valider")}
           </button>
           <button
             type="button"
@@ -143,12 +145,12 @@ function ValidateProp() {
               handleRejectProposals();
             }}
           >
-            Refuser
+            {t("refuse")}
           </button>
         </div>
         <div className="flex justify-center mb-5">
           <p className="form-check-label inline-block text-gray-800 p-2">
-            Afficher les
+            {t("display")}
           </p>
           {isContributions && (
             <button
@@ -158,7 +160,7 @@ function ValidateProp() {
               onClick={handleSwitchChange}
               className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
             >
-              Propositions
+              {t("proposals.lower")}
             </button>
           )}
           {!isContributions && (
@@ -169,7 +171,7 @@ function ValidateProp() {
               onClick={handleSwitchChange}
               className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
             >
-              Contributions
+              {t("contributions.lower")}
             </button>
           )}
         </div>
@@ -185,19 +187,19 @@ function ValidateProp() {
           />
           {isContributions && (
             <p className="content-center text-2xl font-medium col-span-2">
-              Contributions
+              {t("contributions.upper")}
             </p>
           )}
           {!isContributions && (
             <p className="content-center text-2xl font-medium col-span-2">
-              Propositions
+              {t("proposals.upper")}
             </p>
           )}
         </div>
       </div>
       <div
         id="scrollableDiv"
-        className="overflow-auto h-[calc(100vh-364px)] pb-12"
+        className="overflow-auto h-[calc(100vh-364px)] py-2"
       >
         {isLoading &&
           skeletons.map((item: any) => {
@@ -274,10 +276,10 @@ function ValidateProp() {
               return (
                 <div
                   key={Artwork.id}
-                  className="grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+                  className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
                   <input
-                    className="justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+                    className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
                     type="checkbox"
                     value={checkedProposals[index].checked}
                     checked={checkedProposals[index].checked}
@@ -285,20 +287,19 @@ function ValidateProp() {
                     id="flexCheckDefault"
                   />
 
-                  {isContributions && (
-                    <Link
-                      to="/admin/details-proposition"
-                      state={{ data: Artwork }}
-                      className="w-fit"
-                    >
-                      <ArtworkProposal data={Artwork} />
-                    </Link>
-                  )}
-                  {!isContributions && (
+                  {isContributions ? (
                     <Link
                       to="/admin/details-contribution"
                       state={{ data: Artwork }}
-                      className="w-fit"
+                      className="grow mx-1"
+                    >
+                      <ArtworkProposal data={Artwork} />
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/admin/details-proposition"
+                      state={{ data: Artwork }}
+                      className="grow mx-1"
                     >
                       <ArtworkProposal data={Artwork} />
                     </Link>

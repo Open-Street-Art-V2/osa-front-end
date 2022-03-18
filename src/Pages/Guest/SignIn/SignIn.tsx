@@ -297,7 +297,7 @@ export default function SignIn() {
         </Box>
 
         <div id="insc" className="py-5">
-          <label className="mdpF">Vous n’avez pas de compte ?</label>
+          <label className="mdpF">{t("no.account")}</label>
           <Link to="/sign-up" id="inscB" className="mdpF">
             {t("register")}
           </Link>
