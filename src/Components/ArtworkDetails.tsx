@@ -62,7 +62,7 @@ export default function ArtworkDetails(props: any) {
         <div className="text-gray-700 text-base">{data.description}</div>
         <div className="font-medium">
           <div className="font-medium text-sky-500 text-md mt-3">
-            Artiste : {data.artist}
+            {t("artist")} : {data.artist}
           </div>
           <div className="text-slate-700 text-sm">{data.address}</div>
         </div>
@@ -157,7 +157,7 @@ export default function ArtworkDetails(props: any) {
             type="button"
             onClick={openItinerary}
           >
-            Itinéraire
+            {t("itinerary")}
           </button>
         </div>
       </div>

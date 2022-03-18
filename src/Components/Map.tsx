@@ -14,11 +14,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { ListItemText } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
 
 export default function Map(props: any) {
   const { points, setselectedArtWork } = props;
+  const { t } = useTranslation();
 
   // DEFAULT MAP STATE
   const [viewport, setViewport] = useState({
@@ -128,7 +130,7 @@ export default function Map(props: any) {
         id="SearchBar"
         name="SearchBar"
         autoComplete="SearchBar"
-        placeholder="Recherche d'une oeuvre,ville..."
+        placeholder={t("searchBar-placeholder")}
         value={value}
         onChange={handleSearchBarChange}
         InputProps={{
@@ -179,12 +181,12 @@ export default function Map(props: any) {
                 >
                   {filter === "Ville" && (
                     <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      Ville
+                      {t("city")}
                     </ListItemText>
                   )}
                   {filter === "Titre" && (
                     <ListItemText style={{ paddingLeft: 30 }}>
-                      Ville
+                      {t("city")}
                     </ListItemText>
                   )}
                 </MenuItem>
@@ -197,12 +199,12 @@ export default function Map(props: any) {
                 >
                   {filter === "Titre" && (
                     <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      Titre
+                      {t("Title")}
                     </ListItemText>
                   )}
                   {filter === "Ville" && (
                     <ListItemText style={{ paddingLeft: 30 }}>
-                      Titre
+                      {t("Title")}
                     </ListItemText>
                   )}
                 </MenuItem>

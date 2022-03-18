@@ -63,7 +63,7 @@
   "refuse": "Refuse",
   "location": "Enter location",
   "ocean": "Ocean",
-  "permission": "you are not allowed",
+  "permission": "You are not allowed",
   "modify": "Modify",
   "delete": "Delete",
   "modify.art": "Modify an Art",
@@ -74,14 +74,16 @@
   "art.contribute": "Contribute to an art",
   "invalid.position": "Invalid Position",
   "display": "Display",
-  "proposals.lower": "proposals",
+  "proposals.lower": "Proposals",
   "proposals.upper": "Proposals",
-  "contributions.lower": "contributions",
+  "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
-
+  "itinerary": "Itinerary",
   "language": "Language",
   "french": "French",
   "english": "English",
   "logout": "Log out",
-  "close": "Close"
+  "close": "Close",
+  "city": "City",
+  "searchBar-placeholder": "Search for an Art,city....."
 }
