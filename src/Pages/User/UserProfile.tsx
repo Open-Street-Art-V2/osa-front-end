@@ -63,8 +63,8 @@ function UserProfile() {
             <FcManager className="items-center text-6xl" />
           </div>
           <div className="col-span-2 items-center">
-            <div className="flex items-center text-black-800 font-bold text-xl uppercase">
-              {user.firstName}
+            <div className="flex items-center text-black-800 font-bold text-xl">
+              {user.firstName} {user.Lastname}
             </div>
             <p className="text-gray-600 ">Contributeur</p>
           </div>
