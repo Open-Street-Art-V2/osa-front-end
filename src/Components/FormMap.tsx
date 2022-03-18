@@ -7,7 +7,8 @@ import ReactMapGL, {
   Marker,
 } from "react-map-gl";
 import { styled } from "@mui/system";
-import Pin from "./Pin.map";
+import { RiMapPinFill } from "react-icons/ri";
+import { GrClose } from "react-icons/gr";
 import { Box } from "@mui/material";
 
 type mapView = {
@@ -65,7 +66,6 @@ function FormMap(props: any) {
   const [long, setLong] = useState<any>(props.long);
   const [open, setOpen] = React.useState(true);
 
-  const handleClose = () => setOpen(false);
   const [viewport, setViewport] = useState({
     latitude: 49.43424,
     longitude: 1.08972,
@@ -78,9 +78,12 @@ function FormMap(props: any) {
     <>
       <StyledModal
         open={open}
-        onClose={handleClose}
+        onClose={() => {
+          props.closeMap(false);
+          setOpen(false);
+        }}
         BackdropComponent={Backdrop}
-        className="blure"
+        className="backdrop-blur-sm"
       >
         <Box sx={style}>
           <ReactMapGL
@@ -101,6 +104,7 @@ function FormMap(props: any) {
             }}
             ref={mapRef}
             keyboard={false}
+            attributionControl={false}
           >
             <NavigationControl style={navControlStyle} />
             <GeolocateControl
@@ -112,34 +116,20 @@ function FormMap(props: any) {
             />
             {lat && long && (
               <Marker latitude={lat} longitude={long}>
-                <Pin size={20} onClick={() => function () {}} />
+                <RiMapPinFill className="text-2xl text-slate-500" />
               </Marker>
             )}
-            <div id="add">
-              <button
-                type="button"
-                id="addBtn"
-                onClick={() => props.closeMap(false)}
-                className="inline-flex items-center justify-center w-10 h-10 z-10 bg-slate-700 text-white text-2xl rounded-3xl"
-              >
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
           </ReactMapGL>
+          <button
+            type="button"
+            onClick={() => {
+              props.closeMap(false);
+              setOpen(false);
+            }}
+            className="fixed top-12 right-12 inline-flex items-center justify-center w-10 h-10 z-10 bg-white text-xl shadow-lg rounded-3xl"
+          >
+            <GrClose />
+          </button>
         </Box>
       </StyledModal>
     </>

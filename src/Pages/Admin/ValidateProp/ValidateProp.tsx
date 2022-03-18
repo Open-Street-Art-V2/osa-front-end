@@ -199,7 +199,7 @@ function ValidateProp() {
       </div>
       <div
         id="scrollableDiv"
-        className="overflow-auto h-[calc(100vh-364px)] pb-12"
+        className="overflow-auto h-[calc(100vh-364px)] py-2"
       >
         {isLoading &&
           skeletons.map((item: any) => {
@@ -276,10 +276,10 @@ function ValidateProp() {
               return (
                 <div
                   key={Artwork.id}
-                  className="grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+                  className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
                   <input
-                    className="justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+                    className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
                     type="checkbox"
                     value={checkedProposals[index].checked}
                     checked={checkedProposals[index].checked}
@@ -287,20 +287,19 @@ function ValidateProp() {
                     id="flexCheckDefault"
                   />
 
-                  {!isContributions && (
-                    <Link
-                      to="/admin/details-proposition"
-                      state={{ data: Artwork }}
-                      className="w-fit"
-                    >
-                      <ArtworkProposal data={Artwork} />
-                    </Link>
-                  )}
-                  {isContributions && (
+                  {isContributions ? (
                     <Link
                       to="/admin/details-contribution"
                       state={{ data: Artwork }}
-                      className="w-fit"
+                      className="grow mx-1"
+                    >
+                      <ArtworkProposal data={Artwork} />
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/admin/details-proposition"
+                      state={{ data: Artwork }}
+                      className="grow mx-1"
                     >
                       <ArtworkProposal data={Artwork} />
                     </Link>

@@ -1,34 +1,25 @@
-import React, { PureComponent } from "react";
+import { useState } from "react";
 
-const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
-  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
-  C20.1,15.8,20.2,15.8,20.2,15.7z`;
+export default function Pin(props: any) {
+  const { onClick, pic } = props;
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
-const pinStyle = {
-  cursor: "pointer",
-  fill: "#000000",
-  stroke: "none",
-};
-
-export default class Pin extends PureComponent<{
-  size: number;
-  onClick: () => void;
-}> {
-  render() {
-    const { size, onClick } = this.props;
-
-    return (
-      <svg
-        height={size}
-        viewBox="0 0 24 24"
-        style={{
-          ...pinStyle,
-          transform: `translate(${-size / 2}px,${-size}px)`,
-        }}
-        onClick={onClick}
-      >
-        <path d={ICON} />
-      </svg>
-    );
+  function handleImageLoad() {
+    setImageLoaded(true);
   }
+  return (
+    <button type="button" className="" onClick={onClick}>
+      {!imageLoaded && (
+        <div className="w-10 h-10 border-2 bg-slate-200 border-white rounded-full shadow-xl" />
+      )}
+
+      <img
+        src={`/${process.env.REACT_APP_IMAGES_PATH}${pic}`}
+        onLoad={handleImageLoad}
+        className="object-cover justify-self-center self-center w-11 h-11 border-2 border-white rounded-full shadow-xl"
+        alt="Failed to load"
+        style={imageLoaded ? {} : { display: "none" }}
+      />
+    </button>
+  );
 }

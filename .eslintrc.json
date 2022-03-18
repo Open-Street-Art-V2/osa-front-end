@@ -20,6 +20,13 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
     "prettier/prettier": [
       "error",
@@ -28,6 +35,7 @@
       }
     ],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+    "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "semi": ["off", "always"],
     "quotes": ["off", "double"],
