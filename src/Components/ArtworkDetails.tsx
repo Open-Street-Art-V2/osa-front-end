@@ -9,7 +9,7 @@ import Carousel from "./Carousel";
 
 export default function ArtworkDetails(props: any) {
   const { t } = useTranslation();
-  const { data, coords } = props;
+  const { data, coords, lat, long } = props;
   const numPics = Object.keys(data.pictures).length;
   const loginCtx = useContext(LoginContext);
   const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
@@ -39,6 +39,11 @@ export default function ArtworkDetails(props: any) {
       }
     }
   }
+  const openItinerary = () => {
+    window.open(
+      `https://www.google.com/maps/dir/?api=1&origin=${lat},${long}&destination=${coords[1]},${coords[0]}`
+    );
+  };
 
   return (
     <div className="popupCard2 pb-16">
@@ -145,6 +150,17 @@ export default function ArtworkDetails(props: any) {
           </div>
         </div>
       )}
+      <div className="px-6 pt-2 pb-5">
+        <div className="flex items-center justify-around">
+          <button
+            className="bg-amber-400 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={openItinerary}
+          >
+            Itinéraire
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
