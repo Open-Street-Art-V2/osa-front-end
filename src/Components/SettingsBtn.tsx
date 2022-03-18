@@ -40,14 +40,17 @@ export default function SettingsBtn() {
   const loginCtx = useContext(LoginContext);
   return (
     <>
-      <button
-        type="button"
-        className="inline-flex items-center justify-center w-10 h-10 outline-none focus:outline-none bg-white text-slate-700 text-3xl shadow-center rounded-full z-50"
-        onClick={() => setShowModal(true)}
-        data-modal-toggle="defaultModal"
-      >
-        <AiOutlineSetting />
-      </button>
+      {!showModal && (
+        <button
+          type="button"
+          className="inline-flex items-center justify-center w-10 h-10 outline-none focus:outline-none bg-white text-slate-700 text-3xl shadow-center rounded-full z-50"
+          onClick={() => setShowModal(true)}
+          data-modal-toggle="defaultModal"
+        >
+          <AiOutlineSetting />
+        </button>
+      )}
+
       <StyledModal
         open={showModal}
         onClose={() => setShowModal(false)}
@@ -57,7 +60,7 @@ export default function SettingsBtn() {
         <Box className="w-100 bg-transparent inset-0">
           <button
             type="button"
-            className="fixed inline-flex items-center justify-center w-11 h-11 top-2 right-2 outline-none focus:outline-none bg-slate-600 text-white text-3xl shadow-lg rounded-full z-50"
+            className="fixed inline-flex items-center justify-center w-11 h-11 top-4 right-2 outline-none focus:outline-none bg-slate-600 text-white text-3xl shadow-lg rounded-full z-50"
             onClick={() => setShowModal(false)}
             data-modal-toggle="defaultModal"
           >

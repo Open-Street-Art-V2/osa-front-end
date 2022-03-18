@@ -9,9 +9,9 @@ export default function ArtworkProposal(props: any) {
   }
   return (
     <div className="flex flex-row col-span-5">
-      <div className="flex-none w-28 h-24">
+      <div className="flex-none w-32 h-24">
         {!imageLoaded && (
-          <div className="animate-pulse w-28 h-24 bg-slate-200 rounded-3xl" />
+          <div className="animate-pulse w-32 h-24 bg-slate-200 rounded-3xl" />
         )}
 
         {data.pictures[0] && (
@@ -25,11 +25,11 @@ export default function ArtworkProposal(props: any) {
         )}
       </div>
       <div className="grow h-20 overflow-hidden ml-2">
-        <div className="flex flex-row justify-between mb-2">
-          <div className="font-bold text-slate-900 text-base overflow-hidden w-16">
+        <div className="flex justify-between mb-2">
+          <div className="grow font-bold text-slate-900 text-base overflow-hidden w-16">
             {data.title}
           </div>
-          <div className="text-sky-600 text-xs pt-1 overflow-hidden">
+          <div className="text-sky-600 text-xs pt-1 pl-2 overflow-hidden">
             <Moment date={data.created_at} format="DD/MM/YYYY" />
           </div>
         </div>

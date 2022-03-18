@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import Pin from "./Pin.map";
@@ -59,6 +59,7 @@ export default function Map(props: any) {
       }}
       ref={mapRef}
       keyboard={false}
+      attributionControl={false}
     >
       <GeolocateControl
         className="top-4 left-2 z-10"

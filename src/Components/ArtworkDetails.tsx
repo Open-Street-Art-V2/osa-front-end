@@ -41,7 +41,7 @@ export default function ArtworkDetails(props: any) {
   }
 
   return (
-    <div className="popupCard2 pb-16">
+    <div className="popupCard2 pb-20">
       <button
         type="button"
         className="fixed right-0 bg-white rounded-full z-10 p-2 m-2"
