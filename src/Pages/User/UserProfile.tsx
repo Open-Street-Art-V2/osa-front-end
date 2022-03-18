@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -21,7 +21,6 @@ function UserProfile() {
   const [user, setUser] = useState({
     Lastname: "",
     firstName: "",
-    email: "",
   });
   // const [lastName, setLastName] = useState();
 
@@ -36,16 +35,10 @@ function UserProfile() {
         },
       });
       if (res.ok) {
-        console.log(res);
         const jsonData = await res.json();
-        console.log(jsonData.profile.name);
-        console.log(jsonData.profile.firstName);
-        console.log(jsonData.profile.email);
-
         setUser({
           Lastname: jsonData.profile.name,
-          firstName: jsonData.profile.firstName,
-          email: jsonData.profile.email,
+          firstName: jsonData.profile.firstname,
         });
         // setLastName(jsonData.profile.name);
       } else if (!res.ok) {
@@ -57,9 +50,12 @@ function UserProfile() {
       console.log(error.message);
     }
   }
-  getUserInfo();
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
-    <>
+    <div className="container">
       <Header />
       <div className="p-3">
         <div className=" p-6 h-20 grid grid-cols-3 gap-4 content-center">
@@ -67,18 +63,16 @@ function UserProfile() {
             <FcManager className="items-center text-6xl" />
           </div>
           <div className="col-span-2 items-center">
-            <div className="flex items-center text-black-800 font-bold text-xl ">
-              Kim Hsn
+            <div className="flex items-center text-black-800 font-bold text-xl uppercase">
+              {user.firstName}
             </div>
             <p className="text-gray-600 ">Contributeur</p>
           </div>
         </div>
       </div>
-
       <h1 className="text-black ml-8">Nom: {user.Lastname} </h1>
       <h1 className="text-black ml-8">Prénom: {user.firstName}</h1>
       <h1 className="text-black ml-8">Email: {loginCtx.user?.email}</h1>
-
       <div className="p-3">
         <NavLink to="/contribution">
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
@@ -153,7 +147,7 @@ function UserProfile() {
       </div>
       <br />
       <NavBarUser />
-    </>
+    </div>
   );
 }
 
