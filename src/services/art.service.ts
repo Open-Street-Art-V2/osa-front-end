@@ -1,7 +1,9 @@
-import { Art } from "../types/art";
-
-const searchArt = async (search: string, filter: string): Promise<Art[]> => {
-  const url = `${process.env.REACT_APP_API}/art/${filter}/${search}`;
+const searchArt = async (
+  search: string,
+  filter: string,
+  currentPage: number
+) => {
+  const url = `${process.env.REACT_APP_API}/art/${filter}/${search}?page=${currentPage}&limit=10`;
 
   try {
     const response = await fetch(url, {
