@@ -9,6 +9,7 @@ import ContributionToArt from "../Pages/User/Forms/contributionForm";
 import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
+import UserProfile from "../Pages/User/UserProfile";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -24,6 +25,11 @@ const routes: routesType = [
     name: "MapUser",
     path: "/",
     element: MapUser,
+  },
+  {
+    name: "UserProfile",
+    path: "/profil",
+    element: UserProfile,
   },
   {
     name: "MapAdmin",
