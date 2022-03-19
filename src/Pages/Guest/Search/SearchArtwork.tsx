@@ -59,12 +59,9 @@ function SearchArtwork() {
   };
 
   const handleClick = () => {
-    // FIXME: le setCurrentPage ne fait rien
-    setCurrentPage(1);
-
     if (search !== "") {
       setIsLoading(true);
-      searchArt(search, filter, currentPage)
+      searchArt(search, filter, 1)
         .then((res) => {
           setData(res.items);
           if (res.meta.totalPages === res.meta.currentPage) {
