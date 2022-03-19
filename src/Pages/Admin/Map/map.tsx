@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import useSwr from "swr";
 import { useNavigate } from "react-router-dom";
-import { Map, ArtworkDetails, SettingsBtn } from "../../../Components";
+import { Map, ArtworkDetails } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
 import "./map.css";
@@ -69,12 +69,6 @@ function MapAdmin() {
         getUserLat={(UserLat: any) => setUserLat(UserLat)}
         getUserLong={(UserLat: any) => setUserLong(UserLat)}
       />
-
-      {loginCtx.isLoggedIn && (
-        <div className="fixed top-14 right-2">
-          <SettingsBtn />
-        </div>
-      )}
 
       {selectedArtWork ? (
         <ArtworkDetails

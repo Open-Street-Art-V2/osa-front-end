@@ -88,5 +88,6 @@
   "logout": "Se déconnecter",
   "close": "Close",
   "city": "Ville",
-  "searchBar-placeholder": "Recherche d'une oeuvre,ville..."
+  "searchBarTitre-placeholder": "Recherche par titre de l'oeuvre",
+  "searchBarVille-placeholder": "Recherche par ville"
 }

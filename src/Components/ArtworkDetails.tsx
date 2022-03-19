@@ -147,20 +147,29 @@ export default function ArtworkDetails(props: any) {
             >
               {t("delete")}
             </button>
+            <button
+              className="bg-amber-400 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={openItinerary}
+            >
+              {t("itinerary")}
+            </button>
           </div>
         </div>
       )}
-      <div className="px-6 pt-2 pb-5">
-        <div className="flex items-center justify-around">
-          <button
-            className="bg-amber-400 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={openItinerary}
-          >
-            {t("itinerary")}
-          </button>
+      {loginCtx.user?.role !== "ROLE_ADMIN" && (
+        <div className="px-6 pt-2 pb-5">
+          <div className="flex items-center justify-around">
+            <button
+              className="bg-amber-400 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={openItinerary}
+            >
+              {t("itinerary")}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

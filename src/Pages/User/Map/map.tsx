@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import useSwr from "swr";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { Map, ArtworkDetails, SettingsBtn } from "../../../Components";
+import { Map, ArtworkDetails } from "../../../Components";
 import NavBarUser from "../../../Components/NavBarUser";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import "./map.css";
@@ -64,12 +64,8 @@ function MapUser() {
         getUserLong={(UserLat: any) => setUserLong(UserLat)}
       />
 
-      <div className="absolute top-14 right-2">
-        {loginCtx.isLoggedIn ? (
-          <div className="fixed top-14 right-2">
-            <SettingsBtn />
-          </div>
-        ) : (
+      {!loginCtx.isLoggedIn && (
+        <div className="absolute top-16 right-2">
           <Link to="/login" className="inline-flex items-center w-10 h-10">
             <button
               type="button"
@@ -78,8 +74,8 @@ function MapUser() {
               <AiOutlineUser />
             </button>
           </Link>
-        )}
-      </div>
+        </div>
+      )}
 
       {selectedArtWork ? (
         <ArtworkDetails

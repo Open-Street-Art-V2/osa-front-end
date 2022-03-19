@@ -88,5 +88,6 @@
   "logout": "Log out",
   "close": "Close",
   "city": "City",
-  "searchBar-placeholder": "Search for an Art,city....."
+  "searchBarTitre-placeholder": "Search by art title",
+  "searchBarVille-placeholder": "Search by city"
 }

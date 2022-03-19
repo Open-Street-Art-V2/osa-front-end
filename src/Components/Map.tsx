@@ -75,6 +75,7 @@ export default function Map(props: any) {
         console.log(res);
         const jsonData = await res.json();
         setViewport({
+          ...viewport,
           latitude: Number(jsonData.art.latitude),
           longitude: Number(jsonData.art.longitude),
           zoom: 16,
@@ -96,6 +97,7 @@ export default function Map(props: any) {
       if (res.ok) {
         const jsonData = await res.json();
         setViewport({
+          ...viewport,
           latitude: Number(jsonData.features[0].bbox[1]),
           longitude: Number(jsonData.features[0].bbox[0]),
           zoom: 8,
@@ -123,14 +125,34 @@ export default function Map(props: any) {
     });
   }
   return (
-    <>
+    <ReactMapGL
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...viewport}
+      width="100vw"
+      height="100vh"
+      className="w-100 h-100"
+      maxZoom={18}
+      mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      onViewportChange={(newViewport: MapView) => {
+        setViewport({ ...newViewport });
+      }}
+      ref={mapRef}
+      keyboard={false}
+      attributionControl={false}
+    >
       <TextField
         margin="none"
+        className="bg-white"
         fullWidth
         id="SearchBar"
         name="SearchBar"
         autoComplete="SearchBar"
-        placeholder={t("searchBar-placeholder")}
+        placeholder={`${
+          filter === "Titre"
+            ? t("searchBarTitre-placeholder")
+            : t("searchBarVille-placeholder")
+        }`}
         value={value}
         onChange={handleSearchBarChange}
         InputProps={{
@@ -212,81 +234,65 @@ export default function Map(props: any) {
             </InputAdornment>
           ),
         }}
-      <ReactMapGL
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...viewport}
-        width="100vw"
-        height="100vh"
-        className="w-100 h-100"
-        maxZoom={18}
-        mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onViewportChange={(newViewport: MapView) => {
-          setViewport({ ...newViewport });
+      />
+      <GeolocateControl
+        className="top-16 left-2 z-10"
+        showUserHeading
+        positionOptions={{ enableHighAccuracy: true }}
+        trackUserLocation
+        auto
+        onGeolocate={(PositionOptions: any) => {
+          props.getUserLat(PositionOptions["coords"].latitude);
+          props.getUserLong(PositionOptions["coords"].longitude);
         }}
-        ref={mapRef}
-        keyboard={false}
-        attributionControl={false}
-      >
-        <GeolocateControl
-          className="top-4 left-2 z-10"
-          showUserHeading
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation
-          auto
-          onGeolocate={(PositionOptions: any) => {
-            props.getUserLat(PositionOptions["coords"].latitude);
-            props.getUserLong(PositionOptions["coords"].longitude);
-          }}
-        />
+      />
 
-        {clusters.map((cluster: any) => {
-          const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount } =
-            cluster.properties;
-          let style;
+      {clusters.map((cluster: any) => {
+        const [longitude, latitude] = cluster.geometry.coordinates;
+        const { cluster: isCluster, point_count: pointCount } =
+          cluster.properties;
+        let style;
 
-          if (isCluster) {
-            if (pointCount < 10) style = 1;
-            else if (pointCount < 50) style = 2;
-            else if (pointCount < 100) style = 3;
-            else style = 4;
-            return (
-              <Marker
-                key={`cluster-${cluster.id}`}
-                latitude={latitude}
-                longitude={longitude}
-              >
-                <div
-                  role="button"
-                  tabIndex={0}
-                  className={`flex items-center justify-center s-${style} opacity-60 text-white text-lg border-2 border-white rounded-full z-1`}
-                  onClick={() => markerClick(cluster, latitude, longitude)}
-                  onKeyDown={() => {}}
-                >
-                  {pointCount}
-                </div>
-              </Marker>
-            );
-          }
-
+        if (isCluster) {
+          if (pointCount < 10) style = 1;
+          else if (pointCount < 50) style = 2;
+          else if (pointCount < 100) style = 3;
+          else style = 4;
           return (
             <Marker
-              key={`oeuvre-${cluster.properties.oeuvreId}`}
+              key={`cluster-${cluster.id}`}
               latitude={latitude}
               longitude={longitude}
             >
-              {setselectedArtWork && (
-                <Pin
-                  pic={cluster.properties.pictures[0].url}
-                  onClick={() => setselectedArtWork(cluster)}
-                />
-              )}
-              {!setselectedArtWork && <Pin size={20} onClick={() => {}} />}
+              <div
+                role="button"
+                tabIndex={0}
+                className={`flex items-center justify-center s-${style} opacity-60 text-white text-lg border-2 border-white rounded-full z-1`}
+                onClick={() => markerClick(cluster, latitude, longitude)}
+                onKeyDown={() => {}}
+              >
+                {pointCount}
+              </div>
             </Marker>
           );
-        })}
-      </ReactMapGL>
-    </>
+        }
+
+        return (
+          <Marker
+            key={`oeuvre-${cluster.properties.oeuvreId}`}
+            latitude={latitude}
+            longitude={longitude}
+          >
+            {setselectedArtWork && (
+              <Pin
+                pic={cluster.properties.pictures[0].url}
+                onClick={() => setselectedArtWork(cluster)}
+              />
+            )}
+            {!setselectedArtWork && <Pin size={20} onClick={() => {}} />}
+          </Marker>
+        );
+      })}
+    </ReactMapGL>
   );
 }
