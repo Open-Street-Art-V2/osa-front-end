@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
 import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import NavBarUser from "../../Components/NavBarUser";
+import NavBar from "../../Components/NavBar";
 import Header from "../../Components/Header";
 import { LoginContext } from "../../Components/Context/LoginCtxProvider";
 
@@ -17,6 +18,13 @@ import { LoginContext } from "../../Components/Context/LoginCtxProvider";
 
 function UserProfile() {
   const loginCtx = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loginCtx.isLoggedIn) {
+      navigate("/");
+    }
+  }, [loginCtx]);
 
   const [user, setUser] = useState({
     Lastname: "",
@@ -146,7 +154,7 @@ function UserProfile() {
         </NavLink>
       </div>
       <br />
-      <NavBarUser />
+      {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
     </div>
   );
 }
