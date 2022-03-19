@@ -212,7 +212,6 @@ export default function Map(props: any) {
             </InputAdornment>
           ),
         }}
-      />
       <ReactMapGL
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...viewport}
@@ -227,6 +226,7 @@ export default function Map(props: any) {
         }}
         ref={mapRef}
         keyboard={false}
+        attributionControl={false}
       >
         <GeolocateControl
           className="top-4 left-2 z-10"
