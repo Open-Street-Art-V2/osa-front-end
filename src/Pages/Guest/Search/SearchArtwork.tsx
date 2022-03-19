@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArtworkSearchCard, Header } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
@@ -11,23 +11,19 @@ import { Art } from "../../../types/art";
 
 function LoadingSkeleton() {
   return (
-    <div className="mx-3 -mt-2 pt-3 pb-3 mb-20 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+    <div>
       {[1, 2, 3, 4].map((item: any) => {
         return (
-          <div
-            key={item}
-            className="animate-pulse grid grid-cols-6 gap-1 mt-3 mx-2 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
-          >
+          <div key={item} className="animate-pulse mt-3 mx-2">
             <div className="flex flex-row col-span-5">
-              <div className="w-36 h-24 bg-slate-200 rounded-3xl" />
+              <div className="w-28 h-24 bg-slate-200 rounded-3xl" />
               <div className="overflow-hidden pl-3">
                 <div className="flex flex-row justify-between mt-3 mb-2">
-                  <div className="h-2 w-24 bg-slate-200 rounded" />
-                  <div className="h-2 w-12 bg-slate-200 rounded pt-1" />
+                  <div className="h-2 w-32 bg-slate-200 rounded" />
                 </div>
-                <div className="mt-6">
-                  <div className="h-2 bg-slate-200 rounded mb-2" />
-                  <div className="h-2 bg-slate-200 rounded mb-2" />
+                <div className="mt-6 mr-2">
+                  <div className="h-2 w-44 bg-slate-200 rounded mb-2" />
+                  <div className="h-2 w-44 bg-slate-200 rounded mb-2" />
                 </div>
               </div>
             </div>
@@ -38,30 +34,34 @@ function LoadingSkeleton() {
   );
 }
 
+type LocationDataType = {
+  oldFilter?: string;
+  oldSearch?: string;
+};
+
 function SearchArtwork() {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
-  const [filter, setFilter] = useState<string>("title");
   const [data, setData] = useState<Art[] | null>(null);
+  const currentFilter = useRef<string>("title");
+  const submittedFilter = useRef<string>("title");
 
-  // pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  // for infinite scroll
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const currentPage = useRef<number>(1);
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter(event.target.value);
-  };
+  // if the user arrive from details artwork, we recharge his old search
+  const location = useLocation().state as LocationDataType;
+  useEffect(() => {
+    if (location?.oldFilter && location?.oldSearch) {
+      currentFilter.current = location?.oldFilter;
+      submittedFilter.current = location?.oldFilter;
+      setSearch(location?.oldSearch);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
-
-  const handleClick = () => {
-    if (search !== "") {
       setIsLoading(true);
-      searchArt(search, filter, 1)
+      searchArt(location?.oldSearch, location?.oldFilter, currentPage.current)
         .then((res) => {
           setData(res.items);
           if (res.meta.totalPages === res.meta.currentPage) {
@@ -70,14 +70,43 @@ function SearchArtwork() {
         })
         .finally(() => {
           setIsLoading(false);
-          setCurrentPage(currentPage + 1);
+          currentPage.current += 1;
+        });
+    }
+  }, [location?.oldFilter, location?.oldSearch]);
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    currentFilter.current = event.target.value;
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  const handleClick = () => {
+    if (search !== "") {
+      submittedFilter.current = currentFilter.current;
+      currentPage.current = 1;
+      setHasMore(true);
+
+      setIsLoading(true);
+      searchArt(search, submittedFilter.current, currentPage.current)
+        .then((res) => {
+          setData(res.items);
+          if (res.meta.totalPages === res.meta.currentPage) {
+            setHasMore(false);
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+          currentPage.current += 1;
         });
     }
   };
 
   const fetchArts = () => {
     setIsLoading(true);
-    searchArt(search, filter, currentPage)
+    searchArt(search, submittedFilter.current, currentPage.current)
       .then((res) => {
         setData((old: any) => [...old, ...res.items]);
         if (res.meta.totalPages === res.meta.currentPage) {
@@ -86,7 +115,7 @@ function SearchArtwork() {
       })
       .finally(() => {
         setIsLoading(false);
-        setCurrentPage(currentPage + 1);
+        currentPage.current += 1;
       });
   };
 
@@ -97,6 +126,7 @@ function SearchArtwork() {
       <div className="absolute right-0 pt-2 mx-3 w-2/5">
         <select
           className="form-select appearance-none block w-full py-1.5 pl-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          value={currentFilter.current}
           onChange={handleSelectChange}
         >
           <option value="title">{t("filter.title")}</option>
@@ -125,6 +155,7 @@ function SearchArtwork() {
           id="search-input"
           className="block p-2 px-10 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
           placeholder={t("search.arts")}
+          value={search}
           onChange={handleInputChange}
         />
         <div className="flex absolute inset-y-0 right-0 items-center pr-3 text-gray-500">
@@ -135,7 +166,7 @@ function SearchArtwork() {
       </div>
 
       {data && (
-        <div className="mx-3 -mt-2 pt-3 pb-3 mb-20 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+        <div className="mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
           <InfiniteScroll
             dataLength={data.length}
             next={() => fetchArts()}
@@ -145,12 +176,12 @@ function SearchArtwork() {
             {data.length === 0 ? (
               <div className="pt-1 text-center">{t("no.result")}</div>
             ) : (
-              data.map((art: any) => {
+              data.map((art: Art) => {
                 return (
                   <div key={art.id} className="mt-3 mx-2">
                     <Link
                       to="/details-artwork"
-                      state={{ data: art }}
+                      state={{ art, filter: submittedFilter.current, search }}
                       className="w-fit"
                     >
                       <ArtworkSearchCard data={art} />

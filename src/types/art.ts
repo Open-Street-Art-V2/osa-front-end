@@ -16,8 +16,3 @@ export type Art = {
   pictures: Picture[];
   created_at: string;
 };
-
-export type ResponseArt = {
-  art: Art;
-  statusCode: number;
-};

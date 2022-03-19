@@ -1,5 +1,7 @@
+import { Picture } from "../types/art";
+
 type Props = {
-  pictures: [];
+  pictures: Picture[];
   nbPictures: number;
 };
 
