@@ -77,14 +77,16 @@
   "art.contribute": "Contribuer à une oeuvre",
   "invalid.position": "Position invalide",
   "display": "Afficher les",
-  "proposals.lower": "propositions",
+  "proposals.lower": "Propositions",
   "proposals.upper": "Propositions",
-  "contributions.lower": "contributions",
+  "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
-
+  "itinerary": "Itinéraire",
   "language": "Langue",
   "french": "Français",
   "english": "Anglais",
   "logout": "Se déconnecter",
-  "close": "Fermer"
+  "close": "Close",
+  "city": "Ville",
+  "searchBar-placeholder": "Recherche d'une oeuvre,ville..."
 }

@@ -11,6 +11,8 @@ function MapAdmin() {
   const [selectedArtWork, setselectedArtWork] = useState<any>(null);
   const navigate = useNavigate();
   const loginCtx = useContext(LoginContext);
+  const [userLat, setUserLat] = useState(null);
+  const [userLong, setUserLong] = useState(null);
 
   useEffect(() => {
     if (loginCtx.user?.role !== "ROLE_ADMIN") {
@@ -61,10 +63,15 @@ function MapAdmin() {
 
   return (
     <div>
-      <Map points={points} setselectedArtWork={setselectedArtWork} />
+      <Map
+        points={points}
+        setselectedArtWork={setselectedArtWork}
+        getUserLat={(UserLat: any) => setUserLat(UserLat)}
+        getUserLong={(UserLat: any) => setUserLong(UserLat)}
+      />
 
       {loginCtx.isLoggedIn && (
-        <div className="fixed top-2 right-2">
+        <div className="fixed top-14 right-2">
           <SettingsBtn />
         </div>
       )}
@@ -73,6 +80,8 @@ function MapAdmin() {
         <ArtworkDetails
           data={selectedArtWork.properties}
           coords={selectedArtWork.geometry.coordinates}
+          lat={userLat}
+          long={userLong}
           onClose={() => {
             setselectedArtWork(null);
           }}
