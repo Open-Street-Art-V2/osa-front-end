@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useLocation } from "react-router-dom";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import { ArtworkSearchCard, Header } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
@@ -12,7 +13,7 @@ import { Art } from "../../../types/art";
 function LoadingSkeleton() {
   return (
     <div>
-      {[1, 2, 3, 4].map((item: any) => {
+      {[1, 2, 3, 4].map((item) => {
         return (
           <div key={item} className="animate-pulse mt-3 mx-2">
             <div className="flex flex-row col-span-5">
@@ -42,6 +43,8 @@ type LocationDataType = {
 function SearchArtwork() {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
+
+  const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [data, setData] = useState<Art[] | null>(null);
@@ -75,8 +78,9 @@ function SearchArtwork() {
     }
   }, [location?.oldFilter, location?.oldSearch]);
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    currentFilter.current = event.target.value;
+  const handleFilterChange = (filter: string) => {
+    setOpen(false);
+    currentFilter.current = filter;
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,23 +123,17 @@ function SearchArtwork() {
       });
   };
 
+  const getFilterShow = (filter: string) => {
+    return currentFilter.current === filter
+      ? "font-medium text-gray-900 block px-4 py-2"
+      : "text-gray-500 block px-4 py-2";
+  };
+
   return (
     <div>
       <Header />
 
-      <div className="absolute right-0 pt-2 mx-3 w-2/5">
-        <select
-          className="form-select appearance-none block w-full py-1.5 pl-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          value={currentFilter.current}
-          onChange={handleSelectChange}
-        >
-          <option value="title">{t("filter.title")}</option>
-          <option value="city">{t("filter.city")}</option>
-          <option value="artist">{t("filter.artist")}</option>
-        </select>
-      </div>
-
-      <div className="relative z-10 mt-12 mx-3">
+      <div className="relative z-10 mt-5 mx-3">
         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <svg
             className="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -150,6 +148,7 @@ function SearchArtwork() {
             />
           </svg>
         </div>
+
         <input
           type="text"
           id="search-input"
@@ -158,11 +157,43 @@ function SearchArtwork() {
           value={search}
           onChange={handleInputChange}
         />
-        <div className="flex absolute inset-y-0 right-0 items-center pr-3 text-gray-500">
+
+        <div className="flex absolute inset-y-0 right-8 items-center pr-3 text-gray-500">
           <button type="button" id="search-button" onClick={handleClick}>
             {t("ok")}
           </button>
         </div>
+
+        <div className="flex absolute inset-y-0 right-0 items-center pr-3 text-gray-500">
+          <button
+            type="button"
+            className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+            id="menu-button"
+            onClick={() => setOpen(!open)}
+          >
+            <FilterListIcon />
+          </button>
+        </div>
+
+        {open && (
+          <div className="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              {["title", "city", "artist"].map((filter, index) => {
+                return (
+                  <button
+                    key={filter}
+                    type="button"
+                    className={getFilterShow(filter)}
+                    id={`menu-item-${index}`}
+                    onClick={() => handleFilterChange(filter)}
+                  >
+                    {t(`filter.${filter}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {data && (
