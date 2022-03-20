@@ -24,6 +24,7 @@
     "i18next": "^21.6.13",
     "i18next-browser-languagedetector": "^6.1.3",
     "i18next-http-backend": "^1.3.2",
+    "mapbox-gl": "^2.7.1",
     "password-validator": "^5.2.1",
     "react": "^17.0.2",
     "react-country-flag": "^3.0.2",
@@ -39,7 +40,8 @@
     "tw-elements": "^1.0.0-alpha10",
     "typescript": "^4.5.5",
     "use-supercluster": "^0.4.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

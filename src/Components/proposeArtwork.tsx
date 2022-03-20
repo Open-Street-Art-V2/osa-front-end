@@ -23,6 +23,15 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
 import { useTranslation } from "react-i18next";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const loadingBtnTheme = createTheme({
   palette: {

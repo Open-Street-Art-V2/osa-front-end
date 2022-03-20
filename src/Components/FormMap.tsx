@@ -10,6 +10,15 @@ import { styled } from "@mui/system";
 import { RiMapPinFill } from "react-icons/ri";
 import { GrClose } from "react-icons/gr";
 import { Box } from "@mui/material";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 type mapView = {
   latitude: number;

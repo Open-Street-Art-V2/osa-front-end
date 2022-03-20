@@ -15,8 +15,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { ListItemText } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 export default function Map(props: any) {
   const { points, setselectedArtWork } = props;
