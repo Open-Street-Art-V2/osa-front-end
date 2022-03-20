@@ -45,6 +45,7 @@
   "required.fname": "First name is required",
   "fname": "First name",
   "name": "Name",
+  "email": "Email",
   "required.name": "The name is required",
   "@.invalid": "The email address is invalid",
   "dbrith": "Date of Birth",
@@ -96,5 +97,11 @@
   "filter.artist": "By artist",
   "search.arts": "Search for artworks",
   "ok": "OK",
-  "no.result": "No result"
+  "no.result": "No result",
+
+  "favorite.artists": "Favorite artists",
+  "favorite.arts": "Favorite artworks",
+  "favorite.cities": "Favorite cities",
+  "admin": "Administrator",
+  "contributor": "Contributor"
 }
