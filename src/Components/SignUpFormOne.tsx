@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
-import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { maxDate, StateOne } from "../Pages/Guest/SignUp/types/types";
@@ -55,16 +54,11 @@ export default function SignUpFormOne(props: Props) {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          {t("registration")}
-        </Typography>
-
         <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>

@@ -13,7 +13,7 @@ function AnimateAlert(props: Props) {
   return (
     <>
       {requestError && (
-        <div className="pt-3">
+        <div>
           <AnimatePresence initial exitBeforeEnter>
             <motion.div
               variants={{
@@ -52,7 +52,7 @@ function AnimateAlert(props: Props) {
         </div>
       )}
       {requestValid && (
-        <div className="pt-3">
+        <div>
           <AnimatePresence initial exitBeforeEnter>
             <motion.div
               variants={{

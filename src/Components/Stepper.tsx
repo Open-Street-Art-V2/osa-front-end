@@ -247,6 +247,12 @@ export default function MyStepper() {
 
   return (
     <>
+      <div className="pt-10 pb-5 text-center text-3xl">{t("registration")}</div>
+
+      <div className="px-4">
+        <AnimateAlert requestError={requestError} requestValid={requestValid} />
+      </div>
+
       <Box>
         {activeStep === 0 ? (
           <SignUpFormOne formOne={formOne} dispatchFormOne={dispatchFormOne} />
@@ -254,6 +260,7 @@ export default function MyStepper() {
           <SignUpFormTwo formTwo={formTwo} dispatchFormTwo={dispatchFormTwo} />
         )}
       </Box>
+
       <Box sx={{ width: "40%", margin: "auto", pt: "40px" }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => (
@@ -264,12 +271,21 @@ export default function MyStepper() {
         </Stepper>
       </Box>
 
-      <Box sx={{ width: "100%", margin: "auto", mb: 4 }}>
+      <Box sx={{ width: "100%", margin: "auto", mb: 2 }}>
         {!allStepsCompleted() && (
           <Box sx={{ margin: "auto", pt: 2, textAlign: "center" }}>
             {activeStep !== steps.length - 1 ? (
               <Button
-                style={{ borderRadius: "16px", width: "60%" }}
+                sx={{
+                  width: "263px",
+                  margin: "10px 0px",
+                  height: "54px",
+                  fontWeight: "500",
+                  fontSize: "18px",
+                  lineHeight: "21px",
+                  color: "#ffffff",
+                  borderRadius: "60px",
+                }}
                 variant="contained"
                 color="secondary"
                 disabled={!formOne.isValidForm}
@@ -279,10 +295,20 @@ export default function MyStepper() {
               </Button>
             ) : (
               <LoadingButton
-                style={{ borderRadius: "16px", width: "60%" }}
+                sx={{
+                  width: "263px",
+                  margin: "10px 0px",
+                  height: "54px",
+                  fontWeight: "500",
+                  fontSize: "18px",
+                  lineHeight: "21px",
+                  color: "#ffffff",
+                  background: "#00ab55",
+                  borderRadius: "60px",
+                }}
+                disabled={!formTwo.isValidForm}
                 variant="contained"
                 loading={isLoading}
-                disabled={!formTwo.isValidForm}
                 onClick={handleSubmit}
               >
                 {t("register")}
@@ -290,10 +316,6 @@ export default function MyStepper() {
             )}
           </Box>
         )}
-      </Box>
-
-      <Box sx={{ width: "80%", margin: "auto", mb: 2 }}>
-        <AnimateAlert requestError={requestError} requestValid={requestValid} />
       </Box>
     </>
   );

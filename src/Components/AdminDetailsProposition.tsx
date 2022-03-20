@@ -225,7 +225,7 @@ function AdminDetailsProposition(props: Props) {
         <Details data={!isContribution || !original ? data : data.art} />
       )}
 
-      <Box>
+      <Box sx={{ pt: 3 }}>
         <AnimateAlert requestError={requestError} requestValid={requestValid} />
       </Box>
 

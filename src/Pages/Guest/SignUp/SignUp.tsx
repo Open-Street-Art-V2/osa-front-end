@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLeft } from "react-icons/ai";
 import MyStepper from "../../../Components/Stepper";
-import "./SignUp.css";
+import "../../../Assets/css/Header.css";
 
 const theme = createTheme({
   palette: {
@@ -19,8 +19,7 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
-  // eslint-disable-next-line no-unused-vars
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Container component="main" maxWidth="xs">
       <ThemeProvider theme={theme}>
@@ -35,7 +34,7 @@ export default function SignUp() {
             </button>
           </Link>
           <div id="logo" className="flex flex-row">
-            <h1 className="pt-1 hTitle semi-bold">Street Art</h1>
+            <p className="labelLogo place-self-center">Street Art</p>
             <svg
               width="44"
               height="48"
@@ -66,7 +65,10 @@ export default function SignUp() {
           </div>
         </div>
 
-        <Box component="div" className="stepper" sx={{ mt: 7 }}>
+        <Box
+          component="div"
+          className="mt-7 mx-0.5 border-2 border-gray-300 rounded-lg"
+        >
           <MyStepper />
         </Box>
 

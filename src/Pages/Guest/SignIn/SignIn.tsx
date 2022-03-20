@@ -3,7 +3,6 @@ import * as React from "react";
 import { Navigate } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useContext, useEffect, useReducer, useState } from "react";
@@ -13,12 +12,11 @@ import { login, logout } from "./SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import "./SingIn.css";
-import { Alert, createTheme } from "@mui/material";
+import { Alert, createTheme, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import Header from "../../../Components/Header";
+import "../../../Assets/css/Header.css";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -41,7 +39,7 @@ const loadingBtnTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: "60px",
+    borderRadius: 60,
   },
 });
 
@@ -162,7 +160,7 @@ export default function SignIn() {
             </button>
           </Link>
           <div id="logo" className="flex flex-row">
-            <h1 className="pt-1 hTitle semi-bold">Street Art</h1>
+            <p className="labelLogo place-self-center">Street Art</p>
             <svg
               width="44"
               height="48"
@@ -192,83 +190,93 @@ export default function SignIn() {
             </svg>
           </div>
         </div>
+
         <Box
           component="form"
           onSubmit={handleSubmit}
           noValidate
-          className="auth"
-          sx={{ mt: 7 }}
+          className="mt-7 mx-0.5 border-2 border-gray-300 rounded-lg"
         >
-          <div className="authTitle pt-5 pb-12"> {t("Authentication")}</div>
-          <AnimatePresence initial={true} exitBeforeEnter={true}>
-            {unauthorizedError && (
-              <motion.div
-                variants={{
-                  hidden: {
-                    scale: 0.5,
-                    y: "+30vh",
-                    opacity: 0,
-                  },
-                  visible: {
-                    y: "0",
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      duration: 0.5,
-                      type: "spring",
-                      damping: 25,
-                      stiffness: 400,
-                    },
-                  },
-                  exit: {
-                    x: "-30vh",
-                    opacity: 0,
-                    scale: 0.5,
-                    transition: {
-                      duration: 0.3,
-                    },
-                  },
-                }}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                <Alert severity="error">{t("incorrect.coordinates")}</Alert>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            onChange={emailChangeHandler}
-            name="email"
-            autoComplete="email"
-            error={!state.isValidEmail}
-            helperText={!state.isValidEmail && t("invalid.mail")}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label={t("mdp")}
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            error={!state.isValidPassword}
-            helperText={
-              !state.isValidPassword && "Le mot de passe ne peut pas être vide"
-            }
-            onChange={passwordChangeHandler}
-          />
+          <div className="pt-10 pb-5 text-center text-3xl">
+            {t("Authentication")}
+          </div>
 
-          <Link to="#" id="mdpF" className="mdpF pt-2">
+          <div className="px-4">
+            <AnimatePresence initial={true} exitBeforeEnter={true}>
+              {unauthorizedError && (
+                <motion.div
+                  variants={{
+                    hidden: {
+                      scale: 0.5,
+                      y: "+30vh",
+                      opacity: 0,
+                    },
+                    visible: {
+                      y: "0",
+                      opacity: 1,
+                      scale: 1,
+                      transition: {
+                        duration: 0.5,
+                        type: "spring",
+                        damping: 25,
+                        stiffness: 400,
+                      },
+                    },
+                    exit: {
+                      x: "-30vh",
+                      opacity: 0,
+                      scale: 0.5,
+                      transition: {
+                        duration: 0.3,
+                      },
+                    },
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <Alert severity="error">{t("incorrect.coordinates")}</Alert>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              onChange={emailChangeHandler}
+              name="email"
+              autoComplete="email"
+              error={!state.isValidEmail}
+              helperText={!state.isValidEmail && t("invalid.mail")}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label={t("mdp")}
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              error={!state.isValidPassword}
+              helperText={
+                !state.isValidPassword &&
+                "Le mot de passe ne peut pas être vide"
+              }
+              onChange={passwordChangeHandler}
+            />
+          </div>
+
+          <Link
+            to="#"
+            id="mdpF"
+            className="pt-2 inline-flex justify-center w-full font-semibold"
+          >
             <label>{t("mdpF")}</label>
           </Link>
-          <div className="centreD pt-6">
+          <div className="inline-flex justify-center w-full pt-6 pb-5">
             <ThemeProvider theme={loadingBtnTheme}>
               <LoadingButton
                 type="submit"
@@ -283,12 +291,10 @@ export default function SignIn() {
                   fontWeight: "500",
                   fontSize: "18px",
                   lineHeight: "21px",
-                  //color: "#ffffff",
-                  // background: "#00ab55",
-                  // borderRadius: "60px",
+                  color: "#ffffff",
+                  background: "#00ab55",
+                  borderRadius: 60,
                 }}
-                // className="loginBtn m-5"
-                //id="loginBtnForm"
               >
                 {t("connect")}
               </LoadingButton>
@@ -296,12 +302,14 @@ export default function SignIn() {
           </div>
         </Box>
 
-        <div id="insc" className="py-5">
-          <label className="mdpF">{t("no.account")}</label>
-          <Link to="/sign-up" id="inscB" className="mdpF">
+        <Box sx={{ textAlign: "center", margin: "auto", pt: "40px" }}>
+          <Typography variant="subtitle1" gutterBottom component="div">
+            {t("no.account")}
+          </Typography>
+          <Link to="/sign-up" style={{ fontWeight: 600 }}>
             {t("register")}
           </Link>
-        </div>
+        </Box>
       </Box>
     </Container>
   );
