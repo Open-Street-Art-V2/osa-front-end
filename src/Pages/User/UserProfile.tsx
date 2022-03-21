@@ -35,7 +35,7 @@ function UserProfile() {
   // const [lastName, setLastName] = useState();
 
   async function getUserInfo() {
-    const url = `http://localhost:3008/users/profile/${loginCtx.user?.id}`;
+    const url = `${process.env.REACT_APP_API}/users/profile/${loginCtx.user?.id}`;
 
     try {
       const res: Response = await fetch(url, {
