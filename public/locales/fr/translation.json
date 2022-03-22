@@ -96,7 +96,9 @@
   "filter.title": "Par titre",
   "filter.city": "Par ville",
   "filter.artist": "Par artiste",
+  "filter.user": "Par nom et prénom",
   "search.arts": "Recherche d'oeuvres",
+  "search.users": "Recherche d'utilisateurs",
   "ok": "OK",
   "no.result": "Pas de résultat",
 
