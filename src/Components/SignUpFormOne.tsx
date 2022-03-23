@@ -59,7 +59,7 @@ export default function SignUpFormOne(props: Props) {
           alignItems: "center",
         }}
       >
-        <Box component="form" noValidate sx={{ mt: 3 }}>
+        <Box component="form" noValidate sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

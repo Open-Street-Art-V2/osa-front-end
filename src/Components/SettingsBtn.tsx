@@ -122,23 +122,25 @@ export default function SettingsBtn() {
                 </div>
               </div>
 
-              <div className="flex flex-row my-3 justify-between gap-14">
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => {
-                    logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
-                  }}
-                  className="flex flex-row"
-                >
-                  <div className="mr-4 text-lg my-auto">
-                    <BiLogOut />
+              {loginCtx.isLoggedIn && (
+                <div className="flex flex-row my-3 justify-between gap-14">
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      logout(loginCtx.setUser, loginCtx.setIsLoggedIn);
+                    }}
+                    className="flex flex-row"
+                  >
+                    <div className="mr-4 text-lg my-auto">
+                      <BiLogOut />
+                    </div>
+                    <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
+                      {t("logout")}
+                    </p>
                   </div>
-                  <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
-                    {t("logout")}
-                  </p>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </Box>
