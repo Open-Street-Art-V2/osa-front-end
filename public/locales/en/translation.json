@@ -83,12 +83,14 @@
   "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
   "itinerary": "Itinerary",
+
   "language": "Language",
   "french": "French",
   "english": "English",
   "logout": "Log out",
   "close": "Close",
   "return": "Return",
+
   "city": "City",
   "searchBarTitre-placeholder": "Search by art title",
   "searchBarVille-placeholder": "Search by city",

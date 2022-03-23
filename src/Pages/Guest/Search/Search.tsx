@@ -228,7 +228,7 @@ function Search() {
           </div>
 
           {open && (
-            <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               {filters.map((section, index) => {
                 return (
                   <div

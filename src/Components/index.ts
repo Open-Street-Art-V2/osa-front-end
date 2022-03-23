@@ -11,3 +11,4 @@ export { default as Map } from "./Map";
 export { default as SettingsBtn } from "./SettingsBtn";
 export { default as ArtworkSearchCard } from "./ArtworkSearchCard";
 export { default as UserSearchCard } from "./UserSearchCard";
+export { default as Profile } from "./Profile";

@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import Moment from "react-moment";
-import { AiOutlineLeft } from "react-icons/ai";
+import { ArrowBack } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 import { Carousel, Header } from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
@@ -16,6 +17,7 @@ type LocationDataType = {
 };
 
 function DetailsArtwork() {
+  const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const { art, filter, search } = useLocation().state as LocationDataType;
   const numPics = Object.keys(art.pictures).length;
@@ -23,34 +25,16 @@ function DetailsArtwork() {
   return (
     <>
       <Header />
-      <Box
-        sx={{
-          marginTop: 0,
-          width: "100%",
-          display: "absolute",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div
-          id="btnRetour"
-          className="flex flex-row place-content-between hTitle pt-4"
+      <div className="ml-7 mt-4 -mb-1">
+        <Link
+          to="/search"
+          state={{ oldFilter: filter, oldSearch: search }}
+          className="inline-flex items-center"
         >
-          <Link
-            to="/search"
-            state={{ oldFilter: filter, oldSearch: search }}
-            className="inline-flex items-center"
-          >
-            <button
-              type="button"
-              id="retBtn"
-              className="inline-flex items-center justify-center w-10 h-10 z-10 ml-4 bg-slate-700 text-white text-2xl rounded-2xl"
-            >
-              <AiOutlineLeft />
-            </button>
-          </Link>
-        </div>
-      </Box>
+          <ArrowBack />
+          <p className="text-xl ml-3">{t("return")}</p>
+        </Link>
+      </div>
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
         <CssBaseline />

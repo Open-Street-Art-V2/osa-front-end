@@ -10,8 +10,8 @@ export default function UserSearchCard(props: Props) {
 
   return (
     <div className="flex flex-row col-span-5">
-      <div className="flex-none w-28 h-24">
-        <FcManager className="items-center text-8xl" />
+      <div className="flex items-center justify-center w-28 h-20">
+        <FcManager className="w-20 h-20" />
       </div>
       <div className="grid place-content-evenly overflow-hidden ml-3">
         <div className="text-slate-900 text-lg overflow-hidden">

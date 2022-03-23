@@ -12,6 +12,7 @@ import DetailsContribution from "../Pages/Admin/Contributions/DetailsContributio
 import UserProfile from "../Pages/User/UserProfile";
 import DetailsArtwork from "../Pages/Guest/Search/DetailsArtwork";
 import Search from "../Pages/Guest/Search/Search";
+import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 
 type routesType = {
   name: string;
@@ -84,6 +85,11 @@ const routes: routesType = [
     name: "DetailsArtwork",
     path: "details-artwork",
     element: DetailsArtwork,
+  },
+  {
+    name: "UserProfile",
+    path: "/users-profile",
+    element: DetailsUser,
   },
   {
     name: "SearchArtwork",
