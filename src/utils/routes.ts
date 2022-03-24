@@ -11,7 +11,8 @@ import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 import UserProfile from "../Pages/User/UserProfile";
 import DetailsArtwork from "../Pages/Guest/Search/DetailsArtwork";
-import SearchArtwork from "../Pages/Guest/Search/SearchArtwork";
+import Search from "../Pages/Guest/Search/Search";
+import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 
 type routesType = {
   name: string;
@@ -86,9 +87,14 @@ const routes: routesType = [
     element: DetailsArtwork,
   },
   {
+    name: "UserProfile",
+    path: "/users-profile",
+    element: DetailsUser,
+  },
+  {
     name: "SearchArtwork",
     path: "search",
-    element: SearchArtwork,
+    element: Search,
   },
 ];
 

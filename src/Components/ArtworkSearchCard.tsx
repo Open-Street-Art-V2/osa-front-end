@@ -1,6 +1,10 @@
-import React from "react";
+import { Art } from "../types/art";
 
-export default function ArtworkSearchCard(props: any) {
+type Props = {
+  data: Art;
+};
+
+export default function ArtworkSearchCard(props: Props) {
   const { data } = props;
 
   return (
