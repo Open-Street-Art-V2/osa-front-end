@@ -1,4 +1,4 @@
-const searchUser = async (
+export const searchUser = async (
   search: string,
   currentPage: number,
   // eslint-disable-next-line no-unused-vars
@@ -40,4 +40,18 @@ const searchUser = async (
   }
 };
 
-export default searchUser;
+export const getUserProfile = async (token: string | undefined) => {
+  const url = `${process.env.REACT_APP_API}/users/profile`;
+
+  try {
+    const res: Response = await fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    return await res.json();
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

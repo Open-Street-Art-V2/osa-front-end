@@ -9,7 +9,7 @@ import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import searchArt from "../../../services/art.service";
 import { Art } from "../../../types/art";
-import searchUser from "../../../services/user.service";
+import { searchUser } from "../../../services/user.service";
 import { User } from "../../../types/user";
 
 function LoadingSkeleton() {

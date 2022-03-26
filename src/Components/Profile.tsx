@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -6,15 +5,14 @@ import { BsPaletteFill } from "react-icons/bs";
 import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
-import { LoginContext } from "./Context/LoginCtxProvider";
+import { User } from "../types/user";
 
 type Props = {
-  user: any;
+  user: User | undefined;
 };
 
 function Profile(props: Props) {
   const { t } = useTranslation();
-  const loginCtx = useContext(LoginContext);
   const { user } = props;
 
   return (
@@ -29,9 +27,7 @@ function Profile(props: Props) {
               {user?.firstname} {user?.name}
             </div>
             <p className="text-gray-600 ">
-              {(user?.role ?? loginCtx.user?.role) === "ROLE_ADMIN"
-                ? t("admin")
-                : t("contributor")}
+              {user?.role === "ROLE_ADMIN" ? t("admin") : t("contributor")}
             </p>
           </div>
         </div>
@@ -42,9 +38,11 @@ function Profile(props: Props) {
       <h1 className="text-black ml-8">
         {t("fname")}: {user?.firstname}
       </h1>
-      <h1 className="text-black ml-8">
-        {t("email")}: {user?.email ?? loginCtx.user?.email}
-      </h1>
+      {user?.email && (
+        <h1 className="text-black ml-8">
+          {t("email")}: {user?.email}
+        </h1>
+      )}
       <div className="p-3 mt-3">
         <NavLink to="/contribution">
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">

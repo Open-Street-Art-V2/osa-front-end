@@ -5,11 +5,8 @@ import NavBar from "../../Components/NavBar";
 import Header from "../../Components/Header";
 import { LoginContext } from "../../Components/Context/LoginCtxProvider";
 import { Profile } from "../../Components";
-
-type User = {
-  name: string;
-  firstname: string;
-};
+import { getUserProfile } from "../../services/user.service";
+import { User } from "../../types/user";
 
 function UserProfile() {
   const loginCtx = useContext(LoginContext);
@@ -21,35 +18,12 @@ function UserProfile() {
     }
   }, [loginCtx]);
 
-  const [user, setUser] = useState<User>({
-    name: "",
-    firstname: "",
-  });
+  const [user, setUser] = useState<User>();
 
   async function getUserInfo() {
-    const url = `${process.env.REACT_APP_API}/users/profile/${loginCtx.user?.id}`;
-
-    try {
-      const res: Response = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${loginCtx.user?.jwt}`,
-        },
-      });
-      if (res.ok) {
-        const jsonData = await res.json();
-        setUser({
-          name: jsonData.profile.name,
-          firstname: jsonData.profile.firstname,
-        });
-      } else if (!res.ok) {
-        if (res.status === 409) {
-          throw Error("Error");
-        }
-      }
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    getUserProfile(loginCtx.user?.jwt).then((res) => {
+      setUser(res.profile);
+    });
   }
   useEffect(() => {
     getUserInfo();
