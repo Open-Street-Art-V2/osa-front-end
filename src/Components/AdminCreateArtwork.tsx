@@ -48,6 +48,7 @@ const loadingBtnTheme = createTheme({
     borderRadius: "60px",
   },
 });
+
 enum ValidField {
   OK,
   ERROR,
@@ -564,8 +565,6 @@ function CreateArtWork(props: any) {
                       fontSize: "18px",
                       lineHeight: "21px",
                       color: "#ffffff",
-                      background: "#00ab55",
-                      borderRadius: 60,
                     }}
                   >
                     {t("valider")}
