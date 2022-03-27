@@ -66,18 +66,17 @@ export default function Map(props: any) {
   };
   async function Search() {
     const input = value;
-    const url = `${process.env.REACT_APP_GET_ART_NAME}/${input}`;
+    const url = `${process.env.REACT_APP_API}/art/title/${input}`;
     try {
       const res: Response = await fetch(url, {
         method: "GET",
       });
       if (res.ok) {
-        console.log(res);
         const jsonData = await res.json();
         setViewport({
           ...viewport,
-          latitude: Number(jsonData.art.latitude),
-          longitude: Number(jsonData.art.longitude),
+          latitude: Number(jsonData.items[0].latitude),
+          longitude: Number(jsonData.items[0].longitude),
           zoom: 16,
         });
       } else if (!res.ok) {

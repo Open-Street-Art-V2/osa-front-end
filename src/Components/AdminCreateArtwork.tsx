@@ -338,7 +338,7 @@ function CreateArtWork(props: any) {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-20">
+    <Container component="main" maxWidth="xs" className="px-5 pb-24">
       <CssBaseline />
 
       <Box
@@ -352,7 +352,7 @@ function CreateArtWork(props: any) {
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
-            <p className="py-8 font-sans text-2xl font-bold ">{t("add.art")}</p>
+            <p className="py-4 font-sans text-2xl font-bold ">{t("add.art")}</p>
             <div className="px-5 pb-4">
               <AnimatePresence initial exitBeforeEnter>
                 {requestError && (
@@ -563,6 +563,9 @@ function CreateArtWork(props: any) {
                       fontWeight: "500",
                       fontSize: "18px",
                       lineHeight: "21px",
+                      color: "#ffffff",
+                      background: "#00ab55",
+                      borderRadius: 60,
                     }}
                   >
                     {t("valider")}
