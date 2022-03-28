@@ -2,13 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ArrowBack } from "@mui/icons-material";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import {
-  validateProposals,
-  rejectProposals,
-  getProposals,
-} from "../ValidateProp/ValidateProp.service";
+import { getProposals } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 
@@ -40,50 +37,6 @@ function UserContributions() {
         index === position ? { checked: !item.checked, id: item.id } : item
     );
     setCheckedProposals(updatedCheckedState);
-  };
-
-  const handleValidateProposals = () => {
-    const prop = checkedProposals.filter((item: any) => item.checked);
-    if (prop.length > 0) {
-      const newArray = prop.map((item: any) => {
-        // eslint-disable-next-line no-param-reassign
-        delete item.checked;
-        return item;
-      });
-      const proposals = new Array(newArray.length).fill(null);
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < newArray.length; i++) {
-        proposals[i] = Number(newArray[i].id);
-      }
-      validateProposals(
-        isContributions,
-        loginCtx.user?.jwt,
-        proposals,
-        setUpdateComp
-      );
-    }
-  };
-
-  const handleRejectProposals = () => {
-    const prop = checkedProposals.filter((item: any) => item.checked);
-    if (prop.length > 0) {
-      const newArray = prop.map((item: any) => {
-        // eslint-disable-next-line no-param-reassign
-        delete item.checked;
-        return item;
-      });
-      const proposals = new Array(newArray.length).fill(null);
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < newArray.length; i++) {
-        proposals[i] = Number(newArray[i].id);
-      }
-      rejectProposals(
-        isContributions,
-        loginCtx.user?.jwt,
-        proposals,
-        setUpdateComp
-      );
-    }
   };
 
   function handleSwitchChange() {
@@ -122,26 +75,14 @@ function UserContributions() {
     <div className="container">
       <div className="">
         <Header />
-        <div className="flex flex-row justify-around p-5">
-          <button
-            type="button"
-            className="w-28 h-10 bg-green-500 text-white rounded-3xl"
-            onClick={() => {
-              handleValidateProposals();
-            }}
-          >
-            {t("valider")}
-          </button>
-          <button
-            type="button"
-            className="w-28 h-10 bg-red-500 text-white rounded-3xl"
-            onClick={() => {
-              handleRejectProposals();
-            }}
-          >
-            {t("refuse")}
-          </button>
+        <div className="ml-4 mt-4 ">
+          <Link to="/profil" className="inline-flex items-center">
+            <ArrowBack />
+            <p className="text-xl ml-3">{t("return")}</p>
+          </Link>
         </div>
+        <br />
+
         <div className="flex justify-center mb-5">
           <p className="form-check-label inline-block text-gray-800 p-2">
             {t("display")}
