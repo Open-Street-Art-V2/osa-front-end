@@ -95,12 +95,18 @@
   "searchBarTitre-placeholder": "Search by art title",
   "searchBarVille-placeholder": "Search by city",
 
+  "filter.nofilter": "Without filter",
   "filter.title": "By title",
   "filter.city": "By city",
   "filter.artist": "By artist",
   "filter.user": "By name and firstname",
   "search.arts": "Search for artworks",
   "search.users": "Search for users",
+  "search.placeholder.nofilter": "Search for artworks",
+  "search.placeholder.title": "Search for artworks by title",
+  "search.placeholder.city": "Search for artworks by city",
+  "search.placeholder.artist": "Search for artworks by artist",
+  "search.placeholder.user": "Search for users",
   "ok": "OK",
   "no.result": "No result",
 
