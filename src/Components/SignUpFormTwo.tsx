@@ -98,7 +98,7 @@ export default function SignUpFormTwo(props: Props) {
               <TextField
                 required
                 fullWidth
-                id="email"
+                id="confirmation-password"
                 type="password"
                 label={t("confirmation.password")}
                 name="confirmation"

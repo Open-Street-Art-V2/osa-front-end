@@ -103,12 +103,18 @@
   "searchBarTitre-placeholder": "Recherche par titre de l'oeuvre",
   "searchBarVille-placeholder": "Recherche par ville",
 
+  "filter.nofilter": "Sans filtre",
   "filter.title": "Par titre",
   "filter.city": "Par ville",
   "filter.artist": "Par artiste",
   "filter.user": "Par nom et prénom",
   "search.arts": "Recherche d'oeuvres",
   "search.users": "Recherche d'utilisateurs",
+  "search.placeholder.nofilter": "Recherche d'oeuvres",
+  "search.placeholder.title": "Recherche d'oeuvres par titre",
+  "search.placeholder.city": "Recherche d'oeuvres par ville",
+  "search.placeholder.artist": "Recherche d'oeuvres par artiste",
+  "search.placeholder.user": "Recherche d'utilisateurs",
   "ok": "OK",
   "no.result": "Pas de résultat",
 
