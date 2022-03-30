@@ -95,7 +95,8 @@
   "language": "Language",
   "french": "French",
   "english": "English",
-  "logout": "Log out",
+  "logout": "Sign out",
+  "login": "Sign in",
   "close": "Close",
   "return": "Return",
 
