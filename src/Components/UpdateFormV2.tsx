@@ -2,7 +2,7 @@
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { PhotoCamera } from "@mui/icons-material";
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";

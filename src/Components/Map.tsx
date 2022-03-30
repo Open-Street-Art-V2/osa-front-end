@@ -4,16 +4,15 @@
 import React, { useState, useRef } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import { TextField } from "@mui/material";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { TextField, ListItemText } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import { ListItemText } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
@@ -66,18 +65,17 @@ export default function Map(props: any) {
   };
   async function Search() {
     const input = value;
-    const url = `${process.env.REACT_APP_GET_ART_NAME}/${input}`;
+    const url = `${process.env.REACT_APP_API}/art/title/${input}`;
     try {
       const res: Response = await fetch(url, {
         method: "GET",
       });
       if (res.ok) {
-        console.log(res);
         const jsonData = await res.json();
         setViewport({
           ...viewport,
-          latitude: Number(jsonData.art.latitude),
-          longitude: Number(jsonData.art.longitude),
+          latitude: Number(jsonData.items[0].latitude),
+          longitude: Number(jsonData.items[0].longitude),
           zoom: 16,
         });
       } else if (!res.ok) {

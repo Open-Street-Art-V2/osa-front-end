@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import { AiFillDelete } from "react-icons/ai";
 import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";

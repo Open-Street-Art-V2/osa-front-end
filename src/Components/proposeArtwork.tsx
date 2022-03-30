@@ -185,7 +185,7 @@ function CreateArtWork() {
     if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
       navigate("/map/admin");
     } else if (!loginCtx.isLoggedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, [loginCtx]);
 
@@ -327,7 +327,7 @@ function CreateArtWork() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-20">
+    <Container component="main" maxWidth="xs" className="px-5 pb-24">
       <CssBaseline />
 
       <Box
@@ -341,7 +341,7 @@ function CreateArtWork() {
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
-            <p className="py-8 font-sans text-2xl font-bold ">
+            <p className="py-4 font-sans text-2xl font-bold ">
               {t("propose.art")}
             </p>
             <div className="px-5 pb-4">
@@ -553,6 +553,9 @@ function CreateArtWork() {
                       fontWeight: "500",
                       fontSize: "18px",
                       lineHeight: "21px",
+                      color: "#ffffff",
+                      background: "#00ab55",
+                      borderRadius: 60,
                     }}
                   >
                     {t("valider")}
