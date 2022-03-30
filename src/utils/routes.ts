@@ -9,6 +9,7 @@ import ContributionToArt from "../Pages/User/Forms/contributionForm";
 import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
+import PasswordRecovery from "../Pages/Guest/Recover/Recover";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -74,6 +75,16 @@ const routes: routesType = [
     name: "DetailsContribution",
     path: "admin/details-contribution",
     element: DetailsContribution,
+  },
+  {
+    name: "PasswordRecovery",
+    path: "user/recovery",
+    element: PasswordRecovery,
+  },
+  {
+    name: "PasswordConfirm",
+    path: "user/Confirmation",
+    element: PasswordRecovery,
   },
 ];
 
