@@ -112,7 +112,7 @@ function UserDetailsContribution(props: Props) {
           id="btnRetour"
           className="flex flex-row place-content-between hTitle pt-4"
         >
-          <Link to="/profil" className="inline-flex items-center">
+          <Link to="/contribution" className="inline-flex items-center">
             <button
               type="button"
               id="retBtn"
