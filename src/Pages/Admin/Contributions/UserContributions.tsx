@@ -116,7 +116,7 @@ function UserContributions() {
                 key={item}
                 className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
               >
-                <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
+                <div className="justify-self-center self-center border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
 
                 <div className="flex flex-row col-span-5">
                   <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
@@ -140,20 +140,20 @@ function UserContributions() {
           {!isLoading &&
             allArtwork.length > 0 &&
             allArtwork.length === checkedProposals.length &&
-            allArtwork.map((Artwork: any, index: number) => {
+            allArtwork.map((Artwork: any) => {
               return (
                 <div
                   key={Artwork.id}
                   className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
-                  <input
+                  {/* <input
                     className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
                     type="checkbox"
                     value={checkedProposals[index].checked}
                     checked={checkedProposals[index].checked}
                     id="flexCheckDefault"
                   />
-
+*/}
                   <Link
                     to="/admin/details-contribution"
                     state={{ data: Artwork }}
