@@ -5,18 +5,16 @@ import { useTranslation } from "react-i18next";
 import { ArrowBack } from "@mui/icons-material";
 import { Header, ArtworkProposal } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { getProposals } from "../ValidateProp/ValidateProp.service";
+import { getContributions } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 
 function UserContributions() {
   const { t } = useTranslation();
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
-  const [checkedProposals, setCheckedProposals] = useState([] as any);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [isContributions] = useState(true);
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
   const skeletons = [1, 2, 3, 4];
@@ -24,7 +22,6 @@ function UserContributions() {
   useEffect(() => {
     if (updateComp) {
       setAllArtwork([]);
-      setCheckedProposals([]);
       setIsLoading(true);
       setCurrentPage(1);
       setUpdateComp(false);
@@ -33,13 +30,11 @@ function UserContributions() {
 
   useEffect(() => {
     if (currentPage === 1) {
-      getProposals(
-        isContributions,
+      getContributions(
         currentPage,
         loginCtx.user?.jwt,
         setHasMoreProp,
         setAllArtwork,
-        setCheckedProposals,
         setCurrentPage,
         setIsLoading
       );
@@ -98,13 +93,11 @@ function UserContributions() {
         <InfiniteScroll
           dataLength={allArtwork.length}
           next={() => {
-            getProposals(
-              isContributions,
+            getContributions(
               currentPage,
               loginCtx.user?.jwt,
               setHasMoreProp,
               setAllArtwork,
-              setCheckedProposals,
               setCurrentPage,
               setIsLoading
             );
@@ -139,21 +132,12 @@ function UserContributions() {
         >
           {!isLoading &&
             allArtwork.length > 0 &&
-            allArtwork.length === checkedProposals.length &&
             allArtwork.map((Artwork: any) => {
               return (
                 <div
                   key={Artwork.id}
                   className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
-                  {/* <input
-                    className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
-                    type="checkbox"
-                    value={checkedProposals[index].checked}
-                    checked={checkedProposals[index].checked}
-                    id="flexCheckDefault"
-                  />
-*/}
                   <Link
                     to="/admin/details-contribution"
                     state={{ data: Artwork }}
