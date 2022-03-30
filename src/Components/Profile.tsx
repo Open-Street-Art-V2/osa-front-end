@@ -115,7 +115,6 @@ function Profile(props: Props) {
           </div>
         </NavLink>
       </div>
-      <br />
     </>
   );
 }
