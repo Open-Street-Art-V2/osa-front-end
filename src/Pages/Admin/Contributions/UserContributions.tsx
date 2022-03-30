@@ -71,8 +71,6 @@ function UserContributions() {
                 key={item}
                 className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
               >
-                <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
-
                 <div className="flex flex-row col-span-5">
                   <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
                   <div className="w-44 h-20 overflow-hidden pl-2">
@@ -109,8 +107,6 @@ function UserContributions() {
                 key={item}
                 className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
               >
-                <div className="justify-self-center self-center border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
-
                 <div className="flex flex-row col-span-5">
                   <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
                   <div className="w-44 h-20 overflow-hidden pl-2">
@@ -139,7 +135,7 @@ function UserContributions() {
                   className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
                   <Link
-                    to="/admin/details-contribution"
+                    to="/UserDetailsContribution"
                     state={{ data: Artwork }}
                     className="grow mx-1"
                   >
