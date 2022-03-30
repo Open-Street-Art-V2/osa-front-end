@@ -66,7 +66,7 @@ function PasswordConfirm() {
           )}
 
           <div className="form-group">
-            <input type="submit" value="Envoyer Un Courriel" />
+            <input type="submit" value="Confirmer" />
           </div>
         </form>
       </div>

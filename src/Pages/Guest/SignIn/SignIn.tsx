@@ -265,7 +265,7 @@ export default function SignIn() {
             onChange={passwordChangeHandler}
           />
 
-          <Link to="user/recovery" id="mdpF" className="mdpF pt-2">
+          <Link to="/user/recovery" id="mdpF" className="mdpF pt-2">
             <label>{t("mdpF")}</label>
           </Link>
           <div className="centreD pt-6">

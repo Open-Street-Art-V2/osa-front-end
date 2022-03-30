@@ -10,6 +10,7 @@ import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 import PasswordRecovery from "../Pages/Guest/Recover/Recover";
+import PasswordConfirm from "../Pages/Guest/Recover/PasswordConfirm";
 
 // TODO: utiliser Link ou useNavigate de react-rooter pour la navigation
 // entre les pages (voir la documentation)
@@ -83,8 +84,8 @@ const routes: routesType = [
   },
   {
     name: "PasswordConfirm",
-    path: "user/Confirmation",
-    element: PasswordRecovery,
+    path: "/user/confirmation",
+    element: PasswordConfirm,
   },
 ];
 
