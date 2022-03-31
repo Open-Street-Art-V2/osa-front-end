@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowBack } from "@mui/icons-material";
 import { Header, ArtworkProposal } from "../../../Components";
@@ -18,6 +18,13 @@ function UserContributions() {
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
   const skeletons = [1, 2, 3, 4];
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginCtx.user?.role !== "ROLE_USER") {
+      navigate("/");
+    }
+  }, [loginCtx]);
 
   useEffect(() => {
     if (updateComp) {
