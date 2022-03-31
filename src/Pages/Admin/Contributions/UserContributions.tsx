@@ -33,6 +33,7 @@ function UserContributions() {
       getContributions(
         currentPage,
         loginCtx.user?.jwt,
+        loginCtx.user?.id,
         setHasMoreProp,
         setAllArtwork,
         setCurrentPage,
@@ -94,6 +95,7 @@ function UserContributions() {
             getContributions(
               currentPage,
               loginCtx.user?.jwt,
+              loginCtx.user?.id,
               setHasMoreProp,
               setAllArtwork,
               setCurrentPage,

@@ -103,12 +103,13 @@ export const rejectProposals = async (
 export const getContributions = async (
   currentPage: number,
   token: string | undefined,
+  id: number | undefined,
   setHasMoreProp: (hasMoreProp: boolean) => void,
   setAllArtwork: (allArtwork: any) => void,
   setCurrentPage: (currentPage2: number) => void,
   setIsLoading: (isLoading: boolean) => void
 ) => {
-  const url = `${process.env.REACT_APP_GET_CONTRIBUTION}?page=${currentPage}&limit=10`;
+  const url = `${process.env.REACT_APP_API}/contribution/user/${id}?page=${currentPage}&limit=10`;
 
   const res: Response = await fetch(url, {
     method: "GET",

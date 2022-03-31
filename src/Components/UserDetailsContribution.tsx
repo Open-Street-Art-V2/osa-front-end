@@ -11,6 +11,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import Moment from "react-moment";
+import { useTranslation } from "react-i18next";
 import { AnimateAlert, Carousel } from ".";
 
 const switchTheme = createTheme({
@@ -27,6 +28,7 @@ type PropsDetails = {
 };
 
 function Details(props: PropsDetails) {
+  const { t } = useTranslation();
   const { data } = props;
   const numPics = Object.keys(data.pictures).length;
 
@@ -59,7 +61,7 @@ function Details(props: PropsDetails) {
           <figcaption className="font-medium">
             {data.artist && (
               <div className="text-lg mt-3 mb-2">
-                <span className="font-bold">Artiste : </span>
+                <span className="font-bold">{t("artist")} : </span>
                 {data.artist}
               </div>
             )}
