@@ -2,53 +2,84 @@ import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { FaRegCompass, FaRegUserCircle } from "react-icons/fa";
 import { RiSearch2Line } from "react-icons/ri";
+import "../Assets/css/NavBarUser.css";
 
 function NavBarUser() {
   const location = useLocation();
+  let bubbleLeft = 0;
+  if (location.pathname === "/") bubbleLeft = 4;
+  else if (location.pathname === "/search") bubbleLeft = 29.5;
+  else if (location.pathname === "/user/ProposeArtwork") bubbleLeft = 54.5;
+  else if (location.pathname === "/profil") bubbleLeft = 78.5;
+
   return (
-    <div className="fixed flex w-screen py-4 px-7 bottom-0 bg-black items-center justify-between rounded-t-2xl">
-      <NavLink to="/">
+    <div
+      className="fixed flex w-screen py-2 px-7 bottom-0 bg-black items-center justify-between rounded-t-2xl"
+      style={{ filter: "url(#goo)" }}
+    >
+      <div className="nav__ball" style={{ left: `${bubbleLeft}%` }} />
+      <NavLink
+        to="/"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-10px)" } : {}
+        }
+      >
         {location.pathname === "/" ? (
-          <p className="text-6xl text-gray-50 font-light">
+          <span className="text-3xl" style={{ color: "rgb(112 207 53)" }}>
             <FaRegCompass />
-          </p>
+          </span>
         ) : (
-          <p className="text-6xl text-gray-400 font-light">
+          <span className="text-3xl text-gray-400 font-light">
             <FaRegCompass />
-          </p>
+          </span>
         )}
       </NavLink>
-      <NavLink to="/search">
+      <NavLink
+        to="/search"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-10px)" } : {}
+        }
+      >
         {location.pathname === "/search" ? (
-          <p className="text-3xl text-gray-50">
+          <span className="text-3xl" style={{ color: "rgb(112 207 53)" }}>
             <RiSearch2Line />
-          </p>
+          </span>
         ) : (
-          <p className="text-3xl text-gray-400">
+          <span className="text-3xl text-gray-400">
             <RiSearch2Line />
-          </p>
+          </span>
         )}
       </NavLink>
-      <NavLink to="/user/ProposeArtwork">
+      <NavLink
+        to="/user/ProposeArtwork"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-10px)" } : {}
+        }
+      >
         {location.pathname === "/user/ProposeArtwork" ? (
-          <p className="text-3xl text-gray-50">
+          <span className="text-3xl text-gray-50">
             <AiOutlinePlusCircle />
-          </p>
+          </span>
         ) : (
-          <p className="text-3xl text-gray-400">
+          <span className="text-3xl text-gray-400">
             <AiOutlinePlusCircle />
-          </p>
+          </span>
         )}
       </NavLink>
-      <NavLink to="/profil">
+      <NavLink
+        to="/profil"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-10px)" } : {}
+        }
+      >
         {location.pathname === "/profil" ? (
-          <p className="text-3xl text-gray-50">
+          <span className="text-4xl text-gray-50">
             <FaRegUserCircle />
-          </p>
+          </span>
         ) : (
-          <p className="text-3xl text-gray-400">
+          <span className="text-3xl text-gray-400">
             <FaRegUserCircle />
-          </p>
+          </span>
         )}
       </NavLink>
     </div>

@@ -1,0 +1,11 @@
+.nav__ball {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  left: 23px;
+  top: -15px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  z-index: -1;
+  transition: left 500ms ease-in-out;
+}
