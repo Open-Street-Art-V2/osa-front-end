@@ -3,12 +3,13 @@
 import { useContext, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { GrLanguage } from "react-icons/gr";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiLogIn } from "react-icons/bi";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import { styled } from "@mui/system";
 import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 import { logout } from "../Pages/Guest/SignIn/SignIn.service";
 import { LoginContext } from "./Context/LoginCtxProvider";
 
@@ -122,8 +123,8 @@ export default function SettingsBtn() {
                 </div>
               </div>
 
-              {loginCtx.isLoggedIn && (
-                <div className="flex flex-row my-3 justify-between gap-14">
+              <div className="flex flex-row my-3 justify-between gap-14">
+                {loginCtx.isLoggedIn ? (
                   <div
                     role="button"
                     tabIndex={0}
@@ -139,8 +140,19 @@ export default function SettingsBtn() {
                       {t("logout")}
                     </p>
                   </div>
-                </div>
-              )}
+                ) : (
+                  <Link to="/login">
+                    <div className="flex flex-row">
+                      <div className="mr-4 text-lg my-auto">
+                        <BiLogIn />
+                      </div>
+                      <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
+                        {t("login")}
+                      </p>
+                    </div>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </Box>

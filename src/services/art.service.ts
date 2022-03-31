@@ -14,7 +14,8 @@ const searchArt = async (
   setCurrentPage: (page: number) => void
 ) => {
   setIsLoading(true);
-  const url = `${process.env.REACT_APP_API}/art/${filter}/${search}?page=${currentPage}&limit=10`;
+  const urlFilter = filter === "nofilter" ? "search" : filter;
+  const url = `${process.env.REACT_APP_API}/art/${urlFilter}/${search}?page=${currentPage}&limit=10`;
 
   try {
     const response = await fetch(url, {
