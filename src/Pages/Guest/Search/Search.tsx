@@ -98,6 +98,8 @@ function Search() {
         searchUser(
           location?.oldSearch,
           currentPage.current,
+          loginCtx.user?.role,
+          loginCtx.user?.jwt,
           setHasMore,
           setUsers,
           setIsLoading,
@@ -138,6 +140,8 @@ function Search() {
         searchUser(
           search,
           currentPage.current,
+          loginCtx.user?.role,
+          loginCtx.user?.jwt,
           setHasMore,
           setUsers,
           setIsLoading,
@@ -163,6 +167,8 @@ function Search() {
     searchUser(
       search,
       currentPage.current,
+      loginCtx.user?.role,
+      loginCtx.user?.jwt,
       setHasMore,
       setUsers,
       setIsLoading,

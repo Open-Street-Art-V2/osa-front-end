@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useState, useEffect } from "react";
 import { Container, Box } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
@@ -47,6 +48,16 @@ function DetailsUser() {
   const { user, filter, search } = useLocation().state as LocationDataType;
   const [showModalRole, setShowModalRole] = useState(false);
   const [showModalBan, setShowModalBan] = useState(false);
+  const [userAB, setUserAB] = useState({
+    admin: false,
+    banned: false,
+  });
+  useEffect(() => {
+    setUserAB({
+      admin: user.role === "ROLE_ADMIN",
+      banned: user.blocked,
+    });
+  }, []);
 
   return (
     <>
@@ -64,7 +75,7 @@ function DetailsUser() {
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
         <Profile user={user} />
-        {loginCtx.user?.role === "ROLE_ADMIN" && user.role !== "ROLE_ADMIN" ? (
+        {loginCtx.user?.role === "ROLE_ADMIN" && !userAB.admin ? (
           <>
             <div className="flex flex-row justify-around p-3 pb-5">
               <button
@@ -75,7 +86,7 @@ function DetailsUser() {
               >
                 {t("role.admin")}
               </button>
-              {user.blocked ? (
+              {userAB.banned ? (
                 <button
                   type="button"
                   className="w-28 h-10 px-5 text-red-700 transition-colors duration-150 border border-red-500 focus:shadow-outline hover:bg-red-500 hover:text-red-100  rounded-3xl"
@@ -140,26 +151,26 @@ function DetailsUser() {
                     >
                       {t("cancel")}
                     </button>
-                    {showModalBan && user.blocked ? (
+                    {showModalBan && userAB.banned ? (
                       <button
                         type="button"
                         className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
                         // eslint-disable-next-line react/destructuring-assignment
                         onClick={() => {
-                          unblockUser(user.id, loginCtx.user?.jwt);
+                          unblockUser(user.id, loginCtx.user?.jwt, setUserAB);
                           setShowModalBan(false);
                         }}
                       >
                         {t("unban")}
                       </button>
                     ) : null}
-                    {showModalBan && !user.blocked ? (
+                    {showModalBan && !userAB.banned ? (
                       <button
                         type="button"
                         className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
                         // eslint-disable-next-line react/destructuring-assignment
                         onClick={() => {
-                          blockUser(user.id, loginCtx.user?.jwt);
+                          blockUser(user.id, loginCtx.user?.jwt, setUserAB);
                           setShowModalBan(false);
                         }}
                       >
@@ -173,7 +184,11 @@ function DetailsUser() {
                         className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
                         // eslint-disable-next-line react/destructuring-assignment
                         onClick={() => {
-                          changeUserRole(user.id, loginCtx.user?.jwt);
+                          changeUserRole(
+                            user.id,
+                            loginCtx.user?.jwt,
+                            setUserAB
+                          );
                           setShowModalRole(false);
                         }}
                       >
