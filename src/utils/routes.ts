@@ -7,6 +7,8 @@ import ModifyArtAdmin from "../Pages/Admin/FormMod/ModifyArtwork";
 import ProposeArtUser from "../Pages/User/Forms/propositionForm";
 import ContributionToArt from "../Pages/User/Forms/contributionForm";
 import ValidateProposal from "../Pages/Admin/ValidateProp/ValidateProp";
+import UserContributions from "../Pages/Admin/Contributions/UserContributions";
+import DetailsContributionUser from "../Pages/Admin/Contributions/DetailsContributionUser";
 import DetailsProposition from "../Pages/Admin/Propositions/DetailsProposition";
 import DetailsContribution from "../Pages/Admin/Contributions/DetailsContribution";
 import UserProfile from "../Pages/User/UserProfile";
@@ -30,6 +32,11 @@ const routes: routesType = [
     name: "UserProfile",
     path: "/profil",
     element: UserProfile,
+  },
+  {
+    name: "UserContributions",
+    path: "/contribution",
+    element: UserContributions,
   },
   {
     name: "MapAdmin",
@@ -80,6 +87,11 @@ const routes: routesType = [
     name: "DetailsContribution",
     path: "admin/details-contribution",
     element: DetailsContribution,
+  },
+  {
+    name: "DetailsContributionUser",
+    path: "UserDetailsContribution",
+    element: DetailsContributionUser,
   },
   {
     name: "DetailsArtwork",
