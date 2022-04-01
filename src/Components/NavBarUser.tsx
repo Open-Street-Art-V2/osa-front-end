@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { FaRegCompass, FaRegUserCircle } from "react-icons/fa";
@@ -6,18 +7,35 @@ import "../Assets/css/NavBarUser.css";
 
 function NavBarUser() {
   const location = useLocation();
-  let bubbleLeft = 0;
-  if (location.pathname === "/") bubbleLeft = 4;
-  else if (location.pathname === "/search") bubbleLeft = 29.5;
-  else if (location.pathname === "/user/ProposeArtwork") bubbleLeft = 54.5;
-  else if (location.pathname === "/profil") bubbleLeft = 78.5;
+  const windowWidth = window.innerWidth;
+  let bubbleLeft = "0";
+  if (windowWidth <= 420) {
+    if (location.pathname === "/") bubbleLeft = "4%";
+    else if (location.pathname === "/search") bubbleLeft = "29.5%";
+    else if (location.pathname === "/user/ProposeArtwork")
+      bubbleLeft = "calc(54.5%)";
+    else if (location.pathname === "/profil") bubbleLeft = "78.5%";
+  } else {
+    if (location.pathname === "/") bubbleLeft = `2%`;
+    else if (location.pathname === "/search")
+      bubbleLeft = `calc(29.5% + ${(windowWidth * 2.5) / 100}px)`;
+    else if (location.pathname === "/user/ProposeArtwork")
+      bubbleLeft = `calc(54.5% + ${(windowWidth * 2.5) / 100}px)`;
+    else if (location.pathname === "/profil")
+      bubbleLeft = `calc(78.5% + ${(windowWidth * 2.5) / 100}px)`;
+  }
 
   return (
     <div
       className="fixed flex w-screen py-2 px-7 bottom-0 bg-black items-center justify-between rounded-t-2xl"
       style={{ filter: "url(#goo)" }}
     >
-      <div className="nav__ball" style={{ left: `${bubbleLeft}%` }} />
+      <div
+        className="nav__ball"
+        style={{
+          left: bubbleLeft,
+        }}
+      />
       <NavLink
         to="/"
         style={({ isActive }) =>
