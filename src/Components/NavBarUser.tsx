@@ -13,16 +13,16 @@ function NavBarUser() {
     if (location.pathname === "/") bubbleLeft = "4%";
     else if (location.pathname === "/search") bubbleLeft = "29.5%";
     else if (location.pathname === "/user/ProposeArtwork")
-      bubbleLeft = "calc(54.5%)";
-    else if (location.pathname === "/profil") bubbleLeft = "78.5%";
+      bubbleLeft = "calc(56%)";
+    else if (location.pathname === "/profil") bubbleLeft = "82.3%";
   } else {
     if (location.pathname === "/") bubbleLeft = `2%`;
     else if (location.pathname === "/search")
       bubbleLeft = `calc(29.5% + ${(windowWidth * 2.5) / 100}px)`;
     else if (location.pathname === "/user/ProposeArtwork")
-      bubbleLeft = `calc(54.5% + ${(windowWidth * 2.5) / 100}px)`;
+      bubbleLeft = `calc(56% + ${(windowWidth * 5.5) / 100}px)`;
     else if (location.pathname === "/profil")
-      bubbleLeft = `calc(78.5% + ${(windowWidth * 2.5) / 100}px)`;
+      bubbleLeft = `calc(83% + ${(windowWidth * 8) / 100}px)`;
   }
 
   return (
@@ -75,7 +75,10 @@ function NavBarUser() {
         }
       >
         {location.pathname === "/user/ProposeArtwork" ? (
-          <span className="text-3xl text-gray-50">
+          <span
+            className="text-3xl text-gray-50"
+            style={{ color: "rgb(112 207 53)" }}
+          >
             <AiOutlinePlusCircle />
           </span>
         ) : (
@@ -91,7 +94,10 @@ function NavBarUser() {
         }
       >
         {location.pathname === "/profil" ? (
-          <span className="text-4xl text-gray-50">
+          <span
+            className="text-3xl text-gray-50"
+            style={{ color: "rgb(112 207 53)" }}
+          >
             <FaRegUserCircle />
           </span>
         ) : (
