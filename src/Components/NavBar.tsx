@@ -1,65 +1,148 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { AiOutlinePlusCircle, AiOutlineBars } from "react-icons/ai";
-import { FaRegCompass, FaRegUserCircle } from "react-icons/fa";
+import { AiOutlinePlus, AiOutlineBars, AiOutlineUser } from "react-icons/ai";
+import { FaRegCompass } from "react-icons/fa";
 import { RiSearch2Line } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 function NavBar() {
   const location = useLocation();
+  const { t } = useTranslation();
+
   return (
-    <div className="fixed flex w-screen py-1 px-7 bottom-0 bg-black items-center justify-between rounded-t-2xl">
-      <NavLink to="/admin/validateProposal">
+    <div className="fixed flex w-screen py-3 px-3 bottom-0 bg-white items-center justify-between rounded-t-2xl shadow-center">
+      <NavLink
+        to="/admin/validateProposal"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/admin/validateProposal" ? (
-          <span className="text-3xl text-gray-50">
-            <AiOutlineBars />
-          </span>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <AiOutlineBars />
+            </span>
+          </button>
         ) : (
-          <span className="text-3xl text-gray-400">
-            <AiOutlineBars />
-          </span>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <AiOutlineBars />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.proposals")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/search">
+      <NavLink
+        to="/search"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/search" ? (
-          <span className="text-3xl text-gray-50">
-            <RiSearch2Line />
-          </span>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <RiSearch2Line />
+            </span>
+          </button>
         ) : (
-          <span className="text-3xl text-gray-400">
-            <RiSearch2Line />
-          </span>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <RiSearch2Line />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.search")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/map/admin">
+      <NavLink
+        to="/map/admin"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/map/admin" ? (
-          <span className="text-6xl text-gray-50 font-light">
-            <FaRegCompass />
-          </span>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <FaRegCompass />
+            </span>
+          </button>
         ) : (
-          <span className="text-6xl text-gray-400 font-light">
-            <FaRegCompass />
-          </span>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <FaRegCompass />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.map")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/form/admin">
+      <NavLink
+        to="/form/admin"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/form/admin" ? (
-          <p className="text-3xl text-gray-50">
-            <AiOutlinePlusCircle />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <AiOutlinePlus />
+            </span>
+          </button>
         ) : (
-          <p className="text-3xl text-gray-400">
-            <AiOutlinePlusCircle />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <AiOutlinePlus />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.add")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/profil">
+      <NavLink
+        to="/profil"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/profil" ? (
-          <p className="text-3xl text-gray-50">
-            <FaRegUserCircle />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <AiOutlineUser />
+            </span>
+          </button>
         ) : (
-          <p className="text-3xl text-gray-400">
-            <FaRegUserCircle />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <AiOutlineUser />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.profile")}
+            </p>
+          </div>
         )}
       </NavLink>
     </div>

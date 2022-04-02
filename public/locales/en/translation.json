@@ -83,6 +83,7 @@
   "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
   "itinerary": "Itinerary",
+
   "ban": "Ban",
   "unban": "Unban",
   "role.admin": "Set as admin",
@@ -91,6 +92,11 @@
   "alert.banTitle": "Block account",
   "alert.roleTitle": "Role change",
   "alert.msg": "This action is irreversible. Do you want to continue ?",
+  "menu.proposals": "Proposals",
+  "menu.search": "Search",
+  "menu.map": "Map",
+  "menu.add": "Add",
+  "menu.profile": "Profile",
 
   "language": "Language",
   "french": "French",

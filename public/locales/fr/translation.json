@@ -83,6 +83,7 @@
   "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
   "itinerary": "Itinéraire",
+
   "ban": "Bloquer",
   "unban": "Débloquer",
   "role.admin": "Définir comme admin",
@@ -91,6 +92,11 @@
   "alert.banTitle": "Bloquer le compte",
   "alert.roleTitle": "Changement de rôle",
   "alert.msg": "Cette action est irréversible. Voulez-vous continuer ?",
+  "menu.proposals": "Propositions",
+  "menu.search": "Recherche",
+  "menu.map": "Carte",
+  "menu.add": "Ajouter",
+  "menu.profile": "Profile",
 
   "language": "Langue",
   "french": "Français",
