@@ -54,7 +54,9 @@ function Details(props: PropsDetails) {
 
       <Box>
         <div className="py-4">
-          <div className="font-bold text-xl mb-2">Titre : {data.title}</div>
+          <div className="font-bold text-xl mb-2">
+            {t("Title")} : {data.title}
+          </div>
           <blockquote>
             <p className="text-gray-700 text-base">{data.description}</p>
           </blockquote>
