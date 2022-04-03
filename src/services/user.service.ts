@@ -1,6 +1,8 @@
 export const searchUser = async (
   search: string,
   currentPage: number,
+  role: string | undefined,
+  token: string | undefined,
   // eslint-disable-next-line no-unused-vars
   setHasMore: (hasMore: boolean) => void,
   // eslint-disable-next-line no-unused-vars
@@ -11,7 +13,12 @@ export const searchUser = async (
   setCurrentPage: (page: number) => void
 ) => {
   setIsLoading(true);
-  const url = `${process.env.REACT_APP_API}/users/search?page=${currentPage}&limit=10`;
+  let url;
+  if (role === "ROLE_ADMIN")
+    url = `${process.env.REACT_APP_API}/users/admin-search?page=${currentPage}&limit=10`;
+  else {
+    url = `${process.env.REACT_APP_API}/users/search?page=${currentPage}&limit=10`;
+  }
 
   const body = { fullname: search };
 
@@ -19,7 +26,8 @@ export const searchUser = async (
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });

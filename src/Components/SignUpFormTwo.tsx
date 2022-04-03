@@ -1,6 +1,5 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -9,6 +8,7 @@ import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { StateTwo } from "../Pages/Guest/SignUp/types/types";
 import { displayPasswordError } from "../Pages/Guest/SignIn/SignIn.service";
 import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
+import RoundedTextField from "./RoundedTextField";
 
 type Props = {
   formTwo: StateTwo;
@@ -56,7 +56,7 @@ export default function SignUpFormTwo(props: Props) {
         <Box component="form" noValidate sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <RoundedTextField
                 autoComplete="favorite-city"
                 name="favorite-city"
                 fullWidth
@@ -73,7 +73,7 @@ export default function SignUpFormTwo(props: Props) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <RoundedTextField
                 required
                 fullWidth
                 id="password"
@@ -95,10 +95,10 @@ export default function SignUpFormTwo(props: Props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <RoundedTextField
                 required
                 fullWidth
-                id="email"
+                id="confirmation-password"
                 type="password"
                 label={t("confirmation.password")}
                 name="confirmation"

@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Moment from "react-moment";
-import { ArrowBack } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
-import { Carousel, Header } from "../../../Components";
+import { Carousel, Header, ReturnButton } from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
@@ -17,7 +15,6 @@ type LocationDataType = {
 };
 
 function DetailsArtwork() {
-  const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const { art, filter, search } = useLocation().state as LocationDataType;
   const numPics = Object.keys(art.pictures).length;
@@ -26,14 +23,10 @@ function DetailsArtwork() {
     <>
       <Header />
       <div className="ml-7 mt-4 -mb-1">
-        <Link
-          to="/search"
+        <ReturnButton
+          url="/search"
           state={{ oldFilter: filter, oldSearch: search }}
-          className="inline-flex items-center"
-        >
-          <ArrowBack />
-          <p className="text-xl ml-3">{t("return")}</p>
-        </Link>
+        />
       </div>
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">

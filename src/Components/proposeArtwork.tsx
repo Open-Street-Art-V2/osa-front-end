@@ -1,14 +1,11 @@
 /* eslint-disable */
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import Divider from "@mui/material/Divider";
-import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   Typography,
@@ -23,6 +20,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
 import { useTranslation } from "react-i18next";
+import RoundedTextField from "./RoundedTextField";
 
 const loadingBtnTheme = createTheme({
   palette: {
@@ -185,7 +183,7 @@ function CreateArtWork() {
     if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
       navigate("/map/admin");
     } else if (!loginCtx.isLoggedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, [loginCtx]);
 
@@ -327,7 +325,7 @@ function CreateArtWork() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-20">
+    <Container component="main" maxWidth="xs" className="px-5 pb-24">
       <CssBaseline />
 
       <Box
@@ -341,7 +339,7 @@ function CreateArtWork() {
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
-            <p className="py-8 font-sans text-2xl font-bold ">
+            <p className="py-4 font-sans text-2xl font-bold ">
               {t("propose.art")}
             </p>
             <div className="px-5 pb-4">
@@ -419,7 +417,7 @@ function CreateArtWork() {
               </AnimatePresence>
             </div>
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -434,7 +432,7 @@ function CreateArtWork() {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               fullWidth
               id="artist"
@@ -448,7 +446,7 @@ function CreateArtWork() {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -553,6 +551,9 @@ function CreateArtWork() {
                       fontWeight: "500",
                       fontSize: "18px",
                       lineHeight: "21px",
+                      color: "#ffffff",
+                      background: "#00ab55",
+                      borderRadius: 60,
                     }}
                   >
                     {t("valider")}

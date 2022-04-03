@@ -3,10 +3,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowBack } from "@mui/icons-material";
 import MyStepper from "../../../Components/Stepper";
 import "../../../Assets/css/Header.css";
-import { Header } from "../../../Components";
+import { Header, ReturnButton } from "../../../Components";
 
 const theme = createTheme({
   palette: {
@@ -25,10 +24,7 @@ export default function SignUp() {
     <>
       <Header />
       <div className="ml-4 mt-4 ">
-        <Link to="/" className="inline-flex items-center">
-          <ArrowBack />
-          <p className="text-xl ml-3">{t("return")}</p>
-        </Link>
+        <ReturnButton url="/" />
       </div>
       <Container component="main" maxWidth="xs">
         <ThemeProvider theme={theme}>

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useLocation } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { CssBaseline } from "@mui/material";
 import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
@@ -53,7 +54,7 @@ function Search() {
   const [users, setUsers] = useState<User[] | null>(null);
 
   // filters
-  const artsFilters = ["title", "city", "artist"];
+  const artsFilters = ["nofilter", "title", "city", "artist"];
   const usersFilters = ["user"];
   const filters = [
     {
@@ -65,8 +66,8 @@ function Search() {
       sectionFilters: usersFilters,
     },
   ];
-  const currentFilter = useRef<string>("title");
-  const submittedFilter = useRef<string>("title");
+  const currentFilter = useRef<string>("nofilter");
+  const submittedFilter = useRef<string>("nofilter");
 
   // for infinite scroll
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -98,6 +99,8 @@ function Search() {
         searchUser(
           location?.oldSearch,
           currentPage.current,
+          loginCtx.user?.role,
+          loginCtx.user?.jwt,
           setHasMore,
           setUsers,
           setIsLoading,
@@ -138,6 +141,8 @@ function Search() {
         searchUser(
           search,
           currentPage.current,
+          loginCtx.user?.role,
+          loginCtx.user?.jwt,
           setHasMore,
           setUsers,
           setIsLoading,
@@ -163,6 +168,8 @@ function Search() {
     searchUser(
       search,
       currentPage.current,
+      loginCtx.user?.role,
+      loginCtx.user?.jwt,
       setHasMore,
       setUsers,
       setIsLoading,
@@ -172,12 +179,13 @@ function Search() {
 
   const getFilterShow = (filter: string) => {
     return currentFilter.current === filter
-      ? "font-medium text-gray-900 block px-4 py-2"
-      : "text-gray-500 block px-4 py-2";
+      ? "text-gray-900 font-semibold block px-8 py-1.5"
+      : "text-gray-500 block px-8 py-1.5";
   };
 
   return (
     <div>
+      <CssBaseline />
       <Header />
 
       <div className="pb-5">
@@ -201,11 +209,7 @@ function Search() {
             type="text"
             id="search-input"
             className="block p-2 px-10 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
-            placeholder={
-              artsFilters.includes(currentFilter.current)
-                ? t("search.arts")
-                : t("search.users")
-            }
+            placeholder={t(`search.placeholder.${currentFilter.current}`)}
             value={search}
             onChange={handleInputChange}
           />
@@ -228,14 +232,14 @@ function Search() {
           </div>
 
           {open && (
-            <div className="origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               {filters.map((section, index) => {
                 return (
                   <div
                     key={section.sectionName}
                     className={index === 0 ? "py-1" : "py-1 border-t-2"}
                   >
-                    <div className="px-4 py-2 text-lg text-gray-700">
+                    <div className="px-4 py-2 text-gray-700 uppercase">
                       {t(`search.${section.sectionName}`)}
                     </div>
                     {section.sectionFilters.map((filter) => {

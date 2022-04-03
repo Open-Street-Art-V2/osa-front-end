@@ -2,8 +2,7 @@
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { PhotoCamera } from "@mui/icons-material";
-import { IconButton } from "@material-ui/core";
-import { AiOutlineLeft } from "react-icons/ai";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,13 +10,11 @@ import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   createTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AiFillDelete } from "react-icons/ai";
 import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";
 import validator from "validator";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
@@ -27,6 +24,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
+import RoundedTextField from "./RoundedTextField";
 
 const Input = styled("input")({
   display: "none",
@@ -670,7 +668,7 @@ function ModifyArtWork(props: any) {
                   </AnimatePresence>
                 </div>
 
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -688,7 +686,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.title")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -706,7 +704,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.artist")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth

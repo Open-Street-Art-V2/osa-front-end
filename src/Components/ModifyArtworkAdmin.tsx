@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Divider from "@mui/material/Divider";
 import { PhotoCamera } from "@mui/icons-material";
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import { styled } from "@mui/system";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -24,7 +24,6 @@ import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   createTheme,
@@ -35,6 +34,8 @@ import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import { useTranslation } from "react-i18next";
+import { StyledModal, Backdrop } from "./utils/types";
+import RoundedTextField from "./RoundedTextField";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -94,29 +95,6 @@ const geolocateControlStyle = {
   top: 20,
   zIndex: 1,
 };
-const StyledModal = styled(ModalUnstyled)`
-  position: fixed;
-  z-index: 1300;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-tap-highlight-color: transparent;
-`;
-
-const Backdrop = styled("div")`
-  z-index: -1;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  padding: 3vh;
-`;
 
 const style = {
   width: "90vw",
@@ -735,7 +713,7 @@ function ModifyArtWork(props: any) {
                   </AnimatePresence>
                 </div>
 
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -753,7 +731,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.title")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -771,7 +749,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.artist")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth

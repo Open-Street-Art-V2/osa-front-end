@@ -1,54 +1,121 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { FaRegCompass, FaRegUserCircle } from "react-icons/fa";
+import { AiOutlinePlus, AiOutlineUser } from "react-icons/ai";
+import { FaRegCompass } from "react-icons/fa";
 import { RiSearch2Line } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 function NavBarUser() {
   const location = useLocation();
+  const { t } = useTranslation();
+
   return (
-    <div className="fixed flex w-screen py-4 px-7 bottom-0 bg-black items-center justify-between rounded-t-2xl">
-      <NavLink to="/">
+    <div className="fixed flex w-screen py-3 px-3 bottom-0 bg-white items-center justify-between rounded-t-2xl shadow-center">
+      <NavLink
+        to="/"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/" ? (
-          <p className="text-6xl text-gray-50 font-light">
-            <FaRegCompass />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <FaRegCompass />
+            </span>
+          </button>
         ) : (
-          <p className="text-6xl text-gray-400 font-light">
-            <FaRegCompass />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <FaRegCompass />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.map")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/search">
+      <NavLink
+        to="/search"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/search" ? (
-          <p className="text-3xl text-gray-50">
-            <RiSearch2Line />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <RiSearch2Line />
+            </span>
+          </button>
         ) : (
-          <p className="text-3xl text-gray-400">
-            <RiSearch2Line />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <RiSearch2Line />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.search")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/user/ProposeArtwork">
+      <NavLink
+        to="/user/ProposeArtwork"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/user/ProposeArtwork" ? (
-          <p className="text-3xl text-gray-50">
-            <AiOutlinePlusCircle />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <AiOutlinePlus />
+            </span>
+          </button>
         ) : (
-          <p className="text-3xl text-gray-400">
-            <AiOutlinePlusCircle />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <AiOutlinePlus />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.add")}
+            </p>
+          </div>
         )}
       </NavLink>
-      <NavLink to="/profil">
+      <NavLink
+        to="/profil"
+        className="flex-1"
+        style={({ isActive }) =>
+          isActive ? { transform: "translateY(-22px)" } : {}
+        }
+      >
         {location.pathname === "/profil" ? (
-          <p className="text-3xl text-gray-50">
-            <FaRegUserCircle />
-          </p>
+          <button
+            type="button"
+            className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+          >
+            <span className="text-3xl text-white">
+              <AiOutlineUser />
+            </span>
+          </button>
         ) : (
-          <p className="text-3xl text-gray-400">
-            <FaRegUserCircle />
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl text-logoSlate">
+              <AiOutlineUser />
+            </span>
+            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+              {t("menu.profile")}
+            </p>
+          </div>
         )}
       </NavLink>
     </div>

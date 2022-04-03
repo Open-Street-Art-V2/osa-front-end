@@ -1,14 +1,12 @@
 /* eslint-disable */
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import Divider from "@mui/material/Divider";
-import { AiOutlineLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   Typography,
@@ -23,6 +21,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
 import { useTranslation } from "react-i18next";
+import RoundedTextField from "./RoundedTextField";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -48,6 +47,7 @@ const loadingBtnTheme = createTheme({
     borderRadius: "60px",
   },
 });
+
 enum ValidField {
   OK,
   ERROR,
@@ -338,7 +338,7 @@ function CreateArtWork(props: any) {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-20">
+    <Container component="main" maxWidth="xs" className="px-5 pb-24">
       <CssBaseline />
 
       <Box
@@ -352,7 +352,7 @@ function CreateArtWork(props: any) {
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
-            <p className="py-8 font-sans text-2xl font-bold ">{t("add.art")}</p>
+            <p className="py-4 font-sans text-2xl font-bold ">{t("add.art")}</p>
             <div className="px-5 pb-4">
               <AnimatePresence initial exitBeforeEnter>
                 {requestError && (
@@ -428,7 +428,7 @@ function CreateArtWork(props: any) {
               </AnimatePresence>
             </div>
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -443,7 +443,7 @@ function CreateArtWork(props: any) {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               fullWidth
               id="artist"
@@ -457,7 +457,7 @@ function CreateArtWork(props: any) {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -563,6 +563,7 @@ function CreateArtWork(props: any) {
                       fontWeight: "500",
                       fontSize: "18px",
                       lineHeight: "21px",
+                      color: "#ffffff",
                     }}
                   >
                     {t("valider")}
