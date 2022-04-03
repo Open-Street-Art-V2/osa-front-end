@@ -9,14 +9,13 @@ import validator from "validator";
 import { LoadingButton } from "@mui/lab";
 import { login, logout } from "./SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { Header, RoundedTextField } from "../../../Components";
+import { Header, ReturnButton, RoundedTextField } from "../../../Components";
 import { Link } from "react-router-dom";
 import { Alert, createTheme, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import "../../../Assets/css/Header.css";
-import { ArrowBack } from "@mui/icons-material";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -141,10 +140,7 @@ export default function SignIn() {
     <>
       <Header />
       <div className="ml-4 mt-4">
-        <Link to="/" className="inline-flex items-center">
-          <ArrowBack />
-          <p className="text-xl ml-3">{t("return")}</p>
-        </Link>
+        <ReturnButton url="/" />
       </div>
 
       <Container component="main" maxWidth="xs">

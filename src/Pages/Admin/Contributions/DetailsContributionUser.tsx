@@ -4,6 +4,7 @@ import UserDetailsContribution from "../../../Components/UserDetailsContribution
 import NavBar from "../../../Components/NavBar";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBarUser from "../../../Components/NavBarUser";
+import { Header } from "../../../Components";
 
 function DetailsContributionUser() {
   const location = useLocation();
@@ -12,6 +13,7 @@ function DetailsContributionUser() {
 
   return (
     <>
+      <Header />
       <UserDetailsContribution data={data} />
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
     </>

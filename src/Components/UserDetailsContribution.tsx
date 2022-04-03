@@ -8,11 +8,9 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { Link } from "react-router-dom";
-import { AiOutlineLeft } from "react-icons/ai";
 import Moment from "react-moment";
 import { useTranslation } from "react-i18next";
-import { AnimateAlert, Carousel } from ".";
+import { AnimateAlert, Carousel, ReturnButton } from ".";
 
 const switchTheme = createTheme({
   palette: {
@@ -112,19 +110,8 @@ function UserDetailsContribution(props: Props) {
           alignItems: "center",
         }}
       >
-        <div
-          id="btnRetour"
-          className="flex flex-row place-content-between hTitle pt-4"
-        >
-          <Link to="/contribution" className="inline-flex items-center">
-            <button
-              type="button"
-              id="retBtn"
-              className="inline-flex items-center justify-center w-10 h-10 z-10 ml-4 bg-slate-700 text-white text-2xl rounded-2xl"
-            >
-              <AiOutlineLeft />
-            </button>
-          </Link>
+        <div className="mt-4 ">
+          <ReturnButton url="/contribution" />
         </div>
       </Box>
 

@@ -6,6 +6,7 @@ import {
   refuseContributions,
 } from "../../../services/contribution.service";
 import NavBar from "../../../Components/NavBar";
+import { Header } from "../../../Components";
 
 function DetailsContribution() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function DetailsContribution() {
 
   return (
     <>
+      <Header />
       <AdminDetailsProposition
         data={data}
         accept={acceptContributions}

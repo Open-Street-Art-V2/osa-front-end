@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowBack } from "@mui/icons-material";
-import { Header, ArtworkProposal } from "../../../Components";
+import { CssBaseline } from "@mui/material";
+import { Header, ArtworkProposal, ReturnButton } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { getContributions } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
@@ -51,13 +51,11 @@ function UserContributions() {
 
   return (
     <div className="container">
+      <CssBaseline />
       <div className="">
         <Header />
         <div className="ml-4 mt-4 ">
-          <Link to="/profil" className="inline-flex items-center">
-            <ArrowBack />
-            <p className="text-xl ml-3">{t("return")}</p>
-          </Link>
+          <ReturnButton url="/profil" />
         </div>
         <br />
 

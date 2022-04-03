@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useLocation } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { CssBaseline } from "@mui/material";
 import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
@@ -178,12 +179,13 @@ function Search() {
 
   const getFilterShow = (filter: string) => {
     return currentFilter.current === filter
-      ? "font-medium text-gray-900 block px-8 py-1.5"
+      ? "text-gray-900 font-semibold block px-8 py-1.5"
       : "text-gray-500 block px-8 py-1.5";
   };
 
   return (
     <div>
+      <CssBaseline />
       <Header />
 
       <div className="pb-5">

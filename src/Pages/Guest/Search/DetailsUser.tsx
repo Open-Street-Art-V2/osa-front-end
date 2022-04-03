@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState, useEffect } from "react";
-import { Container, Box } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
-import { ArrowBack } from "@mui/icons-material";
+import { Container, Box, CssBaseline } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import ModalUnstyled from "@mui/base/ModalUnstyled";
-import { styled } from "@mui/system";
 import { GrClose } from "react-icons/gr";
-import { Header, Profile } from "../../../Components";
+import { Header, Profile, ReturnButton } from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
@@ -42,17 +39,14 @@ function DetailsUser() {
     <>
       <Header />
       <div className="ml-7 mt-4">
-        <Link
-          to="/search"
+        <ReturnButton
+          url="/search"
           state={{ oldFilter: filter, oldSearch: search }}
-          className="inline-flex items-center"
-        >
-          <ArrowBack />
-          <p className="text-xl ml-3">{t("return")}</p>
-        </Link>
+        />
       </div>
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
+        <CssBaseline />
         <Profile user={user} />
         {loginCtx.user?.role === "ROLE_ADMIN" && !userAB.admin ? (
           <>

@@ -6,6 +6,7 @@ import {
   refusePropositions,
 } from "../../../services/propositions.service";
 import NavBar from "../../../Components/NavBar";
+import { Header } from "../../../Components";
 
 function DetailsProposition() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function DetailsProposition() {
 
   return (
     <>
+      <Header />
       <AdminDetailsProposition
         data={data}
         accept={acceptPropositions}

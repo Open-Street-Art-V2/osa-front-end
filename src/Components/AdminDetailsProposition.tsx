@@ -9,12 +9,10 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { ThemeProvider } from "@emotion/react";
-import { Link } from "react-router-dom";
-import { AiOutlineLeft } from "react-icons/ai";
 import Moment from "react-moment";
 import { useTranslation } from "react-i18next";
 import { LoginContext } from "./Context/LoginCtxProvider";
-import { AnimateAlert, Carousel } from ".";
+import { AnimateAlert, Carousel, ReturnButton } from ".";
 
 const loadingBtnTheme = createTheme({
   palette: {
@@ -189,22 +187,8 @@ function AdminDetailsProposition(props: Props) {
           alignItems: "center",
         }}
       >
-        <div
-          id="btnRetour"
-          className="flex flex-row place-content-between hTitle pt-4"
-        >
-          <Link
-            to="/admin/validateProposal"
-            className="inline-flex items-center"
-          >
-            <button
-              type="button"
-              id="retBtn"
-              className="inline-flex items-center justify-center w-10 h-10 z-10 ml-4 bg-slate-700 text-white text-2xl rounded-2xl"
-            >
-              <AiOutlineLeft />
-            </button>
-          </Link>
+        <div id="btnRetour" className="mt-4 ">
+          <ReturnButton url="/admin/validateProposal" />
         </div>
       </Box>
 
