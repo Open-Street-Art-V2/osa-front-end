@@ -275,7 +275,7 @@ function ModifyPersonalInfo(props: Props) {
 
   async function updateUser(userData: any) {
     dispatchState;
-    const url = `http://localhost:3008/users`;
+    const url = `${process.env.REACT_APP_API}/users`;
     if (password === "") {
       try {
         const res: Response = await fetch(url, {
@@ -311,7 +311,7 @@ function ModifyPersonalInfo(props: Props) {
         console.log(error.message);
       }
     } else {
-      const url2 = `http://localhost:3008/auth/login`;
+      const url2 = `${process.env.REACT_APP_API}/auth/login`;
       try {
         const res2: Response = await fetch(url2, {
           method: "POST",
@@ -569,6 +569,7 @@ function ModifyPersonalInfo(props: Props) {
                     helperText={
                       state.isValidBirthDate === ValidField.ERROR && t("years")
                     }
+                    sx={{ marginTop: "10px" }}
                   />
                 )}
                 InputProps={{

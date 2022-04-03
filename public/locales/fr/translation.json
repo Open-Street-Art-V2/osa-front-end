@@ -39,7 +39,7 @@
   "lowercase.character": "Doit contenir au moins un caractère en minuscule",
   "upercase.character": "Doit contenir au moins un caractère en majuscule",
   "contain.spaces": "Ne doit pas contenir d'espaces",
-  "imdp": "Mot de passe incorrecte",
+  "imdp": "Mot de passe incorrect",
   "Authentication": "Authentification",
   "no.account": "Vous n'avez pas encore de compte ?",
   "incorrect.coordinates": "Coordonnées saisies incorrectes",
@@ -90,7 +90,7 @@
   "invalid.name": "Nom invalide",
   "invalid.fname": "Prénom invalide",
   "upateProfil": "Modification du profil",
-  "updateS": "Profile modifié.",
+  "updateS": "Profil modifié.",
   "updateE": "Une erreur est survenue lors de la modification, merci de réessayer ultérieurement.",
 
   "ban": "Bloquer",
