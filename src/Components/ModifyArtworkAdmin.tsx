@@ -24,7 +24,6 @@ import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   createTheme,
@@ -36,6 +35,7 @@ import { LoadingButton } from "@mui/lab";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import { useTranslation } from "react-i18next";
 import { StyledModal, Backdrop } from "./utils/types";
+import RoundedTextField from "./RoundedTextField";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -713,7 +713,7 @@ function ModifyArtWork(props: any) {
                   </AnimatePresence>
                 </div>
 
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -731,7 +731,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.title")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -749,7 +749,7 @@ function ModifyArtWork(props: any) {
                     t("invalid.artist")
                   }
                 />
-                <TextField
+                <RoundedTextField
                   margin="normal"
                   required
                   fullWidth

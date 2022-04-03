@@ -59,7 +59,7 @@ function UserProfile() {
                     // eslint-disable-next-line react/destructuring-assignment
                     onClick={() => {}}
                   >
-                    {t("Sign in")}
+                    {t("login.name")}
                   </button>
                 </NavLink>
               </div>

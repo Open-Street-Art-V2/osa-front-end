@@ -1,7 +1,6 @@
 /* eslint-disbale */
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -10,6 +9,7 @@ import DateAdapter from "@mui/lab/AdapterDateFns";
 import { useTranslation } from "react-i18next";
 import ValidField from "../Pages/Guest/SignUp/types/validField";
 import { maxDate, StateOne } from "../Pages/Guest/SignUp/types/types";
+import RoundedTextField from "./RoundedTextField";
 
 type Props = {
   formOne: StateOne;
@@ -62,7 +62,7 @@ export default function SignUpFormOne(props: Props) {
         <Box component="form" noValidate sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <RoundedTextField
                 autoComplete="given-name"
                 name="firstname"
                 required
@@ -80,7 +80,7 @@ export default function SignUpFormOne(props: Props) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <RoundedTextField
                 required
                 fullWidth
                 id="name"
@@ -96,7 +96,7 @@ export default function SignUpFormOne(props: Props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <RoundedTextField
                 required
                 fullWidth
                 id="email"
@@ -121,7 +121,7 @@ export default function SignUpFormOne(props: Props) {
                   maxDate={maxDate}
                   /* eslint-disable react/jsx-props-no-spreading */
                   renderInput={(params) => (
-                    <TextField
+                    <RoundedTextField
                       {...params}
                       fullWidth
                       error={formOne.isValidBirthDate === ValidField.ERROR}

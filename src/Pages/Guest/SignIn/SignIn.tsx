@@ -2,7 +2,6 @@
 import * as React from "react";
 import { Navigate } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useContext, useReducer, useState } from "react";
@@ -10,7 +9,7 @@ import validator from "validator";
 import { LoadingButton } from "@mui/lab";
 import { login, logout } from "./SignIn.service";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { Header } from "../../../Components";
+import { Header, RoundedTextField } from "../../../Components";
 import { Link } from "react-router-dom";
 import { Alert, createTheme, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
@@ -207,7 +206,7 @@ export default function SignIn() {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <TextField
+              <RoundedTextField
                 margin="normal"
                 required
                 fullWidth
@@ -219,7 +218,7 @@ export default function SignIn() {
                 error={!state.isValidEmail}
                 helperText={!state.isValidEmail && t("invalid.mail")}
               />
-              <TextField
+              <RoundedTextField
                 margin="normal"
                 required
                 fullWidth

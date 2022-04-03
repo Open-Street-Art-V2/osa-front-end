@@ -4,7 +4,7 @@
 import React, { useState, useRef } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import { TextField, ListItemText } from "@mui/material";
+import { ListItemText } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,7 @@ import Fade from "@mui/material/Fade";
 import { useTranslation } from "react-i18next";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
+import RoundedTextField from "./RoundedTextField";
 
 export default function Map(props: any) {
   const { points, setselectedArtWork } = props;
@@ -139,10 +140,9 @@ export default function Map(props: any) {
       keyboard={false}
       attributionControl={false}
     >
-      <TextField
+      <RoundedTextField
         margin="none"
         className="bg-white"
-        fullWidth
         id="SearchBar"
         name="SearchBar"
         autoComplete="SearchBar"
@@ -151,6 +151,13 @@ export default function Map(props: any) {
             ? t("searchBarTitre-placeholder")
             : t("searchBarVille-placeholder")
         }`}
+        style={{
+          borderRadius: "12px",
+          marginRight: "1%",
+          marginLeft: "1%",
+          marginTop: "1%",
+          width: "98%",
+        }}
         value={value}
         onChange={handleSearchBarChange}
         InputProps={{

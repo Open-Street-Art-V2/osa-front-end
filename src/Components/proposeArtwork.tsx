@@ -1,14 +1,11 @@
 /* eslint-disable */
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import Divider from "@mui/material/Divider";
-import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   Typography,
@@ -23,6 +20,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
 import { useTranslation } from "react-i18next";
+import RoundedTextField from "./RoundedTextField";
 
 const loadingBtnTheme = createTheme({
   palette: {
@@ -419,7 +417,7 @@ function CreateArtWork() {
               </AnimatePresence>
             </div>
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -434,7 +432,7 @@ function CreateArtWork() {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               fullWidth
               id="artist"
@@ -448,7 +446,7 @@ function CreateArtWork() {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth

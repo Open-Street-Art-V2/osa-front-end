@@ -8,7 +8,6 @@ import {
   Container,
   Box,
   CssBaseline,
-  TextField,
   Button,
   Alert,
   Typography,
@@ -23,6 +22,7 @@ import { LoginContext } from "./Context/LoginCtxProvider";
 import FormMap from "./FormMap";
 import FileUploader from "./FileUploader";
 import { useTranslation } from "react-i18next";
+import RoundedTextField from "./RoundedTextField";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -429,7 +429,7 @@ function CreateArtWork(props: any) {
               </AnimatePresence>
             </div>
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
@@ -444,7 +444,7 @@ function CreateArtWork(props: any) {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               fullWidth
               id="artist"
@@ -458,7 +458,7 @@ function CreateArtWork(props: any) {
               }
             />
 
-            <TextField
+            <RoundedTextField
               margin="normal"
               required
               fullWidth
