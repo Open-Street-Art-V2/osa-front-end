@@ -1,5 +1,8 @@
 {
   "mdp": "Password",
+  "nmdp": "New password",
+  "cnmdp": "Confirm new password",
+  "amdp": "Current password",
   "art.created.success": "Art created with success",
   "art.title.exist": "An art with the same title already exists.",
   "connect.operation": "Please log in to perform this operation.",
@@ -83,6 +86,12 @@
   "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
   "itinerary": "Itinerary",
+  "years": "Invalid date of birth",
+  "invalid.name": "Invalid name",
+  "invalid.fname": "Invalid first name",
+  "upateProfil": "Update profil",
+  "updateS": "Profil updated.",
+  "updateE": "An error occured during  modification, please retry later.",
 
   "ban": "Ban",
   "unban": "Unban",

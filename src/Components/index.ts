@@ -12,5 +12,6 @@ export { default as SettingsBtn } from "./SettingsBtn";
 export { default as ArtworkSearchCard } from "./ArtworkSearchCard";
 export { default as UserSearchCard } from "./UserSearchCard";
 export { default as Profile } from "./Profile";
+export { default as UpdateInfo } from "./ModifyPersonalInfo";
 export { default as RoundedTextField } from "./RoundedTextField";
 export { default as ReturnButton } from "./ReturnButton";

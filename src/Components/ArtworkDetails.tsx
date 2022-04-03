@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Alert } from "@mui/material";
+import MobileDetect from "mobile-detect";
 import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { LoginContext } from "./Context/LoginCtxProvider";
@@ -14,6 +15,7 @@ export default function ArtworkDetails(props: any) {
   const loginCtx = useContext(LoginContext);
   const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
   const baseURL = `${process.env.REACT_APP_API}/art/`;
+  const type = new MobileDetect(window.navigator.userAgent);
 
   async function deleteDataById() {
     const id = data.oeuvreId;
@@ -40,9 +42,15 @@ export default function ArtworkDetails(props: any) {
     }
   }
   const openItinerary = () => {
-    window.open(
-      `https://www.google.com/maps/dir/?api=1&origin=${lat},${long}&destination=${coords[1]},${coords[0]}`
-    );
+    if (type.os() !== "IOS" || type.os() !== "MacOs") {
+      window.open(
+        `https://www.google.com/maps/dir/?api=1&origin=${lat},${long}&destination=${coords[1]},${coords[0]}`
+      );
+    } else {
+      window.open(
+        `http://maps.apple.com/?saddr=${lat},${long}&daddr=${coords[1]},${coords[0]}`
+      );
+    }
   };
 
   return (

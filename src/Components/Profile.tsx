@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
@@ -115,6 +115,20 @@ function Profile(props: Props) {
           </div>
         </NavLink>
       </div>
+      <br />
+      <div className="px-6 pb-5">
+        <div className="flex items-center justify-around">
+          <Link to="/updateInfo" state={{ userInfo: user }} className="">
+            <button
+              className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Modify Info
+            </button>
+          </Link>
+        </div>
+      </div>
+
     </>
   );
 }
