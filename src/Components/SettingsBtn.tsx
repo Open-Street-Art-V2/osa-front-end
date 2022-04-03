@@ -6,35 +6,12 @@ import { GrLanguage } from "react-icons/gr";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
-import ModalUnstyled from "@mui/base/ModalUnstyled";
-import { styled } from "@mui/system";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { logout } from "../Pages/Guest/SignIn/SignIn.service";
 import { LoginContext } from "./Context/LoginCtxProvider";
+import { StyledModal, Backdrop } from "./utils/types";
 
-const StyledModal = styled(ModalUnstyled)`
-  position: fixed;
-  z-index: 1300;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-tap-highlight-color: transparent;
-`;
-const Backdrop = styled("div")`
-  z-index: -1;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  padding: 3vh;
-`;
 export default function SettingsBtn() {
   const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = useState(false);

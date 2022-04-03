@@ -92,6 +92,8 @@
   "alert.banTitle": "Block account",
   "alert.roleTitle": "Role change",
   "alert.msg": "This action is irreversible. Do you want to continue ?",
+  "alert.profile": "Please sign in to view your profile",
+  "alert.addArtwork": "Please sign in to add a work",
   "menu.proposals": "Proposals",
   "menu.search": "Search",
   "menu.map": "Map",
