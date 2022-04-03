@@ -1,5 +1,8 @@
 {
   "mdp": "Mot de passe",
+  "nmdp": "Nouveau mot de passe",
+  "cnmdp": "Confirmer votre nouveau mot de passe",
+  "amdp": "Mot de passe actuel",
   "art.created.success": "Oeuvre créée avec succès",
   "art.title.exist": "Une œuvre avec le même titre existe déja.",
   "connect.operation": "Veuillez vous connecter pour réaliser cette opération.",
@@ -83,6 +86,12 @@
   "contributions.lower": "Contributions",
   "contributions.upper": "Contributions",
   "itinerary": "Itinéraire",
+  "years": "Année de naissance invalide",
+  "invalid.name": "Nom invalide",
+  "invalid.fname": "Prénom invalide",
+  "upateProfil": "Modification du profil",
+  "updateS": "Profile modifié.",
+  "updateE": "Une erreur est survenue lors de la modification,Merci de reéssayer ultérieurement.",
 
   "ban": "Bloquer",
   "unban": "Débloquer",

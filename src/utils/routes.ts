@@ -15,6 +15,7 @@ import UserProfile from "../Pages/User/UserProfile";
 import DetailsArtwork from "../Pages/Guest/Search/DetailsArtwork";
 import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
+import UpdateInfo from "../Pages/User/UpdateInfo";
 
 type routesType = {
   name: string;
@@ -107,6 +108,11 @@ const routes: routesType = [
     name: "SearchArtwork",
     path: "search",
     element: Search,
+  },
+  {
+    name: "UpdatePersonalInfo",
+    path: "UpdateInfo",
+    element: UpdateInfo,
   },
 ];
 
