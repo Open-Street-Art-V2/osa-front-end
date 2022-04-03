@@ -91,7 +91,7 @@
   "invalid.fname": "Prénom invalide",
   "upateProfil": "Modification du profil",
   "updateS": "Profile modifié.",
-  "updateE": "Une erreur est survenue lors de la modification,Merci de reéssayer ultérieurement.",
+  "updateE": "Une erreur est survenue lors de la modification, merci de réessayer ultérieurement.",
 
   "ban": "Bloquer",
   "unban": "Débloquer",
@@ -141,5 +141,6 @@
   "favorite.arts": "Oeuvres favorites",
   "favorite.cities": "Villes favorites",
   "admin": "Administrateur",
-  "contributor": "Contributeur"
+  "contributor": "Contributeur",
+  "modify.info": "Modifier les informations"
 }

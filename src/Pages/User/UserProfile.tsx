@@ -26,10 +26,10 @@ function UserProfile() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container pb-20">
       <Header />
       {loginCtx.isLoggedIn ? (
-        <Profile user={user} />
+        <Profile user={user} isEditable />
       ) : (
         <StyledModal
           open

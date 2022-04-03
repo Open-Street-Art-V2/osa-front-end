@@ -47,7 +47,7 @@ function DetailsUser() {
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
         <CssBaseline />
-        <Profile user={user} />
+        <Profile user={user} isEditable={false} />
         {loginCtx.user?.role === "ROLE_ADMIN" && !userAB.admin ? (
           <>
             <div className="flex flex-row justify-around p-3 pb-5">

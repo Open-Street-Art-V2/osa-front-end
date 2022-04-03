@@ -9,11 +9,12 @@ import { User } from "../types/user";
 
 type Props = {
   user: User | undefined;
+  isEditable: boolean;
 };
 
 function Profile(props: Props) {
   const { t } = useTranslation();
-  const { user } = props;
+  const { user, isEditable } = props;
 
   return (
     <>
@@ -120,19 +121,21 @@ function Profile(props: Props) {
         </NavLink>
       </div>
       <br />
-      <div className="px-6 pb-5">
-        <div className="flex items-center justify-around">
-          <Link to="/updateInfo" state={{ userInfo: user }} className="">
-            <button
-              className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Modify Info
-            </button>
-          </Link>
-        </div>
-      </div>
 
+      {isEditable && (
+        <div className="px-6 pb-5">
+          <div className="flex items-center justify-around">
+            <Link to="/updateInfo" state={{ userInfo: user }} className="">
+              <button
+                className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                type="button"
+              >
+                {t("modify.info")}
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }

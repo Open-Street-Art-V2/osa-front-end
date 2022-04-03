@@ -14,11 +14,10 @@ import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { InputAdornment, IconButton } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { AnimatePresence, motion } from "framer-motion";
-import IconButton from "@material-ui/core/IconButton";
 import { useTranslation } from "react-i18next";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import { User } from "../types/user";
@@ -703,7 +702,7 @@ function ModifyPersonalInfo(props: Props) {
                     lineHeight: "21px",
                   }}
                 >
-                  {t("Valider")}
+                  {t("valider")}
                 </LoadingButton>
               </ThemeProvider>
             </div>
