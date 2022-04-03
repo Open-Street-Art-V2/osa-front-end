@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CssBaseline } from "@mui/material";
 import { Header, ArtworkProposal, ReturnButton } from "../../../Components";
@@ -8,6 +8,16 @@ import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { getContributions } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
+import { User } from "../../../types/user";
+
+type LocationDataType = {
+  user: User;
+  // to know if we are on our personnal profil or on another user profil
+  isOwnProfil: boolean;
+  // in the case of a search
+  filter?: string;
+  search?: string;
+};
 
 function UserContributions() {
   const { t } = useTranslation();
@@ -18,13 +28,8 @@ function UserContributions() {
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
   const skeletons = [1, 2, 3, 4];
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loginCtx.user?.role !== "ROLE_USER") {
-      navigate("/");
-    }
-  }, [loginCtx]);
+  const { user, isOwnProfil, filter, search } = useLocation()
+    .state as LocationDataType;
 
   useEffect(() => {
     if (updateComp) {
@@ -40,7 +45,7 @@ function UserContributions() {
       getContributions(
         currentPage,
         loginCtx.user?.jwt,
-        loginCtx.user?.id,
+        user.id,
         setHasMoreProp,
         setAllArtwork,
         setCurrentPage,
@@ -55,7 +60,10 @@ function UserContributions() {
       <div className="">
         <Header />
         <div className="ml-4 mt-4 ">
-          <ReturnButton url="/profil" />
+          <ReturnButton
+            url={isOwnProfil ? "/profil" : "/users-profile"}
+            state={!isOwnProfil && { user, filter, search }}
+          />
         </div>
         <br />
 

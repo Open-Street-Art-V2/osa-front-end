@@ -22,7 +22,7 @@ function DetailsArtwork() {
   return (
     <>
       <Header />
-      <div className="ml-7 mt-4 -mb-1">
+      <div className="ml-4 mt-4 -mb-1">
         <ReturnButton
           url="/search"
           state={{ oldFilter: filter, oldSearch: search }}

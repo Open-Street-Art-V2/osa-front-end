@@ -38,7 +38,7 @@ function DetailsUser() {
   return (
     <>
       <Header />
-      <div className="ml-7 mt-4">
+      <div className="ml-4 mt-4">
         <ReturnButton
           url="/search"
           state={{ oldFilter: filter, oldSearch: search }}
@@ -47,7 +47,12 @@ function DetailsUser() {
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
         <CssBaseline />
-        <Profile user={user} isEditable={false} />
+        <Profile
+          user={user}
+          isEditable={false}
+          filter={filter}
+          search={search}
+        />
         {loginCtx.user?.role === "ROLE_ADMIN" && !userAB.admin ? (
           <>
             <div className="flex flex-row justify-around p-3 pb-5">

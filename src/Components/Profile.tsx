@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { NavLink, Link } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -10,11 +11,14 @@ import { User } from "../types/user";
 type Props = {
   user: User | undefined;
   isEditable: boolean;
+  // in the case of a search
+  filter?: string;
+  search?: string;
 };
 
 function Profile(props: Props) {
   const { t } = useTranslation();
-  const { user, isEditable } = props;
+  const { user, isEditable, filter, search } = props;
 
   return (
     <>
@@ -47,7 +51,10 @@ function Profile(props: Props) {
       <div className="p-3 mt-3">
         {user?.role === "ROLE_USER" && (
           <>
-            <NavLink to="/contribution">
+            <NavLink
+              to="/contribution"
+              state={{ user, isOwnProfil: isEditable, filter, search }}
+            >
               <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600" />
