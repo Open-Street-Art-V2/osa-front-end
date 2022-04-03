@@ -67,7 +67,7 @@
   "refuse": "Refuser",
   "location": "Saisir la position",
   "ocean": "Océan",
-  "permission": "Vous êtes pas autorisé",
+  "permission": "Vous n'êtes pas autorisé",
   "modify": "Modifier",
   "delete": "Supprimer",
   "modify.art": "Modifier une oeuvre",
@@ -98,7 +98,7 @@
   "menu.search": "Recherche",
   "menu.map": "Carte",
   "menu.add": "Ajouter",
-  "menu.profile": "Profile",
+  "menu.profile": "Profil",
 
   "language": "Langue",
   "french": "Français",

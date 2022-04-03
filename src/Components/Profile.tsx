@@ -44,23 +44,27 @@ function Profile(props: Props) {
         </h1>
       )}
       <div className="p-3 mt-3">
-        <NavLink to="/contribution">
-          <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
-            <div className="flex items-center text-5xl">
-              <AiFillPlusSquare className="text-gray-600" />
-            </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg ">
-                {t("contributions.upper")}
+        {user?.role === "ROLE_USER" && (
+          <>
+            <NavLink to="/contribution">
+              <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
+                <div className="flex items-center text-5xl">
+                  <AiFillPlusSquare className="text-gray-600" />
+                </div>
+                <div className="col-span-2">
+                  <div className="flex items-center text-black-800 font-bold text-lg ">
+                    {t("contributions.upper")}
+                  </div>
+                  {/*  <p className="text-gray-600 ">64</p> */}
+                </div>
+                <div className="flex items-center text-3xl pl-6">
+                  <AiOutlineRight className="text-gray-600" />
+                </div>
               </div>
-              {/*  <p className="text-gray-600 ">64</p> */}
-            </div>
-            <div className="flex items-center text-3xl pl-6">
-              <AiOutlineRight className="text-gray-600" />
-            </div>
-          </div>
-        </NavLink>
-        <br />
+            </NavLink>
+            <br />
+          </>
+        )}
 
         <NavLink to="/favoriteartists">
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
