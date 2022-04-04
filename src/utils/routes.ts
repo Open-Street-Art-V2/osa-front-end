@@ -16,6 +16,7 @@ import DetailsArtwork from "../Pages/Guest/Search/DetailsArtwork";
 import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
+import ResetMdp from "../Pages/Guest/MdpReset";
 
 type routesType = {
   name: string;
@@ -113,6 +114,11 @@ const routes: routesType = [
     name: "UpdatePersonalInfo",
     path: "UpdateInfo",
     element: UpdateInfo,
+  },
+  {
+    name: "ResetMdp",
+    path: "ResetMdp",
+    element: ResetMdp,
   },
 ];
 
