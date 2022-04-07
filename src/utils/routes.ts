@@ -17,6 +17,8 @@ import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
 import UserTrophies from "../Pages/Admin/Trophies/UserTrophies";
+import FavoriteArtworks from "../Pages/User/Favorites/FavoriteArtworks";
+import FavoriteArtworkDetails from "../Pages/User/Favorites/FavoriteArtworkDetails";
 
 type routesType = {
   name: string;
@@ -29,21 +31,6 @@ const routes: routesType = [
     name: "MapUser",
     path: "/",
     element: MapUser,
-  },
-  {
-    name: "UserProfile",
-    path: "/profil",
-    element: UserProfile,
-  },
-  {
-    name: "UserContributions",
-    path: "/contribution",
-    element: UserContributions,
-  },
-  {
-    name: "UserTrophies",
-    path: "/Trophies",
-    element: UserTrophies,
   },
   {
     name: "MapAdmin",
@@ -96,9 +83,39 @@ const routes: routesType = [
     element: DetailsContribution,
   },
   {
+    name: "UserProfile",
+    path: "/profil",
+    element: UserProfile,
+  },
+  {
+    name: "UserTrophies",
+    path: "/Trophies",
+    element: UserTrophies,
+  },
+  {
+    name: "UserContributions",
+    path: "/contribution",
+    element: UserContributions,
+  },
+  {
     name: "DetailsContributionUser",
     path: "UserDetailsContribution",
     element: DetailsContributionUser,
+  },
+  {
+    name: "UpdatePersonalInfo",
+    path: "UpdateInfo",
+    element: UpdateInfo,
+  },
+  {
+    name: "FavoriteArtworks",
+    path: "/favorite-artworks",
+    element: FavoriteArtworks,
+  },
+  {
+    name: "FavoriteArtworks",
+    path: "/favorite-artwork-details",
+    element: FavoriteArtworkDetails,
   },
   {
     name: "DetailsArtwork",
@@ -114,11 +131,6 @@ const routes: routesType = [
     name: "SearchArtwork",
     path: "search",
     element: Search,
-  },
-  {
-    name: "UpdatePersonalInfo",
-    path: "UpdateInfo",
-    element: UpdateInfo,
   },
 ];
 

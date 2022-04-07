@@ -11,7 +11,7 @@ type LocationDataType = {
   data: any;
   user: User;
   // to know if we are on our personnal profil or on another user profil
-  isOwnProfil: boolean;
+  isPrivate: boolean;
   // in the case of a search
   filter?: string;
   search?: string;
@@ -19,7 +19,7 @@ type LocationDataType = {
 
 function DetailsContributionUser() {
   const location = useLocation();
-  const { data, user, isOwnProfil, filter, search } =
+  const { data, user, isPrivate, filter, search } =
     location.state as LocationDataType;
   const loginCtx = useContext(LoginContext);
 
@@ -29,7 +29,7 @@ function DetailsContributionUser() {
       <UserDetailsContribution
         data={data}
         user={user}
-        isOwnProfil={isOwnProfil}
+        isPrivate={isPrivate}
         filter={filter}
         search={search}
       />

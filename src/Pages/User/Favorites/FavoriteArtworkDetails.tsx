@@ -12,16 +12,22 @@ import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { Art } from "../../../types/art";
+import { User } from "../../../types/user";
 
 type LocationDataType = {
   art: Art;
+  user: User;
+  // to know if we are on our personnal profil or on another user profil
+  isPrivate: boolean;
+  // in the case of a search
   filter?: string;
   search?: string;
 };
 
-function DetailsArtwork() {
+function FavoriteArtworkDetails() {
   const loginCtx = useContext(LoginContext);
-  const { art, filter, search } = useLocation().state as LocationDataType;
+  const { art, user, isPrivate, filter, search } = useLocation()
+    .state as LocationDataType;
   const numPics = Object.keys(art.pictures).length;
 
   return (
@@ -29,8 +35,8 @@ function DetailsArtwork() {
       <Header />
       <div className="ml-4 mt-4 -mb-2">
         <ReturnButton
-          url="/search"
-          state={{ oldFilter: filter, oldSearch: search }}
+          url="/favorite-artworks"
+          state={{ user, isPrivate, filter, search }}
         />
       </div>
 
@@ -38,8 +44,8 @@ function DetailsArtwork() {
         <CssBaseline />
 
         <Box>
-          <div className="flex justify-end pb-3">
-            <FavoriteStar artId={art.id} />
+          <div className={isPrivate ? "flex justify-end pb-3" : "pb-5"}>
+            {isPrivate && <FavoriteStar artId={art.id} />}
           </div>
 
           <div className="flex justify-between pb-3">
@@ -79,4 +85,4 @@ function DetailsArtwork() {
   );
 }
 
-export default DetailsArtwork;
+export default FavoriteArtworkDetails;

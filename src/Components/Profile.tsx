@@ -3,7 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate, FaTrophy } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
-import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
 import { User } from "../types/user";
@@ -66,7 +65,7 @@ function Profile(props: Props) {
           <>
             <NavLink
               to="/contribution"
-              state={{ user, isOwnProfil: isEditable, filter, search }}
+              state={{ user, isPrivate: isEditable, filter, search }}
             >
               <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
                 <div className="flex items-center text-5xl">
@@ -87,7 +86,7 @@ function Profile(props: Props) {
           </>
         )}
 
-        <NavLink to="/favoriteartists">
+        <NavLink to="/favorite-artists">
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <FaUserGraduate className="text-gray-600" />
@@ -105,7 +104,10 @@ function Profile(props: Props) {
         </NavLink>
         <br />
 
-        <NavLink to="/favoriteartworks">
+        <NavLink
+          to="/favorite-artworks"
+          state={{ user, isPrivate: isEditable, filter, search }}
+        >
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <BsPaletteFill className="text-gray-600" />
@@ -123,7 +125,7 @@ function Profile(props: Props) {
         </NavLink>
         <br />
 
-        <NavLink to="/favoritecities">
+        {/* <NavLink to="/favoritecities">
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <BiBuildingHouse className="text-gray-600" />
@@ -132,13 +134,12 @@ function Profile(props: Props) {
               <div className="flex items-center text-black-800 font-bold text-lg ">
                 {t("favorite.cities")}
               </div>
-              {/* <p className="text-gray-600 ">9</p> */}
             </div>
             <div className="flex items-center text-3xl pl-6">
               <AiOutlineRight className="text-gray-600" />
             </div>
           </div>
-        </NavLink>
+        </NavLink> */}
       </div>
       <br />
 
