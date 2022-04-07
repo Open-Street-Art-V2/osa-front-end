@@ -11,6 +11,7 @@ import { ThemeProvider } from "@emotion/react";
 import Moment from "react-moment";
 import { useTranslation } from "react-i18next";
 import { AnimateAlert, Carousel, ReturnButton } from ".";
+import { User } from "../types/user";
 
 const switchTheme = createTheme({
   palette: {
@@ -77,10 +78,18 @@ function Details(props: PropsDetails) {
 
 type Props = {
   data: any;
+  user: User;
+  // to know if we are on our personnal profil or on another user profil
+  isOwnProfil: boolean;
+  // in the case of a search
+  // eslint-disable-next-line react/require-default-props
+  filter?: string;
+  // eslint-disable-next-line react/require-default-props
+  search?: string;
 };
 
 function UserDetailsContribution(props: Props) {
-  const { data } = props;
+  const { data, user, isOwnProfil, filter, search } = props;
   const [isContribution, setIsContribution] = useState<boolean>(false);
   // Dans le cas d'une contribution, permet de définir si c'est la contribution
   // ou l'oeuvre orginale qui doit être affichée.
@@ -111,7 +120,10 @@ function UserDetailsContribution(props: Props) {
         }}
       >
         <div className="mt-4 ">
-          <ReturnButton url="/contribution" />
+          <ReturnButton
+            url="/contribution"
+            state={{ user, isOwnProfil, filter, search }}
+          />
         </div>
       </Box>
 

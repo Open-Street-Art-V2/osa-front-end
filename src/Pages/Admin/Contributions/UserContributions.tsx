@@ -151,7 +151,7 @@ function UserContributions() {
                 >
                   <Link
                     to="/UserDetailsContribution"
-                    state={{ data: Artwork }}
+                    state={{ data: Artwork, user, isOwnProfil, filter, search }}
                     className="grow mx-1"
                   >
                     <ArtworkProposal data={Artwork} />
