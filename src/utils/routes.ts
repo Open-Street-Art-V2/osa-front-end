@@ -16,6 +16,7 @@ import DetailsArtwork from "../Pages/Guest/Search/DetailsArtwork";
 import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
+import UserTrophies from "../Pages/Admin/Trophies/UserTrophies";
 
 type routesType = {
   name: string;
@@ -38,6 +39,11 @@ const routes: routesType = [
     name: "UserContributions",
     path: "/contribution",
     element: UserContributions,
+  },
+  {
+    name: "UserTrophies",
+    path: "/Trophies",
+    element: UserTrophies,
   },
   {
     name: "MapAdmin",
