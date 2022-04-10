@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { CssBaseline } from "@mui/material";
 import { Header, ReturnButton } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { getContributions } from "../ValidateProp/ValidateProp.service";
+import { getTrophies } from "../ValidateProp/ValidateProp.service";
 import Trophies from "../../../Components/Trophies";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
@@ -22,9 +22,9 @@ type LocationDataType = {
 
 function UserTrophies() {
   const { t } = useTranslation();
-  const [allArtwork, setAllArtwork] = useState<any[]>([]);
+  const [allTrophies, setAllTrophies] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMoreProp, setHasMoreProp] = useState(true);
+  const [hasMoreTroph, setHasMoreTroph] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
@@ -34,7 +34,7 @@ function UserTrophies() {
 
   useEffect(() => {
     if (updateComp) {
-      setAllArtwork([]);
+      setAllTrophies([]);
       setIsLoading(true);
       setCurrentPage(1);
       setUpdateComp(false);
@@ -43,12 +43,12 @@ function UserTrophies() {
 
   useEffect(() => {
     if (currentPage === 1) {
-      getContributions(
+      getTrophies(
         currentPage,
         loginCtx.user?.jwt,
         user.id,
-        setHasMoreProp,
-        setAllArtwork,
+        setHasMoreTroph,
+        setAllTrophies,
         setCurrentPage,
         setIsLoading
       );
@@ -104,19 +104,19 @@ function UserTrophies() {
             );
           })}
         <InfiniteScroll
-          dataLength={allArtwork.length}
+          dataLength={allTrophies.length}
           next={() => {
-            getContributions(
+            getTrophies(
               currentPage,
               loginCtx.user?.jwt,
               loginCtx.user?.id,
-              setHasMoreProp,
-              setAllArtwork,
+              setHasMoreTroph,
+              setAllTrophies,
               setCurrentPage,
               setIsLoading
             );
           }}
-          hasMore={hasMoreProp}
+          hasMore={hasMoreTroph}
           loader={skeletons.map((item: any) => {
             return (
               <div
@@ -143,15 +143,15 @@ function UserTrophies() {
           scrollableTarget="scrollableDiv"
         >
           {!isLoading &&
-            allArtwork.length > 0 &&
-            allArtwork.map((Artwork: any) => {
+            allTrophies.length > 0 &&
+            allTrophies.map((Trophie: any) => {
               return (
                 <div
-                  key={Artwork.id}
+                  key={Trophie.id}
                   className="flex content-center form-check w-full h-30 text-black rounded-3xl overflow-hidden py-2"
                 >
                   <span className="grow mx-1">
-                    <Trophies data={Artwork} />
+                    <Trophies data={Trophie} />
                   </span>
                 </div>
               );

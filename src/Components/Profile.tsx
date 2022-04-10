@@ -42,7 +42,7 @@ function Profile(props: Props) {
               state={{ user, isOwnProfil: isEditable, filter, search }}
             >
               <div className="absolute inset-y-0 right-0 w-16 ...">
-                <FaTrophy className="text-[#ffa41e] text-2xl" />
+                <FaTrophy className="text-[#ffa41e] text-3xl" />
                 {/* <p className="text-lg text-gray">12</p> */}
               </div>
             </NavLink>
