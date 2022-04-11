@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { LoadingButton } from "@mui/lab";
-import InputAdornment from "@material-ui/core/InputAdornment";
+//import InputAdornment from "@material-ui/core/InputAdornment";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import IconButton from "@material-ui/core/IconButton";
+//import IconButton from "@material-ui/core/IconButton";
 import { useTranslation } from "react-i18next";
 import { displayPasswordError } from "../Pages/Guest/SignIn/SignIn.service";
 import passwordValidator from "../Pages/Guest/SignUp/utils/password-validator";
@@ -108,7 +108,10 @@ function ModifyPersonalInfo() {
     isValidVerifiedNewPassword: ValidField.NOTFILLED,
     isValidForm: false,
   });
+  const changepwd=()=>{
+    alert('Mot de passe changé avec succées')
 
+  }
   const handleNewPasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -149,7 +152,7 @@ function ModifyPersonalInfo() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
             <p className="py-1 font-sans text-2xl authTitle font-bold ">
-              Password reset
+              {t("Rmdp")}
             </p>
 
             <TextField
@@ -194,6 +197,7 @@ function ModifyPersonalInfo() {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  onClick={changepwd}
                   disabled={!state.isValidForm}
                   loading={isLoading}
                   sx={{

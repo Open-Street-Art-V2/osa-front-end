@@ -92,7 +92,6 @@
   "upateProfil": "Update profil",
   "updateS": "Profil updated.",
   "updateE": "An error occured during  modification, please retry later.",
-
   "ban": "Ban",
   "unban": "Unban",
   "role.admin": "Set as admin",
@@ -108,7 +107,6 @@
   "menu.map": "Map",
   "menu.add": "Add",
   "menu.profile": "Profile",
-
   "language": "Language",
   "french": "French",
   "english": "English",
@@ -117,11 +115,9 @@
   "login.name": "Sign in",
   "close": "Close",
   "return": "Return",
-
   "city": "City",
   "searchBarTitre-placeholder": "Search by art title",
   "searchBarVille-placeholder": "Search by city",
-
   "filter.nofilter": "Without filter",
   "filter.title": "By title",
   "filter.city": "By city",
@@ -136,11 +132,11 @@
   "search.placeholder.user": "Search for users",
   "ok": "OK",
   "no.result": "No result",
-
   "favorite.artists": "Favorite artists",
   "favorite.arts": "Favorite artworks",
   "favorite.cities": "Favorite cities",
   "admin": "Administrator",
   "contributor": "Contributor",
-  "modify.info": "Modify information"
+  "modify.info": "Modify information",
+  "Rmdp": "Password reset"
 }

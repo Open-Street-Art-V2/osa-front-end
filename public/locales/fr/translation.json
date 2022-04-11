@@ -92,7 +92,6 @@
   "upateProfil": "Modification du profil",
   "updateS": "Profil modifié.",
   "updateE": "Une erreur est survenue lors de la modification, merci de réessayer ultérieurement.",
-
   "ban": "Bloquer",
   "unban": "Débloquer",
   "role.admin": "Définir comme admin",
@@ -108,7 +107,6 @@
   "menu.map": "Carte",
   "menu.add": "Ajouter",
   "menu.profile": "Profil",
-
   "language": "Langue",
   "french": "Français",
   "english": "Anglais",
@@ -117,11 +115,9 @@
   "login.name": "Connexion",
   "close": "Fermer",
   "return": "Retour",
-
   "city": "Ville",
   "searchBarTitre-placeholder": "Recherche par titre de l'oeuvre",
   "searchBarVille-placeholder": "Recherche par ville",
-
   "filter.nofilter": "Sans filtre",
   "filter.title": "Par titre",
   "filter.city": "Par ville",
@@ -136,11 +132,11 @@
   "search.placeholder.user": "Recherche d'utilisateurs",
   "ok": "OK",
   "no.result": "Pas de résultat",
-
   "favorite.artists": "Artistes favoris",
   "favorite.arts": "Oeuvres favorites",
   "favorite.cities": "Villes favorites",
   "admin": "Administrateur",
   "contributor": "Contributeur",
-  "modify.info": "Modifier les informations"
+  "modify.info": "Modifier les informations",
+  "Rmdp": "Réinitialisation du mot de passe"
 }
