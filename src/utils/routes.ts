@@ -19,6 +19,8 @@ import UpdateInfo from "../Pages/User/UpdateInfo";
 import UserTrophies from "../Pages/Admin/Trophies/UserTrophies";
 import FavoriteArtworks from "../Pages/User/Favorites/FavoriteArtworks";
 import FavoriteArtworkDetails from "../Pages/User/Favorites/FavoriteArtworkDetails";
+import FavoriteArtists from "../Pages/User/Favorites/FavoriteArtists";
+import FavoriteArtistDetails from "../Pages/User/Favorites/FavoriteArtistDetails";
 
 type routesType = {
   name: string;
@@ -116,6 +118,16 @@ const routes: routesType = [
     name: "FavoriteArtworks",
     path: "/favorite-artwork-details",
     element: FavoriteArtworkDetails,
+  },
+  {
+    name: "FavoriteArtists",
+    path: "/favorite-artists",
+    element: FavoriteArtists,
+  },
+  {
+    name: "FavoriteArtworks",
+    path: "/favorite-artist-details",
+    element: FavoriteArtistDetails,
   },
   {
     name: "DetailsArtwork",

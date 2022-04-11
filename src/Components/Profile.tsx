@@ -6,6 +6,7 @@ import { BsPaletteFill } from "react-icons/bs";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
 import { User } from "../types/user";
+import FavoriteStar from "./FavoriteStar";
 
 type Props = {
   user: User | undefined;
@@ -21,6 +22,11 @@ function Profile(props: Props) {
 
   return (
     <>
+      {!isEditable && (
+        <div className="flex justify-end -mb-2 -mt-3 pr-5">
+          {user && <FavoriteStar id={user.id} isArt={false} />}
+        </div>
+      )}
       <div className="p-3">
         <div className=" p-6 h-20 grid grid-cols-4 content-center">
           <div className="flex items-center text-5xl">
@@ -86,7 +92,10 @@ function Profile(props: Props) {
           </>
         )}
 
-        <NavLink to="/favorite-artists">
+        <NavLink
+          to="/favorite-artists"
+          state={{ user, isPrivate: isEditable, filter, search }}
+        >
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <FaUserGraduate className="text-gray-600" />
@@ -124,22 +133,6 @@ function Profile(props: Props) {
           </div>
         </NavLink>
         <br />
-
-        {/* <NavLink to="/favoritecities">
-          <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
-            <div className="flex items-center text-right text-5xl">
-              <BiBuildingHouse className="text-gray-600" />
-            </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg ">
-                {t("favorite.cities")}
-              </div>
-            </div>
-            <div className="flex items-center text-3xl pl-6">
-              <AiOutlineRight className="text-gray-600" />
-            </div>
-          </div>
-        </NavLink> */}
       </div>
       <br />
 

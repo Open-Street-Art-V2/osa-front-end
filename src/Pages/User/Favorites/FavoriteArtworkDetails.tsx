@@ -45,7 +45,7 @@ function FavoriteArtworkDetails() {
 
         <Box>
           <div className={isPrivate ? "flex justify-end pb-3" : "pb-5"}>
-            {isPrivate && <FavoriteStar artId={art.id} />}
+            {isPrivate && <FavoriteStar id={art.id} isArt />}
           </div>
 
           <div className="flex justify-between pb-3">

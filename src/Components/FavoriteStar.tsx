@@ -3,36 +3,41 @@ import StarIcon from "@mui/icons-material/Star";
 import { StarBorder } from "@mui/icons-material";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import {
-  addFavoriteArt,
-  deleteFavoriteArt,
-  getFavoriteArt,
+  addFavorite,
+  deleteFavorite,
+  getFavorite,
 } from "../services/favorite.service";
 
 type Props = {
-  artId: string;
+  id: string | number;
+  isArt: boolean;
 };
 
 function FavoriteStar(props: Props) {
   const loginCtx = useContext(LoginContext);
   const [favorite, setFavorite] = useState<boolean>(false);
-  const { artId } = props;
+  const { id, isArt } = props;
 
   useEffect(() => {
-    getFavoriteArt(loginCtx.user?.jwt, artId).then((res: boolean) =>
+    getFavorite(isArt, loginCtx.user?.jwt, id).then((res: boolean) =>
       setFavorite(res)
     );
-  }, [artId]);
+  }, [id]);
 
   const handleClickFavorite = () => {
     const newFavorite = !favorite;
 
     if (newFavorite) {
-      addFavoriteArt(loginCtx.user?.jwt, artId).then(() => {
-        setFavorite(newFavorite);
+      addFavorite(isArt, loginCtx.user?.jwt, id).then((res) => {
+        if (res.ok) {
+          setFavorite(newFavorite);
+        }
       });
     } else {
-      deleteFavoriteArt(loginCtx.user?.jwt, artId).then(() => {
-        setFavorite(newFavorite);
+      deleteFavorite(isArt, loginCtx.user?.jwt, id).then((res) => {
+        if (res.ok) {
+          setFavorite(newFavorite);
+        }
       });
     }
   };

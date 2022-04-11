@@ -39,7 +39,7 @@ function DetailsArtwork() {
 
         <Box>
           <div className="flex justify-end pb-3">
-            <FavoriteStar artId={art.id} />
+            <FavoriteStar id={art.id} isArt />
           </div>
 
           <div className="flex justify-between pb-3">
