@@ -233,7 +233,7 @@ export default function SignIn() {
             </div>
 
             <Link
-              to="/ResetMdp"
+              to="/RecoverMdp"
               id="mdpF"
               className="pt-2 inline-flex justify-center w-full font-semibold"
             >

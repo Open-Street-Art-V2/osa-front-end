@@ -17,6 +17,7 @@ import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
 import ResetMdp from "../Pages/Guest/MdpReset";
+import RecoverPasswordEmail from "../Components/MdpRecovery";
 
 type routesType = {
   name: string;
@@ -120,6 +121,12 @@ const routes: routesType = [
     path: "ResetMdp",
     element: ResetMdp,
   },
+  {
+    name: "RecoverMdp",
+    path: "RecoverMdp",
+    element: RecoverPasswordEmail,
+  },
+
 ];
 
 export default routes;
