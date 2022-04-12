@@ -1,31 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CssBaseline } from "@mui/material";
 import {
   Header,
   ArtworkProposal,
   ReturnButton,
-  SkeletonArt,
+  SkeletonCardArt,
 } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { getContributions } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
-import { User } from "../../../types/user";
-
-type LocationDataType = {
-  user: User;
-  // to know if we are on our personnal profil or on another user profil
-  isPrivate: boolean;
-  // in the case of a search
-  filter?: string;
-  search?: string;
-};
 
 function UserContributions() {
   const { t } = useTranslation();
+  const { id } = useParams();
   const [allArtwork, setAllArtwork] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
@@ -33,8 +24,6 @@ function UserContributions() {
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
   const skeletons = [1, 2, 3, 4];
-  const { user, isPrivate, filter, search } = useLocation()
-    .state as LocationDataType;
 
   useEffect(() => {
     if (updateComp) {
@@ -50,7 +39,7 @@ function UserContributions() {
       getContributions(
         currentPage,
         loginCtx.user?.jwt,
-        user.id,
+        id,
         setHasMoreProp,
         setAllArtwork,
         setCurrentPage,
@@ -65,10 +54,7 @@ function UserContributions() {
       <div className="">
         <Header />
         <div className="ml-4 mt-4 ">
-          <ReturnButton
-            url={isPrivate ? "/profil" : "/users-profile"}
-            state={!isPrivate && { user, filter, search }}
-          />
+          <ReturnButton goBack />
         </div>
         <br />
 
@@ -89,7 +75,7 @@ function UserContributions() {
                 key={item}
                 className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
               >
-                <SkeletonArt />
+                <SkeletonCardArt />
               </div>
             );
           })}
@@ -113,7 +99,7 @@ function UserContributions() {
                 key={item}
                 className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
               >
-                <SkeletonArt />
+                <SkeletonCardArt />
               </div>
             );
           })}
@@ -128,8 +114,7 @@ function UserContributions() {
                   className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
                   <Link
-                    to="/UserDetailsContribution"
-                    state={{ data: Artwork, user, isPrivate, filter, search }}
+                    to={`/UserDetailsContribution/${Artwork.id}`}
                     className="grow mx-1"
                   >
                     <ArtworkProposal data={Artwork} />

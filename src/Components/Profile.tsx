@@ -11,14 +11,11 @@ import FavoriteStar from "./FavoriteStar";
 type Props = {
   user: User | undefined;
   isEditable: boolean;
-  // in the case of a search
-  filter?: string;
-  search?: string;
 };
 
 function Profile(props: Props) {
   const { t } = useTranslation();
-  const { user, isEditable, filter, search } = props;
+  const { user, isEditable } = props;
 
   return (
     <>
@@ -69,10 +66,7 @@ function Profile(props: Props) {
       <div className="p-3 mt-3">
         {user?.role === "ROLE_USER" && (
           <>
-            <NavLink
-              to="/contribution"
-              state={{ user, isPrivate: isEditable, filter, search }}
-            >
+            <NavLink to={`/contribution/${user?.id}`} state={{ user }}>
               <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600" />
@@ -93,8 +87,8 @@ function Profile(props: Props) {
         )}
 
         <NavLink
-          to="/favorite-artists"
-          state={{ user, isPrivate: isEditable, filter, search }}
+          to={`/favorite-artists/${user?.id}`}
+          state={{ isPrivate: isEditable }}
         >
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
@@ -114,8 +108,8 @@ function Profile(props: Props) {
         <br />
 
         <NavLink
-          to="/favorite-artworks"
-          state={{ user, isPrivate: isEditable, filter, search }}
+          to={`/favorite-artworks/${user?.id}`}
+          state={{ isPrivate: isEditable }}
         >
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">

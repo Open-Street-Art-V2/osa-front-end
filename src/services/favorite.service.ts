@@ -1,5 +1,5 @@
 export const getFavoriteArts = async (
-  idUser: number | undefined,
+  idUser: string | undefined,
   currentPage: number,
   token: string | undefined,
   // eslint-disable-next-line no-unused-vars
@@ -34,7 +34,7 @@ export const getFavoriteArts = async (
 };
 
 export const getFavoriteArtists = async (
-  idUser: number | undefined,
+  idUser: string | undefined,
   currentPage: number,
   token: string | undefined,
   // eslint-disable-next-line no-unused-vars
@@ -128,7 +128,6 @@ export const deleteFavorite = async (
   const authorization = `Bearer ${token}`;
 
   try {
-    // TODO: vérifier code retour
     return fetch(url, {
       method: "DELETE",
       headers: {

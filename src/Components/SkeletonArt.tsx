@@ -1,17 +1,17 @@
 function SkeletonArt() {
   return (
-    <div className="flex flex-row col-span-5">
-      <div className="w-32 h-24 bg-slate-200 rounded-3xl" />
-      <div className="w-44 h-20 overflow-hidden pl-2">
-        <div className="flex flex-row justify-between mt-3 mb-2">
-          <div className="h-2 w-24 bg-slate-200 rounded" />
-          <div className="h-2 w-12 bg-slate-200 rounded pt-1" />
-        </div>
-        <div className="mt-5">
-          <div className="h-2 bg-slate-200 rounded mb-2" />
-          <div className="h-2 bg-slate-200 rounded mb-2" />
-          <div className="h-2 bg-slate-200 rounded mb-2" />
-        </div>
+    <div className="animate-pulse">
+      <div className="h-3 w-36 bg-slate-200 rounded mb-5" />
+      <div className="h-56 w-68 bg-slate-200 rounded mb-5" />
+      <div className="h-3 w-68 bg-slate-200 rounded" />
+      <div className="pt-5">
+        <div className="h-2 w-68 bg-slate-200 rounded mb-2" />
+        <div className="h-2 w-68 bg-slate-200 rounded mb-2" />
+        <div className="h-2 w-68 bg-slate-200 rounded mb-2" />
+      </div>
+      <div className="pt-3">
+        <div className="h-2 w-68 bg-slate-200 rounded mb-2" />
+        <div className="h-2 w-28 bg-slate-200 rounded mb-2" />
       </div>
     </div>
   );

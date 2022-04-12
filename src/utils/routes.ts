@@ -18,9 +18,8 @@ import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
 import UserTrophies from "../Pages/Admin/Trophies/UserTrophies";
 import FavoriteArtworks from "../Pages/User/Favorites/FavoriteArtworks";
-import FavoriteArtworkDetails from "../Pages/User/Favorites/FavoriteArtworkDetails";
 import FavoriteArtists from "../Pages/User/Favorites/FavoriteArtists";
-import FavoriteArtistDetails from "../Pages/User/Favorites/FavoriteArtistDetails";
+import FavoriteArtworkDetails from "../Pages/User/Favorites/FavoriteArtworkDetails";
 
 type routesType = {
   name: string;
@@ -96,12 +95,12 @@ const routes: routesType = [
   },
   {
     name: "UserContributions",
-    path: "/contribution",
+    path: "/contribution/:id",
     element: UserContributions,
   },
   {
     name: "DetailsContributionUser",
-    path: "UserDetailsContribution",
+    path: "UserDetailsContribution/:id",
     element: DetailsContributionUser,
   },
   {
@@ -111,37 +110,37 @@ const routes: routesType = [
   },
   {
     name: "FavoriteArtworks",
-    path: "/favorite-artworks",
+    path: "/favorite-artworks/:id",
     element: FavoriteArtworks,
   },
   {
     name: "FavoriteArtworks",
-    path: "/favorite-artwork-details",
+    path: "/favorite-artwork-details/:id",
     element: FavoriteArtworkDetails,
   },
   {
     name: "FavoriteArtists",
-    path: "/favorite-artists",
+    path: "/favorite-artists/:id",
     element: FavoriteArtists,
   },
   {
-    name: "FavoriteArtworks",
-    path: "/favorite-artist-details",
-    element: FavoriteArtistDetails,
-  },
-  {
     name: "DetailsArtwork",
-    path: "details-artwork",
+    path: "/details-artwork/:id",
     element: DetailsArtwork,
   },
   {
     name: "UserProfile",
-    path: "/users-profile",
+    path: "/users-profile/:id",
     element: DetailsUser,
   },
   {
+    name: "SearchArtworkFilter",
+    path: "/search/:oldFilter/:oldSearch",
+    element: Search,
+  },
+  {
     name: "SearchArtwork",
-    path: "search",
+    path: "/search",
     element: Search,
   },
 ];

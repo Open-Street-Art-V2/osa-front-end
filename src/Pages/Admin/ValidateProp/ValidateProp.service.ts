@@ -103,7 +103,7 @@ export const rejectProposals = async (
 export const getContributions = async (
   currentPage: number,
   token: string | undefined,
-  id: number | undefined,
+  id: number | string | undefined,
   setHasMoreProp: (hasMoreProp: boolean) => void,
   setAllArtwork: (allArtwork: any) => void,
   setCurrentPage: (currentPage2: number) => void,
@@ -177,5 +177,22 @@ export const getTrophies = async (
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
     setIsLoading(false);
+  }
+};
+
+export const getContributionsById = async (id: string | undefined) => {
+  const url = `${process.env.REACT_APP_API}/contribution/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    return response.json();
+  } catch (error) {
+    throw new Error();
   }
 };

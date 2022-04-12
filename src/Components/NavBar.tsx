@@ -44,7 +44,7 @@ function NavBar() {
           isActive ? { transform: "translateY(-22px)" } : {}
         }
       >
-        {location.pathname === "/search" ? (
+        {location.pathname.startsWith("/search") ? (
           <button
             type="button"
             className="bg-logoGreen flex-none -my-3 mx-auto w-16 h-16 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"

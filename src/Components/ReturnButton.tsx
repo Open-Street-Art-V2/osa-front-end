@@ -1,18 +1,30 @@
 import { ArrowBack } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-type Props = {
-  url: string;
-  // eslint-disable-next-line react/require-default-props
-  state?: any;
-};
+type Props =
+  | { goBack?: false; url: string; state?: any }
+  | { goBack: true; url?: never; state?: never };
 
-function ReturnButton({ url, state }: Props) {
+function ReturnButton({ goBack, url, state }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  if (goBack) {
+    return (
+      <button
+        type="button"
+        className="inline-flex"
+        onClick={() => navigate(-1)}
+      >
+        <ArrowBack />
+        <p className="text-xl ml-3">{t("return")}</p>
+      </button>
+    );
+  }
 
   return (
-    <Link to={url} state={state} className="inline-flex">
+    <Link to={url!} state={state} className="inline-flex">
       <ArrowBack />
       <p className="text-xl ml-3">{t("return")}</p>
     </Link>

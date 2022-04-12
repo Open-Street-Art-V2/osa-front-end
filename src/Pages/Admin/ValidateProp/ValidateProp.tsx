@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Header, ArtworkProposal, SkeletonArt } from "../../../Components";
+import { Header, ArtworkProposal, SkeletonCardArt } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import {
   validateProposals,
@@ -210,7 +210,7 @@ function ValidateProp() {
               >
                 <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
 
-                <SkeletonArt />
+                <SkeletonCardArt />
               </div>
             );
           })}
@@ -237,7 +237,7 @@ function ValidateProp() {
               >
                 <div className="justify-self-center self-center shadow-md border border-slate-400 w-7 h-7 content-center bg-slate-200 rounded-sm" />
 
-                <SkeletonArt />
+                <SkeletonCardArt />
               </div>
             );
           })}

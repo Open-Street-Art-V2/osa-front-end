@@ -11,7 +11,9 @@ import { ThemeProvider } from "@emotion/react";
 import Moment from "react-moment";
 import { useTranslation } from "react-i18next";
 import { AnimateAlert, Carousel, ReturnButton } from ".";
-import { User } from "../types/user";
+import { Art } from "../types/art";
+import { getContributionsById } from "../Pages/Admin/ValidateProp/ValidateProp.service";
+import SkeletonArt from "./SkeletonArt";
 
 const switchTheme = createTheme({
   palette: {
@@ -77,19 +79,23 @@ function Details(props: PropsDetails) {
 }
 
 type Props = {
-  data: any;
-  user: User;
-  // to know if we are on our personnal profil or on another user profil
-  isPrivate: boolean;
-  // in the case of a search
-  // eslint-disable-next-line react/require-default-props
-  filter?: string;
-  // eslint-disable-next-line react/require-default-props
-  search?: string;
+  id: string | undefined;
 };
 
 function UserDetailsContribution(props: Props) {
-  const { data, user, isPrivate, filter, search } = props;
+  const { id } = props;
+  const [data, setData] = useState<Art>();
+  const [loading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getContributionsById(id)
+      .then((o: any) => {
+        setData(o);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
   const [isContribution, setIsContribution] = useState<boolean>(false);
   // Dans le cas d'une contribution, permet de définir si c'est la contribution
   // ou l'oeuvre orginale qui doit être affichée.
@@ -120,10 +126,7 @@ function UserDetailsContribution(props: Props) {
         }}
       >
         <div className="mt-4 ">
-          <ReturnButton
-            url="/contribution"
-            state={{ user, isPrivate, filter, search }}
-          />
+          <ReturnButton goBack />
         </div>
       </Box>
 
@@ -142,6 +145,12 @@ function UserDetailsContribution(props: Props) {
 
       {data && (
         <Details data={!isContribution || !original ? data : data.art} />
+      )}
+
+      {loading && (
+        <div className="pt-10">
+          <SkeletonArt />
+        </div>
       )}
 
       <Box sx={{ pt: 3 }}>
