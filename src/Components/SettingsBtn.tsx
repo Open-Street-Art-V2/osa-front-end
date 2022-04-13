@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { GrLanguage } from "react-icons/gr";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
+import { BsMoon } from "react-icons/bs";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import { Box } from "@mui/material";
@@ -16,6 +17,23 @@ export default function SettingsBtn() {
   const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const loginCtx = useContext(LoginContext);
+  const [darkMode, setDarkMode] = useState<boolean>();
+
+  useEffect(() => {
+    setDarkMode(localStorage.theme === "dark");
+  }, []);
+
+  const handleDarkModeChange = () => {
+    if (!darkMode) {
+      localStorage.theme = "dark";
+    } else {
+      localStorage.theme = "light";
+    }
+    const root = window.document.documentElement; // add 'dark class to html root element'
+    root.classList.toggle("dark");
+    setDarkMode(!darkMode);
+  };
+
   return (
     <>
       {!showModal && (
@@ -97,6 +115,27 @@ export default function SettingsBtn() {
                   <div className="text-lg my-auto">
                     <ReactCountryFlag countryCode="US" />
                   </div>
+                </div>
+              </div>
+
+              <div className="flex flex-row my-3 justify-between gap-14">
+                <div className="flex flex-row">
+                  <div className="mr-4 text-lg my-auto">
+                    <BsMoon />
+                  </div>
+                  <p className="text-blueGray-500 text-lg font-medium leading-relaxed">
+                    Dark Mode
+                  </p>
+                </div>
+                <div className="flex justify-center form-check form-switch">
+                  <input
+                    className="form-check-input appearance-none w-12 -ml-10 rounded-full float-left h-6 bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckDefault"
+                    checked={darkMode}
+                    onChange={handleDarkModeChange}
+                  />
                 </div>
               </div>
 
