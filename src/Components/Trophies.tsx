@@ -3,7 +3,7 @@ import { FaTrophy } from "react-icons/fa";
 
 export default function Trophies(props: any) {
   const { data } = props;
-
+  console.log(data);
   return (
     <div className="flex flex-row col-span-5">
       <div className="flex-none w-32 h-20">
