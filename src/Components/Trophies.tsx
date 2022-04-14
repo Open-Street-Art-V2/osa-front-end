@@ -15,7 +15,7 @@ export default function Trophies(props: any) {
       <div className="grow h-20 overflow-hidden ml-2">
         <div className="flex justify-between mb-2">
           <div className="grow font-bold text-slate-900 text-base overflow-hidden w-16">
-            {data.title}
+            {data.name}
           </div>
           <div className="text-600 text-[#ffa41e] text-s pt-1 pl-2 overflow-hidden">
             <Moment date={data.created_at} format="DD/MM/YYYY" />
