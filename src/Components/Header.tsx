@@ -4,7 +4,7 @@ import SettingsBtn from "./SettingsBtn";
 
 export default function Header() {
   return (
-    <div className="flex flex-row w-full top-7 justify-between p-3 pt-5">
+    <div className="flex flex-row w-full top-7 justify-between dark:bg-darkModePrim p-3 pt-5">
       <div className="flex flex-row pl-2">
         <svg
           width="44"
@@ -33,7 +33,9 @@ export default function Header() {
             />
           </defs>
         </svg>
-        <p className="labelLogo place-self-center">Street Art</p>
+        <p className="labelLogo dark:text-white place-self-center">
+          Street Art
+        </p>
       </div>
       <div className="top-2 right-2">
         <SettingsBtn />

@@ -54,7 +54,7 @@ export default function ArtworkDetails(props: any) {
   };
 
   return (
-    <div className="popupCard2 pb-20">
+    <div className="popupCard2 dark:bg-darkModePrim pb-20">
       <button
         type="button"
         className="fixed right-0 bg-white rounded-full z-10 p-2 m-2"
@@ -66,13 +66,19 @@ export default function ArtworkDetails(props: any) {
 
       <Carousel pictures={data.pictures} nbPictures={numPics} />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{data.title}</div>
-        <div className="text-gray-700 text-base">{data.description}</div>
+        <div className="font-bold text-xl dark:text-white mb-2">
+          {data.title}
+        </div>
+        <div className="text-gray-700 text-base dark:text-darkModeTextPrem">
+          {data.description}
+        </div>
         <div className="font-medium">
           <div className="font-medium text-sky-500 text-md mt-3">
             {t("artist")} : {data.artist}
           </div>
-          <div className="text-slate-700 text-sm">{data.address}</div>
+          <div className="text-slate-700 text-sm dark:text-slate-400">
+            {data.address}
+          </div>
         </div>
       </div>
       {unauthorizedError && (

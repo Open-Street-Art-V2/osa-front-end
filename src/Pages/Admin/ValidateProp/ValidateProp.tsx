@@ -125,7 +125,7 @@ function ValidateProp() {
   }, [currentPage]);
 
   return (
-    <div className="container">
+    <div className="container dark:bg-darkModePrim">
       <div className="">
         <Header />
         <div className="flex flex-row justify-around p-5">
@@ -149,7 +149,7 @@ function ValidateProp() {
           </button>
         </div>
         <div className="flex justify-center mb-5">
-          <p className="form-check-label inline-block text-gray-800 p-2">
+          <p className="form-check-label inline-block text-gray-800 dark:text-white p-2">
             {t("display")}
           </p>
           {isContributions && (
@@ -158,7 +158,7 @@ function ValidateProp() {
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
               onClick={handleSwitchChange}
-              className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
+              className="inline-block bg-slate-100 text-slate-600 dark:bg-slate-50 dark:text-darkModePrim font-medium text-md rounded-3xl shadow-md p-2"
             >
               {t("proposals.lower")}
             </button>
@@ -169,13 +169,13 @@ function ValidateProp() {
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
               onClick={handleSwitchChange}
-              className="inline-block bg-slate-100 text-slate-600 font-medium text-md rounded-3xl shadow-md p-2"
+              className="inline-block bg-slate-100 text-slate-600 dark:bg-slate-50 dark:text-darkModePrim font-medium text-md rounded-3xl shadow-md p-2"
             >
               {t("contributions.lower")}
             </button>
           )}
         </div>
-        <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 text-white rounded-3xl shadow-xl">
+        <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 dark:bg-darkModeSec text-white rounded-3xl shadow-xl">
           <input
             className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-500 rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer"
             type="checkbox"
@@ -199,7 +199,7 @@ function ValidateProp() {
       </div>
       <div
         id="scrollableDiv"
-        className="overflow-auto h-[calc(100vh-364px)] py-2"
+        className="overflow-auto h-[calc(100vh-284px)] py-2 pb-20"
       >
         {isLoading &&
           skeletons.map((item: any) => {

@@ -6,6 +6,9 @@ import LoginCtxProvider from "./Components/Context/LoginCtxProvider";
 import "./i18n";
 import "tw-elements";
 
+if (localStorage.theme === "dark")
+  window.document.documentElement.classList.toggle("dark");
+
 ReactDOM.render(
   <React.StrictMode>
     <LoginCtxProvider>

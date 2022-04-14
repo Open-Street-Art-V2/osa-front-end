@@ -61,7 +61,6 @@ export default function Map(props: any) {
     setAnchorEl(null);
   };
   const handleSearchBarChange = (e: any) => {
-    console.log(`${e.target.value}`);
     setValue(e.target.value);
   };
   async function Search() {
@@ -85,7 +84,7 @@ export default function Map(props: any) {
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
   async function SearchTown() {
@@ -105,7 +104,7 @@ export default function Map(props: any) {
         throw Error("Error");
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
 
@@ -123,6 +122,12 @@ export default function Map(props: any) {
       zoom: expansionZoom,
     });
   }
+
+  const mapStyle =
+    localStorage.theme === "dark"
+      ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
+      : process.env.REACT_APP_MAPBOX_STYLE;
+
   return (
     <ReactMapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -131,7 +136,7 @@ export default function Map(props: any) {
       height="100vh"
       className="w-100 h-100"
       maxZoom={18}
-      mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+      mapStyle={mapStyle}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       onViewportChange={(newViewport: MapView) => {
         setViewport({ ...newViewport });
@@ -272,7 +277,7 @@ export default function Map(props: any) {
               <div
                 role="button"
                 tabIndex={0}
-                className={`flex items-center justify-center s-${style} opacity-60 text-white text-lg border-2 border-white rounded-full z-1`}
+                className={`flex items-center justify-center s-${style} opacity-60 dark:opacity-80 text-white text-lg border-2 border-white rounded-full z-1`}
                 onClick={() => markerClick(cluster, latitude, longitude)}
                 onKeyDown={() => {}}
               >
