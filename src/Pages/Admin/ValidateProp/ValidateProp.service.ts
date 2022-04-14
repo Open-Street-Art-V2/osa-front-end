@@ -149,8 +149,6 @@ export const getTrophies = async (
   setCurrentPage: (currentPage2: number) => void,
   setIsLoading: (isLoading: boolean) => void
 ) => {
-  // A changer avec l'end-point des trophées
-  // const url = `${process.env.REACT_APP_API}/contribution/user/${id}?page=${currentPage}&limit=10`;
   const url = `${process.env.REACT_APP_API}/trophie/paginate/${id}?page=${currentPage}&limit=10`;
 
   const res: Response = await fetch(url, {
