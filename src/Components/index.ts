@@ -15,3 +15,5 @@ export { default as Profile } from "./Profile";
 export { default as UpdateInfo } from "./ModifyPersonalInfo";
 export { default as RoundedTextField } from "./RoundedTextField";
 export { default as ReturnButton } from "./ReturnButton";
+export { default as NavBar } from "./NavBar";
+export { default as NavBarUser } from "./NavBarUser";

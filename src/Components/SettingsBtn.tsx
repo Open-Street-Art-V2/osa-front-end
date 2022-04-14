@@ -24,14 +24,9 @@ export default function SettingsBtn() {
   }, []);
 
   const handleDarkModeChange = () => {
-    if (darkMode) {
-      localStorage.theme = "light";
-    } else {
-      localStorage.theme = "dark";
-    }
-
     window.document.documentElement.classList.toggle("dark");
     setDarkMode(!darkMode);
+    loginCtx.setDarkMode(!darkMode);
   };
 
   return (

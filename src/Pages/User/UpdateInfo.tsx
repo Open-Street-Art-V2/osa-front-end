@@ -25,7 +25,7 @@ function UserProfile() {
   const { userInfo } = state;
 
   return (
-    <div className="container">
+    <div className="container dark:bg-darkModePrim">
       <Header />
       <UpdateInfo user={userInfo} />
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}

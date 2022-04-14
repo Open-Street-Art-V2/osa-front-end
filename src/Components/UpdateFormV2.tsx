@@ -566,8 +566,14 @@ function ModifyArtWork(props: any) {
     });
   } */
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
       {Artwork !== undefined && (
         <Container component="main" maxWidth="xs" className="px-5 pb-20">
           <CssBaseline />
@@ -590,7 +596,7 @@ function ModifyArtWork(props: any) {
               sx={{ mt: 3 }}
             >
               <div className="text-center">
-                <label className="py-8 font-sans text-2xl authTitle font-bold ">
+                <label className="py-8 font-sans text-2xl authTitle font-bold dark:text-red-500">
                   {t("modify.art")}
                 </label>
                 <div className="px-5 pb-4">
@@ -980,7 +986,7 @@ function ModifyArtWork(props: any) {
           </Box>
         </Container>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

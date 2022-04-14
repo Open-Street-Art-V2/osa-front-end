@@ -400,317 +400,334 @@ function ModifyPersonalInfo(props: Props) {
       });
     }
   }, [firstNameDis, nameDis, emailDis, passwordDis, dateDis]);
-  return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-20">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 0,
-          width: "100%",
-          display: "absolute",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
-          <div className="text-center">
-            <p className="py-1 font-sans text-2xl authTitle font-bold ">
-              {t("upateProfil")}
-            </p>
-            <div className="px-5 pb-4">
-              <AnimatePresence initial exitBeforeEnter>
-                {requestError && (
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        scale: 0.5,
-                        y: "+30vh",
-                        opacity: 0,
-                      },
-                      visible: {
-                        y: "0",
-                        opacity: 1,
-                        scale: 1,
-                        transition: {
-                          duration: 0.5,
-                          type: "spring",
-                          damping: 25,
-                          stiffness: 400,
-                        },
-                      },
-                      exit: {
-                        x: "-30vh",
-                        opacity: 0,
-                        scale: 0.5,
-                        transition: {
-                          duration: 0.3,
-                        },
-                      },
-                    }}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Alert severity="error">{requestError}</Alert>
-                  </motion.div>
-                )}
-                {requestValid && (
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        scale: 0.5,
-                        y: "+30vh",
-                        opacity: 0,
-                      },
-                      visible: {
-                        y: "0",
-                        opacity: 1,
-                        scale: 1,
-                        transition: {
-                          duration: 0.5,
-                          type: "spring",
-                          damping: 25,
-                          stiffness: 400,
-                        },
-                      },
-                      exit: {
-                        x: "-30vh",
-                        opacity: 0,
-                        scale: 0.5,
-                        transition: {
-                          duration: 0.3,
-                        },
-                      },
-                    }}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Alert severity="success">{requestValid}</Alert>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
 
-            <TextField
-              margin="normal"
-              fullWidth
-              id="lastName"
-              label={t("name")}
-              onChange={handleNameChange}
-              value={name}
-              name="lastName"
-              autoComplete="lastName"
-              error={state.isValidName === ValidField.ERROR}
-              helperText={
-                state.isValidName === ValidField.ERROR && t("invalid.name")
-              }
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        setNameDis(!nameDis);
-                        handleNameReset();
+  // if (loginCtx.theme === "dark") {
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
+  //  } */
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <Container component="main" maxWidth="xs" className="px-5 pb-20">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 0,
+            width: "100%",
+            display: "absolute",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 3 }}
+          >
+            <div className="text-center">
+              <p className="py-1 font-sans text-2xl authTitle font-bold ">
+                {t("upateProfil")}
+              </p>
+              <div className="px-5 pb-4">
+                <AnimatePresence initial exitBeforeEnter>
+                  {requestError && (
+                    <motion.div
+                      variants={{
+                        hidden: {
+                          scale: 0.5,
+                          y: "+30vh",
+                          opacity: 0,
+                        },
+                        visible: {
+                          y: "0",
+                          opacity: 1,
+                          scale: 1,
+                          transition: {
+                            duration: 0.5,
+                            type: "spring",
+                            damping: 25,
+                            stiffness: 400,
+                          },
+                        },
+                        exit: {
+                          x: "-30vh",
+                          opacity: 0,
+                          scale: 0.5,
+                          transition: {
+                            duration: 0.3,
+                          },
+                        },
                       }}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
                     >
-                      {nameDis && <ModeEditOutlineOutlinedIcon />}
-                      {!nameDis && <CancelOutlinedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              disabled={nameDis}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              id="firstName"
-              label={t("fname")}
-              onChange={handleFirstNameChange}
-              value={firstName}
-              name="firstName"
-              autoComplete="firstName"
-              error={state.isValidFirstName === ValidField.ERROR}
-              helperText={
-                state.isValidFirstName === ValidField.ERROR &&
-                t("invalid.fname")
-              }
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        setFirstNameDis(!firstNameDis);
-                        handleFirstNameReset();
+                      <Alert severity="error">{requestError}</Alert>
+                    </motion.div>
+                  )}
+                  {requestValid && (
+                    <motion.div
+                      variants={{
+                        hidden: {
+                          scale: 0.5,
+                          y: "+30vh",
+                          opacity: 0,
+                        },
+                        visible: {
+                          y: "0",
+                          opacity: 1,
+                          scale: 1,
+                          transition: {
+                            duration: 0.5,
+                            type: "spring",
+                            damping: 25,
+                            stiffness: 400,
+                          },
+                        },
+                        exit: {
+                          x: "-30vh",
+                          opacity: 0,
+                          scale: 0.5,
+                          transition: {
+                            duration: 0.3,
+                          },
+                        },
                       }}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
                     >
-                      {firstNameDis && <ModeEditOutlineOutlinedIcon />}
-                      {!firstNameDis && <CancelOutlinedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              disabled={firstNameDis}
-            />
-            <LocalizationProvider dateAdapter={DateAdapter}>
-              <DatePicker
-                label={t("dbrith")}
-                inputFormat="dd/MM/yyyy"
-                value={date}
-                onChange={handleBirthDateChange}
-                maxDate={maxDate}
-                /* eslint-disable react/jsx-props-no-spreading */
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    error={state.isValidBirthDate === ValidField.ERROR}
-                    helperText={
-                      state.isValidBirthDate === ValidField.ERROR && t("years")
-                    }
-                    sx={{ marginTop: "10px" }}
-                  />
-                )}
+                      <Alert severity="success">{requestValid}</Alert>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <TextField
+                margin="normal"
+                fullWidth
+                id="lastName"
+                label={t("name")}
+                onChange={handleNameChange}
+                value={name}
+                name="lastName"
+                autoComplete="lastName"
+                error={state.isValidName === ValidField.ERROR}
+                helperText={
+                  state.isValidName === ValidField.ERROR && t("invalid.name")
+                }
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
                         onClick={() => {
-                          setDateDis(!dateDis);
-                          handleDateReset();
+                          setNameDis(!nameDis);
+                          handleNameReset();
                         }}
                       >
-                        {dateDis && <ModeEditOutlineOutlinedIcon />}
-                        {!dateDis && <CancelOutlinedIcon />}
+                        {nameDis && <ModeEditOutlineOutlinedIcon />}
+                        {!nameDis && <CancelOutlinedIcon />}
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
-                disabled={dateDis}
+                disabled={nameDis}
               />
-            </LocalizationProvider>
-            <TextField
-              margin="normal"
-              fullWidth
-              id="email"
-              label={t("email")}
-              onChange={handleEmailChange}
-              value={email}
-              name="email"
-              autoComplete="email"
-              error={state.isValidEmail === ValidField.ERROR}
-              helperText={
-                state.isValidEmail === ValidField.ERROR && t("invalid.mail")
-              }
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        setEmailDis(!emailDis);
-                        handleEmailReset();
-                      }}
-                    >
-                      {emailDis && <ModeEditOutlineOutlinedIcon />}
-                      {!emailDis && <CancelOutlinedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              disabled={emailDis}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              id="newPassword"
-              type="password"
-              label={t("nmdp")}
-              value={password}
-              onChange={handleNewPasswordChange}
-              name="newPassword"
-              autoComplete="newPassword"
-              error={state.isValidNewPassword === ValidField.ERROR}
-              helperText={
-                state.isValidNewPassword === ValidField.ERROR &&
-                displayPasswordError(
-                  passwordValidator.validate(password, {
-                    list: true,
-                  }) as string[]
-                )
-              }
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        setPasswordDis(!passwordDis);
-                        handlePasswordReset();
-                      }}
-                    >
-                      {passwordDis && <ModeEditOutlineOutlinedIcon />}
-                      {!passwordDis && <CancelOutlinedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              disabled={passwordDis}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              type="password"
-              id="confirmNewPassword"
-              label={t("cnmdp")}
-              onChange={handleVerifiedNewPasswordChange}
-              value={verifiedPassword}
-              name="confirmNewPassword"
-              autoComplete="confirmNewPassword"
-              error={state.isValidVerifiedNewPassword === ValidField.ERROR}
-              helperText={
-                state.isValidVerifiedNewPassword === ValidField.ERROR &&
-                t("pwd.not.match")
-              }
-              disabled={passwordDis}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              type="password"
-              id="currentPassword"
-              label={t("amdp")}
-              value={currentPassword}
-              onChange={handleCurrentPasswordChange}
-              name="currentPassword"
-              autoComplete="currentPassword"
-              disabled={passwordDis}
-            />
-            <div className="centreD p-5 ">
-              <ThemeProvider theme={loadingBtnTheme}>
-                <LoadingButton
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  disabled={!state.isValidForm}
-                  loading={isLoading}
-                  sx={{
-                    width: "263px",
-                    margin: "10px 0px",
-                    height: "54px",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    lineHeight: "21px",
+              <TextField
+                margin="normal"
+                fullWidth
+                id="firstName"
+                label={t("fname")}
+                onChange={handleFirstNameChange}
+                value={firstName}
+                name="firstName"
+                autoComplete="firstName"
+                error={state.isValidFirstName === ValidField.ERROR}
+                helperText={
+                  state.isValidFirstName === ValidField.ERROR &&
+                  t("invalid.fname")
+                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => {
+                          setFirstNameDis(!firstNameDis);
+                          handleFirstNameReset();
+                        }}
+                      >
+                        {firstNameDis && <ModeEditOutlineOutlinedIcon />}
+                        {!firstNameDis && <CancelOutlinedIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                disabled={firstNameDis}
+              />
+              <LocalizationProvider dateAdapter={DateAdapter}>
+                <DatePicker
+                  label={t("dbrith")}
+                  inputFormat="dd/MM/yyyy"
+                  value={date}
+                  onChange={handleBirthDateChange}
+                  maxDate={maxDate}
+                  /* eslint-disable react/jsx-props-no-spreading */
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      error={state.isValidBirthDate === ValidField.ERROR}
+                      helperText={
+                        state.isValidBirthDate === ValidField.ERROR &&
+                        t("years")
+                      }
+                      sx={{ marginTop: "10px" }}
+                    />
+                  )}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => {
+                            setDateDis(!dateDis);
+                            handleDateReset();
+                          }}
+                        >
+                          {dateDis && <ModeEditOutlineOutlinedIcon />}
+                          {!dateDis && <CancelOutlinedIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
                   }}
-                >
-                  {t("valider")}
-                </LoadingButton>
-              </ThemeProvider>
+                  disabled={dateDis}
+                />
+              </LocalizationProvider>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="email"
+                label={t("email")}
+                onChange={handleEmailChange}
+                value={email}
+                name="email"
+                autoComplete="email"
+                error={state.isValidEmail === ValidField.ERROR}
+                helperText={
+                  state.isValidEmail === ValidField.ERROR && t("invalid.mail")
+                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => {
+                          setEmailDis(!emailDis);
+                          handleEmailReset();
+                        }}
+                      >
+                        {emailDis && <ModeEditOutlineOutlinedIcon />}
+                        {!emailDis && <CancelOutlinedIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                disabled={emailDis}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                id="newPassword"
+                type="password"
+                label={t("nmdp")}
+                value={password}
+                onChange={handleNewPasswordChange}
+                name="newPassword"
+                autoComplete="newPassword"
+                error={state.isValidNewPassword === ValidField.ERROR}
+                helperText={
+                  state.isValidNewPassword === ValidField.ERROR &&
+                  displayPasswordError(
+                    passwordValidator.validate(password, {
+                      list: true,
+                    }) as string[]
+                  )
+                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => {
+                          setPasswordDis(!passwordDis);
+                          handlePasswordReset();
+                        }}
+                      >
+                        {passwordDis && <ModeEditOutlineOutlinedIcon />}
+                        {!passwordDis && <CancelOutlinedIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                disabled={passwordDis}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                type="password"
+                id="confirmNewPassword"
+                label={t("cnmdp")}
+                onChange={handleVerifiedNewPasswordChange}
+                value={verifiedPassword}
+                name="confirmNewPassword"
+                autoComplete="confirmNewPassword"
+                error={state.isValidVerifiedNewPassword === ValidField.ERROR}
+                helperText={
+                  state.isValidVerifiedNewPassword === ValidField.ERROR &&
+                  t("pwd.not.match")
+                }
+                disabled={passwordDis}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                type="password"
+                id="currentPassword"
+                label={t("amdp")}
+                value={currentPassword}
+                onChange={handleCurrentPasswordChange}
+                name="currentPassword"
+                autoComplete="currentPassword"
+                disabled={passwordDis}
+              />
+              <div className="centreD p-5 ">
+                <ThemeProvider theme={loadingBtnTheme}>
+                  <LoadingButton
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={!state.isValidForm}
+                    loading={isLoading}
+                    sx={{
+                      width: "263px",
+                      margin: "10px 0px",
+                      height: "54px",
+                      fontWeight: "500",
+                      fontSize: "18px",
+                      lineHeight: "21px",
+                    }}
+                  >
+                    {t("valider")}
+                  </LoadingButton>
+                </ThemeProvider>
+              </div>
             </div>
-          </div>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </ThemeProvider>
   );
 }
 
