@@ -84,6 +84,7 @@ function RecoverPasswordEmail() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(state.email);
+    const url = `${process.env.REACT_APP_API}/forgot-password/${state.email}`;
   };
 
 
@@ -112,7 +113,7 @@ function RecoverPasswordEmail() {
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <div className="text-center">
-            <p className="py-1 font-sans text-2xl authTitle font-bold ">
+            <p className="py-1 font-sans text-2xl authTitle font-bold " >
               {t("Rmdp")}
             </p>
 
