@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { LoginContext } from "./Context/LoginCtxProvider";
 import Carousel from "./Carousel";
+import FavoriteStar from "./FavoriteStar";
 
 export default function ArtworkDetails(props: any) {
   const { t } = useTranslation();
@@ -66,7 +67,10 @@ export default function ArtworkDetails(props: any) {
 
       <Carousel pictures={data.pictures} nbPictures={numPics} />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{data.title}</div>
+        <div className="flex justify-between mb-2">
+          <div className="font-bold text-xl">{data.title}</div>
+          {loginCtx.isLoggedIn && <FavoriteStar id={data.oeuvreId} isArt />}
+        </div>
         <div className="text-gray-700 text-base">{data.description}</div>
         <div className="font-medium">
           <div className="font-medium text-sky-500 text-md mt-3">

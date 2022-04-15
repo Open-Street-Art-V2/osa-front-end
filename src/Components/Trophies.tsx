@@ -5,8 +5,8 @@ export default function Trophies(props: any) {
   const { data } = props;
   return (
     <div className="flex flex-row col-span-5">
-      <div className="flex-none w-32 h-20">
-        <div className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl">
+      <div className="flex-none w-32 h-24">
+        <div className="flex items-center justify-center w-32 h-20 rounded-3xl">
           <FaTrophy className="text-[#ffa41e] text-7xl z-60" />
         </div>
       </div>

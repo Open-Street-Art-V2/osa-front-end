@@ -63,3 +63,16 @@ export const getUserProfile = async (token: string | undefined) => {
     throw new Error(error.message);
   }
 };
+
+export const getUserProfileById = async (id: string | undefined) => {
+  const url = `${process.env.REACT_APP_API}/users/profile/${id}`;
+
+  try {
+    const res: Response = await fetch(url, {
+      method: "GET",
+    });
+    return await res.json();
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

@@ -17,6 +17,9 @@ import Search from "../Pages/Guest/Search/Search";
 import DetailsUser from "../Pages/Guest/Search/DetailsUser";
 import UpdateInfo from "../Pages/User/UpdateInfo";
 import UserTrophies from "../Pages/Admin/Trophies/UserTrophies";
+import FavoriteArtworks from "../Pages/User/Favorites/FavoriteArtworks";
+import FavoriteArtists from "../Pages/User/Favorites/FavoriteArtists";
+import FavoriteArtworkDetails from "../Pages/User/Favorites/FavoriteArtworkDetails";
 
 type routesType = {
   name: string;
@@ -29,21 +32,6 @@ const routes: routesType = [
     name: "MapUser",
     path: "/",
     element: MapUser,
-  },
-  {
-    name: "UserProfile",
-    path: "/profil",
-    element: UserProfile,
-  },
-  {
-    name: "UserContributions",
-    path: "/contribution",
-    element: UserContributions,
-  },
-  {
-    name: "UserTrophies",
-    path: "/Trophies",
-    element: UserTrophies,
   },
   {
     name: "MapAdmin",
@@ -96,29 +84,64 @@ const routes: routesType = [
     element: DetailsContribution,
   },
   {
-    name: "DetailsContributionUser",
-    path: "UserDetailsContribution",
-    element: DetailsContributionUser,
-  },
-  {
-    name: "DetailsArtwork",
-    path: "details-artwork",
-    element: DetailsArtwork,
-  },
-  {
     name: "UserProfile",
-    path: "/users-profile",
-    element: DetailsUser,
+    path: "/profil",
+    element: UserProfile,
   },
   {
-    name: "SearchArtwork",
-    path: "search",
-    element: Search,
+    name: "UserTrophies",
+    path: "/trophies/:id",
+    element: UserTrophies,
+  },
+  {
+    name: "UserContributions",
+    path: "/contribution/:id",
+    element: UserContributions,
+  },
+  {
+    name: "DetailsContributionUser",
+    path: "UserDetailsContribution/:id",
+    element: DetailsContributionUser,
   },
   {
     name: "UpdatePersonalInfo",
     path: "UpdateInfo",
     element: UpdateInfo,
+  },
+  {
+    name: "FavoriteArtworks",
+    path: "/favorite-artworks/:id",
+    element: FavoriteArtworks,
+  },
+  {
+    name: "FavoriteArtworks",
+    path: "/favorite-artwork-details/:id",
+    element: FavoriteArtworkDetails,
+  },
+  {
+    name: "FavoriteArtists",
+    path: "/favorite-artists/:id",
+    element: FavoriteArtists,
+  },
+  {
+    name: "DetailsArtwork",
+    path: "/details-artwork/:id",
+    element: DetailsArtwork,
+  },
+  {
+    name: "UserProfile",
+    path: "/users-profile/:id",
+    element: DetailsUser,
+  },
+  {
+    name: "SearchArtworkFilter",
+    path: "/search/:oldFilter/:oldSearch",
+    element: Search,
+  },
+  {
+    name: "SearchArtwork",
+    path: "/search",
+    element: Search,
   },
 ];
 

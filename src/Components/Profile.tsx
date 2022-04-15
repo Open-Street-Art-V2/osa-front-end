@@ -3,25 +3,36 @@ import { NavLink, Link } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate, FaTrophy } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
-import { BiBuildingHouse } from "react-icons/bi";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
 import { User } from "../types/user";
+import FavoriteStar from "./FavoriteStar";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 type Props = {
   user: User | undefined;
   isEditable: boolean;
-  // in the case of a search
-  filter?: string;
-  search?: string;
 };
 
 function Profile(props: Props) {
   const { t } = useTranslation();
-  const { user, isEditable, filter, search } = props;
+  const loginCtx = useContext(LoginContext);
+  const { user, isEditable } = props;
 
   return (
     <>
+      {!isEditable && (
+        <div
+          className={
+            loginCtx.isLoggedIn ? "flex justify-end -mb-2 -mt-3 pr-5" : ""
+          }
+        >
+          {user && loginCtx.isLoggedIn && (
+            <FavoriteStar id={user.id} isArt={false} />
+          )}
+        </div>
+      )}
       <div className="p-3">
         <div className=" p-6 h-20 grid grid-cols-4 content-center">
           <div className="flex items-center text-5xl">
@@ -36,14 +47,10 @@ function Profile(props: Props) {
             </p>
           </div>
 
-          <div className="relative w-32 ...">
-            <NavLink
-              to="/Trophies"
-              state={{ user, isOwnProfil: isEditable, filter, search }}
-            >
-              <div className="absolute inset-y-0 right-0 w-16 ...">
+          <div className="flex justify-end items-center">
+            <NavLink to={`/trophies/${user?.id}`}>
+              <div className="">
                 <FaTrophy className="text-[#ffa41e] text-3xl" />
-                {/* <p className="text-lg text-gray">12</p> */}
               </div>
             </NavLink>
           </div>
@@ -64,10 +71,7 @@ function Profile(props: Props) {
       <div className="p-3 mt-3">
         {user?.role === "ROLE_USER" && (
           <>
-            <NavLink
-              to="/contribution"
-              state={{ user, isOwnProfil: isEditable, filter, search }}
-            >
+            <NavLink to={`/contribution/${user?.id}`}>
               <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600" />
@@ -87,7 +91,10 @@ function Profile(props: Props) {
           </>
         )}
 
-        <NavLink to="/favoriteartists">
+        <NavLink
+          to={`/favorite-artists/${user?.id}`}
+          state={{ isPrivate: isEditable }}
+        >
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <FaUserGraduate className="text-gray-600" />
@@ -105,7 +112,7 @@ function Profile(props: Props) {
         </NavLink>
         <br />
 
-        <NavLink to="/favoriteartworks">
+        <NavLink to={`/favorite-artworks/${user?.id}`}>
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <BsPaletteFill className="text-gray-600" />
@@ -122,23 +129,6 @@ function Profile(props: Props) {
           </div>
         </NavLink>
         <br />
-
-        <NavLink to="/favoritecities">
-          <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
-            <div className="flex items-center text-right text-5xl">
-              <BiBuildingHouse className="text-gray-600" />
-            </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg ">
-                {t("favorite.cities")}
-              </div>
-              {/* <p className="text-gray-600 ">9</p> */}
-            </div>
-            <div className="flex items-center text-3xl pl-6">
-              <AiOutlineRight className="text-gray-600" />
-            </div>
-          </div>
-        </NavLink>
       </div>
       <br />
 
