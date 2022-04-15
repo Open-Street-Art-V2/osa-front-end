@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
 import Moment from "react-moment";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Carousel,
   FavoriteStar,
@@ -15,15 +15,9 @@ import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { getArt } from "../../../services/art.service";
 import { Art } from "../../../types/art";
 
-type LocationDataType = {
-  // to know if we are on our personnal profil or on another user profil
-  isPrivate: boolean;
-};
-
 function FavoriteArtworkDetails() {
   const { id } = useParams();
   const loginCtx = useContext(LoginContext);
-  const { isPrivate } = useLocation().state as LocationDataType;
   const [art, setArt] = useState<Art>();
   const [numPics, setNumPics] = useState<number>(0);
   const [loading, setIsLoading] = useState<boolean>(false);
@@ -50,8 +44,10 @@ function FavoriteArtworkDetails() {
 
         {art && (
           <Box>
-            <div className={isPrivate ? "flex justify-end pb-3" : "pb-5"}>
-              {isPrivate && <FavoriteStar id={art.id} isArt />}
+            <div
+              className={loginCtx.isLoggedIn ? "flex justify-end pb-3" : "pb-5"}
+            >
+              {loginCtx.isLoggedIn && <FavoriteStar id={art.id} isArt />}
             </div>
 
             <div className="flex justify-between pb-3">

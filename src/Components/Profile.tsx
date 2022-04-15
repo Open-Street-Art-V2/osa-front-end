@@ -5,8 +5,10 @@ import { FaUserGraduate, FaTrophy } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
 import { User } from "../types/user";
 import FavoriteStar from "./FavoriteStar";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 type Props = {
   user: User | undefined;
@@ -15,13 +17,20 @@ type Props = {
 
 function Profile(props: Props) {
   const { t } = useTranslation();
+  const loginCtx = useContext(LoginContext);
   const { user, isEditable } = props;
 
   return (
     <>
       {!isEditable && (
-        <div className="flex justify-end -mb-2 -mt-3 pr-5">
-          {user && <FavoriteStar id={user.id} isArt={false} />}
+        <div
+          className={
+            loginCtx.isLoggedIn ? "flex justify-end -mb-2 -mt-3 pr-5" : ""
+          }
+        >
+          {user && loginCtx.isLoggedIn && (
+            <FavoriteStar id={user.id} isArt={false} />
+          )}
         </div>
       )}
       <div className="p-3">
@@ -107,10 +116,7 @@ function Profile(props: Props) {
         </NavLink>
         <br />
 
-        <NavLink
-          to={`/favorite-artworks/${user?.id}`}
-          state={{ isPrivate: isEditable }}
-        >
+        <NavLink to={`/favorite-artworks/${user?.id}`}>
           <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
             <div className="flex items-center text-right text-5xl">
               <BsPaletteFill className="text-gray-600" />

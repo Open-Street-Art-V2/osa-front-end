@@ -69,7 +69,7 @@ export default function ArtworkDetails(props: any) {
       <div className="px-6 py-4">
         <div className="flex justify-between mb-2">
           <div className="font-bold text-xl">{data.title}</div>
-          <FavoriteStar id={data.oeuvreId} isArt />
+          {loginCtx.isLoggedIn && <FavoriteStar id={data.oeuvreId} isArt />}
         </div>
         <div className="text-gray-700 text-base">{data.description}</div>
         <div className="font-medium">

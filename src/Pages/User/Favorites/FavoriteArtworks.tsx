@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   ArtworkProposal,
   Header,
@@ -15,15 +15,9 @@ import NavBarUser from "../../../Components/NavBarUser";
 import { getFavoriteArts } from "../../../services/favorite.service";
 import { Art } from "../../../types/art";
 
-type LocationDataType = {
-  // to know if we are on our personnal profil or on another user profil
-  isPrivate: boolean;
-};
-
 function FavoriteArtworks() {
   const { t } = useTranslation();
   const { id } = useParams();
-  const { isPrivate } = useLocation().state as LocationDataType;
   const skeletons = [1, 2, 3, 4];
   const loginCtx = useContext(LoginContext);
   const [arts, setArts] = useState<Art[]>([]);
@@ -110,7 +104,6 @@ function FavoriteArtworks() {
                 >
                   <Link
                     to={`/favorite-artwork-details/${art?.id}`}
-                    state={{ isPrivate }}
                     className="grow mx-1"
                   >
                     <ArtworkProposal data={art} />

@@ -56,8 +56,10 @@ function DetailsArtwork() {
 
         {art && (
           <Box>
-            <div className="flex justify-end pb-3">
-              <FavoriteStar id={art.id} isArt />
+            <div
+              className={loginCtx.isLoggedIn ? "flex justify-end pb-3" : "pb-5"}
+            >
+              {loginCtx.isLoggedIn && <FavoriteStar id={art.id} isArt />}
             </div>
 
             <div className="flex justify-between pb-3">
