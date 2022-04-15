@@ -143,7 +143,7 @@ export const getContributions = async (
 export const getTrophies = async (
   currentPage: number,
   token: string | undefined,
-  id: number | undefined,
+  id: string | undefined,
   setHasMoreTroph: (hasMoreTroph: boolean) => void,
   setAllTrophies: (allTrophies: any) => void,
   setCurrentPage: (currentPage2: number) => void,

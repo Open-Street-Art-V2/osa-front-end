@@ -47,14 +47,10 @@ function Profile(props: Props) {
             </p>
           </div>
 
-          <div className="relative w-32 ...">
-            <NavLink
-              to="/Trophies"
-              state={{ user, isOwnProfil: isEditable, filter, search }}
-            >
-              <div className="absolute inset-y-0 right-0 w-16 ...">
+          <div className="flex justify-end items-center">
+            <NavLink to={`/trophies/${user?.id}`}>
+              <div className="">
                 <FaTrophy className="text-[#ffa41e] text-3xl" />
-                {/* <p className="text-lg text-gray">12</p> */}
               </div>
             </NavLink>
           </div>
@@ -75,7 +71,7 @@ function Profile(props: Props) {
       <div className="p-3 mt-3">
         {user?.role === "ROLE_USER" && (
           <>
-            <NavLink to={`/contribution/${user?.id}`} state={{ user }}>
+            <NavLink to={`/contribution/${user?.id}`}>
               <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600" />

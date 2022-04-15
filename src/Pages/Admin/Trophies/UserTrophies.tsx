@@ -1,27 +1,18 @@
 import { useEffect, useState, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CssBaseline } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { Header, ReturnButton } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { getTrophies } from "../ValidateProp/ValidateProp.service";
 import Trophies from "../../../Components/Trophies";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
-import { User } from "../../../types/user";
-
-type LocationDataType = {
-  user: User;
-  // to know if we are on our personnal profil or on another user profil
-  isOwnProfil: boolean;
-  // in the case of a search
-  filter?: string;
-  search?: string;
-};
 
 function UserTrophies() {
   const { t } = useTranslation();
+  const { id } = useParams();
   const [allTrophies, setAllTrophies] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreTroph, setHasMoreTroph] = useState(true);
@@ -29,8 +20,6 @@ function UserTrophies() {
   const [updateComp, setUpdateComp] = useState(true);
   const loginCtx = useContext(LoginContext);
   const skeletons = [1, 2, 3, 4];
-  const { user, isOwnProfil, filter, search } = useLocation()
-    .state as LocationDataType;
 
   useEffect(() => {
     if (updateComp) {
@@ -46,7 +35,7 @@ function UserTrophies() {
       getTrophies(
         currentPage,
         loginCtx.user?.jwt,
-        user.id,
+        id,
         setHasMoreTroph,
         setAllTrophies,
         setCurrentPage,
@@ -61,10 +50,7 @@ function UserTrophies() {
       <div className="">
         <Header />
         <div className="ml-4 mt-4 ">
-          <ReturnButton
-            url={isOwnProfil ? "/profil" : "/users-profile"}
-            state={!isOwnProfil && { user, filter, search }}
-          />
+          <ReturnButton goBack />
         </div>
         <br />
 
@@ -109,7 +95,7 @@ function UserTrophies() {
             getTrophies(
               currentPage,
               loginCtx.user?.jwt,
-              loginCtx.user?.id,
+              id,
               setHasMoreTroph,
               setAllTrophies,
               setCurrentPage,

@@ -90,7 +90,7 @@ const routes: routesType = [
   },
   {
     name: "UserTrophies",
-    path: "/Trophies",
+    path: "/trophies/:id",
     element: UserTrophies,
   },
   {
