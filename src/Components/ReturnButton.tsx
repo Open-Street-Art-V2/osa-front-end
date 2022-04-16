@@ -12,7 +12,11 @@ function ReturnButton({ url, state }: Props) {
   const { t } = useTranslation();
 
   return (
-    <Link to={url} state={state} className="inline-flex">
+    <Link
+      to={url}
+      state={state}
+      className="flex items-center dark:text-slate-200"
+    >
       <ArrowBack />
       <p className="text-xl ml-3">{t("return")}</p>
     </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
 import { useLocation } from "react-router-dom";
@@ -33,36 +34,36 @@ function DetailsArtwork() {
         <CssBaseline />
 
         <Box>
-          <Box>
-            <p className="pb-5 text-base text-right text-sky-700 dark:text-[#7DCCAB] ">
+          <div className="flex justify-between mb-3 mt-5 mx-2">
+            <div className="grow font-bold text-slate-900 dark:text-white text-2xl overflow-hidden">
+              {art.title}
+            </div>
+            <div className="flex text-sky-600 dark:text-darkModeTextSec text-lg items-center overflow-hidden">
               <Moment date={art.created_at} format="DD/MM/YYYY" />
-            </p>
-          </Box>
+            </div>
+          </div>
 
-          <Box>
+          <div className="rounded-3xl overflow-hidden">
             <Carousel pictures={art.pictures} nbPictures={numPics} />
-          </Box>
+          </div>
 
           <Box>
-            <div className="py-4">
-              <div className="font-bold text-xl mb-2 dark:text-[#7DCCAB]">
-                {art.title}
-              </div>
-              <blockquote className="mb-2">
-                <p className="text-gray-700 dark:text-white text-base">
+            <div className="py-4 px-1">
+              <blockquote className="my-2">
+                <p className="text-slate-600 text-lg dark:text-darkModeTextPrem">
                   {art.description}
                 </p>
               </blockquote>
               <figcaption className="font-medium">
                 {art.artist && (
-                  <div className="text-lg mt-3 mb-2 dark:text-white">
+                  <div className="text-lg mt-3 dark:text-white">
                     <span className="font-bold dark:text-[#7DCCAB]">
                       Artiste :
                     </span>
                     <span className="mx-2 dark:text-white">{art.artist}</span>
                   </div>
                 )}
-                <div className="text-slate-700 dark:text-white">
+                <div className="text-sky-700 text-base dark:text-slate-400">
                   {art.address}, {art.city}
                 </div>
               </figcaption>

@@ -19,10 +19,10 @@ export default function ArtworkSearchCard(props: Props) {
         )}
       </div>
       <div className="grid place-content-evenly overflow-hidden ml-3">
-        <div className="font-bold text-slate-900 text-base overflow-hidden">
+        <div className="font-bold text-slate-900 text-base dark:text-white overflow-hidden">
           {data?.title}
         </div>
-        <p className="text-gray-700 text-xs">
+        <p className="text-gray-700 text-xs dark:text-darkModeTextPrem">
           {data?.address}, {data?.city}
         </p>
       </div>

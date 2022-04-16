@@ -184,7 +184,7 @@ function Search() {
   };
 
   return (
-    <Paper sx={{ height: "100%" }} className="dark:bg-darkModePrim">
+    <Paper sx={{ height: "100vh" }} className="dark:bg-darkModePrim">
       <CssBaseline />
       <Header />
 
@@ -263,7 +263,7 @@ function Search() {
         </div>
 
         {arts && (
-          <div className="mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          <div className="max-h-[36rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg">
             <InfiniteScroll
               dataLength={arts.length}
               next={() => fetchArts()}
@@ -292,7 +292,7 @@ function Search() {
         )}
 
         {users && (
-          <div className="mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          <div className="max-h-[36rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg">
             <InfiniteScroll
               dataLength={users.length}
               next={() => fetchUsers()}

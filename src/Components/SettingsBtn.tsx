@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { MdOutlineLanguage } from "react-icons/md";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
@@ -17,16 +17,12 @@ export default function SettingsBtn() {
   const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const loginCtx = useContext(LoginContext);
-  const [darkMode, setDarkMode] = useState<boolean>();
-
-  useEffect(() => {
-    setDarkMode(localStorage.theme === "dark");
-  }, []);
+  const [darkMode, setDarkMode] = useState<boolean>(loginCtx.darkMode);
 
   const handleDarkModeChange = () => {
     window.document.documentElement.classList.toggle("dark");
-    setDarkMode(!darkMode);
     loginCtx.setDarkMode(!darkMode);
+    setDarkMode(!darkMode);
   };
 
   return (

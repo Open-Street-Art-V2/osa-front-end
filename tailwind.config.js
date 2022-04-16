@@ -20,6 +20,7 @@ module.exports = {
         darkModePrim: "#181818",
         darkModeSec: "#373737",
         darkModeTextPrem: "#aaaaaa",
+        darkModeTextSec: "#7DCCAB",
       },
     },
   },
