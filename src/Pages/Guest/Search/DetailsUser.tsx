@@ -36,9 +36,9 @@ function DetailsUser() {
   }, []);
 
   return (
-    <>
+    <div className="dark:bg-darkModePrim">
       <Header />
-      <div className="ml-4 mt-4">
+      <div className="ml-4 mt-4 dark:text-white">
         <ReturnButton
           url="/search"
           state={{ oldFilter: filter, oldSearch: search }}
@@ -58,7 +58,7 @@ function DetailsUser() {
             <div className="flex flex-row justify-around p-3 pb-5">
               <button
                 type="button"
-                className="h-10 px-5 text-amber-600 transition-colors duration-150 border border-amber-500 focus:shadow-outline hover:bg-amber-500 hover:text-amber-100  rounded-3xl"
+                className="h-10 px-5 text-amber-600 dark:font-bold transition-colors duration-150 border border-amber-500 focus:shadow-outline hover:bg-amber-500 hover:text-amber-100  rounded-3xl"
                 onClick={() => setShowModalRole(true)}
                 data-modal-toggle="defaultModal"
               >
@@ -67,7 +67,7 @@ function DetailsUser() {
               {userAB.banned ? (
                 <button
                   type="button"
-                  className="w-28 h-10 px-5 text-red-700 transition-colors duration-150 border border-red-500 focus:shadow-outline hover:bg-red-500 hover:text-red-100  rounded-3xl"
+                  className="w-28 h-10 px-5 text-red-700 dark:font-bold transition-colors duration-150 border border-red-500 focus:shadow-outline hover:bg-red-500 hover:text-red-100  rounded-3xl"
                   onClick={() => {
                     setShowModalBan(true);
                   }}
@@ -77,7 +77,7 @@ function DetailsUser() {
               ) : (
                 <button
                   type="button"
-                  className="w-28 h-10 px-5 text-red-700 transition-colors duration-150 border border-red-500 focus:shadow-outline hover:bg-red-500 hover:text-red-100  rounded-3xl"
+                  className="w-28 h-10 px-5 text-red-700 dark:font-bold transition-colors duration-150 border border-red-500 focus:shadow-outline hover:bg-red-500 hover:text-red-100  rounded-3xl"
                   onClick={() => {
                     setShowModalBan(true);
                   }}
@@ -181,7 +181,7 @@ function DetailsUser() {
         ) : null}
       </Container>
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </>
+    </div>
   );
 }
 

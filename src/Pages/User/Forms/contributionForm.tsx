@@ -21,7 +21,7 @@ function ContributionToArtUser() {
   const { artwork, coords } = state;
 
   return (
-    <div>
+    <div className="dark:bg-darkModePrim">
       <Header />
       <UserContribution data={artwork} coords={coords} />
       <NavBarUser />

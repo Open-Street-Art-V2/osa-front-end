@@ -41,6 +41,10 @@ declare module "@mui/material/styles" {
 
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
@@ -402,11 +406,32 @@ function ModifyPersonalInfo(props: Props) {
   }, [firstNameDis, nameDis, emailDis, passwordDis, dateDis]);
 
   // if (loginCtx.theme === "dark") {
-  const darkTheme = createTheme({
-    palette: {
-      mode: loginCtx.darkMode ? "dark" : "light",
-    },
-  });
+  const darkTheme = loginCtx.darkMode
+    ? createTheme({
+        palette: {
+          mode: loginCtx.darkMode ? "dark" : "light",
+        },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: loginCtx.darkMode ? "white" : "black",
+                  },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: loginCtx.darkMode ? "white" : "black",
+                },
+              },
+            },
+          },
+        },
+      })
+    : createTheme({
+        palette: {
+          mode: loginCtx.darkMode ? "dark" : "light",
+        },
+      });
   //  } */
 
   return (
@@ -466,7 +491,12 @@ function ModifyPersonalInfo(props: Props) {
                       animate="visible"
                       exit="exit"
                     >
-                      <Alert severity="error">{requestError}</Alert>
+                      <Alert
+                        severity="error"
+                        className="dark:text-white dark:bg-[#FB9B9B]"
+                      >
+                        {requestError}
+                      </Alert>
                     </motion.div>
                   )}
                   {requestValid && (
@@ -501,7 +531,12 @@ function ModifyPersonalInfo(props: Props) {
                       animate="visible"
                       exit="exit"
                     >
-                      <Alert severity="success">{requestValid}</Alert>
+                      <Alert
+                        severity="success"
+                        className="dark:text-white dark:bg-[#00ab55]"
+                      >
+                        {requestValid}
+                      </Alert>
                     </motion.div>
                   )}
                 </AnimatePresence>

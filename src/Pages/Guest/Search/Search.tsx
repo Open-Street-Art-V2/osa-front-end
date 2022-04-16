@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useLocation } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Paper } from "@mui/material";
 import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
@@ -184,7 +184,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <Paper sx={{ height: "100%" }} className="dark:bg-darkModePrim">
       <CssBaseline />
       <Header />
 
@@ -232,7 +232,7 @@ function Search() {
           </div>
 
           {open && (
-            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
               {filters.map((section, index) => {
                 return (
                   <div
@@ -326,7 +326,7 @@ function Search() {
       </div>
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </div>
+    </Paper>
   );
 }
 

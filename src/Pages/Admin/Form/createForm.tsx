@@ -4,7 +4,7 @@ import NavBar from "../../../Components/NavBar";
 
 function cFormAdmin() {
   return (
-    <div>
+    <div className="dark:bg-darkModePrim">
       <Header />
       <CreateArtWork />
       <NavBar />

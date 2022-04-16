@@ -236,7 +236,7 @@ function FileUpload(props: any) {
               src={`${imagesFiles.image1File}`}
               sx={{ width: 180, height: 180 }}
             ></Avatar>
-            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+            <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
               <div className="py-2">
                 <label
                   htmlFor="icon-button-delelte-file1"
@@ -280,7 +280,7 @@ function FileUpload(props: any) {
               src={`${imagesFiles.image2File}`}
               sx={{ width: 180, height: 180 }}
             ></Avatar>
-            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+            <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
               <div className="py-2">
                 <label
                   htmlFor="icon-button-delelte-file1"
@@ -326,7 +326,7 @@ function FileUpload(props: any) {
               src={`${imagesFiles.image3File}`}
               sx={{ width: 180, height: 180 }}
             ></Avatar>
-            <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+            <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
               <div className="py-2">
                 <label htmlFor="icon-button-delelte-file" className="my-0 mr-4">
                   <IconButton

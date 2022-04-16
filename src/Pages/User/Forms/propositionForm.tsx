@@ -12,7 +12,7 @@ function cForm() {
   const loginCtx = useContext(LoginContext);
 
   return (
-    <div>
+    <div className="dark:bg-darkModePrim">
       <Header />
       {loginCtx.isLoggedIn ? (
         <CreatePropositionArtWork />

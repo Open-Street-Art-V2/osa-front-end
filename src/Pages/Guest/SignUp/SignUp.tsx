@@ -1,8 +1,9 @@
-import * as React from "react";
+// import { useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+// import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import MyStepper from "../../../Components/Stepper";
 import "../../../Assets/css/Header.css";
 import { Header, ReturnButton } from "../../../Components";
@@ -20,12 +21,19 @@ const theme = createTheme({
 
 export default function SignUp() {
   const { t } = useTranslation();
+  /* const loginCtx = useContext(LoginContext);
+   const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  }); */
   return (
-    <>
+    <div className="container dark:bg-darkModePrim">
       <Header />
-      <div className="ml-4 mt-4 ">
+      <div className="ml-4 mt-4 dark:text-white ">
         <ReturnButton url="/" />
       </div>
+
       <Container component="main" maxWidth="xs">
         <ThemeProvider theme={theme}>
           <Box
@@ -36,7 +44,12 @@ export default function SignUp() {
           </Box>
 
           <Box
-            sx={{ textAlign: "center", margin: "auto", pt: "36px", pb: "20px" }}
+            sx={{
+              textAlign: "center",
+              margin: "auto",
+              pt: "36px",
+              pb: "20px",
+            }}
           >
             <Typography variant="subtitle1" component="div">
               {t("account")}
@@ -47,6 +60,6 @@ export default function SignUp() {
           </Box>
         </ThemeProvider>
       </Container>
-    </>
+    </div>
   );
 }

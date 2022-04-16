@@ -20,9 +20,9 @@ function DetailsArtwork() {
   const numPics = Object.keys(art.pictures).length;
 
   return (
-    <>
+    <div className="dark:bg-darkModePrim">
       <Header />
-      <div className="ml-4 mt-4 -mb-1">
+      <div className="ml-4 mt-4 -mb-1 dark:text-white">
         <ReturnButton
           url="/search"
           state={{ oldFilter: filter, oldSearch: search }}
@@ -34,7 +34,7 @@ function DetailsArtwork() {
 
         <Box>
           <Box>
-            <p className="pb-5 text-base text-right text-sky-700 ">
+            <p className="pb-5 text-base text-right text-sky-700 dark:text-[#7DCCAB] ">
               <Moment date={art.created_at} format="DD/MM/YYYY" />
             </p>
           </Box>
@@ -45,18 +45,24 @@ function DetailsArtwork() {
 
           <Box>
             <div className="py-4">
-              <div className="font-bold text-xl mb-2">{art.title}</div>
+              <div className="font-bold text-xl mb-2 dark:text-[#7DCCAB]">
+                {art.title}
+              </div>
               <blockquote className="mb-2">
-                <p className="text-gray-700 text-base">{art.description}</p>
+                <p className="text-gray-700 dark:text-white text-base">
+                  {art.description}
+                </p>
               </blockquote>
               <figcaption className="font-medium">
                 {art.artist && (
-                  <div className="text-lg mt-3 mb-2">
-                    <span className="font-bold">Artiste : </span>
-                    {art.artist}
+                  <div className="text-lg mt-3 mb-2 dark:text-white">
+                    <span className="font-bold dark:text-[#7DCCAB]">
+                      Artiste :
+                    </span>
+                    <span className="mx-2 dark:text-white">{art.artist}</span>
                   </div>
                 )}
-                <div className="text-slate-700 dark:text-slate-500">
+                <div className="text-slate-700 dark:text-white">
                   {art.address}, {art.city}
                 </div>
               </figcaption>
@@ -66,7 +72,7 @@ function DetailsArtwork() {
       </Container>
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </>
+    </div>
   );
 }
 

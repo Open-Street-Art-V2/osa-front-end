@@ -22,9 +22,11 @@ function ModifyArtAdmin() {
 
   return (
     <>
-      <Header />
-      <ModifyArtWork data={artwork} coords={coords} />
-      <NavBar />
+      <div className="dark:bg-darkModePrim">
+        <Header />
+        <ModifyArtWork data={artwork} coords={coords} />
+        <NavBar />
+      </div>
     </>
   );
 }

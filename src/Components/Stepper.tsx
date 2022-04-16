@@ -1,10 +1,14 @@
 /* eslint-disable */
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
-import Button from "@mui/material/Button";
+import {
+  Stepper,
+  Box,
+  Step,
+  Button,
+  StepButton,
+  createTheme,
+} from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import SignUpFormOne from "./SignUpFormOne";
 import SignUpFormTwo from "./SignUpFormTwo";
@@ -23,6 +27,21 @@ import { LoadingButton } from "@mui/lab";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { User } from "../Pages/Guest/SignUp/types/user";
+
+const loadingBtnTheme = createTheme({
+  palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
+    primary: {
+      main: "#00ab55",
+    },
+  },
+  shape: {
+    borderRadius: "60px",
+  },
+});
 
 const dispatchStateOne = (state: StateOne, action: ActionOne) => {
   switch (action.type) {
@@ -247,7 +266,9 @@ export default function MyStepper() {
 
   return (
     <>
-      <div className="pt-10 pb-5 text-center text-3xl">{t("registration")}</div>
+      <div className="pt-10 pb-5 text-center text-3xl dark:text-white">
+        {t("registration")}
+      </div>
 
       <div className="px-4">
         <AnimateAlert requestError={requestError} requestValid={requestValid} />
@@ -275,44 +296,42 @@ export default function MyStepper() {
         {!allStepsCompleted() && (
           <Box sx={{ margin: "auto", pt: 2, textAlign: "center" }}>
             {activeStep !== steps.length - 1 ? (
-              <Button
-                sx={{
-                  width: "263px",
-                  margin: "10px 0px",
-                  height: "54px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  lineHeight: "21px",
-                  color: "#ffffff",
-                  borderRadius: "60px",
-                }}
-                variant="contained"
-                color="secondary"
-                disabled={!formOne.isValidForm}
-                onClick={handleComplete}
-              >
-                {t("next")}
-              </Button>
+              <ThemeProvider theme={loadingBtnTheme}>
+                <Button
+                  sx={{
+                    width: "263px",
+                    margin: "10px 0px",
+                    height: "54px",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "21px",
+                  }}
+                  variant="contained"
+                  disabled={!formOne.isValidForm}
+                  onClick={handleComplete}
+                >
+                  {t("next")}
+                </Button>
+              </ThemeProvider>
             ) : (
-              <LoadingButton
-                sx={{
-                  width: "263px",
-                  margin: "10px 0px",
-                  height: "54px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  lineHeight: "21px",
-                  color: "#ffffff",
-                  background: "#00ab55",
-                  borderRadius: "60px",
-                }}
-                disabled={!formTwo.isValidForm}
-                variant="contained"
-                loading={isLoading}
-                onClick={handleSubmit}
-              >
-                {t("register")}
-              </LoadingButton>
+              <ThemeProvider theme={loadingBtnTheme}>
+                <LoadingButton
+                  sx={{
+                    width: "263px",
+                    margin: "10px 0px",
+                    height: "54px",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "21px",
+                  }}
+                  disabled={!formTwo.isValidForm}
+                  variant="contained"
+                  loading={isLoading}
+                  onClick={handleSubmit}
+                >
+                  {t("register")}
+                </LoadingButton>
+              </ThemeProvider>
             )}
           </Box>
         )}

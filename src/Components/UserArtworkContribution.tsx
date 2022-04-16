@@ -46,6 +46,10 @@ declare module "@mui/material/styles" {
 
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
@@ -568,199 +572,239 @@ function ModifyArtWork(props: any) {
       image3File: "",
     });
   } */
+  const darkTheme = loginCtx.darkMode
+    ? createTheme({
+        palette: {
+          mode: loginCtx.darkMode ? "dark" : "light",
+        },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: loginCtx.darkMode ? "white" : "black",
+                  },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: loginCtx.darkMode ? "white" : "black",
+                },
+              },
+            },
+          },
+        },
+      })
+    : createTheme({
+        palette: {
+          mode: loginCtx.darkMode ? "dark" : "light",
+        },
+      });
 
   return (
     <>
       {Artwork !== undefined && (
-        <Container component="main" maxWidth="xs" className="px-5 pb-20">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 0,
-              width: "100%",
-              display: "absolute",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
+        <ThemeProvider theme={darkTheme}>
+          <Container component="main" maxWidth="xs" className="px-5 pb-20">
+            <CssBaseline />
             <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 3 }}
+              sx={{
+                marginTop: 0,
+                width: "100%",
+                display: "absolute",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <div className="text-center">
-                <label className="py-8 font-sans text-2xl authTitle font-bold ">
-                  {t("art.contribute")}
-                </label>
-                <div className="px-5 pb-4">
-                  <AnimatePresence initial exitBeforeEnter>
-                    {requestError && (
-                      <motion.div
-                        variants={{
-                          hidden: {
-                            scale: 0.5,
-                            y: "+30vh",
-                            opacity: 0,
-                          },
-                          visible: {
-                            y: "0",
-                            opacity: 1,
-                            scale: 1,
-                            transition: {
-                              duration: 0.5,
-                              type: "spring",
-                              damping: 25,
-                              stiffness: 400,
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 3 }}
+              >
+                <div className="text-center">
+                  <label className="py-8 font-sans text-2xl authTitle font-bold ">
+                    {t("art.contribute")}
+                  </label>
+                  <div className="px-5 pb-4">
+                    <AnimatePresence initial exitBeforeEnter>
+                      {requestError && (
+                        <motion.div
+                          variants={{
+                            hidden: {
+                              scale: 0.5,
+                              y: "+30vh",
+                              opacity: 0,
                             },
-                          },
-                          exit: {
-                            x: "-30vh",
-                            opacity: 0,
-                            scale: 0.5,
-                            transition: {
-                              duration: 0.3,
+                            visible: {
+                              y: "0",
+                              opacity: 1,
+                              scale: 1,
+                              transition: {
+                                duration: 0.5,
+                                type: "spring",
+                                damping: 25,
+                                stiffness: 400,
+                              },
                             },
-                          },
-                        }}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                      >
-                        <Alert severity="error">{requestError}</Alert>
-                      </motion.div>
-                    )}
-                    {requestValid && (
-                      <motion.div
-                        variants={{
-                          hidden: {
-                            scale: 0.5,
-                            y: "+30vh",
-                            opacity: 0,
-                          },
-                          visible: {
-                            y: "0",
-                            opacity: 1,
-                            scale: 1,
-                            transition: {
-                              duration: 0.5,
-                              type: "spring",
-                              damping: 25,
-                              stiffness: 400,
+                            exit: {
+                              x: "-30vh",
+                              opacity: 0,
+                              scale: 0.5,
+                              transition: {
+                                duration: 0.3,
+                              },
                             },
-                          },
-                          exit: {
-                            x: "-30vh",
-                            opacity: 0,
-                            scale: 0.5,
-                            transition: {
-                              duration: 0.3,
+                          }}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                        >
+                          <Alert
+                            severity="error"
+                            className="dark:text-white dark:bg-[#FB9B9B]"
+                          >
+                            {requestError}
+                          </Alert>
+                        </motion.div>
+                      )}
+                      {requestValid && (
+                        <motion.div
+                          variants={{
+                            hidden: {
+                              scale: 0.5,
+                              y: "+30vh",
+                              opacity: 0,
                             },
-                          },
-                        }}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                      >
-                        <Alert severity="success">{requestValid}</Alert>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                            visible: {
+                              y: "0",
+                              opacity: 1,
+                              scale: 1,
+                              transition: {
+                                duration: 0.5,
+                                type: "spring",
+                                damping: 25,
+                                stiffness: 400,
+                              },
+                            },
+                            exit: {
+                              x: "-30vh",
+                              opacity: 0,
+                              scale: 0.5,
+                              transition: {
+                                duration: 0.3,
+                              },
+                            },
+                          }}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                        >
+                          <Alert
+                            severity="success"
+                            className="dark:text-white dark:bg-[#00ab55]"
+                          >
+                            {requestValid}
+                          </Alert>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                <RoundedTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  inputProps={{
-                    defaultValue: Artwork.title,
-                  }}
-                  id="title"
-                  label={t("Title")}
-                  onChange={handleTitleChange}
-                  name="title"
-                  autoComplete="title"
-                  error={state.isValidTitle === ValidField.ERROR}
-                  helperText={
-                    state.isValidTitle === ValidField.ERROR &&
-                    t("invalid.title")
-                  }
-                />
-                <RoundedTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="artist"
-                  label={t("artist")}
-                  inputProps={{
-                    defaultValue: Artwork.artist,
-                  }}
-                  onChange={handleArtistChange}
-                  name="artist"
-                  autoComplete="artist"
-                  error={state.isValidArtist === ValidField.ERROR}
-                  helperText={
-                    state.isValidArtist === ValidField.ERROR &&
-                    t("invalid.artist")
-                  }
-                />
-                <RoundedTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="description"
-                  label={t("description")}
-                  inputProps={{
-                    defaultValue: Artwork.description,
-                  }}
-                  multiline
-                  rows={4}
-                  onChange={handleDescriptionChange}
-                  name="description"
-                  autoComplete="description"
-                  error={state.isValidDescription === ValidField.ERROR}
-                  helperText={
-                    state.isValidDescription === ValidField.ERROR &&
-                    t("description.characters")
-                  }
-                />
-                <div className="flex justify-center ">
-                  {(images.length === 1 || images.length === 2) && (
-                    <div className="rounded-full bg-gray-100 w-12">
-                      <label htmlFor="icon-add-file">
-                        <Input
-                          accept="image/*"
-                          onChange={addImage}
-                          hidden
-                          id="icon-add-file"
-                          type="file"
-                        />
-                        <IconButton aria-label="icon-add-file" component="span">
-                          <AddAPhotoRoundedIcon
-                            sx={{ color: "#3a4551", fontSize: 23 }}
+                  <RoundedTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    inputProps={{
+                      defaultValue: Artwork.title,
+                    }}
+                    id="title"
+                    label={t("Title")}
+                    onChange={handleTitleChange}
+                    name="title"
+                    autoComplete="title"
+                    error={state.isValidTitle === ValidField.ERROR}
+                    helperText={
+                      state.isValidTitle === ValidField.ERROR &&
+                      t("invalid.title")
+                    }
+                  />
+                  <RoundedTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="artist"
+                    label={t("artist")}
+                    inputProps={{
+                      defaultValue: Artwork.artist,
+                    }}
+                    onChange={handleArtistChange}
+                    name="artist"
+                    autoComplete="artist"
+                    error={state.isValidArtist === ValidField.ERROR}
+                    helperText={
+                      state.isValidArtist === ValidField.ERROR &&
+                      t("invalid.artist")
+                    }
+                  />
+                  <RoundedTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="description"
+                    label={t("description")}
+                    inputProps={{
+                      defaultValue: Artwork.description,
+                    }}
+                    multiline
+                    rows={4}
+                    onChange={handleDescriptionChange}
+                    name="description"
+                    autoComplete="description"
+                    error={state.isValidDescription === ValidField.ERROR}
+                    helperText={
+                      state.isValidDescription === ValidField.ERROR &&
+                      t("description.characters")
+                    }
+                  />
+                  <div className="flex justify-center ">
+                    {(images.length === 1 || images.length === 2) && (
+                      <div className="rounded-full bg-gray-100 w-12">
+                        <label htmlFor="icon-add-file">
+                          <Input
+                            accept="image/*"
+                            onChange={addImage}
+                            hidden
+                            id="icon-add-file"
+                            type="file"
                           />
-                        </IconButton>
-                      </label>
-                    </div>
-                  )}
-                </div>
+                          <IconButton
+                            aria-label="icon-add-file"
+                            component="span"
+                          >
+                            <AddAPhotoRoundedIcon
+                              sx={{ color: "#3a4551", fontSize: 23 }}
+                            />
+                          </IconButton>
+                        </label>
+                      </div>
+                    )}
+                  </div>
 
-                <div className="flex justify-center grid-col-2 gap-2 content-around py-2">
-                  {imagesFiles.image1File && (
-                    <div>
-                      <Avatar
-                        variant={"rounded"}
-                        alt=""
-                        src={`${
-                          Artwork.pictures[0].url !== imagesNames.image1Name
-                            ? imagesFiles.image1File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[0].url}`
-                        }`}
-                        sx={{ width: 180, height: 180 }}
-                      ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
-                        <div className="py-2">
-                          {/*<label
+                  <div className="flex justify-center grid-col-2 gap-2 content-around py-2">
+                    {imagesFiles.image1File && (
+                      <div>
+                        <Avatar
+                          variant={"rounded"}
+                          alt=""
+                          src={`${
+                            Artwork.pictures[0].url !== imagesNames.image1Name
+                              ? imagesFiles.image1File
+                              : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[0].url}`
+                          }`}
+                          sx={{ width: 180, height: 180 }}
+                        ></Avatar>
+                        <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
+                          <div className="py-2">
+                            {/*<label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -772,48 +816,49 @@ function ModifyArtWork(props: any) {
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
                       </label> */}
-                          <label
-                            htmlFor="icon-button-file1"
-                            className="my-0 ml-0"
-                          >
-                            <input
-                              accept="image/*"
-                              id="icon-button-file1"
-                              onChange={handleImagesChange1}
-                              type="file"
-                              name="file1"
-                              required
-                              hidden
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
+                            <label
+                              htmlFor="icon-button-file1"
+                              className="my-0 ml-0"
                             >
-                              <PhotoCamera />
-                            </IconButton>
-                          </label>
+                              <input
+                                accept="image/*"
+                                id="icon-button-file1"
+                                onChange={handleImagesChange1}
+                                type="file"
+                                name="file1"
+                                required
+                                hidden
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <PhotoCamera />
+                              </IconButton>
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  {imagesFiles.image2File && (
-                    <div>
-                      <Avatar
-                        variant={"rounded"}
-                        alt=""
-                        src={`${
-                          image2
-                            ? imagesFiles.image2File
-                            : Artwork.pictures[1].url !== imagesNames.image2Name
-                            ? imagesFiles.image2File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[1].url}`
-                        }`}
-                        sx={{ width: 180, height: 180 }}
-                      ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
-                        <div className="py-2">
-                          {/* <label
+                    )}
+                    {imagesFiles.image2File && (
+                      <div>
+                        <Avatar
+                          variant={"rounded"}
+                          alt=""
+                          src={`${
+                            image2
+                              ? imagesFiles.image2File
+                              : Artwork.pictures[1].url !==
+                                imagesNames.image2Name
+                              ? imagesFiles.image2File
+                              : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[1].url}`
+                          }`}
+                          sx={{ width: 180, height: 180 }}
+                        ></Avatar>
+                        <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
+                          <div className="py-2">
+                            {/* <label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -825,50 +870,51 @@ function ModifyArtWork(props: any) {
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
                       </label> */}
-                          <label
-                            htmlFor="icon-button-file2"
-                            className="my-0 ml-0"
-                          >
-                            <input
-                              accept="image/*"
-                              id="icon-button-file2"
-                              onChange={handleImagesChange2}
-                              type="file"
-                              name="file1"
-                              required
-                              hidden
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
+                            <label
+                              htmlFor="icon-button-file2"
+                              className="my-0 ml-0"
                             >
-                              <PhotoCamera />
-                            </IconButton>
-                          </label>
+                              <input
+                                accept="image/*"
+                                id="icon-button-file2"
+                                onChange={handleImagesChange2}
+                                type="file"
+                                name="file1"
+                                required
+                                hidden
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <PhotoCamera />
+                              </IconButton>
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-center  content-around py-2">
-                  {imagesFiles.image3File && (
-                    <div>
-                      <Avatar
-                        variant={"rounded"}
-                        alt=""
-                        src={`${
-                          image3
-                            ? imagesFiles.image3File
-                            : Artwork.pictures[2].url !== imagesNames.image3Name
-                            ? imagesFiles.image3File
-                            : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[2].url}`
-                        }`}
-                        sx={{ width: 180, height: 180 }}
-                      ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
-                        <div className="py-2">
-                          {/* <label
+                    )}
+                  </div>
+                  <div className="flex justify-center  content-around py-2">
+                    {imagesFiles.image3File && (
+                      <div>
+                        <Avatar
+                          variant={"rounded"}
+                          alt=""
+                          src={`${
+                            image3
+                              ? imagesFiles.image3File
+                              : Artwork.pictures[2].url !==
+                                imagesNames.image3Name
+                              ? imagesFiles.image3File
+                              : `./../${process.env.REACT_APP_IMAGES_PATH}${Artwork.pictures[2].url}`
+                          }`}
+                          sx={{ width: 180, height: 180 }}
+                        ></Avatar>
+                        <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
+                          <div className="py-2">
+                            {/* <label
                             htmlFor="icon-button-delelte-file1"
                             className="my-0 mr-4"
                           >
@@ -880,105 +926,106 @@ function ModifyArtWork(props: any) {
                               <AiFillDelete className="fill-red-500" />
                             </IconButton>
                       </label> */}
-                          <label
-                            htmlFor="icon-button-file3"
-                            className="my-0 ml-0"
-                          >
-                            <input
-                              accept="image/*"
-                              id="icon-button-file3"
-                              onChange={handleImagesChange3}
-                              type="file"
-                              name="file1"
-                              required
-                              hidden
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
+                            <label
+                              htmlFor="icon-button-file3"
+                              className="my-0 ml-0"
                             >
-                              <PhotoCamera />
-                            </IconButton>
-                          </label>
+                              <input
+                                accept="image/*"
+                                id="icon-button-file3"
+                                onChange={handleImagesChange3}
+                                type="file"
+                                name="file1"
+                                required
+                                hidden
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <PhotoCamera />
+                              </IconButton>
+                            </label>
+                          </div>
                         </div>
                       </div>
+                    )}
+                  </div>
+                  {state.isValidImages === ValidField.ERROR && (
+                    <Alert severity="error">{t("images.number")}</Alert>
+                  )}
+
+                  <Button
+                    style={{
+                      borderRadius: 35,
+                      backgroundColor: "#3a4551",
+                      padding: "12px 40px",
+                      margin: "15px 0 15px 0",
+                      fontSize: "13px",
+                      color: "white",
+                    }}
+                    variant="contained"
+                    endIcon={<MyLocationIcon />}
+                    onClick={(evt) => {
+                      setMapState(true);
+                    }}
+                    // className="mt-4 mb-2"
+                  >
+                    {t("location")}
+                  </Button>
+                  {addr !== "Rouen" && (
+                    <div className="pt-2 pb-3">
+                      <span className="font-medium text-sky-700 dark:text-[#00ab55] ">
+                        Address :
+                      </span>
+                      <span className="text-slate-700 dark:text-slate-400">
+                        &ensp;{addr}
+                      </span>
                     </div>
                   )}
-                </div>
-                {state.isValidImages === ValidField.ERROR && (
-                  <Alert severity="error">{t("images.number")}</Alert>
-                )}
-
-                <Button
-                  style={{
-                    borderRadius: 35,
-                    backgroundColor: "#3a4551",
-                    padding: "12px 40px",
-                    margin: "15px 0 15px 0",
-                    fontSize: "13px",
-                    color: "white",
-                  }}
-                  variant="contained"
-                  endIcon={<MyLocationIcon />}
-                  onClick={(evt) => {
-                    setMapState(true);
-                  }}
-                  // className="mt-4 mb-2"
-                >
-                  {t("location")}
-                </Button>
-                {addr !== "Rouen" && (
-                  <div className="pt-2 pb-3">
-                    <label className="font-medium text-sky-700 ">
-                      {t("address")}
-                    </label>
-                    <span className="text-slate-700 dark:text-slate-500">
-                      &ensp;{addr}
-                    </span>
-                  </div>
-                )}
-                {mapState && (
-                  <FormMap
-                    closeMap={(mapState: any) => {
-                      setMapState(mapState);
-                      handlePositionChange();
-                    }}
-                    lat={lat}
-                    long={long}
-                    getLat={(mapLat: any) => setLat(mapLat)}
-                    getLong={(mapLong: any) => setLong(mapLong)}
-                  />
-                )}
-                {state.isValidPosition === ValidField.ERROR && (
-                  <Alert severity="error">{t("invalid.position")}</Alert>
-                )}
-                <Divider variant="middle" />
-                <div className="centreD p-5 ">
-                  <ThemeProvider theme={loadingBtnTheme}>
-                    <LoadingButton
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      disabled={!state.isValidForm}
-                      loading={isLoading}
-                      sx={{
-                        width: "263px",
-                        margin: "10px 0px",
-                        height: "54px",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                        lineHeight: "21px",
+                  {mapState && (
+                    <FormMap
+                      closeMap={(mapState: any) => {
+                        setMapState(mapState);
+                        handlePositionChange();
                       }}
-                    >
-                      {t("valider")}
-                    </LoadingButton>
-                  </ThemeProvider>
+                      lat={lat}
+                      long={long}
+                      getLat={(mapLat: any) => setLat(mapLat)}
+                      getLong={(mapLong: any) => setLong(mapLong)}
+                    />
+                  )}
+                  {state.isValidPosition === ValidField.ERROR && (
+                    <Alert severity="error">{t("invalid.position")}</Alert>
+                  )}
+                  <Divider variant="middle" />
+                  <div className="centreD p-5 ">
+                    <ThemeProvider theme={loadingBtnTheme}>
+                      <LoadingButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        disabled={!state.isValidForm}
+                        loading={isLoading}
+                        sx={{
+                          width: "263px",
+                          margin: "10px 0px",
+                          height: "54px",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                          lineHeight: "21px",
+                        }}
+                      >
+                        {t("valider")}
+                      </LoadingButton>
+                    </ThemeProvider>
+                  </div>
                 </div>
-              </div>
+              </Box>
             </Box>
-          </Box>
-        </Container>
+          </Container>
+        </ThemeProvider>
       )}
     </>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable dot-notation */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import { ListItemText } from "@mui/material";
@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
 import RoundedTextField from "./RoundedTextField";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 export default function Map(props: any) {
   const { points, setselectedArtWork } = props;
@@ -122,11 +123,10 @@ export default function Map(props: any) {
       zoom: expansionZoom,
     });
   }
-
-  const mapStyle =
-    localStorage.theme === "dark"
-      ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
-      : process.env.REACT_APP_MAPBOX_STYLE;
+  const loginCtx = useContext(LoginContext);
+  const mapStyle = loginCtx.darkMode
+    ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
+    : process.env.REACT_APP_MAPBOX_STYLE;
 
   return (
     <ReactMapGL
@@ -162,6 +162,7 @@ export default function Map(props: any) {
           marginLeft: "1%",
           marginTop: "1%",
           width: "98%",
+          zIndex: 1,
         }}
         value={value}
         onChange={handleSearchBarChange}
@@ -201,10 +202,14 @@ export default function Map(props: any) {
                 TransitionComponent={Fade}
                 PaperProps={{
                   style: {
-                    width: 100,
+                    width: 220,
                   },
                 }}
               >
+                <div className="px-4 py-2 text-gray-700 uppercase">
+                  {t("search.arts")}
+                </div>
+                <Divider orientation="horizontal" flexItem />
                 <MenuItem
                   onClick={() => {
                     setFilter("Ville");
@@ -212,17 +217,22 @@ export default function Map(props: any) {
                   }}
                 >
                   {filter === "Ville" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      {t("city")}
+                    <ListItemText
+                      style={{
+                        paddingLeft: 30,
+                        color: "#00ab55",
+                      }}
+                    >
+                      {t("filter.city")}
                     </ListItemText>
                   )}
                   {filter === "Titre" && (
-                    <ListItemText style={{ paddingLeft: 30 }}>
-                      {t("city")}
+                    <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                      {t("filter.city")}
                     </ListItemText>
                   )}
                 </MenuItem>
-                <Divider orientation="horizontal" flexItem />
+
                 <MenuItem
                   onClick={() => {
                     setFilter("Titre");
@@ -230,13 +240,18 @@ export default function Map(props: any) {
                   }}
                 >
                   {filter === "Titre" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      {t("Title")}
+                    <ListItemText
+                      style={{
+                        paddingLeft: 30,
+                        color: "#00ab55",
+                      }}
+                    >
+                      {t("filter.title")}
                     </ListItemText>
                   )}
                   {filter === "Ville" && (
-                    <ListItemText style={{ paddingLeft: 30 }}>
-                      {t("Title")}
+                    <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                      {t("filter.title")}
                     </ListItemText>
                   )}
                 </MenuItem>

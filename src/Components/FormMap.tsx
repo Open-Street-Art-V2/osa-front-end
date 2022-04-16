@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import ReactMapGL, {
   NavigationControl,
@@ -11,6 +11,7 @@ import { RiMapPinFill } from "react-icons/ri";
 import { GrClose } from "react-icons/gr";
 import { Box } from "@mui/material";
 import { StyledModal, Backdrop } from "./utils/types";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 type mapView = {
   latitude: number;
@@ -52,6 +53,10 @@ function FormMap(props: any) {
     zoom: 10,
   });
   const mapRef = useRef<any>();
+  const loginCtx = useContext(LoginContext);
+  const mapStyle = loginCtx.darkMode
+    ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
+    : process.env.REACT_APP_MAPBOX_STYLE;
   return (
     <>
       <StyledModal
@@ -69,7 +74,7 @@ function FormMap(props: any) {
             {...viewport}
             className="rounded-3xl"
             maxZoom={18}
-            mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+            mapStyle={mapStyle}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             onViewportChange={(newViewport: mapView) => {
               setViewport({ ...newViewport });
@@ -94,7 +99,7 @@ function FormMap(props: any) {
             />
             {lat && long && (
               <Marker latitude={lat} longitude={long}>
-                <RiMapPinFill className="text-2xl text-slate-500" />
+                <RiMapPinFill className="text-2xl text-slate-500 dark:text-white" />
               </Marker>
             )}
           </ReactMapGL>
