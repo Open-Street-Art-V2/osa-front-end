@@ -19,16 +19,19 @@ function Profile(props: Props) {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const { user, isEditable } = props;
+  const isOwnProfile = user?.id === loginCtx?.user?.id;
 
   return (
     <>
       {!isEditable && (
         <div
           className={
-            loginCtx.isLoggedIn ? "flex justify-end -mb-2 -mt-3 pr-5" : ""
+            loginCtx.isLoggedIn && !isOwnProfile
+              ? "flex justify-end -mb-2 -mt-3 pr-5"
+              : ""
           }
         >
-          {user && loginCtx.isLoggedIn && (
+          {user && loginCtx.isLoggedIn && !isOwnProfile && (
             <FavoriteStar id={user.id} isArt={false} />
           )}
         </div>
