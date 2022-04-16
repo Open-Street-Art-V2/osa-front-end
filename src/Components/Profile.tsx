@@ -76,12 +76,11 @@ function Profile(props: Props) {
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600" />
                 </div>
-                <div className="col-span-2">
-                  <div className="flex items-center text-black-800 font-bold text-lg ">
-                    {t("contributions.upper")}
-                  </div>
-                  {/*  <p className="text-gray-600 ">64</p> */}
+
+                <div className="col-span-2 flex items-center text-black-800 font-bold text-lg ">
+                  {t("contributions.upper")}
                 </div>
+
                 <div className="flex items-center text-3xl pl-6">
                   <AiOutlineRight className="text-gray-600" />
                 </div>
@@ -99,12 +98,10 @@ function Profile(props: Props) {
             <div className="flex items-center text-right text-5xl">
               <FaUserGraduate className="text-gray-600" />
             </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg ">
-                {t("favorite.artists")}
-              </div>
-              {/* <p className="text-gray-600 ">11</p> */}
+            <div className="col-span-2 flex items-center text-black-800 font-bold text-lg ">
+              {t("favorite.artists")}
             </div>
+
             <div className="flex items-center text-3xl pl-6">
               <AiOutlineRight className="text-gray-600" />
             </div>
@@ -117,11 +114,9 @@ function Profile(props: Props) {
             <div className="flex items-center text-right text-5xl">
               <BsPaletteFill className="text-gray-600" />
             </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg ">
-                {t("favorite.arts")}
-              </div>
-              {/* <p className="text-gray-600 ">23</p> */}
+
+            <div className="col-span-2 flex items-center text-black-800 font-bold text-lg ">
+              {t("favorite.arts")}
             </div>
             <div className="flex items-center text-3xl pl-6">
               <AiOutlineRight className="text-gray-600" />
