@@ -17,7 +17,7 @@ export default function ArtworkProposal(props: any) {
         {data.pictures[0] && (
           <img
             className="object-cover justify-self-center self-center w-32 h-24 rounded-3xl"
-            src={`./../${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
+            src={`${process.env.REACT_APP_DOMAIN}/${process.env.REACT_APP_IMAGES_PATH}${data.pictures[0].url}`}
             alt="Failed to load"
             onLoad={handleImageLoad}
             style={imageLoaded ? {} : { display: "none" }}
