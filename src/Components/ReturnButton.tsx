@@ -25,7 +25,7 @@ function ReturnButton({ goBack, url, state }: Props) {
 
   return (
     <Link
-      to={url}
+      to={url!}
       state={state}
       className="flex items-center dark:text-slate-200"
     >
