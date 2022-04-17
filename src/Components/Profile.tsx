@@ -78,11 +78,8 @@ function Profile(props: Props) {
                 <div className="flex items-center text-5xl">
                   <AiFillPlusSquare className="text-gray-600 dark:fill-white" />
                 </div>
-                <div className="col-span-2">
-                  <div className="flex items-center text-black-800 font-bold text-lg dark:text-white ">
-                    {t("contributions.upper")}
-                  </div>
-                  {/*  <p className="text-gray-600 ">64</p> */}
+                <div className="col-span-2 flex items-center text-black-800 font-bold text-lg dark:text-white ">
+                  {t("contributions.upper")}
                 </div>
 
                 <div className="flex items-center text-3xl pl-6">
