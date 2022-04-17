@@ -44,7 +44,7 @@ function Details(props: PropsDetails) {
       </Box>
 
       <Box>
-        <p className="pb-5 text-base text-right text-sky-700 ">
+        <p className="pb-5 text-base text-right text-sky-700 dark:text-darkModeTextSec">
           <Moment date={data.created_at} format="DD/MM/YYYY" />
         </p>
       </Box>
@@ -55,20 +55,24 @@ function Details(props: PropsDetails) {
 
       <Box>
         <div className="py-4">
-          <div className="font-bold text-xl mb-2">
+          <div className="font-bold text-xl mb-2 dark:text-white">
             {t("Title")} : {data.title}
           </div>
           <blockquote>
-            <p className="text-gray-700 text-base">{data.description}</p>
+            <p className="text-gray-700 text-base dark:text-darkModeTextPrem">
+              {data.description}
+            </p>
           </blockquote>
           <figcaption className="font-medium">
             {data.artist && (
-              <div className="text-lg mt-3 mb-2">
-                <span className="font-bold">{t("artist")} : </span>
+              <div className="text-lg mt-3 dark:text-white">
+                <span className="font-bold dark:text-darkModeTextSec">
+                  Artiste :
+                </span>
                 {data.artist}
               </div>
             )}
-            <div className="text-slate-700 dark:text-slate-500">
+            <div className="text-slate-700 dark:text-slate-400">
               {data.address}, {data.city}
             </div>
           </figcaption>
