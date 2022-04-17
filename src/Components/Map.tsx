@@ -166,10 +166,10 @@ export default function Map(props: any) {
         }`}
         style={{
           borderRadius: "12px",
-          marginRight: "1%",
-          marginLeft: "1%",
+          marginRight: "2%",
+          marginLeft: "2%",
           marginTop: "1%",
-          width: "98%",
+          width: "96%",
           zIndex: 1,
         }}
         value={value}
@@ -224,18 +224,19 @@ export default function Map(props: any) {
                       handleClose();
                     }}
                   >
-                    {filter === "Ville" && (
+                    {filter === "Ville" ? (
                       <ListItemText
                         style={{
                           paddingLeft: 30,
-                          color: "#00ab55",
+                          color: "#48cb77",
                         }}
                       >
                         {t("filter.city")}
                       </ListItemText>
-                    )}
-                    {filter === "Titre" && (
-                      <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                    ) : (
+                      <ListItemText
+                        style={{ paddingLeft: 30, color: "#cdcbc9" }}
+                      >
                         {t("filter.city")}
                       </ListItemText>
                     )}
@@ -247,7 +248,7 @@ export default function Map(props: any) {
                       handleClose();
                     }}
                   >
-                    {filter === "Titre" && (
+                    {filter === "Titre" ? (
                       <ListItemText
                         style={{
                           paddingLeft: 30,
@@ -256,9 +257,10 @@ export default function Map(props: any) {
                       >
                         {t("filter.title")}
                       </ListItemText>
-                    )}
-                    {filter === "Ville" && (
-                      <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                    ) : (
+                      <ListItemText
+                        style={{ paddingLeft: 30, color: "#cdcbc9" }}
+                      >
                         {t("filter.title")}
                       </ListItemText>
                     )}
@@ -267,17 +269,6 @@ export default function Map(props: any) {
               </ThemeProvider>
             </InputAdornment>
           ),
-        }}
-      />
-      <GeolocateControl
-        className="top-16 left-2 z-10"
-        showUserHeading
-        positionOptions={{ enableHighAccuracy: true }}
-        trackUserLocation
-        auto
-        onGeolocate={(PositionOptions: any) => {
-          props.getUserLat(PositionOptions["coords"].latitude);
-          props.getUserLong(PositionOptions["coords"].longitude);
         }}
       />
 

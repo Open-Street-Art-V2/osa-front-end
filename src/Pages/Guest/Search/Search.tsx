@@ -179,8 +179,8 @@ function Search() {
 
   const getFilterShow = (filter: string) => {
     return currentFilter.current === filter
-      ? "text-[#00ab55] block px-8 py-1.5"
-      : "text-gray-500 dark:text-darkModeTextPrem block px-8 py-1.5";
+      ? "text-[#00ab55] dark:text-green-400 block px-8 py-1.5"
+      : "text-gray-500 dark:text-stone-300 block px-8 py-1.5";
   };
 
   return (
@@ -192,7 +192,7 @@ function Search() {
         <div className="relative z-10 mt-5 mx-3">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
+              className="w-5 h-5 text-gray-500 dark:text-gray-200"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@ function Search() {
           <input
             type="text"
             id="search-input"
-            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 dark:bg-black dark:text-white rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
+            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 dark:bg-black dark:text-white dark:placeholder:text-[#656565] rounded-xl border border-gray-200 sm:text-sm outline-gray-200 dark:outline-none"
             placeholder={t(`search.placeholder.${currentFilter.current}`)}
             value={search}
             onChange={handleInputChange}
