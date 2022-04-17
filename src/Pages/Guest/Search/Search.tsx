@@ -179,8 +179,8 @@ function Search() {
 
   const getFilterShow = (filter: string) => {
     return currentFilter.current === filter
-      ? "text-gray-900 font-semibold block px-8 py-1.5"
-      : "text-gray-500 block px-8 py-1.5";
+      ? "text-[#00ab55] block px-8 py-1.5"
+      : "text-gray-500 dark:text-darkModeTextPrem block px-8 py-1.5";
   };
 
   return (
@@ -208,14 +208,19 @@ function Search() {
           <input
             type="text"
             id="search-input"
-            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
+            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 dark:bg-black dark:text-white rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
             placeholder={t(`search.placeholder.${currentFilter.current}`)}
             value={search}
             onChange={handleInputChange}
           />
 
-          <div className="flex absolute inset-y-0 right-8 items-center pr-3 text-gray-500">
-            <button type="button" id="search-button" onClick={handleClick}>
+          <div className="flex absolute inset-y-0 right-8 items-center pr-3 text-gray-500 ">
+            <button
+              type="button"
+              id="search-button"
+              className="dark:text-white"
+              onClick={handleClick}
+            >
               {t("ok")}
             </button>
           </div>
@@ -227,19 +232,19 @@ function Search() {
               id="menu-button"
               onClick={() => setOpen(!open)}
             >
-              <FilterListIcon />
+              <FilterListIcon className="dark:fill-white" />
             </button>
           </div>
 
           {open && (
-            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white dark:bg-[#302c2c]  ring-1 ring-black ring-opacity-5 focus:outline-none">
               {filters.map((section, index) => {
                 return (
                   <div
                     key={section.sectionName}
                     className={index === 0 ? "py-1" : "py-1 border-t-2"}
                   >
-                    <div className="px-4 py-2 text-gray-700 uppercase">
+                    <div className="px-4 py-2 text-gray-700 dark:text-white uppercase">
                       {t(`search.${section.sectionName}`)}
                     </div>
                     {section.sectionFilters.map((filter) => {

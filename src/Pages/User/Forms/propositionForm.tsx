@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 import { useTranslation } from "react-i18next";
 import { Box } from "@mui/material";
 import NavBarUser from "../../../Components/NavBarUser";
@@ -10,12 +12,36 @@ import { StyledModal, Backdrop } from "../../../Components/utils/types";
 function cForm() {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
+  const darkTheme = loginCtx.darkMode
+    ? createTheme({
+        palette: {
+          mode: "dark",
+        },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "white",
+                },
+              },
+            },
+          },
+        },
+      })
+    : createTheme({
+        palette: {
+          mode: "light",
+        },
+      });
 
   return (
-    <div className="dark:bg-darkModePrim">
+    <div>
       <Header />
       {loginCtx.isLoggedIn ? (
-        <CreatePropositionArtWork />
+        <ThemeProvider theme={darkTheme}>
+          <CreatePropositionArtWork />
+        </ThemeProvider>
       ) : (
         <StyledModal
           open

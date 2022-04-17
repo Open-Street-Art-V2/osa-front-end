@@ -28,7 +28,7 @@ export default function SignUp() {
     },
   }); */
   return (
-    <div className="container dark:bg-darkModePrim">
+    <div className="container ">
       <Header />
       <div className="ml-4 mt-4 dark:text-white ">
         <ReturnButton url="/" />

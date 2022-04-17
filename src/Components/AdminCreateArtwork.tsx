@@ -199,32 +199,6 @@ function CreateArtWork(props: any) {
   const [addrRequestError, setAddrRequestError] = useState(null);
   const navigate = useNavigate();
   const loginCtx = useContext(LoginContext);
-  const darkTheme = loginCtx.darkMode
-    ? createTheme({
-        palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
-        },
-        components: {
-          MuiTextField: {
-            styleOverrides: {
-              root: {
-                "& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: loginCtx.darkMode ? "white" : "black",
-                  },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: loginCtx.darkMode ? "white" : "black",
-                },
-              },
-            },
-          },
-        },
-      })
-    : createTheme({
-        palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
-        },
-      });
 
   useEffect(() => {
     if (loginCtx.user?.role !== "ROLE_ADMIN") {
@@ -368,265 +342,255 @@ function CreateArtWork(props: any) {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Container component="main" maxWidth="xs" className="px-5 pb-24">
-        <CssBaseline />
+    <Container component="main" maxWidth="xs" className="px-5 pb-24">
+      <CssBaseline />
 
-        <Box
-          sx={{
-            marginTop: 0,
-            width: "100%",
-            display: "absolute",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 3 }}
-          >
-            <div className="text-center">
-              <p className="py-4 font-sans text-2xl font-bold">
-                {t("add.art")}
-              </p>
-              <div className="px-5 pb-4">
-                <AnimatePresence initial exitBeforeEnter>
-                  {requestError && (
-                    <motion.div
-                      variants={{
-                        hidden: {
-                          scale: 0.5,
-                          y: "+30vh",
-                          opacity: 0,
+      <Box
+        sx={{
+          marginTop: 0,
+          width: "100%",
+          display: "absolute",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
+          <div className="text-center">
+            <p className="py-4 font-sans text-2xl font-bold">{t("add.art")}</p>
+            <div className="px-5 pb-4">
+              <AnimatePresence initial exitBeforeEnter>
+                {requestError && (
+                  <motion.div
+                    variants={{
+                      hidden: {
+                        scale: 0.5,
+                        y: "+30vh",
+                        opacity: 0,
+                      },
+                      visible: {
+                        y: "0",
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          duration: 0.5,
+                          type: "spring",
+                          damping: 25,
+                          stiffness: 400,
                         },
-                        visible: {
-                          y: "0",
-                          opacity: 1,
-                          scale: 1,
-                          transition: {
-                            duration: 0.5,
-                            type: "spring",
-                            damping: 25,
-                            stiffness: 400,
-                          },
+                      },
+                      exit: {
+                        x: "-30vh",
+                        opacity: 0,
+                        scale: 0.5,
+                        transition: {
+                          duration: 0.3,
                         },
-                        exit: {
-                          x: "-30vh",
-                          opacity: 0,
-                          scale: 0.5,
-                          transition: {
-                            duration: 0.3,
-                          },
-                        },
-                      }}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
+                      },
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <Alert
+                      severity="error"
+                      className="dark:text-white dark:bg-[#FB9B9B]"
                     >
-                      <Alert
-                        severity="error"
-                        className="dark:text-white dark:bg-[#FB9B9B]"
-                      >
-                        {requestError}
-                      </Alert>
-                    </motion.div>
-                  )}
-                  {requestValid && (
-                    <motion.div
-                      variants={{
-                        hidden: {
-                          scale: 0.5,
-                          y: "+30vh",
-                          opacity: 0,
+                      {requestError}
+                    </Alert>
+                  </motion.div>
+                )}
+                {requestValid && (
+                  <motion.div
+                    variants={{
+                      hidden: {
+                        scale: 0.5,
+                        y: "+30vh",
+                        opacity: 0,
+                      },
+                      visible: {
+                        y: "0",
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          duration: 0.5,
+                          type: "spring",
+                          damping: 25,
+                          stiffness: 400,
                         },
-                        visible: {
-                          y: "0",
-                          opacity: 1,
-                          scale: 1,
-                          transition: {
-                            duration: 0.5,
-                            type: "spring",
-                            damping: 25,
-                            stiffness: 400,
-                          },
+                      },
+                      exit: {
+                        x: "-30vh",
+                        opacity: 0,
+                        scale: 0.5,
+                        transition: {
+                          duration: 0.3,
                         },
-                        exit: {
-                          x: "-30vh",
-                          opacity: 0,
-                          scale: 0.5,
-                          transition: {
-                            duration: 0.3,
-                          },
-                        },
-                      }}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
+                      },
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <Alert
+                      severity="success"
+                      className="dark:text-white dark:bg-[#00ab55]"
                     >
-                      <Alert
-                        severity="success"
-                        className="dark:text-white dark:bg-[#00ab55]"
-                      >
-                        {requestValid}
-                      </Alert>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                      {requestValid}
+                    </Alert>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-              <RoundedTextField
-                margin="normal"
-                required
-                fullWidth
-                id="title"
-                label={t("Title")}
-                onChange={handleTitleChange}
-                name="title"
-                autoComplete="title"
-                error={state.isValidTitle === ValidField.ERROR}
-                helperText={
-                  state.isValidTitle === ValidField.ERROR && t("invalid.title")
-                }
-              />
+            <RoundedTextField
+              margin="normal"
+              required
+              fullWidth
+              id="title"
+              label={t("Title")}
+              onChange={handleTitleChange}
+              name="title"
+              autoComplete="title"
+              error={state.isValidTitle === ValidField.ERROR}
+              helperText={
+                state.isValidTitle === ValidField.ERROR && t("invalid.title")
+              }
+            />
 
-              <RoundedTextField
-                margin="normal"
-                fullWidth
-                id="artist"
-                label={t("artist")}
-                onChange={handleArtistChange}
-                name="artist"
-                autoComplete="artist"
-                error={state.isValidArtist === ValidField.ERROR}
-                helperText={
-                  state.isValidArtist === ValidField.ERROR &&
-                  t("invalid.artist")
-                }
-              />
+            <RoundedTextField
+              margin="normal"
+              fullWidth
+              id="artist"
+              label={t("artist")}
+              onChange={handleArtistChange}
+              name="artist"
+              autoComplete="artist"
+              error={state.isValidArtist === ValidField.ERROR}
+              helperText={
+                state.isValidArtist === ValidField.ERROR && t("invalid.artist")
+              }
+            />
 
-              <RoundedTextField
-                margin="normal"
-                required
-                fullWidth
-                id="description"
-                label={t("art.description")}
-                multiline
-                rows={4}
-                onChange={handleDescriptionChange}
-                name="description"
-                autoComplete="description"
-                error={state.isValidDescription === ValidField.ERROR}
-                helperText={
-                  state.isValidDescription === ValidField.ERROR &&
-                  t("description.characters")
-                }
-              />
-              <Divider variant="middle" />
+            <RoundedTextField
+              margin="normal"
+              required
+              fullWidth
+              id="description"
+              label={t("art.description")}
+              multiline
+              rows={4}
+              onChange={handleDescriptionChange}
+              name="description"
+              autoComplete="description"
+              error={state.isValidDescription === ValidField.ERROR}
+              helperText={
+                state.isValidDescription === ValidField.ERROR &&
+                t("description.characters")
+              }
+            />
+            <Divider variant="middle" />
 
-              <div className="flex flex-row px-5 pb-0 pt-4 ">
-                <Typography gutterBottom variant="h5" component="div">
-                  {t("add.photos")}
-                </Typography>
-              </div>
-              <div className="text-center justify-center">
-                <FileUploader
-                  getImages={(imagesF: any) => setImages(imagesF)}
-                  updateImage={(imagesF: any) => {
-                    setImages(imagesF);
-                  }}
-                  removeImage={(imagesF: any) => {
-                    setImages(imagesF);
-                  }}
-                  addImage={(imagesF: any) => {
-                    setImages(imagesF);
-                  }}
-                />
-              </div>
-              {state.isValidImages === ValidField.ERROR && (
-                <Alert severity="error">{t("images.number")}</Alert>
-              )}
-
-              <Button
-                style={{
-                  borderRadius: 35,
-                  backgroundColor: "#3a4551",
-                  padding: "12px 40px",
-                  margin: "10px 0 10px 0",
-                  fontSize: "13px",
-                  color: "white",
+            <div className="flex flex-row px-5 pb-0 pt-4 ">
+              <Typography gutterBottom variant="h5" component="div">
+                {t("add.photos")}
+              </Typography>
+            </div>
+            <div className="text-center justify-center">
+              <FileUploader
+                getImages={(imagesF: any) => setImages(imagesF)}
+                updateImage={(imagesF: any) => {
+                  setImages(imagesF);
                 }}
-                variant="contained"
-                endIcon={<MyLocationIcon />}
-                onClick={() => {
-                  setMapState(true);
+                removeImage={(imagesF: any) => {
+                  setImages(imagesF);
                 }}
-              >
-                {t("position.enter")}
-              </Button>
-              {addr !== "Rouen" && (
-                <div className="pt-2 pb-3">
-                  <span className="font-medium text-sky-700 dark:text-[#00ab55] ">
-                    Address :
-                  </span>
-                  <span className="text-slate-700 dark:text-slate-400">
-                    &ensp;{addr}
-                  </span>
-                </div>
-              )}
-              {mapState && (
-                <FormMap
-                  closeMap={(mapstate: any) => {
-                    setMapState(mapstate);
-                    handlePositionChange();
-                  }}
-                  getLat={(mapLat: any) => setLat(mapLat)}
-                  getLong={(mapLong: any) => setLong(mapLong)}
-                />
-              )}
-              {addrRequestError && (
-                <Alert severity="error">{addrRequestError}</Alert>
-              )}
-              {state.isValidPosition === ValidField.ERROR && (
-                <Alert severity="error">{t("position.invalid")}</Alert>
-              )}
+                addImage={(imagesF: any) => {
+                  setImages(imagesF);
+                }}
+              />
+            </div>
+            {state.isValidImages === ValidField.ERROR && (
+              <Alert severity="error">{t("images.number")}</Alert>
+            )}
 
-              <Divider variant="middle" />
+            <Button
+              style={{
+                borderRadius: 35,
+                backgroundColor: "#3a4551",
+                padding: "12px 40px",
+                margin: "10px 0 10px 0",
+                fontSize: "13px",
+                color: "white",
+              }}
+              variant="contained"
+              endIcon={<MyLocationIcon />}
+              onClick={() => {
+                setMapState(true);
+              }}
+            >
+              {t("position.enter")}
+            </Button>
+            {addr !== "Rouen" && (
+              <div className="pt-2 pb-3">
+                <span className="font-medium text-sky-700 dark:text-[#00ab55] ">
+                  Address :
+                </span>
+                <span className="text-slate-700 dark:text-slate-400">
+                  &ensp;{addr}
+                </span>
+              </div>
+            )}
+            {mapState && (
+              <FormMap
+                closeMap={(mapstate: any) => {
+                  setMapState(mapstate);
+                  handlePositionChange();
+                }}
+                getLat={(mapLat: any) => setLat(mapLat)}
+                getLong={(mapLong: any) => setLong(mapLong)}
+              />
+            )}
+            {addrRequestError && (
+              <Alert severity="error">{addrRequestError}</Alert>
+            )}
+            {state.isValidPosition === ValidField.ERROR && (
+              <Alert severity="error">{t("position.invalid")}</Alert>
+            )}
 
-              <div className="px-5 pb-3 pt-4">
-                <div className="centreD pt-6">
-                  <ThemeProvider theme={loadingBtnTheme}>
-                    <LoadingButton
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      disabled={
-                        !state.isValidForm ||
-                        addrRequestError ===
-                          "Veuillez choisir une position valide."
-                      }
-                      loading={isLoading}
-                      sx={{
-                        width: "263px",
-                        margin: "10px 0px",
-                        height: "54px",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                        lineHeight: "21px",
-                        color: "#ffffff",
-                      }}
-                    >
-                      {t("valider")}
-                    </LoadingButton>
-                  </ThemeProvider>
-                </div>
+            <Divider variant="middle" />
+
+            <div className="px-5 pb-3 pt-4">
+              <div className="centreD pt-6">
+                <ThemeProvider theme={loadingBtnTheme}>
+                  <LoadingButton
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={
+                      !state.isValidForm ||
+                      addrRequestError ===
+                        "Veuillez choisir une position valide."
+                    }
+                    loading={isLoading}
+                    sx={{
+                      width: "263px",
+                      margin: "10px 0px",
+                      height: "54px",
+                      fontWeight: "500",
+                      fontSize: "18px",
+                      lineHeight: "21px",
+                      color: "#ffffff",
+                    }}
+                  >
+                    {t("valider")}
+                  </LoadingButton>
+                </ThemeProvider>
               </div>
             </div>
-          </Box>
+          </div>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }
 

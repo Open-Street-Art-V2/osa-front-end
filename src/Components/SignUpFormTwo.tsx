@@ -46,18 +46,14 @@ export default function SignUpFormTwo(props: Props) {
   const darkTheme = loginCtx.darkMode
     ? createTheme({
         palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
+          mode: "dark",
         },
         components: {
           MuiTextField: {
             styleOverrides: {
               root: {
-                "& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: loginCtx.darkMode ? "white" : "black",
-                  },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: loginCtx.darkMode ? "white" : "black",
+                  borderColor: "white",
                 },
               },
             },
@@ -66,7 +62,7 @@ export default function SignUpFormTwo(props: Props) {
       })
     : createTheme({
         palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
+          mode: "light",
         },
       });
 
