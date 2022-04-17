@@ -150,9 +150,9 @@ function DetailsUser() {
                           ? t("alert.banTitle")
                           : t("alert.roleTitle")}
                       </p>
-                      <div className="flex flex-col mb-6 mt-3 mx-5 justify-between">
+                      <div className="flex flex-col mb-6 mt-3 mx-3 justify-between">
                         <p className="text-md font-medium text-slate-500">
-                          {t("alert.msg")}
+                          {showModalBan ? t("alert.msgRev") : t("alert.msg")}
                         </p>
                       </div>
                       <div className="flex flex-row justify-around">

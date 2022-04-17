@@ -69,7 +69,7 @@ function UserTrophies() {
         </div>
         <div
           id="scrollableDiv"
-          className="overflow-auto h-[calc(100vh-364px)] py-2"
+          className="overflow-auto h-[calc(100vh-214px)] py-2 pb-20"
         >
           {isLoading &&
             skeletons.map((item: any) => {
