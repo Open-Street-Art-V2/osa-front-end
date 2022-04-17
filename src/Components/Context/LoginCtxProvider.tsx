@@ -10,15 +10,19 @@ type Props = {
 type LoginContextType = {
   user: User | null;
   isLoggedIn: boolean;
+  darkMode: boolean;
   setUser: (user: User | null) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
+  setDarkMode: (darkMode: boolean) => void;
 };
 
 export const LoginContext = createContext<LoginContextType>({
   user: null,
   isLoggedIn: false,
+  darkMode: false,
   setUser: () => {},
   setIsLoggedIn: () => {},
+  setDarkMode: () => {},
 });
 
 function LoginCtxProvider(props: Props) {
@@ -30,6 +34,10 @@ function LoginCtxProvider(props: Props) {
         }
       : null
   );
+  const [darkMode, setDarkMode] = useState<boolean>(
+    localStorage.getItem("theme") === "dark"
+  );
+
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("jwt") && localStorage.getItem("user") ? true : false
   );
@@ -40,13 +48,19 @@ function LoginCtxProvider(props: Props) {
     setIsLoggedIn(loginStatus);
   };
 
+  const darkModeHandler = (darkMode: boolean) => {
+    setDarkMode(darkMode);
+  };
+
   return (
     <LoginContext.Provider
       value={{
         user,
         isLoggedIn,
+        darkMode,
         setUser: userHandler,
         setIsLoggedIn: isLoggedInHandler,
+        setDarkMode: darkModeHandler,
       }}
     >
       {props.children}

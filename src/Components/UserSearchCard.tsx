@@ -14,7 +14,7 @@ export default function UserSearchCard(props: Props) {
         <FcManager className="w-20 h-20" />
       </div>
       <div className="grid place-content-evenly overflow-hidden ml-3">
-        <div className="text-slate-900 text-lg overflow-hidden">
+        <div className="text-slate-900 text-lg dark:text-white overflow-hidden">
           {data?.firstname} {data?.name}
         </div>
       </div>

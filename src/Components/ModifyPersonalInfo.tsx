@@ -41,6 +41,10 @@ declare module "@mui/material/styles" {
 
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
@@ -400,6 +404,11 @@ function ModifyPersonalInfo(props: Props) {
       });
     }
   }, [firstNameDis, nameDis, emailDis, passwordDis, dateDis]);
+
+  // if (loginCtx.theme === "dark") {
+
+  //  } */
+
   return (
     <Container component="main" maxWidth="xs" className="px-5 pb-20">
       <CssBaseline />
@@ -451,7 +460,12 @@ function ModifyPersonalInfo(props: Props) {
                     animate="visible"
                     exit="exit"
                   >
-                    <Alert severity="error">{requestError}</Alert>
+                    <Alert
+                      severity="error"
+                      className="dark:text-white dark:bg-[#FB9B9B]"
+                    >
+                      {requestError}
+                    </Alert>
                   </motion.div>
                 )}
                 {requestValid && (
@@ -486,7 +500,12 @@ function ModifyPersonalInfo(props: Props) {
                     animate="visible"
                     exit="exit"
                   >
-                    <Alert severity="success">{requestValid}</Alert>
+                    <Alert
+                      severity="success"
+                      className="dark:text-white dark:bg-[#00ab55]"
+                    >
+                      {requestValid}
+                    </Alert>
                   </motion.div>
                 )}
               </AnimatePresence>

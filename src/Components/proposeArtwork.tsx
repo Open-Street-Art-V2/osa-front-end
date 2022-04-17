@@ -24,6 +24,10 @@ import RoundedTextField from "./RoundedTextField";
 
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
@@ -177,8 +181,8 @@ function CreateArtWork() {
   const [requestValid, setRequestValid] = useState(null);
   const [addrRequestError, setAddrRequestError] = useState(null);
   const navigate = useNavigate();
-
   const loginCtx = useContext(LoginContext);
+
   useEffect(() => {
     if (loginCtx.isLoggedIn && loginCtx.user?.role === "ROLE_ADMIN") {
       navigate("/map/admin");
@@ -376,7 +380,12 @@ function CreateArtWork() {
                     animate="visible"
                     exit="exit"
                   >
-                    <Alert severity="error">{requestError}</Alert>
+                    <Alert
+                      severity="error"
+                      className="dark:text-white dark:bg-[#FB9B9B]"
+                    >
+                      {requestError}
+                    </Alert>
                   </motion.div>
                 )}
                 {requestValid && (
@@ -411,7 +420,12 @@ function CreateArtWork() {
                     animate="visible"
                     exit="exit"
                   >
-                    <Alert severity="success">{requestValid}</Alert>
+                    <Alert
+                      severity="success"
+                      className="dark:text-white dark:bg-[#00ab55]"
+                    >
+                      {requestValid}
+                    </Alert>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -507,8 +521,10 @@ function CreateArtWork() {
             </Button>
             {addr !== "Rouen" && (
               <div className="pt-2 pb-3">
-                <span className="font-medium text-sky-700 ">Address :</span>
-                <span className="text-slate-700 dark:text-slate-500">
+                <span className="font-medium text-sky-700 dark:text-[#00ab55] ">
+                  Address :
+                </span>
+                <span className="text-slate-700 dark:text-slate-400">
                   &ensp;{addr}
                 </span>
               </div>
@@ -551,9 +567,6 @@ function CreateArtWork() {
                       fontWeight: "500",
                       fontSize: "18px",
                       lineHeight: "21px",
-                      color: "#ffffff",
-                      background: "#00ab55",
-                      borderRadius: 60,
                     }}
                   >
                     {t("valider")}

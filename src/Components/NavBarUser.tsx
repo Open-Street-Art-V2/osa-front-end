@@ -9,7 +9,7 @@ function NavBarUser() {
   const { t } = useTranslation();
 
   return (
-    <div className="fixed flex w-screen py-3 px-3 bottom-0 bg-white items-center justify-between rounded-t-2xl shadow-center">
+    <div className="fixed flex w-screen py-3 px-3 bottom-0 bg-white dark:bg-darkModeSec items-center justify-between rounded-t-2xl shadow-center">
       <NavLink
         to="/"
         className="flex-1"
@@ -28,10 +28,10 @@ function NavBarUser() {
           </button>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl text-logoSlate">
+            <span className="text-3xl text-logoSlate dark:text-darkModeTextPrem">
               <FaRegCompass />
             </span>
-            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+            <p className="text-xs text-logoSlate dark:text-darkModeTextPrem items-center justify-center pt-1">
               {t("menu.map")}
             </p>
           </div>
@@ -55,10 +55,10 @@ function NavBarUser() {
           </button>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl text-logoSlate">
+            <span className="text-3xl text-logoSlate dark:text-darkModeTextPrem">
               <RiSearch2Line />
             </span>
-            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+            <p className="text-xs text-logoSlate dark:text-darkModeTextPrem items-center justify-center pt-1">
               {t("menu.search")}
             </p>
           </div>
@@ -82,10 +82,10 @@ function NavBarUser() {
           </button>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl text-logoSlate">
+            <span className="text-3xl text-logoSlate dark:text-darkModeTextPrem">
               <AiOutlinePlus />
             </span>
-            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+            <p className="text-xs text-logoSlate dark:text-darkModeTextPrem items-center justify-center pt-1">
               {t("menu.add")}
             </p>
           </div>
@@ -109,10 +109,10 @@ function NavBarUser() {
           </button>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl text-logoSlate">
+            <span className="text-3xl text-logoSlate dark:text-darkModeTextPrem">
               <AiOutlineUser />
             </span>
-            <p className="text-xs text-logoSlate items-center justify-center pt-1">
+            <p className="text-xs text-logoSlate dark:text-darkModeTextPrem items-center justify-center pt-1">
               {t("menu.profile")}
             </p>
           </div>

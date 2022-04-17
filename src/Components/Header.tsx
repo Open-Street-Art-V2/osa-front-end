@@ -33,7 +33,9 @@ export default function Header() {
             />
           </defs>
         </svg>
-        <p className="labelLogo place-self-center">Street Art</p>
+        <p className="labelLogo dark:text-white place-self-center">
+          Street Art
+        </p>
       </div>
       <div className="top-2 right-2">
         <SettingsBtn />

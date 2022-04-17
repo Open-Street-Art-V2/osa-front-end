@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 import NavBarUser from "../../Components/NavBarUser";
 import NavBar from "../../Components/NavBar";
 import Header from "../../Components/Header";
@@ -23,13 +25,37 @@ function UserProfile() {
 
   const state = location.state as CustomizedState; // Type Casting, then you can get the params passed via router
   const { userInfo } = state;
+  const darkTheme = loginCtx.darkMode
+    ? createTheme({
+        palette: {
+          mode: "dark",
+        },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "white",
+                },
+              },
+            },
+          },
+        },
+      })
+    : createTheme({
+        palette: {
+          mode: "light",
+        },
+      });
 
   return (
-    <div className="container">
-      <Header />
-      <UpdateInfo user={userInfo} />
-      {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <div className="container">
+        <Header />
+        <UpdateInfo user={userInfo} />
+        {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
+      </div>
+    </ThemeProvider>
   );
 }
 

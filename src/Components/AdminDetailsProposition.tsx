@@ -28,14 +28,6 @@ const loadingBtnTheme = createTheme({
   },
 });
 
-const switchTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#3A4551",
-    },
-  },
-});
-
 type PropsDetails = {
   // TODO: any à définir
   data: any;
@@ -47,43 +39,39 @@ function Details(props: PropsDetails) {
 
   return (
     <>
-      <Box>
-        <p className="pt-7 font-sans text-2xl font-bold ">
-          {data.user
-            ? `${data.user.firstname} ${data.user.name}`
-            : "Oeuvre d'origine"}
-        </p>
-      </Box>
-
-      <Box>
-        <p className="pb-5 text-base text-right text-sky-700 ">
-          <Moment date={data.created_at} format="DD/MM/YYYY" />
-        </p>
-      </Box>
-
-      <Box>
-        <Carousel pictures={data.pictures} nbPictures={numPics} />
-      </Box>
-
-      <Box>
-        <div className="py-4">
-          <div className="font-bold text-xl mb-2">Titre : {data.title}</div>
-          <blockquote>
-            <p className="text-gray-700 text-base">{data.description}</p>
-          </blockquote>
-          <figcaption className="font-medium">
-            {data.artist && (
-              <div className="text-lg mt-3 mb-2">
-                <span className="font-bold">Artiste : </span>
-                {data.artist}
-              </div>
-            )}
-            <div className="text-slate-700 dark:text-slate-500">
-              {data.address}, {data.city}
-            </div>
-          </figcaption>
+      <div className="flex justify-between mb-3 mt-5 mx-2">
+        <div className="grow font-bold text-slate-900 dark:text-white text-2xl overflow-hidden">
+          {data.title}
         </div>
-      </Box>
+        <div className="flex text-sky-600 dark:text-darkModeTextSec text-lg items-center overflow-hidden">
+          <Moment date={data.created_at} format="DD/MM/YYYY" />
+        </div>
+      </div>
+
+      <div className="rounded-3xl overflow-hidden">
+        <Carousel pictures={data.pictures} nbPictures={numPics} />
+      </div>
+
+      <div className="py-4 px-1">
+        <blockquote className="my-2">
+          <p className="text-slate-600 text-lg dark:text-darkModeTextPrem">
+            {data.description}
+          </p>
+        </blockquote>
+        <figcaption className="font-medium">
+          {data.artist && (
+            <div className="text-lg mt-3 dark:text-white">
+              <span className="font-bold dark:text-darkModeTextSec">
+                Artiste :
+              </span>
+              {data.artist}
+            </div>
+          )}
+          <div className="text-sky-700 text-base dark:text-slate-400">
+            {data.address}, {data.city}
+          </div>
+        </figcaption>
+      </div>
     </>
   );
 }
@@ -176,34 +164,20 @@ function AdminDetailsProposition(props: Props) {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="px-5 pb-16">
+    <Container component="main" maxWidth="xs" className="px-5 pb-20">
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 0,
-          width: "100%",
-          display: "absolute",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div id="btnRetour" className="mt-4 ">
-          <ReturnButton url="/admin/validateProposal" />
-        </div>
-      </Box>
 
-      {isContribution && (
-        <Box>
-          <div id="btnSwitch" className="pt-7 -mb-3">
-            <ThemeProvider theme={switchTheme}>
-              <FormControlLabel
-                control={<Switch name="original" onChange={handleSwitch} />}
-                label="Oeuvre d'origine"
-              />
-            </ThemeProvider>
+      <div id="btnRetour" className="flex flex-row justify-between mt-4 ">
+        <ReturnButton url="/admin/validateProposal" />
+        {isContribution && (
+          <div id="btnSwitch" className="">
+            <FormControlLabel
+              control={<Switch name="original" onChange={handleSwitch} />}
+              label="Oeuvre d'origine"
+            />
           </div>
-        </Box>
-      )}
+        )}
+      </div>
 
       {data && (
         <Details data={!isContribution || !original ? data : data.art} />
@@ -214,55 +188,51 @@ function AdminDetailsProposition(props: Props) {
       </Box>
 
       <Box>
-        <div className="px-5 pb-3 pt-3">
-          <div className="centreD">
-            <ThemeProvider theme={loadingBtnTheme}>
-              <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                loading={isLoading.accept}
-                disabled={isLoading.refuse}
-                onClick={handleAccept}
-                sx={{
-                  width: "263px",
-                  margin: "10px 0px",
-                  height: "54px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  lineHeight: "21px",
-                }}
-              >
-                {t("accept")}
-              </LoadingButton>
-            </ThemeProvider>
-          </div>
+        <div className="flex items-center justify-center mt-3 mb-5">
+          <ThemeProvider theme={loadingBtnTheme}>
+            <LoadingButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              loading={isLoading.accept}
+              disabled={isLoading.refuse}
+              onClick={handleAccept}
+              sx={{
+                width: "263px",
+                margin: "0px",
+                height: "54px",
+                fontWeight: "500",
+                fontSize: "18px",
+                lineHeight: "21px",
+              }}
+            >
+              {t("accept")}
+            </LoadingButton>
+          </ThemeProvider>
         </div>
 
-        <div className="px-5 pb-3">
-          <div className="centreD">
-            <ThemeProvider theme={loadingBtnTheme}>
-              <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                loading={isLoading.refuse}
-                disabled={isLoading.accept}
-                onClick={handleRefuse}
-                sx={{
-                  width: "263px",
-                  margin: "10px 0px",
-                  height: "54px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  lineHeight: "21px",
-                }}
-              >
-                {t("refuse")}
-              </LoadingButton>
-            </ThemeProvider>
-          </div>
+        <div className="flex items-center justify-center mt-3 mb-5">
+          <ThemeProvider theme={loadingBtnTheme}>
+            <LoadingButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              loading={isLoading.refuse}
+              disabled={isLoading.accept}
+              onClick={handleRefuse}
+              sx={{
+                width: "263px",
+                margin: "0px",
+                height: "54px",
+                fontWeight: "500",
+                fontSize: "18px",
+                lineHeight: "21px",
+              }}
+            >
+              {t("refuse")}
+            </LoadingButton>
+          </ThemeProvider>
         </div>
       </Box>
     </Container>

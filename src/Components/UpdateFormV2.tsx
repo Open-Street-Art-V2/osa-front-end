@@ -47,6 +47,10 @@ declare module "@mui/material/styles" {
 
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
@@ -590,7 +594,7 @@ function ModifyArtWork(props: any) {
               sx={{ mt: 3 }}
             >
               <div className="text-center">
-                <label className="py-8 font-sans text-2xl authTitle font-bold ">
+                <label className="py-8 font-sans text-2xl authTitle font-bold">
                   {t("modify.art")}
                 </label>
                 <div className="px-5 pb-4">
@@ -627,7 +631,12 @@ function ModifyArtWork(props: any) {
                         animate="visible"
                         exit="exit"
                       >
-                        <Alert severity="error">{requestError}</Alert>
+                        <Alert
+                          severity="error"
+                          className="dark:text-white dark:bg-[#FB9B9B]"
+                        >
+                          {requestError}
+                        </Alert>
                       </motion.div>
                     )}
                     {requestValid && (
@@ -662,7 +671,12 @@ function ModifyArtWork(props: any) {
                         animate="visible"
                         exit="exit"
                       >
-                        <Alert severity="success">{requestValid}</Alert>
+                        <Alert
+                          severity="success"
+                          className="dark:text-white dark:bg-[#00ab55]"
+                        >
+                          {requestValid}
+                        </Alert>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -758,7 +772,7 @@ function ModifyArtWork(props: any) {
                         }`}
                         sx={{ width: 180, height: 180 }}
                       ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+                      <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
                         <div className="py-2">
                           {/* <label
                             htmlFor="icon-button-delelte-file1"
@@ -811,7 +825,7 @@ function ModifyArtWork(props: any) {
                         }`}
                         sx={{ width: 180, height: 180 }}
                       ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+                      <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
                         <div className="py-2">
                           {/* <label
                             htmlFor="icon-button-delelte-file1"
@@ -866,7 +880,7 @@ function ModifyArtWork(props: any) {
                         }`}
                         sx={{ width: 180, height: 180 }}
                       ></Avatar>
-                      <div className="text-center md:text-left m-0 bg-gray-100 rounded-b-lg">
+                      <div className="text-center md:text-left m-0 bg-gray-100 dark:bg-[#3a4551] rounded-b-lg">
                         <div className="py-2">
                           {/*<label
                             htmlFor="icon-button-delelte-file1"
@@ -907,7 +921,12 @@ function ModifyArtWork(props: any) {
                   )}
                 </div>
                 {state.isValidImages === ValidField.ERROR && (
-                  <Alert severity="error">{t("images.number")}</Alert>
+                  <Alert
+                    severity="error"
+                    className="dark:text-white dark:bg-[#FB9B9B]"
+                  >
+                    {t("images.number")}
+                  </Alert>
                 )}
 
                 <Button
@@ -930,10 +949,10 @@ function ModifyArtWork(props: any) {
                 </Button>
                 {addr !== "Rouen" && (
                   <div className="pt-2 pb-3">
-                    <label className="font-medium text-sky-700 ">
+                    <span className="font-medium text-sky-700 dark:text-[#00ab55] ">
                       Address :
-                    </label>
-                    <span className="text-slate-700 dark:text-slate-500">
+                    </span>
+                    <span className="text-slate-700 dark:text-slate-400">
                       &ensp;{addr}
                     </span>
                   </div>

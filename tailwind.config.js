@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: "class",
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/tw-elements/dist/js/**/*.js",
@@ -16,6 +17,10 @@ module.exports = {
         modal: "rgba(255, 255, 255, 0.1)",
         logoGreen: "#7DCCAB",
         logoSlate: "#3A4551",
+        darkModePrim: "#181818",
+        darkModeSec: "#373737",
+        darkModeTextPrem: "#aaaaaa",
+        darkModeTextSec: "#7DCCAB",
       },
     },
   },

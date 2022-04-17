@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable dot-notation */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import { ListItemText } from "@mui/material";
+import { ListItemText, createTheme } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import { ThemeProvider } from "@emotion/react";
 import Divider from "@mui/material/Divider";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Menu from "@mui/material/Menu";
@@ -17,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import Pin from "./Pin.map";
 import { MapView } from "./utils/types";
 import RoundedTextField from "./RoundedTextField";
+import { LoginContext } from "./Context/LoginCtxProvider";
 
 export default function Map(props: any) {
   const { points, setselectedArtWork } = props;
@@ -61,7 +63,6 @@ export default function Map(props: any) {
     setAnchorEl(null);
   };
   const handleSearchBarChange = (e: any) => {
-    console.log(`${e.target.value}`);
     setValue(e.target.value);
   };
   async function Search() {
@@ -85,7 +86,7 @@ export default function Map(props: any) {
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
   async function SearchTown() {
@@ -105,7 +106,7 @@ export default function Map(props: any) {
         throw Error("Error");
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
 
@@ -123,6 +124,17 @@ export default function Map(props: any) {
       zoom: expansionZoom,
     });
   }
+  const loginCtx = useContext(LoginContext);
+  const mapStyle = loginCtx.darkMode
+    ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
+    : process.env.REACT_APP_MAPBOX_STYLE;
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
+
   return (
     <ReactMapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -131,7 +143,7 @@ export default function Map(props: any) {
       height="100vh"
       className="w-100 h-100"
       maxZoom={18}
-      mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+      mapStyle={mapStyle}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       onViewportChange={(newViewport: MapView) => {
         setViewport({ ...newViewport });
@@ -142,7 +154,8 @@ export default function Map(props: any) {
     >
       <RoundedTextField
         margin="none"
-        className="bg-white"
+        className="bg-white dark:bg-black"
+        sx={{ input: { color: loginCtx.darkMode ? "white" : "black" } }}
         id="SearchBar"
         name="SearchBar"
         autoComplete="SearchBar"
@@ -153,10 +166,11 @@ export default function Map(props: any) {
         }`}
         style={{
           borderRadius: "12px",
-          marginRight: "1%",
-          marginLeft: "1%",
+          marginRight: "2%",
+          marginLeft: "2%",
           marginTop: "1%",
-          width: "98%",
+          width: "96%",
+          zIndex: 1,
         }}
         value={value}
         onChange={handleSearchBarChange}
@@ -172,7 +186,7 @@ export default function Map(props: any) {
                   }
                 }}
               >
-                <SearchIcon />
+                <SearchIcon className="dark:fill-white" />
               </IconButton>
               <IconButton
                 aria-label="more"
@@ -182,73 +196,79 @@ export default function Map(props: any) {
                 aria-haspopup="true"
                 onClick={handleClick}
               >
-                <FilterListIcon />
+                <FilterListIcon className="dark:fill-white" />
               </IconButton>
+              <ThemeProvider theme={darkTheme}>
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                  PaperProps={{
+                    style: {
+                      width: 220,
+                    },
+                  }}
+                >
+                  <div className="px-4 py-2 text-gray-700 uppercase dark:text-white">
+                    {t("search.arts")}
+                  </div>
+                  <Divider orientation="horizontal" flexItem />
+                  <MenuItem
+                    onClick={() => {
+                      setFilter("Ville");
+                      handleClose();
+                    }}
+                  >
+                    {filter === "Ville" ? (
+                      <ListItemText
+                        style={{
+                          paddingLeft: 30,
+                          color: "#48cb77",
+                        }}
+                      >
+                        {t("filter.city")}
+                      </ListItemText>
+                    ) : (
+                      <ListItemText
+                        style={{ paddingLeft: 30, color: "#cdcbc9" }}
+                      >
+                        {t("filter.city")}
+                      </ListItemText>
+                    )}
+                  </MenuItem>
 
-              <Menu
-                id="fade-menu"
-                MenuListProps={{
-                  "aria-labelledby": "fade-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Fade}
-                PaperProps={{
-                  style: {
-                    width: 100,
-                  },
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    setFilter("Ville");
-                    handleClose();
-                  }}
-                >
-                  {filter === "Ville" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      {t("city")}
-                    </ListItemText>
-                  )}
-                  {filter === "Titre" && (
-                    <ListItemText style={{ paddingLeft: 30 }}>
-                      {t("city")}
-                    </ListItemText>
-                  )}
-                </MenuItem>
-                <Divider orientation="horizontal" flexItem />
-                <MenuItem
-                  onClick={() => {
-                    setFilter("Titre");
-                    handleClose();
-                  }}
-                >
-                  {filter === "Titre" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "red" }}>
-                      {t("Title")}
-                    </ListItemText>
-                  )}
-                  {filter === "Ville" && (
-                    <ListItemText style={{ paddingLeft: 30 }}>
-                      {t("Title")}
-                    </ListItemText>
-                  )}
-                </MenuItem>
-              </Menu>
+                  <MenuItem
+                    onClick={() => {
+                      setFilter("Titre");
+                      handleClose();
+                    }}
+                  >
+                    {filter === "Titre" ? (
+                      <ListItemText
+                        style={{
+                          paddingLeft: 30,
+                          color: "#00ab55",
+                        }}
+                      >
+                        {t("filter.title")}
+                      </ListItemText>
+                    ) : (
+                      <ListItemText
+                        style={{ paddingLeft: 30, color: "#cdcbc9" }}
+                      >
+                        {t("filter.title")}
+                      </ListItemText>
+                    )}
+                  </MenuItem>
+                </Menu>
+              </ThemeProvider>
             </InputAdornment>
           ),
-        }}
-      />
-      <GeolocateControl
-        className="top-16 left-2 z-10"
-        showUserHeading
-        positionOptions={{ enableHighAccuracy: true }}
-        trackUserLocation
-        auto
-        onGeolocate={(PositionOptions: any) => {
-          props.getUserLat(PositionOptions["coords"].latitude);
-          props.getUserLong(PositionOptions["coords"].longitude);
         }}
       />
 
@@ -272,7 +292,7 @@ export default function Map(props: any) {
               <div
                 role="button"
                 tabIndex={0}
-                className={`flex items-center justify-center s-${style} opacity-60 text-white text-lg border-2 border-white rounded-full z-1`}
+                className={`flex items-center justify-center s-${style} opacity-60 dark:opacity-80 text-white text-lg border-2 border-white rounded-full z-1`}
                 onClick={() => markerClick(cluster, latitude, longitude)}
                 onKeyDown={() => {}}
               >

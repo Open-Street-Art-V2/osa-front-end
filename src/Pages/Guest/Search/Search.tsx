@@ -3,15 +3,16 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useParams } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { CssBaseline } from "@mui/material";
-import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
-import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
+import { CssBaseline, createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import { ArtworkProposal, Header, UserSearchCard } from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { searchArt } from "../../../services/art.service";
 import { Art } from "../../../types/art";
 import { searchUser } from "../../../services/user.service";
 import { User } from "../../../types/user";
+import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 
 function LoadingSkeleton() {
   return (
@@ -41,7 +42,11 @@ function LoadingSkeleton() {
 function Search() {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
   const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
@@ -174,12 +179,12 @@ function Search() {
 
   const getFilterShow = (filter: string) => {
     return currentFilter.current === filter
-      ? "text-gray-900 font-semibold block px-8 py-1.5"
-      : "text-gray-500 block px-8 py-1.5";
+      ? "text-[#00ab55] dark:text-green-400 block px-8 py-1.5"
+      : "text-gray-500 dark:text-stone-300 block px-8 py-1.5";
   };
 
   return (
-    <div>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
 
@@ -187,7 +192,7 @@ function Search() {
         <div className="relative z-10 mt-5 mx-3">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
+              className="w-5 h-5 text-gray-500 dark:text-gray-200"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -203,14 +208,19 @@ function Search() {
           <input
             type="text"
             id="search-input"
-            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-300 sm:text-sm focus:ring-gray-500 focus:border-gray-50"
+            className="block p-2 px-10 w-full text-gray-900 bg-gray-50 dark:bg-black dark:text-white dark:placeholder:text-[#656565] rounded-xl border border-gray-200 sm:text-sm outline-gray-200 dark:outline-none"
             placeholder={t(`search.placeholder.${currentFilter.current}`)}
             value={search}
             onChange={handleInputChange}
           />
 
-          <div className="flex absolute inset-y-0 right-8 items-center pr-3 text-gray-500">
-            <button type="button" id="search-button" onClick={handleClick}>
+          <div className="flex absolute inset-y-0 right-8 items-center pr-3 text-gray-500 ">
+            <button
+              type="button"
+              id="search-button"
+              className="dark:text-white"
+              onClick={handleClick}
+            >
               {t("ok")}
             </button>
           </div>
@@ -222,19 +232,19 @@ function Search() {
               id="menu-button"
               onClick={() => setOpen(!open)}
             >
-              <FilterListIcon />
+              <FilterListIcon className="dark:fill-white" />
             </button>
           </div>
 
           {open && (
-            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white dark:bg-[#302c2c]  ring-1 ring-black ring-opacity-5 focus:outline-none">
               {filters.map((section, index) => {
                 return (
                   <div
                     key={section.sectionName}
                     className={index === 0 ? "py-1" : "py-1 border-t-2"}
                   >
-                    <div className="px-4 py-2 text-gray-700 uppercase">
+                    <div className="px-4 py-2 text-gray-700 dark:text-white uppercase">
                       {t(`search.${section.sectionName}`)}
                     </div>
                     {section.sectionFilters.map((filter) => {
@@ -258,7 +268,7 @@ function Search() {
         </div>
 
         {arts && (
-          <div className="mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          <div className="max-h-[36rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg">
             <InfiniteScroll
               dataLength={arts.length}
               next={() => fetchArts()}
@@ -276,7 +286,7 @@ function Search() {
                         state={{ filter: submittedFilter.current, search }}
                         className="w-fit"
                       >
-                        <ArtworkSearchCard data={art} />
+                        <ArtworkProposal data={art} />
                       </Link>
                     </div>
                   );
@@ -287,7 +297,7 @@ function Search() {
         )}
 
         {users && (
-          <div className="mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 border border-gray-300 bg-gray-100 drop-shadow-lg rounded-b-lg">
+          <div className="max-h-[36rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg">
             <InfiniteScroll
               dataLength={users.length}
               next={() => fetchUsers()}
@@ -321,7 +331,7 @@ function Search() {
       </div>
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </div>
+    </ThemeProvider>
   );
 }
 

@@ -30,15 +30,18 @@ declare module "@mui/material/styles" {
     };
   }
 }
-
 const loadingBtnTheme = createTheme({
   palette: {
+    action: {
+      disabledBackground: "#C7C5C4",
+      disabled: "#848484",
+    },
     primary: {
       main: "#00ab55",
     },
   },
   shape: {
-    borderRadius: 60,
+    borderRadius: "60px",
   },
 });
 
@@ -82,6 +85,29 @@ export default function SignIn() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [unauthorizedError, setUnauthorizedError] = useState<boolean>();
+
+  const darkTheme = loginCtx.darkMode
+    ? createTheme({
+        palette: {
+          mode: "dark",
+        },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "white",
+                },
+              },
+            },
+          },
+        },
+      })
+    : createTheme({
+        palette: {
+          mode: "light",
+        },
+      });
 
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUnauthorizedError(false);
@@ -138,143 +164,145 @@ export default function SignIn() {
   // }
   return (
     <>
-      <Header />
-      <div className="ml-4 mt-4">
-        <ReturnButton url="/" />
-      </div>
-
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 0,
-            width: "100%",
-            display: "absolute",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            className="mt-4 mx-0.5 border-2 border-gray-300 rounded-lg"
-          >
-            <div className="pt-10 pb-5 text-center text-3xl">
-              {t("Authentication")}
-            </div>
-
-            <div className="px-4">
-              <AnimatePresence initial={true} exitBeforeEnter={true}>
-                {unauthorizedError && (
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        scale: 0.5,
-                        y: "+30vh",
-                        opacity: 0,
-                      },
-                      visible: {
-                        y: "0",
-                        opacity: 1,
-                        scale: 1,
-                        transition: {
-                          duration: 0.5,
-                          type: "spring",
-                          damping: 25,
-                          stiffness: 400,
-                        },
-                      },
-                      exit: {
-                        x: "-30vh",
-                        opacity: 0,
-                        scale: 0.5,
-                        transition: {
-                          duration: 0.3,
-                        },
-                      },
-                    }}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Alert severity="error">{t("incorrect.coordinates")}</Alert>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <RoundedTextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                onChange={emailChangeHandler}
-                name="email"
-                autoComplete="email"
-                error={!state.isValidEmail}
-                helperText={!state.isValidEmail && t("invalid.mail")}
-              />
-              <RoundedTextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label={t("mdp")}
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                error={!state.isValidPassword}
-                helperText={
-                  !state.isValidPassword &&
-                  "Le mot de passe ne peut pas être vide"
-                }
-                onChange={passwordChangeHandler}
-              />
-            </div>
-
-            <Link
-              to="#"
-              id="mdpF"
-              className="pt-2 inline-flex justify-center w-full font-semibold"
+      <div className="container pb-28">
+        <Header />
+        <div className="ml-4 mt-4">
+          <ReturnButton url="/" />
+        </div>
+        <ThemeProvider theme={darkTheme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 0,
+                width: "100%",
+                display: "absolute",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <label>{t("mdpF")}</label>
-            </Link>
-            <div className="inline-flex justify-center w-full pt-6 pb-5">
-              <ThemeProvider theme={loadingBtnTheme}>
-                <LoadingButton
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  disabled={!state.isValidForm || password === ""}
-                  loading={isLoading}
-                  sx={{
-                    width: "263px",
-                    margin: "10px 0px",
-                    height: "54px",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    lineHeight: "21px",
-                    color: "#ffffff",
-                    background: "#00ab55",
-                    borderRadius: 60,
-                  }}
-                >
-                  {t("connect")}
-                </LoadingButton>
-              </ThemeProvider>
-            </div>
-          </Box>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                className="mt-4 mx-0.5 border-2 border-gray-300 rounded-lg"
+              >
+                <div className="pt-10 pb-5 text-center text-3xl">
+                  {t("Authentication")}
+                </div>
 
-          <Box sx={{ textAlign: "center", margin: "auto", pt: "36px" }}>
-            <Typography variant="subtitle1" component="div">
-              {t("no.account")}
-            </Typography>
-            <Link to="/sign-up" style={{ fontWeight: 600 }}>
-              {t("register")}
-            </Link>
-          </Box>
-        </Box>
-      </Container>
+                <div className="px-4">
+                  <AnimatePresence initial={true} exitBeforeEnter={true}>
+                    {unauthorizedError && (
+                      <motion.div
+                        variants={{
+                          hidden: {
+                            scale: 0.5,
+                            y: "+30vh",
+                            opacity: 0,
+                          },
+                          visible: {
+                            y: "0",
+                            opacity: 1,
+                            scale: 1,
+                            transition: {
+                              duration: 0.5,
+                              type: "spring",
+                              damping: 25,
+                              stiffness: 400,
+                            },
+                          },
+                          exit: {
+                            x: "-30vh",
+                            opacity: 0,
+                            scale: 0.5,
+                            transition: {
+                              duration: 0.3,
+                            },
+                          },
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                      >
+                        <Alert severity="error" className="dark:text-white ">
+                          {t("incorrect.coordinates")}
+                        </Alert>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <RoundedTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    onChange={emailChangeHandler}
+                    name="email"
+                    autoComplete="email"
+                    error={!state.isValidEmail}
+                    helperText={!state.isValidEmail && t("invalid.mail")}
+                  />
+                  <RoundedTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label={t("mdp")}
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    error={!state.isValidPassword}
+                    helperText={
+                      !state.isValidPassword &&
+                      "Le mot de passe ne peut pas être vide"
+                    }
+                    onChange={passwordChangeHandler}
+                  />
+                </div>
+
+                <Link
+                  to="#"
+                  id="mdpF"
+                  className="pt-2 inline-flex justify-center w-full font-semibold"
+                >
+                  <label>{t("mdpF")}</label>
+                </Link>
+                <div className="inline-flex justify-center w-full pt-6 pb-5">
+                  <ThemeProvider theme={loadingBtnTheme}>
+                    <LoadingButton
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      disabled={!state.isValidForm || password === ""}
+                      loading={isLoading}
+                      sx={{
+                        width: "263px",
+                        margin: "10px 0px",
+                        height: "54px",
+                        fontWeight: "500",
+                        fontSize: "18px",
+                        lineHeight: "21px",
+                      }}
+                    >
+                      {t("connect")}
+                    </LoadingButton>
+                  </ThemeProvider>
+                </div>
+              </Box>
+
+              <Box sx={{ textAlign: "center", margin: "auto", pt: "36px" }}>
+                <Typography variant="subtitle1" component="div">
+                  {t("no.account")}
+                </Typography>
+                <Link to="/sign-up" style={{ fontWeight: 600 }}>
+                  {t("register")}
+                </Link>
+              </Box>
+            </Box>
+          </Container>
+        </ThemeProvider>
+      </div>
     </>
   );
 }
