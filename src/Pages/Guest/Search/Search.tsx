@@ -3,15 +3,16 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useParams } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { CssBaseline, Paper } from "@mui/material";
-import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
-import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
+import { CssBaseline, createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import { ArtworkProposal, Header, UserSearchCard } from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { searchArt } from "../../../services/art.service";
 import { Art } from "../../../types/art";
 import { searchUser } from "../../../services/user.service";
 import { User } from "../../../types/user";
+import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 
 function LoadingSkeleton() {
   return (
@@ -41,7 +42,11 @@ function LoadingSkeleton() {
 function Search() {
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
   const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
@@ -179,7 +184,7 @@ function Search() {
   };
 
   return (
-    <Paper sx={{ height: "100vh" }} className="dark:bg-darkModePrim">
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
 
@@ -276,7 +281,7 @@ function Search() {
                         state={{ filter: submittedFilter.current, search }}
                         className="w-fit"
                       >
-                        <ArtworkSearchCard data={art} />
+                        <ArtworkProposal data={art} />
                       </Link>
                     </div>
                   );
@@ -321,7 +326,7 @@ function Search() {
       </div>
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
-    </Paper>
+    </ThemeProvider>
   );
 }
 
