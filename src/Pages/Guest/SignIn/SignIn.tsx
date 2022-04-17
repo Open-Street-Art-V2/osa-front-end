@@ -89,18 +89,14 @@ export default function SignIn() {
   const darkTheme = loginCtx.darkMode
     ? createTheme({
         palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
+          mode: "dark",
         },
         components: {
           MuiTextField: {
             styleOverrides: {
               root: {
-                "& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: loginCtx.darkMode ? "white" : "black",
-                  },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: loginCtx.darkMode ? "white" : "black",
+                  borderColor: "white",
                 },
               },
             },
@@ -109,7 +105,7 @@ export default function SignIn() {
       })
     : createTheme({
         palette: {
-          mode: loginCtx.darkMode ? "dark" : "light",
+          mode: "light",
         },
       });
 
@@ -168,7 +164,7 @@ export default function SignIn() {
   // }
   return (
     <>
-      <div className="container pb-28 dark:bg-darkModePrim">
+      <div className="container pb-28">
         <Header />
         <div className="ml-4 mt-4">
           <ReturnButton url="/" />
@@ -229,10 +225,7 @@ export default function SignIn() {
                         animate="visible"
                         exit="exit"
                       >
-                        <Alert
-                          severity="error"
-                          className="dark:text-white dark:bg-[#FB9B9B]"
-                        >
+                        <Alert severity="error" className="dark:text-white ">
                           {t("incorrect.coordinates")}
                         </Alert>
                       </motion.div>

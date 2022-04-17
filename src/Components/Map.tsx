@@ -4,10 +4,11 @@
 import React, { useState, useRef, useContext } from "react";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import { ListItemText } from "@mui/material";
+import { ListItemText, createTheme } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import { ThemeProvider } from "@emotion/react";
 import Divider from "@mui/material/Divider";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Menu from "@mui/material/Menu";
@@ -128,6 +129,12 @@ export default function Map(props: any) {
     ? process.env.REACT_APP_MAPBOX_STYLE_DARK_MODE
     : process.env.REACT_APP_MAPBOX_STYLE;
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: loginCtx.darkMode ? "dark" : "light",
+    },
+  });
+
   return (
     <ReactMapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -147,7 +154,8 @@ export default function Map(props: any) {
     >
       <RoundedTextField
         margin="none"
-        className="bg-white"
+        className="bg-white dark:bg-black"
+        sx={{ input: { color: loginCtx.darkMode ? "white" : "black" } }}
         id="SearchBar"
         name="SearchBar"
         autoComplete="SearchBar"
@@ -178,7 +186,7 @@ export default function Map(props: any) {
                   }
                 }}
               >
-                <SearchIcon />
+                <SearchIcon className="dark:fill-white" />
               </IconButton>
               <IconButton
                 aria-label="more"
@@ -188,74 +196,75 @@ export default function Map(props: any) {
                 aria-haspopup="true"
                 onClick={handleClick}
               >
-                <FilterListIcon />
+                <FilterListIcon className="dark:fill-white" />
               </IconButton>
-
-              <Menu
-                id="fade-menu"
-                MenuListProps={{
-                  "aria-labelledby": "fade-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Fade}
-                PaperProps={{
-                  style: {
-                    width: 220,
-                  },
-                }}
-              >
-                <div className="px-4 py-2 text-gray-700 uppercase">
-                  {t("search.arts")}
-                </div>
-                <Divider orientation="horizontal" flexItem />
-                <MenuItem
-                  onClick={() => {
-                    setFilter("Ville");
-                    handleClose();
+              <ThemeProvider theme={darkTheme}>
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                  PaperProps={{
+                    style: {
+                      width: 220,
+                    },
                   }}
                 >
-                  {filter === "Ville" && (
-                    <ListItemText
-                      style={{
-                        paddingLeft: 30,
-                        color: "#00ab55",
-                      }}
-                    >
-                      {t("filter.city")}
-                    </ListItemText>
-                  )}
-                  {filter === "Titre" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
-                      {t("filter.city")}
-                    </ListItemText>
-                  )}
-                </MenuItem>
+                  <div className="px-4 py-2 text-gray-700 uppercase dark:text-white">
+                    {t("search.arts")}
+                  </div>
+                  <Divider orientation="horizontal" flexItem />
+                  <MenuItem
+                    onClick={() => {
+                      setFilter("Ville");
+                      handleClose();
+                    }}
+                  >
+                    {filter === "Ville" && (
+                      <ListItemText
+                        style={{
+                          paddingLeft: 30,
+                          color: "#00ab55",
+                        }}
+                      >
+                        {t("filter.city")}
+                      </ListItemText>
+                    )}
+                    {filter === "Titre" && (
+                      <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                        {t("filter.city")}
+                      </ListItemText>
+                    )}
+                  </MenuItem>
 
-                <MenuItem
-                  onClick={() => {
-                    setFilter("Titre");
-                    handleClose();
-                  }}
-                >
-                  {filter === "Titre" && (
-                    <ListItemText
-                      style={{
-                        paddingLeft: 30,
-                        color: "#00ab55",
-                      }}
-                    >
-                      {t("filter.title")}
-                    </ListItemText>
-                  )}
-                  {filter === "Ville" && (
-                    <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
-                      {t("filter.title")}
-                    </ListItemText>
-                  )}
-                </MenuItem>
-              </Menu>
+                  <MenuItem
+                    onClick={() => {
+                      setFilter("Titre");
+                      handleClose();
+                    }}
+                  >
+                    {filter === "Titre" && (
+                      <ListItemText
+                        style={{
+                          paddingLeft: 30,
+                          color: "#00ab55",
+                        }}
+                      >
+                        {t("filter.title")}
+                      </ListItemText>
+                    )}
+                    {filter === "Ville" && (
+                      <ListItemText style={{ paddingLeft: 30, color: "grey" }}>
+                        {t("filter.title")}
+                      </ListItemText>
+                    )}
+                  </MenuItem>
+                </Menu>
+              </ThemeProvider>
             </InputAdornment>
           ),
         }}

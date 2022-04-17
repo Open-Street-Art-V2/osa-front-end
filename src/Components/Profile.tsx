@@ -3,7 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 import { AiFillPlusSquare, AiOutlineRight } from "react-icons/ai";
 import { FaUserGraduate, FaTrophy } from "react-icons/fa";
 import { BsPaletteFill } from "react-icons/bs";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { FcManager } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
@@ -152,31 +151,21 @@ function Profile(props: Props) {
           </div>
         </NavLink>
         <br />
-      </div>
-      <br />
-
-      <br />
-      {isEditable && (
-        <Link to="/updateInfo" state={{ userInfo: user }} className="">
-          <div className="border-r border-b border-l border-t border-gray-400 lg:border-gray-400 p-6 h-20 grid grid-cols-4 gap-4 content-center rounded-full">
-            <div className="flex items-center text-right text-5xl">
-              <ModeEditIcon
-                fontSize="large"
-                className="text-gray-600 dark:fill-white"
-              />
-            </div>
-            <div className="col-span-2">
-              <div className="flex items-center text-black-800 font-bold text-lg dark:text-white ">
-                {t("modify.info")}
-              </div>
-              {/* <p className="text-gray-600 ">9</p> */}
-            </div>
-            <div className="flex items-center text-3xl pl-6">
-              <AiOutlineRight className="text-gray-600" />
+        {isEditable && (
+          <div className="px-6 pb-5">
+            <div className="flex items-center justify-around">
+              <Link to="/updateInfo" state={{ userInfo: user }} className="">
+                <button
+                  className="bg-logoGreen text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                  type="button"
+                >
+                  Modify Info
+                </button>
+              </Link>
             </div>
           </div>
-        </Link>
-      )}
+        )}
+      </div>
     </>
   );
 }
