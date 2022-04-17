@@ -184,9 +184,9 @@ function ValidateProp() {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 dark:bg-darkModeTextSec text-white rounded-3xl shadow-xl">
+          <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 dark:bg-zinc-700 text-white rounded-3xl shadow-xl">
             <input
-              className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-500 bg-white checked:bg-slate-500 checked:border-gray-600 dark:bg-slate-200 dark:checked:bg-slate-500 rounded-sm focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+              className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-500 bg-white checked:bg-slate-500 checked:border-gray-600 dark:bg-slate-100 dark:checked:bg-stone-500 dark:checked:border-stone-700 rounded-sm focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer"
               type="checkbox"
               name="allPropsCheck"
               value=""
@@ -262,7 +262,7 @@ function ValidateProp() {
                     className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                   >
                     <input
-                      className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 dark:bg-slate-200 dark:checked:bg-slate-500 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
+                      className="flex-none m-5 justify-self-center self-center shadow-md border border-slate-700 w-7 h-7 content-center form-check-input appearance-none rounded-sm bg-white checked:bg-slate-500 checked:border-gray-600 dark:bg-slate-100 dark:checked:bg-stone-500 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer"
                       type="checkbox"
                       value={checkedProposals[index].checked}
                       checked={checkedProposals[index].checked}
