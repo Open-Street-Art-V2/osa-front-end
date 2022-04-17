@@ -1,6 +1,6 @@
 import { Art } from "../types/art";
 
-const searchArt = async (
+export const searchArt = async (
   search: string,
   filter: string,
   currentPage: number,
@@ -41,4 +41,19 @@ const searchArt = async (
   }
 };
 
-export default searchArt;
+export const getArt = async (artId: string | undefined) => {
+  const url = `${process.env.REACT_APP_API}/art/${artId}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    return response.json();
+  } catch (error) {
+    throw new Error();
+  }
+};

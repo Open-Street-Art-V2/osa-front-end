@@ -103,7 +103,7 @@ export const rejectProposals = async (
 export const getContributions = async (
   currentPage: number,
   token: string | undefined,
-  id: number | undefined,
+  id: number | string | undefined,
   setHasMoreProp: (hasMoreProp: boolean) => void,
   setAllArtwork: (allArtwork: any) => void,
   setCurrentPage: (currentPage2: number) => void,
@@ -137,5 +137,62 @@ export const getContributions = async (
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
     setIsLoading(false);
+  }
+};
+
+export const getTrophies = async (
+  currentPage: number,
+  token: string | undefined,
+  id: string | undefined,
+  setHasMoreTroph: (hasMoreTroph: boolean) => void,
+  setAllTrophies: (allTrophies: any) => void,
+  setCurrentPage: (currentPage2: number) => void,
+  setIsLoading: (isLoading: boolean) => void
+) => {
+  const url = `${process.env.REACT_APP_API}/trophie/paginate/${id}?page=${currentPage}&limit=10`;
+
+  const res: Response = await fetch(url, {
+    method: "GET",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  const res2 = await res.json();
+  if (res.ok) {
+    const data = res2.items;
+    if (data.length < 1) {
+      setHasMoreTroph(false);
+    }
+    setAllTrophies((old: any) => [...old, ...data]);
+    const proposals = new Array(data.length).fill(null).map(() => ({
+      checked: false,
+      id: 0,
+    }));
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < data.length; i++) {
+      proposals[i].id = data[i].id.toString();
+    }
+    // setCheckedProposals((old: any) => [...old, ...proposals]);
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    setIsLoading(false);
+  }
+};
+
+export const getContributionsById = async (id: string | undefined) => {
+  const url = `${process.env.REACT_APP_API}/contribution/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    return response.json();
+  } catch (error) {
+    throw new Error();
   }
 };

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { CssBaseline, Paper } from "@mui/material";
 import { ArtworkSearchCard, Header, UserSearchCard } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
-import searchArt from "../../../services/art.service";
+import { searchArt } from "../../../services/art.service";
 import { Art } from "../../../types/art";
 import { searchUser } from "../../../services/user.service";
 import { User } from "../../../types/user";
@@ -37,11 +37,6 @@ function LoadingSkeleton() {
     </div>
   );
 }
-
-type LocationDataType = {
-  oldFilter?: string;
-  oldSearch?: string;
-};
 
 function Search() {
   const { t } = useTranslation();
@@ -77,18 +72,18 @@ function Search() {
     currentPage.current = page;
   };
 
-  // if the user arrive from details artwork, we recharge his old search
-  const location = useLocation().state as LocationDataType;
+  // if the user arrive from details artwork or details user, we recharge his old search
+  const { oldFilter, oldSearch } = useParams();
   useEffect(() => {
-    if (location?.oldFilter && location?.oldSearch) {
-      currentFilter.current = location?.oldFilter;
-      submittedFilter.current = location?.oldFilter;
-      setSearch(location?.oldSearch);
+    if (oldFilter && oldSearch) {
+      currentFilter.current = oldFilter;
+      submittedFilter.current = oldFilter;
+      setSearch(oldSearch);
 
       if (artsFilters.includes(submittedFilter.current)) {
         searchArt(
-          location?.oldSearch,
-          location?.oldFilter,
+          oldSearch,
+          oldFilter,
           currentPage.current,
           setHasMore,
           setArts,
@@ -97,7 +92,7 @@ function Search() {
         );
       } else {
         searchUser(
-          location?.oldSearch,
+          oldSearch,
           currentPage.current,
           loginCtx.user?.role,
           loginCtx.user?.jwt,
@@ -108,7 +103,7 @@ function Search() {
         );
       }
     }
-  }, [location?.oldFilter, location?.oldSearch]);
+  }, [oldFilter, oldSearch]);
 
   const handleFilterChange = (filter: string) => {
     setOpen(false);
@@ -277,8 +272,8 @@ function Search() {
                   return (
                     <div key={art.id} className="mt-3 mx-2">
                       <Link
-                        to="/details-artwork"
-                        state={{ art, filter: submittedFilter.current, search }}
+                        to={`/details-artwork/${art.id}`}
+                        state={{ filter: submittedFilter.current, search }}
                         className="w-fit"
                       >
                         <ArtworkSearchCard data={art} />
@@ -306,11 +301,11 @@ function Search() {
                   return (
                     <div key={user.id} className="mt-3 mx-2">
                       <Link
-                        to="/users-profile"
+                        to={`/users-profile/${user.id}`}
                         state={{
-                          user,
                           filter: submittedFilter.current,
                           search,
+                          isSearch: true,
                         }}
                         className="w-fit"
                       >

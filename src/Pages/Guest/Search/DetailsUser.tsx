@@ -1,27 +1,46 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState, useEffect } from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
-import { Header, Profile, ReturnButton } from "../../../Components";
+import {
+  Header,
+  Profile,
+  ReturnButton,
+  SkeletonUser,
+} from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
 import { User } from "../../../types/user";
 import { blockUser, unblockUser, changeUserRole } from "./DetailsUser.service";
 import { StyledModal, Backdrop } from "../../../Components/utils/types";
+import { getUserProfileById } from "../../../services/user.service";
 
 type LocationDataType = {
-  user: User;
   filter?: string;
   search?: string;
+  isSearch: boolean;
 };
 
 function DetailsUser() {
   const { t } = useTranslation();
+  const { id } = useParams();
   const loginCtx = useContext(LoginContext);
-  const { user, filter, search } = useLocation().state as LocationDataType;
+  const location = useLocation().state as LocationDataType;
+  const [user, setUser] = useState<User>();
+  const [loading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserProfileById(id)
+      .then((o: any) => {
+        setUser({ id: parseInt(id ?? "0", 10), ...o.profile });
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
   const [showModalRole, setShowModalRole] = useState(false);
   const [showModalBan, setShowModalBan] = useState(false);
   const [userAB, setUserAB] = useState({
@@ -29,30 +48,39 @@ function DetailsUser() {
     banned: false,
   });
   useEffect(() => {
-    setUserAB({
-      admin: user.role === "ROLE_ADMIN",
-      banned: user.blocked,
-    });
-  }, []);
+    if (user) {
+      setUserAB({
+        admin: user.role === "ROLE_ADMIN",
+        banned: user.blocked,
+      });
+    }
+  }, [user]);
 
   return (
     <div className="dark:bg-darkModePrim">
       <Header />
       <div className="ml-4 mt-4 dark:text-white">
-        <ReturnButton
-          url="/search"
-          state={{ oldFilter: filter, oldSearch: search }}
-        />
+        {location?.isSearch ? (
+          <ReturnButton
+            url={
+              location
+                ? `/search/${location?.filter}/${location?.search}`
+                : "/search"
+            }
+          />
+        ) : (
+          <ReturnButton goBack />
+        )}
       </div>
 
       <Container component="main" maxWidth="xs" className="px-5 pb-20">
         <CssBaseline />
-        <Profile
-          user={user}
-          isEditable={false}
-          filter={filter}
-          search={search}
-        />
+        {user && <Profile user={user} isEditable={false} />}
+        {loading && (
+          <div className="pt-12">
+            <SkeletonUser />
+          </div>
+        )}
         {loginCtx.user?.role === "ROLE_ADMIN" && !userAB.admin ? (
           <>
             <div className="flex flex-row justify-around p-3 pb-5">
@@ -86,97 +114,101 @@ function DetailsUser() {
                 </button>
               )}
             </div>
-            <StyledModal
-              open={showModalBan || showModalRole}
-              onClose={() => {
-                setShowModalRole(false);
-                setShowModalBan(false);
-              }}
-              BackdropComponent={Backdrop}
-              className="backdrop-blur-sm"
-            >
-              <Box className="w-screen">
-                <div className="w-80 mx-auto bg-white rounded-3xl shadow-2xl relative flex flex-col w-full p-4 outline-none focus:outline-none">
-                  <button
-                    type="button"
-                    className="bg-slate-100 text-white place-self-center rounded-full p-2 ml-auto"
-                    // eslint-disable-next-line react/destructuring-assignment
-                    onClick={() => {
-                      setShowModalRole(false);
-                      setShowModalBan(false);
-                    }}
-                  >
-                    <GrClose />
-                  </button>
-
-                  <p className="text-xl font-semibold text-slate-900 text-center">
-                    {showModalBan ? t("alert.banTitle") : t("alert.roleTitle")}
-                  </p>
-                  <div className="flex flex-col mb-6 mt-3 mx-5 justify-between">
-                    <p className="text-md font-medium text-slate-500">
-                      {t("alert.msg")}
-                    </p>
-                  </div>
-                  <div className="flex flex-row justify-around">
+            {user && (
+              <StyledModal
+                open={showModalBan || showModalRole}
+                onClose={() => {
+                  setShowModalRole(false);
+                  setShowModalBan(false);
+                }}
+                BackdropComponent={Backdrop}
+                className="backdrop-blur-sm"
+              >
+                <Box className="w-screen">
+                  <div className="w-80 mx-auto bg-white rounded-3xl shadow-2xl relative flex flex-col w-full p-4 outline-none focus:outline-none">
                     <button
                       type="button"
-                      className="bg-slate-100 text-slate-800 shadow-sm rounded-3xl py-2 px-4"
+                      className="bg-slate-100 text-white place-self-center rounded-full p-2 ml-auto"
                       // eslint-disable-next-line react/destructuring-assignment
                       onClick={() => {
                         setShowModalRole(false);
                         setShowModalBan(false);
                       }}
                     >
-                      {t("cancel")}
+                      <GrClose />
                     </button>
-                    {showModalBan && userAB.banned ? (
-                      <button
-                        type="button"
-                        className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
-                        // eslint-disable-next-line react/destructuring-assignment
-                        onClick={() => {
-                          unblockUser(user.id, loginCtx.user?.jwt, setUserAB);
-                          setShowModalBan(false);
-                        }}
-                      >
-                        {t("unban")}
-                      </button>
-                    ) : null}
-                    {showModalBan && !userAB.banned ? (
-                      <button
-                        type="button"
-                        className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
-                        // eslint-disable-next-line react/destructuring-assignment
-                        onClick={() => {
-                          blockUser(user.id, loginCtx.user?.jwt, setUserAB);
-                          setShowModalBan(false);
-                        }}
-                      >
-                        {t("ban")}
-                      </button>
-                    ) : null}
 
-                    {showModalRole ? (
+                    <p className="text-xl font-semibold text-slate-900 text-center">
+                      {showModalBan
+                        ? t("alert.banTitle")
+                        : t("alert.roleTitle")}
+                    </p>
+                    <div className="flex flex-col mb-6 mt-3 mx-5 justify-between">
+                      <p className="text-md font-medium text-slate-500">
+                        {t("alert.msg")}
+                      </p>
+                    </div>
+                    <div className="flex flex-row justify-around">
                       <button
                         type="button"
-                        className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
+                        className="bg-slate-100 text-slate-800 shadow-sm rounded-3xl py-2 px-4"
                         // eslint-disable-next-line react/destructuring-assignment
                         onClick={() => {
-                          changeUserRole(
-                            user.id,
-                            loginCtx.user?.jwt,
-                            setUserAB
-                          );
                           setShowModalRole(false);
+                          setShowModalBan(false);
                         }}
                       >
-                        {t("change")}
+                        {t("cancel")}
                       </button>
-                    ) : null}
+                      {showModalBan && userAB.banned ? (
+                        <button
+                          type="button"
+                          className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
+                          // eslint-disable-next-line react/destructuring-assignment
+                          onClick={() => {
+                            unblockUser(user.id, loginCtx.user?.jwt, setUserAB);
+                            setShowModalBan(false);
+                          }}
+                        >
+                          {t("unban")}
+                        </button>
+                      ) : null}
+                      {showModalBan && !userAB.banned ? (
+                        <button
+                          type="button"
+                          className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
+                          // eslint-disable-next-line react/destructuring-assignment
+                          onClick={() => {
+                            blockUser(user.id, loginCtx.user?.jwt, setUserAB);
+                            setShowModalBan(false);
+                          }}
+                        >
+                          {t("ban")}
+                        </button>
+                      ) : null}
+
+                      {showModalRole ? (
+                        <button
+                          type="button"
+                          className="bg-red-500 text-white shadow-sm rounded-3xl py-2 px-4"
+                          // eslint-disable-next-line react/destructuring-assignment
+                          onClick={() => {
+                            changeUserRole(
+                              user.id,
+                              loginCtx.user?.jwt,
+                              setUserAB
+                            );
+                            setShowModalRole(false);
+                          }}
+                        >
+                          {t("change")}
+                        </button>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-              </Box>
-            </StyledModal>
+                </Box>
+              </StyledModal>
+            )}
           </>
         ) : null}
       </Container>

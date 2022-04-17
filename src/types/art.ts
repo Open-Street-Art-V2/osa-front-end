@@ -15,4 +15,5 @@ export type Art = {
   city: string;
   pictures: Picture[];
   created_at: string;
+  art: Art;
 };

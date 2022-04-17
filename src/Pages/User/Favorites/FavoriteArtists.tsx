@@ -1,47 +1,38 @@
-import { useEffect, useState, useContext } from "react";
+import { CssBaseline } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { CssBaseline } from "@mui/material";
 import {
   Header,
-  ArtworkProposal,
   ReturnButton,
   SkeletonCardArt,
+  UserSearchCard,
 } from "../../../Components";
 import { LoginContext } from "../../../Components/Context/LoginCtxProvider";
-import { getContributions } from "../ValidateProp/ValidateProp.service";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
+import { getFavoriteArtists } from "../../../services/favorite.service";
+import { User } from "../../../types/user";
 
-function UserContributions() {
+function FavoriteArtists() {
   const { t } = useTranslation();
   const { id } = useParams();
-  const [allArtwork, setAllArtwork] = useState<any[]>([]);
+  const skeletons = [1, 2, 3, 4];
+  const loginCtx = useContext(LoginContext);
+  const [artists, setArtists] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProp, setHasMoreProp] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [updateComp, setUpdateComp] = useState(true);
-  const loginCtx = useContext(LoginContext);
-  const skeletons = [1, 2, 3, 4];
-
-  useEffect(() => {
-    if (updateComp) {
-      setAllArtwork([]);
-      setIsLoading(true);
-      setCurrentPage(1);
-      setUpdateComp(false);
-    }
-  }, [updateComp]);
 
   useEffect(() => {
     if (currentPage === 1) {
-      getContributions(
+      getFavoriteArtists(
+        id,
         currentPage,
         loginCtx.user?.jwt,
-        id,
         setHasMoreProp,
-        setAllArtwork,
+        setArtists,
         setCurrentPage,
         setIsLoading
       );
@@ -59,9 +50,7 @@ function UserContributions() {
         <br />
 
         <div className="flex justify-center form-check w-full h-16 bg-slate-700 text-white rounded-3xl shadow-xl">
-          <p className="m-auto text-2xl font-medium">
-            {t("contributions.upper")}
-          </p>
+          <p className="m-auto text-2xl font-medium">{t("favorite.artists")}</p>
         </div>
       </div>
       <div
@@ -80,14 +69,14 @@ function UserContributions() {
             );
           })}
         <InfiniteScroll
-          dataLength={allArtwork.length}
+          dataLength={artists.length}
           next={() => {
-            getContributions(
+            getFavoriteArtists(
+              id,
               currentPage,
               loginCtx.user?.jwt,
-              loginCtx.user?.id,
               setHasMoreProp,
-              setAllArtwork,
+              setArtists,
               setCurrentPage,
               setIsLoading
             );
@@ -106,18 +95,19 @@ function UserContributions() {
           scrollableTarget="scrollableDiv"
         >
           {!isLoading &&
-            allArtwork.length > 0 &&
-            allArtwork.map((Artwork: any) => {
+            artists.length > 0 &&
+            artists.map((artist: User) => {
               return (
                 <div
-                  key={Artwork.id}
+                  key={artist.id}
                   className="flex content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
                 >
                   <Link
-                    to={`/UserDetailsContribution/${Artwork.id}`}
+                    to={`/users-profile/${artist?.id}`}
+                    state={{ isSearch: false }}
                     className="grow mx-1"
                   >
-                    <ArtworkProposal data={Artwork} />
+                    <UserSearchCard data={artist} />
                   </Link>
                 </div>
               );
@@ -128,4 +118,5 @@ function UserContributions() {
     </div>
   );
 }
-export default UserContributions;
+
+export default FavoriteArtists;
