@@ -64,14 +64,14 @@ function FavoriteArtists() {
         </div>
         <div
           id="scrollableDiv"
-          className="overflow-auto h-[calc(100vh-364px)] py-2"
+          className="overflow-auto h-[calc(100vh-214px)] py-2 pb-20"
         >
           {isLoading &&
             skeletons.map((item: any) => {
               return (
                 <div
                   key={item}
-                  className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+                  className="w-full h-30 justify-between content-center rounded-3xl overflow-hidden p-2"
                 >
                   <SkeletonCardArt />
                 </div>
@@ -95,7 +95,7 @@ function FavoriteArtists() {
               return (
                 <div
                   key={item}
-                  className="animate-pulse grid grid-cols-6 gap-1 justify-between content-center form-check w-full h-30 text-white rounded-3xl overflow-hidden py-2"
+                  className="w-full h-30 justify-between content-center rounded-3xl overflow-hidden p-2"
                 >
                   <SkeletonCardArt />
                 </div>
