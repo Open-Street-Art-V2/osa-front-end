@@ -144,5 +144,9 @@
   "admin": "Administrator",
   "contributor": "Contributor",
   "modify.info": "Modify information",
-  "trophies": "Trophies"
+  "trophies": "Trophies",
+
+  "print-csv": "Print in CSV format",
+  "print-csv2": "Do you want to print in CSV format the searched artworks ?",
+  "csv": "Print CSV"
 }
