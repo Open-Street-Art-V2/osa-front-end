@@ -144,5 +144,9 @@
   "admin": "Administrateur",
   "contributor": "Contributeur",
   "modify.info": "Modifier les informations",
-  "trophies": "Trophées"
+  "trophies": "Trophées",
+
+  "print-csv": "Imprimer au format CSV",
+  "print-csv2": "Voulez-vous imprimer au format CSV les oeuvres rechercher ?",
+  "csv": "Imprimer CSV"
 }
