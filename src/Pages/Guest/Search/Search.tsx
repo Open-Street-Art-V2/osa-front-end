@@ -1,15 +1,16 @@
-/* eslint-disable array-callback-return */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link, useParams } from "react-router-dom";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { CssBaseline, createTheme, Box } from "@mui/material";
+import { CssBaseline, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { CSVLink } from "react-csv";
-import { GrClose } from "react-icons/gr";
-import { StyledModal, Backdrop } from "../../../Components/utils/types";
-import { ArtworkProposal, Header, UserSearchCard } from "../../../Components";
+import {
+  ArtworkProposal,
+  ExportMedia,
+  Header,
+  UserSearchCard,
+} from "../../../Components";
 import NavBar from "../../../Components/NavBar";
 import NavBarUser from "../../../Components/NavBarUser";
 import { searchArt } from "../../../services/art.service";
@@ -44,15 +45,6 @@ function LoadingSkeleton() {
 }
 
 function Search() {
-  const headers = [
-    { label: "id", key: "id" },
-    { label: "title", key: "title" },
-    { label: "artist", key: "artist" },
-    { label: "description", key: "description" },
-    { label: "longitude", key: "longitude" },
-    { label: "latitude", key: "latitude" },
-    { label: "adresse", key: "adresse" },
-  ];
   const { t } = useTranslation();
   const loginCtx = useContext(LoginContext);
   const darkTheme = createTheme({
@@ -83,6 +75,7 @@ function Search() {
   const submittedFilter = useRef<string>("nofilter");
 
   // for infinite scroll
+  const height = submittedFilter.current === "city" ? 34 : 36;
   const [hasMore, setHasMore] = useState<boolean>(true);
   const currentPage = useRef<number>(1);
 
@@ -196,41 +189,15 @@ function Search() {
       : "text-gray-500 dark:text-stone-300 block px-8 py-1.5";
   };
 
-  const [csvModal, setCsvModal] = useState(false);
-
-  const [csv, setCsv] = useState([
-    {
-      id: "",
-      title: "",
-      artist: "",
-      description: "",
-      latitude: 0,
-      longitude: 0,
-      adresse: "",
-    },
-  ]);
-  function CsvExport() {
-    const tab: any = [];
-    arts?.map((art: Art) => {
-      tab.push({
-        id: art.id,
-        title: art.title,
-        artist: art.artist,
-        description: art.description,
-        latitude: art.latitude,
-        longitude: art.longitude,
-        adresse: art.address,
-      });
-    });
-    setCsv(tab);
-  }
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
 
       <div className="pb-5">
+        {submittedFilter.current === "city" && (
+          <ExportMedia arts={arts} city={search} />
+        )}
         <div className="relative z-10 mt-5 mx-3">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
@@ -310,7 +277,9 @@ function Search() {
         </div>
 
         {arts && (
-          <div className="max-h-[36rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg">
+          <div
+            className={`max-h-[${height}rem] mx-3 -mt-2 pt-3 pb-3 mb-24 z-0 overflow-auto border border-gray-300 bg-gray-100 dark:bg-darkModeSec dark:border-gray-500 drop-shadow-lg rounded-b-lg`}
+          >
             <InfiniteScroll
               dataLength={arts.length}
               next={() => fetchArts()}
@@ -335,18 +304,6 @@ function Search() {
                 })
               )}
             </InfiniteScroll>
-            {arts.length !== 0 && (
-              <div className="flex flex-row justify-around p-3 pb-5">
-                <button
-                  type="button"
-                  className="h-10 px-5 text-[#00ab55] dark:font-bold transition-colors duration-150 border border-[#00ab55] focus:shadow-outline rounded-3xl"
-                  onClick={() => setCsvModal(true)}
-                  data-modal-toggle="defaultModal"
-                >
-                  {t("csv")}
-                </button>
-              </div>
-            )}
           </div>
         )}
 
@@ -383,64 +340,6 @@ function Search() {
           </div>
         )}
       </div>
-
-      <StyledModal
-        open={csvModal}
-        onClose={() => {
-          setCsvModal(false);
-        }}
-        BackdropComponent={Backdrop}
-        className="backdrop-blur-sm"
-      >
-        <Box className="w-screen">
-          <div className="w-80 mx-auto bg-white dark:bg-black rounded-3xl shadow-2xl relative flex flex-col w-full p-4 outline-none focus:outline-none">
-            <button
-              type="button"
-              className="bg-slate-100 text-white place-self-center rounded-full p-2 ml-auto"
-              // eslint-disable-next-line react/destructuring-assignment
-              onClick={() => {
-                setCsvModal(false);
-              }}
-            >
-              <GrClose />
-            </button>
-
-            <p className="pb-2 text-xl font-semibold text-slate-900 dark:text-white text-center">
-              {t("print-csv")}
-            </p>
-            <div className="flex flex-col pl-4 mb-6 mt-3 mx-3 justify-between">
-              <p className="text-md font-medium text-slate-500">
-                {t("print-csv2")}
-              </p>
-            </div>
-
-            <div className="flex flex-row justify-around">
-              <button
-                type="button"
-                className="bg-slate-100 text-slate-800 shadow-sm rounded-3xl py-1 px-4"
-                // eslint-disable-next-line react/destructuring-assignment
-                onClick={() => {
-                  setCsvModal(false);
-                }}
-              >
-                {t("cancel")}
-              </button>
-              <CSVLink
-                data={csv}
-                headers={headers}
-                filename="my-file.csv"
-                className="flex items-center h-10 px-5 text-[#00ab55] dark:font-bold transition-colors duration-150 border border-[#00ab55] focus:shadow-outline rounded-3xl"
-                onClick={() => {
-                  CsvExport();
-                  setCsvModal(false);
-                }}
-              >
-                {t("ok")}
-              </CSVLink>
-            </div>
-          </div>
-        </Box>
-      </StyledModal>
 
       {loginCtx.user?.role === "ROLE_ADMIN" ? <NavBar /> : <NavBarUser />}
     </ThemeProvider>

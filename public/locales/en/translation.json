@@ -14,6 +14,9 @@
   "Title": "Title",
   "description": "Description",
   "address": "Address",
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "id": "Id",
   "invalid.title": "Invalid title",
   "invalid.artist": "Invalid artist",
   "description.characters": "Description must contain between 2 and 250 characters",
@@ -146,7 +149,8 @@
   "modify.info": "Modify information",
   "trophies": "Trophies",
 
-  "print-csv": "Print in CSV format",
-  "print-csv2": "Do you want to print in CSV format the searched artworks ?",
-  "csv": "Print CSV"
+  "export": "Print arts",
+  "export.text": "Do you want to print the searched artworks ?",
+  "export.csv": "CSV format",
+  "export.pdf": "PDF format"
 }
