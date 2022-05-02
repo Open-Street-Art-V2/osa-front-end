@@ -56,7 +56,7 @@ function FavoriteArtists() {
           </div>
           <br />
 
-          <div className="flex justify-center form-check w-full h-16 bg-slate-700 dark:bg-darkModeTextSec text-white rounded-3xl shadow-xl dark:bg-darkModeTextSec">
+          <div className="flex justify-center form-check mx-1 h-12 bg-slate-700 dark:bg-darkModeTextSec text-white rounded-3xl shadow-xl dark:bg-darkModeTextSec">
             <p className="m-auto text-2xl font-medium dark:text-slate-50">
               {t("favorite.artists")}
             </p>

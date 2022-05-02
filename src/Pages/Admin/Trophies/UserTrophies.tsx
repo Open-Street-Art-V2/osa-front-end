@@ -61,7 +61,7 @@ function UserTrophies() {
           </div>
           <br />
 
-          <div className="flex justify-center items-center w-full h-16 bg-slate-700 text-white dark:bg-darkModeTextSec rounded-3xl shadow-xl">
+          <div className="flex justify-center items-center mx-1 h-12 bg-slate-700 text-white dark:bg-darkModeTextSec rounded-3xl shadow-xl">
             <p className="content-center text-2xl dark:text-slate-50 font-medium col-span-2">
               {t("trophies")}
             </p>

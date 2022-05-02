@@ -184,7 +184,7 @@ function ValidateProp() {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-16 bg-slate-700 dark:bg-zinc-700 text-white rounded-3xl shadow-xl">
+          <div className="grid grid-cols-3 gap-4 content-center form-check w-full h-14 bg-slate-700 dark:bg-zinc-700 text-white rounded-3xl shadow-xl">
             <input
               className="justify-self-center w-7 h-7 shadow-md form-check-input appearance-none border border-slate-500 bg-white checked:bg-slate-500 checked:border-gray-600 dark:bg-slate-100 dark:checked:bg-stone-500 dark:checked:border-stone-700 rounded-sm focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer"
               type="checkbox"
